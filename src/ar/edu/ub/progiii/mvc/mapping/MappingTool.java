@@ -1,5 +1,6 @@
 package ar.edu.ub.progiii.mvc.mapping;
 
-public class MappingTool {
+public class MappingTool implements IMapping{
 
+	
 }

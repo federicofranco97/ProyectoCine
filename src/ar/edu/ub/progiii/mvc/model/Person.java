@@ -1,6 +1,6 @@
-package ar.edu.ub.progiii.mvc.dto;
+package ar.edu.ub.progiii.mvc.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
 
