@@ -1,10 +1,10 @@
 package ar.edu.ub.progiii.mvc.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
 
-public class Person {
+public class PersonDTO {
 
 	private String FullName;
 	private String Address;
@@ -12,9 +12,9 @@ public class Person {
 	private String Email;
 	private Date DateOfBirth;
 	
-	public Person() {}
+	public PersonDTO() {}
 
-	public Person(String fullName, String address, String phoneNumber, String email, Date dateOfBirth) {
+	public PersonDTO(String fullName, String address, String phoneNumber, String email, Date dateOfBirth) {
 	
 		FullName = fullName;
 		Address = address;

@@ -1,4 +1,4 @@
-package ar.edu.ub.progiii.mvc.dto;
+package ar.edu.ub.progiii.mvc.model;
 
 import java.sql.Date;
 
