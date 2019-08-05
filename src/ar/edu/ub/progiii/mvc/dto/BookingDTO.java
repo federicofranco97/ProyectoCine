@@ -28,7 +28,7 @@ public class BookingDTO {
 		ClientNumber = clientNumber;
 		BookingStatus = bookingStatus;
 		ChannelCode = channelCode;
-		TotalValue=totalValue;
+		TotalValue = totalValue;
 	}
 
 	public double getTotalValue() {

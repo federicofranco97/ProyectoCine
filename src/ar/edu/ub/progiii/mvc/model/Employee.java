@@ -9,10 +9,11 @@ public class Employee extends Person{
 
 	public Employee(String fullName, String address, String phoneNumber, String email, Date dateOfBirth,int EmployeeNumber,
 			String HashedPassword,String Rank) {
+		
 		super(fullName, address, phoneNumber, email, dateOfBirth);
-		this.EmployeeNumber=EmployeeNumber;
-		this.HashedPassword=HashedPassword;
-		this.Rank=Rank;
+		this.EmployeeNumber = EmployeeNumber;
+		this.HashedPassword = HashedPassword;
+		this.Rank = Rank;
 	}
 
 	public int getEmployeeNumber() {
@@ -38,6 +39,5 @@ public class Employee extends Person{
 	private void setRank(String rank) {
 		Rank = rank;
 	}
-	
 	
 }

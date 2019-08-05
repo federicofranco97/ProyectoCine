@@ -5,9 +5,10 @@ import java.sql.Date;
 public class Client extends Person{
 	private int ClientNumber;
 
-	public Client(String fullName, String address, String phoneNumber, String email, Date dateOfBirth,int ClientNumber) {
+	public Client(String fullName, String address, String phoneNumber, String email, 
+			Date dateOfBirth,int ClientNumber) {
 		super(fullName, address, phoneNumber, email, dateOfBirth);
-		this.ClientNumber=ClientNumber;
+		this.ClientNumber = ClientNumber;
 	}
 
 	public int getClientNumber() {

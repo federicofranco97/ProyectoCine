@@ -13,13 +13,7 @@ public class WithdrawController {
 	
 	@GetMapping("/")
 	public ModelAndView GetView() {
-		ModelAndView model = new ModelAndView("index.html");
-		return model;
-	}
-	
-	@PostMapping("/")
-	public ModelAndView GetView2() {
-		ModelAndView model = new ModelAndView("index.html");
+		ModelAndView model = new ModelAndView("Alivio");
 		return model;
 	}
 

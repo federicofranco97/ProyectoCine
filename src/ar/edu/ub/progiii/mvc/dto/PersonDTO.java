@@ -14,7 +14,8 @@ public class PersonDTO {
 	
 	public PersonDTO() {}
 
-	public PersonDTO(String fullName, String address, String phoneNumber, String email, Date dateOfBirth) {
+	public PersonDTO(String fullName, String address, String phoneNumber, String email, 
+			Date dateOfBirth) {
 	
 		FullName = fullName;
 		Address = address;
@@ -62,7 +63,5 @@ public class PersonDTO {
 	private void setDateOfBirth(Date dateOfBirth) {
 		DateOfBirth = dateOfBirth;
 	}
-	
-	
 	
 }

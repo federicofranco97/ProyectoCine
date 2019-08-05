@@ -28,7 +28,7 @@ public class Booking {
 		ClientNumber = clientNumber;
 		BookingStatus = bookingStatus;
 		ChannelCode = channelCode;
-		TotalValue=totalValue;
+		TotalValue = totalValue;
 	}
 
 	public double getTotalValue() {
@@ -118,7 +118,5 @@ public class Booking {
 	private void setTotalValue(double totalValue) {
 		TotalValue = totalValue;
 	}
-
-	
 
 }

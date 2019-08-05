@@ -7,7 +7,7 @@ public class ClientDTO extends PersonDTO{
 
 	public ClientDTO(String fullName, String address, String phoneNumber, String email, Date dateOfBirth,int ClientNumber) {
 		super(fullName, address, phoneNumber, email, dateOfBirth);
-		this.ClientNumber=ClientNumber;
+		this.ClientNumber = ClientNumber;
 	}
 
 	public int getClientNumber() {

@@ -8,8 +8,8 @@ public class EmployeeDTO extends PersonDTO{
 	
 	public EmployeeDTO(String fullName, String address, String phoneNumber, String email, Date dateOfBirth,int EmployeeNumber,String Rank) {
 		super(fullName, address, phoneNumber, email, dateOfBirth);
-		this.EmployeeNumber=EmployeeNumber;
-		this.Rank=Rank;
+		this.EmployeeNumber = EmployeeNumber;
+		this.Rank = Rank;
 	}
 
 	public int getEmployeeNumber() {
