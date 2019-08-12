@@ -16,7 +16,7 @@ public class Booking {
 	private double TotalValue;
 	
 	/**
-	 *Constructor para BookingDTO
+	 *Constructor para Booking
 	 *@param bookingCode representa el codigo de reserva.
 	 *@param bookingDate representa la fecha de la reserva
 	 *@param bookingStatus representa el estado actual de la reserva.
