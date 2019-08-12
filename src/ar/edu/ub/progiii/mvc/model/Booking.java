@@ -15,6 +15,20 @@ public class Booking {
 	private int ChannelCode;
 	private double TotalValue;
 	
+	/**
+	 *Constructor para Booking
+	 *@param bookingCode representa el codigo de reserva.
+	 *@param bookingDate representa la fecha de la reserva
+	 *@param bookingStatus representa el estado actual de la reserva.
+	 *@param movieName representa el nombre de la pelicula en la reserva.
+	 *@param show representa en que funcion es la reserva.
+	 *@param location representa la sucursal.
+	 *@param theatreNumber representa el numero de sala.
+	 *@param ticketAmount representa la cantidad de tickets en la reserva.
+	 *@param clientNumber representa el numero del cliente que efectuo la reserva.
+	 *@param channelCode representa el numero de canal de donde provino la reserva.
+	 *@param totalValue representa el importe total de la reserva.
+	 */
 	public Booking(String bookingCode, Date bookingDate, String movieName, String show, String location,
 			int theatreNumber, int ticketAmount, int clientNumber, int bookingStatus, int channelCode,double totalValue) {
 		
@@ -28,9 +42,10 @@ public class Booking {
 		ClientNumber = clientNumber;
 		BookingStatus = bookingStatus;
 		ChannelCode = channelCode;
-		TotalValue=totalValue;
+		TotalValue = totalValue;
 	}
 
+	//Getters y Setters
 	public double getTotalValue() {
 		return TotalValue;
 	}
@@ -118,7 +133,5 @@ public class Booking {
 	private void setTotalValue(double totalValue) {
 		TotalValue = totalValue;
 	}
-
-	
 
 }

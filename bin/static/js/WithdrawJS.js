@@ -1,25 +1,18 @@
-var p =false;
-var IdValid =false;
-var PwdValid =false;
-var Id="admin";
-var Pwd="admin";
 
 
-function ValidarAlivio(){
-    var importe= parseInt(document.getElementById("inputAlivio").value);
-    var vendido= parseInt(document.getElementById("TotalVendido").value);
-    
-    if(importe < 1  || importe>vendido || importe===null || Number.isNaN(importe)){
+
+function VerifyWithdraw(){
+    if(Amount < 1  || Amount>TotalSales || Amount===null || Number.isNaN(Amount)){
         document.getElementById("inputAlivio").value="";
     }else{
-        p=true;
+    	WithdrawAmount=true;
     }
 }
 
 function AskForID(){
-    ValidarAlivio();
-    console.log(p);
-    if(p){
+	VerifyWithdraw();
+    console.log(WithdrawAmount);
+    if(WithdrawAmount){
         swal("Ingrese su id de Supervisor:", {
             content: "input"
         })
@@ -33,12 +26,11 @@ function AskForID(){
         });
     }else{
           swal(`Monto ingresado invalido`);
-
     }
 }
 
 function AskForPWD(){
-    if(p){
+    if(WithdrawAmount){
         swal("Ingrese su clave de Supervisor:", {
             content: "input"
         })
@@ -53,19 +45,28 @@ function AskForPWD(){
         });
     }else{
           swal(`Monto ingresado invalido`);
-
     }
 }
 
 function AskForCredentials(){
     if(IdValid && PwdValid){
         swal(`Alivio registrado con exito!`);
-        var importe= parseInt(document.getElementById("inputAlivio").value);
-        var vendido= parseInt(document.getElementById("TotalVendido").value);
-        document.getElementById("TotalVendido").value=vendido-importe;
-        document.getElementById("inputAlivio").value="";
+        inTotal.value=TotalSales-AmountSelected;
+        inAmount.value="";
         //Vuelvo los valores a defecto para que el siguiente login haga la validacion
         IdValid=false;
         PwdValid=false;
     }
 }
+
+//Variable Declaration
+var WithdrawAmount =false;
+var IdValid =false;
+var PwdValid =false;
+var Id="admin";
+var Pwd="admin";
+var AmountSelected=parseInt(document.getElementById("amountTaken").value);
+var TotalSales= parseInt(document.getElementById("totalSales").value);
+var inAmount=document.getElementById("amountTaken");
+var inTotal=document.getElementById("totalSales");
+//End Variable declaration

@@ -14,7 +14,16 @@ public class PersonDTO {
 	
 	public PersonDTO() {}
 
-	public PersonDTO(String fullName, String address, String phoneNumber, String email, Date dateOfBirth) {
+	/**
+	 * Constuctor
+	 * @param fullName representa el nombre completo de la persona.
+	 * @param address representa la direccion de la persona.
+	 * @param phoneNumber representa el numero de telefono de la persona.
+	 * @param email representa el email de la persona.
+	 * @param dateOfBirth representa la fecha de nacimiento de la persona.
+	 */
+	public PersonDTO(String fullName, String address, String phoneNumber, String email, 
+			Date dateOfBirth) {
 	
 		FullName = fullName;
 		Address = address;
@@ -23,6 +32,7 @@ public class PersonDTO {
 		DateOfBirth = dateOfBirth;
 	}
 
+	//Getters y Setters
 	public String getFullName() {
 		return FullName;
 	}
@@ -62,7 +72,5 @@ public class PersonDTO {
 	private void setDateOfBirth(Date dateOfBirth) {
 		DateOfBirth = dateOfBirth;
 	}
-	
-	
 	
 }
