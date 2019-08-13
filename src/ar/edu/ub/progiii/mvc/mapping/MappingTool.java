@@ -1,14 +1,30 @@
 package ar.edu.ub.progiii.mvc.mapping;
-import ar.edu.ub.progiii.mvc.dto.BookingDTO;
-import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
-import ar.edu.ub.progiii.mvc.dto.OnSiteBookingDTO;
-import ar.edu.ub.progiii.mvc.dto.OnlineBookingDTO;
-import ar.edu.ub.progiii.mvc.model.Booking;
-import ar.edu.ub.progiii.mvc.model.Employee;
-import ar.edu.ub.progiii.mvc.model.OnSiteBooking;
-import ar.edu.ub.progiii.mvc.model.OnlineBooking;
+import ar.edu.ub.progiii.mvc.dto.*;
+import ar.edu.ub.progiii.mvc.model.*;
 
 public class MappingTool implements IMapping{
+
+    /**
+     * Mapeo de cliente a dto
+     *
+     * @param cliente cliente que ingresa
+     * @return dto de cliente
+     */
+    @Override
+    public ClientDTO MapDTOClient(Client cliente) {
+        return null;
+    }
+
+    /**
+     * Mapeo de cleinte dto a cliente
+     *
+     * @param clientDTO cliente dto que ingresa
+     * @return retorno de cliente mapeado
+     */
+    @Override
+    public Client MapClientDTO(ClientDTO clientDTO) {
+        return null;
+    }
 
     /**
      * Mape de emplado de modle a empleado dto
