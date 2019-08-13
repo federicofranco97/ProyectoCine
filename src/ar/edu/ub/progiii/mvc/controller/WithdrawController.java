@@ -10,9 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class WithdrawController {
 
-	@Autowired
-	MappingTool MapTool;
-
 	@GetMapping("/")
 	public ModelAndView GetView() {
 		ModelAndView model = new ModelAndView("Alivio");
