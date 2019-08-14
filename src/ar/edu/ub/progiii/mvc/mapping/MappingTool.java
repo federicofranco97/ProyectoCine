@@ -99,7 +99,7 @@ public class MappingTool implements IMapping{
      * @return modelo de dto
      */
     @Override
-    public OnlineBookingDTO MapDTOSql(String SQLData) {
+    public OnlineBookingDTO MapOBookingDTOSql(String SQLData) {
         return null;
     }
 

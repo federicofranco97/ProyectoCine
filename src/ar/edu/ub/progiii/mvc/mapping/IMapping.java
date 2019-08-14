@@ -66,5 +66,5 @@ public interface IMapping {
      * @param SQLData data proveniente del sql
      * @return modelo de dto
      */
-    public OnlineBookingDTO MapDTOSql(String SQLData);
+    public OnlineBookingDTO MapOBookingDTOSql(String SQLData);
 }
