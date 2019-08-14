@@ -19,12 +19,14 @@ public class ClientDTO extends PersonDTO{
 		this.ClientNumber = ClientNumber;
 	}
 
+	public ClientDTO(){}
+
 	//Getters y Setters
 	public int getClientNumber() {
 		return ClientNumber;
 	}
 
-	private void setClientNumber(int clientNumber) {
+	public void setClientNumber(int clientNumber) {
 		ClientNumber = clientNumber;
 	}
 

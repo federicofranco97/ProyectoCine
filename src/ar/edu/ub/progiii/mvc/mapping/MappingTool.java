@@ -2,6 +2,8 @@ package ar.edu.ub.progiii.mvc.mapping;
 import ar.edu.ub.progiii.mvc.dto.*;
 import ar.edu.ub.progiii.mvc.model.*;
 
+import java.sql.Date;
+
 public class MappingTool implements IMapping{
 
     /**
@@ -101,6 +103,27 @@ public class MappingTool implements IMapping{
     @Override
     public OnlineBookingDTO MapOBookingDTOSql(String SQLData) {
         return null;
+    }
+
+    /**
+     * Mapea la rta del sql a un cliente dto
+     *
+     * @param SQLData
+     * @return
+     */
+    @Override
+    public ClientDTO MapDTOClientSQL(String SQLData) {
+        String [] aux = SQLData.split("_");
+        ClientDTO clientDTO;
+        //si ocurre un error en el mapeo vuelve el cliente null
+        try {
+            String [] splitDate = aux[5].split(" ");
+            clientDTO = new ClientDTO(aux[0],aux[4],aux[2], aux[3],Date.valueOf(splitDate[0]),Integer.parseInt(aux[1]));
+        }catch (Exception ex){
+            clientDTO=null;
+            System.out.println("Ocurrio un error en el mapeo");
+        }
+        return clientDTO;
     }
 
 
