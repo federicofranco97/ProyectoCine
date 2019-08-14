@@ -92,5 +92,16 @@ public class MappingTool implements IMapping{
         return null;
     }
 
+    /**
+     * Mapeo de respuesta sql a dto
+     *
+     * @param SQLData data proveniente del sql
+     * @return modelo de dto
+     */
+    @Override
+    public OnlineBookingDTO MapDTOSql(String SQLData) {
+        return null;
+    }
+
 
 }
