@@ -29,7 +29,7 @@ public class Conection {
 			Statement stm = pruebaCn.createStatement();
 			ResultSet rst = stm.executeQuery("select * from dbo.Cliente");
 			while(rst.next()) {
-				System.out.println("nombre: " + rst.getString(2));
+				System.out.println("nombre: " + rst.getString("NombreCompleto"));
 			}
 		}
 		else {

@@ -45,6 +45,11 @@ public class BookingDTO {
 		TotalValue = totalValue;
 	}
 
+	/**
+	 * Constructor por defecto.
+	 */
+	public BookingDTO(){}
+
 	//Getters y Setters
 	public double getTotalValue() {
 		return TotalValue;
