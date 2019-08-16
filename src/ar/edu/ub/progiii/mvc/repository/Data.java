@@ -20,12 +20,11 @@ public class Data implements IData{
     private void LogData(String Tipo,String Mensaje){
         String SPsql = "EXEC GenerarLog '"+Tipo+"' , '"+Mensaje+"' ";
         try {
-            Statement stm = connection.createStatement();
-            ResultSet rst = stm.executeQuery(SPsql);
+            PreparedStatement stm = connection.prepareStatement(SPsql);
+            boolean rst = stm.execute();
         }catch (Exception ex){
-            System.out.println("Envio de log realizado. "+ex.getMessage());
+            System.out.println("Envio de log no realizado. "+ex.getMessage());
         }
-
     }
 
     /**
@@ -35,6 +34,7 @@ public class Data implements IData{
      * @return
      */
     @Override
+
     public String PostQuery(String data) {
         return null;
     }
@@ -99,7 +99,7 @@ public class Data implements IData{
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Si no encontro nada devuelvo null.
-        if((result == null || result.isEmpty())) {
+        if((result.isEmpty())) {
             LogData("ErrorNotFound","No se pudo encontrar el cliente");
             return null;
         }
