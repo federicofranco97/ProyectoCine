@@ -2,14 +2,31 @@ package ar.edu.ub.progiii.mvc.repository;
 
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import org.springframework.stereotype.Repository;
+import sun.rmi.runtime.Log;
 
+import java.sql.*;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 @Repository
 public class Data implements IData{
+
+    Connection connection = ar.edu.ub.progiii.mvc.repository.Connection.getConnection();
+
+    /**
+     * Metodo que logea informacion a la base de datos.
+     * @param Tipo Tipo de log
+     * @param Mensaje Mensaje que contiene el log
+     */
+    private void LogData(String Tipo,String Mensaje){
+        String SPsql = "EXEC GenerarLog '"+Tipo+"' , '"+Mensaje+"' ";
+        try {
+            Statement stm = connection.createStatement();
+            ResultSet rst = stm.executeQuery(SPsql);
+        }catch (Exception ex){
+            System.out.println("Envio de log realizado. "+ex.getMessage());
+        }
+
+    }
 
     /**
      * Metodo para hacer un post generico
@@ -62,7 +79,6 @@ public class Data implements IData{
        }
         //empiezo la conexion y recibo el resultado de la query
         try {
-            Connection connection = ar.edu.ub.progiii.mvc.repository.Connection.getConnection();
             if(connection != null) {
                 Statement stm = connection.createStatement();
                 String query="select * from cliente where nrocliente="+data;
@@ -77,13 +93,18 @@ public class Data implements IData{
                 }
             }
             else {
-                System.out.println("OFFLINE");
+                LogData("ConError","No se pudo conectar con el sql server");
             }
         }catch (Exception ex){
-            System.out.println(ex);
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Si no encontro nada devuelvo null.
-        if((result == null || result.isEmpty()))return null;
+        if((result == null || result.isEmpty())) {
+            LogData("ErrorNotFound","No se pudo encontrar el cliente");
+            return null;
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("SearchCID","Busqueda cliente por id***Data: "+result);
         return result;
     }
 
