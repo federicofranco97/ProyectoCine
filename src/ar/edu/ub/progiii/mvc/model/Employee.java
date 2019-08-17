@@ -17,7 +17,7 @@ public class Employee extends Person{
 	 * @param EmployeeNumber representa el numero de empleado.
 	 * @param Rank representa la categoria del empleado.
 	 */
-	public Employee(String fullName, String address, String phoneNumber, String email, Date dateOfBirth,int EmployeeNumber,
+	public Employee(String fullName, String address, String phoneNumber, String email, String dateOfBirth,int EmployeeNumber,
 			String HashedPassword,String Rank) {
 		
 		super(fullName, address, phoneNumber, email, dateOfBirth);

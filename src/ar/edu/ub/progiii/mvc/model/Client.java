@@ -14,8 +14,7 @@ public class Client extends Person{
 	 * @param dateOfBirth representa la fecha de nacimiento del cliente.
 	 * @param ClientNumber representa el numero de cliente.
 	 */
-	public Client(String fullName, String address, String phoneNumber, String email, 
-			Date dateOfBirth,int ClientNumber) {
+	public Client(String fullName, String address, String phoneNumber, String email, String dateOfBirth,int ClientNumber) {
 		super(fullName, address, phoneNumber, email, dateOfBirth);
 		this.ClientNumber = ClientNumber;
 	}

@@ -10,7 +10,7 @@ public class Person {
 	private String Address;
 	private String PhoneNumber;
 	private String Email;
-	private Date DateOfBirth;
+	private String DateOfBirth;
 	
 	public Person() {}
 
@@ -22,7 +22,7 @@ public class Person {
 	 * @param email representa el email de la persona.
 	 * @param dateOfBirth representa la fecha de nacimiento de la persona.
 	 */
-	public Person(String fullName, String address, String phoneNumber, String email, Date dateOfBirth) {
+	public Person(String fullName, String address, String phoneNumber, String email, String dateOfBirth) {
 	
 		FullName = fullName;
 		Address = address;
@@ -64,11 +64,11 @@ public class Person {
 		Email = email;
 	}
 
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return DateOfBirth;
 	}
 
-	private void setDateOfBirth(Date dateOfBirth) {
+	private void setDateOfBirth(String dateOfBirth) {
 		DateOfBirth = dateOfBirth;
 	}
 	

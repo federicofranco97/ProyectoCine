@@ -118,12 +118,23 @@ public class MappingTool implements IMapping{
         //si ocurre un error en el mapeo vuelve el cliente null
         try {
             String [] splitDate = aux[5].split(" ");
-            clientDTO = new ClientDTO(aux[0],aux[4],aux[2], aux[3],Date.valueOf(splitDate[0]),Integer.parseInt(aux[1]));
+            clientDTO = new ClientDTO(aux[0],aux[4],aux[2], aux[3],(splitDate[0]),Integer.parseInt(aux[1]));
         }catch (Exception ex){
             clientDTO=null;
             System.out.println("Ocurrio un error en el mapeo");
         }
         return clientDTO;
+    }
+
+    /**
+     * Mapeo de string de sql a film dto
+     *
+     * @param SQLData
+     * @return
+     */
+    @Override
+    public FilmDTO MapDTOFilmSQL(String SQLData) {
+        return null;
     }
 
 

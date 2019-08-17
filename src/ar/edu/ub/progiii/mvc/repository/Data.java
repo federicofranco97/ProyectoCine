@@ -51,17 +51,6 @@ public class Data implements IData{
     }
 
     /**
-     * Metodo para traer un cliente x id
-     *
-     * @param data
-     * @return
-     */
-    @Override
-    public String GetClientById(String data) {
-        return null;
-    }
-
-    /**
      * Metodo para traer un cliente x nro cliente
      *
      * @param data
@@ -110,13 +99,38 @@ public class Data implements IData{
 
     /**
      * Metodo para traer todas las peliculas
-     *
-     * @param data
      * @return
      */
     @Override
-    public String GetAllFilms(String data) {
-        return null;
+    public String GetAllFilms() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                Statement stm = connection.createStatement();
+                String query="select * from Pelicula";
+                ResultSet rst = stm.executeQuery(query);
+                while(rst.next()) {
+                    result += (rst.getString("CodPelicula").trim())+"_";
+                    result += (rst.getString("NombrePelicula").trim())+"_";
+                    result += (rst.getString("DuracionMinutos").trim())+"_";
+                    result += (rst.getString("Sinopsis").trim())+"/";
+                }
+            }
+            else {
+                LogData("ConError","No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Si no encontro nada devuelvo null.
+        if((result.isEmpty())) {
+            LogData("ErrorNotFound","No se pudo encontrar la tabla");
+            return null;
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("SearchAllFilms","Busqueda de todas las peliculas "+result);
+        return result;
     }
 
     /**
@@ -127,7 +141,40 @@ public class Data implements IData{
      */
     @Override
     public String GetBookingById(String data) {
-        return null;
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                Statement stm = connection.createStatement();
+                String query="select * from reserva where codreserva='"+data+"'";
+                ResultSet rst = stm.executeQuery(query);
+                while(rst.next()) {
+                    result += (rst.getString("CodReserva").trim())+"_";
+                    result += (rst.getString("codpelicula").trim())+"_";
+                    result += (rst.getString("codfuncion").trim())+"_";
+                    result += (rst.getString("fecha").trim())+"_";
+                    result += (rst.getString("nrosala").trim())+"_";
+                    result += (rst.getString("cantentradas").trim())+"_";
+                    result += (rst.getString("nrocliente").trim())+"_";
+                    result += (rst.getString("codestadoreserva").trim())+"_";
+                    result += (rst.getString("codcanal").trim())+"_";
+                    result += (rst.getString("codsucursal").trim())+"/";
+                }
+            }
+            else {
+                LogData("ConError","No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Si no encontro nada devuelvo null.
+        if((result.isEmpty())) {
+            LogData("ErrorNotFound","No se pudo encontrar la reserva "+data);
+            return null;
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("SearchBID","Busqueda de reserva por codigo  "+data+"---"+result);
+        return result;
     }
 
     /**
@@ -137,7 +184,24 @@ public class Data implements IData{
      * @return
      */
     @Override
-    public String PostNewClient(String data) {
-        return null;
+    public String PostNewClient(ClientDTO data) {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                String query="insert into Cliente (NombreCompleto,Telefono,Email,Direccion,FechaNac) " +
+                        " values ('"+data.getFullName()+"','"+data.getPhoneNumber()+"','"+data.getEmail()+"','"+data.getAddress()+"','"+data.getDateOfBirth()+"')";
+                PreparedStatement stm = connection.prepareStatement(query);
+                boolean rst = stm.execute();
+            }
+            else {
+                LogData("ConError","No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("AddNewClient","Agregado nuevo cliente a la bd---"+result);
+        return result;
     }
 }

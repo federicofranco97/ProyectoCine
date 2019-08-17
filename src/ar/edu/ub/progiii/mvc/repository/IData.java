@@ -21,13 +21,6 @@ public interface IData {
     public String GetQuery(String data);
 
     /**
-     * Metodo para traer un cliente x id
-     * @param data
-     * @return
-     */
-    public String GetClientById(String data);
-
-    /**
      * Metodo para traer un cliente x nro cliente
      * @param data
      * @return
@@ -36,10 +29,9 @@ public interface IData {
 
     /**
      * Metodo para traer todas las peliculas
-     * @param data
      * @return
      */
-    public String GetAllFilms(String data);
+    public String GetAllFilms();
 
     /**
      * Metodo para traer una resrva x id
@@ -53,6 +45,6 @@ public interface IData {
      * @param data
      * @return
      */
-    public String PostNewClient(String data);
+    public String PostNewClient(ClientDTO data);
 
 }

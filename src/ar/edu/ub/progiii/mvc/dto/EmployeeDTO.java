@@ -16,7 +16,7 @@ public class EmployeeDTO extends PersonDTO{
 	 * @param EmployeeNumber representa el numero de empleado.
 	 * @param Rank representa la categoria del empleado.
 	 */
-	public EmployeeDTO(String fullName, String address, String phoneNumber, String email, Date dateOfBirth,int EmployeeNumber,String Rank) {
+	public EmployeeDTO(String fullName, String address, String phoneNumber, String email, String dateOfBirth,int EmployeeNumber,String Rank) {
 		super(fullName, address, phoneNumber, email, dateOfBirth);
 		this.EmployeeNumber = EmployeeNumber;
 		this.Rank = Rank;

@@ -74,4 +74,11 @@ public interface IMapping {
      * @return
      */
     public ClientDTO MapDTOClientSQL(String SQLData);
+
+    /**
+     * Mapeo de string de sql a film dto
+     * @param SQLData
+     * @return
+     */
+    public FilmDTO MapDTOFilmSQL(String SQLData);
 }

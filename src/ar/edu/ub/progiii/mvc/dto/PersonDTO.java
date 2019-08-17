@@ -10,7 +10,7 @@ public class PersonDTO {
 	private String Address;
 	private String PhoneNumber;
 	private String Email;
-	private Date DateOfBirth;
+	private String DateOfBirth;
 	
 	public PersonDTO() {}
 
@@ -22,8 +22,7 @@ public class PersonDTO {
 	 * @param email representa el email de la persona.
 	 * @param dateOfBirth representa la fecha de nacimiento de la persona.
 	 */
-	public PersonDTO(String fullName, String address, String phoneNumber, String email, 
-			Date dateOfBirth) {
+	public PersonDTO(String fullName, String address, String phoneNumber, String email, String dateOfBirth) {
 	
 		FullName = fullName;
 		Address = address;
@@ -65,11 +64,11 @@ public class PersonDTO {
 		Email = email;
 	}
 
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return DateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		DateOfBirth = dateOfBirth;
 	}
 	
