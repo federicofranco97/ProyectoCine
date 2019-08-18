@@ -18,8 +18,7 @@ public class WithdrawController {
 	public ModelAndView GetView() {
 		ModelAndView model = new ModelAndView("Alivio");
 		//Test de traer un cliente de bd
-		ClientDTO clientDTO = new ClientDTO("Jose Listorti", "Calle falsa 55432", "15617848", "Listorti@test.com.ar", "19650814");
-		clientService.CreateNewClient(clientDTO);
+		clientService.GetAllClients();
 		return model;
 	}
 

@@ -67,4 +67,15 @@ public class ClientService {
         return response;
     }
 
+    public ArrayList<ClientDTO> GetAllClients(){
+        String response = dataManager.GetAllClients();
+        ArrayList<ClientDTO> clientList = new ArrayList<>();
+        String [] aux = response.split("/");
+        for (String item:aux) {
+            clientList.add(mappingTool.MapDTOClientSQL(item));
+        }
+        return clientList;
+    }
+
+    
 }

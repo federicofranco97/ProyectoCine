@@ -204,4 +204,42 @@ public class Data implements IData{
         LogData("AddNewClient","Agregado nuevo cliente a la bd---"+result);
         return result;
     }
+
+    /**
+     * Gets list o all clients
+     *
+     * @return
+     */
+    @Override
+    public String GetAllClients() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                Statement stm = connection.createStatement();
+                String query="select Nrocliente,NombreCompleto,Telefono,Email,Direccion,FechaNac from cliente";
+                ResultSet rst = stm.executeQuery(query);
+                while(rst.next()) {
+                    result += (rst.getString("NombreCompleto"))+"_";
+                    result += (rst.getString("Nrocliente"))+"_";
+                    result += (rst.getString("Telefono"))+"_";
+                    result += (rst.getString("Email"))+"_";
+                    result += (rst.getString("Direccion"))+"_";
+                    result += (rst.getString("FechaNac")+"/");
+                }
+            }
+            else {
+                LogData("ConError","No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        if(result.isEmpty()){
+            LogData("NotFound","No se encontro la lista de clientes");
+            return null;
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("GetAllClients","Pedido de lista de clientes");
+        return result;
+    }
 }

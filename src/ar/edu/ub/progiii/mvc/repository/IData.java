@@ -47,4 +47,10 @@ public interface IData {
      */
     public String PostNewClient(ClientDTO data);
 
+    /**
+     * Gets list o all clients
+     * @return
+     */
+    public String GetAllClients();
+
 }
