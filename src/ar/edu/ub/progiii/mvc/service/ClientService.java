@@ -16,6 +16,17 @@ public class ClientService {
     MappingTool mappingTool = new MappingTool();
 
     /**
+     * Metodo booleano que checkea si el empleado que este logeado en la sesion de trabajo
+     * Esta autorizado o esta baneado del sistema.
+     * @param EmployeeNumber
+     * @return
+     */
+    public boolean IsEmployeeAlowed(int EmployeeNumber){
+        if(GetEmployeeCategory(EmployeeNumber)==4)return false;
+        return true;
+    }
+
+    /**
      * Busqueda de cliente por id de usuario
      * @param UID
      * @return
@@ -81,4 +92,8 @@ public class ClientService {
         return clientList;
     }
 
+    public int GetEmployeeCategory(int EmployeeNumber){
+        String response = dataManager.CheckEmployeeCategory(EmployeeNumber);
+        return Integer.parseInt(response);
+    }
 }

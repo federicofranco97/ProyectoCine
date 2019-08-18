@@ -18,7 +18,7 @@ public class WithdrawController {
 	public ModelAndView GetView() {
 		ModelAndView model = new ModelAndView("Alivio");
 		//Test de traer un cliente de bd
-		clientService.GetAllClients();
+		clientService.GetEmployeeCategory(2);
 		return model;
 	}
 

@@ -53,4 +53,10 @@ public interface IData {
      */
     public String GetAllClients();
 
+    /**
+     * Consulto con la base de dato el rol del empleado
+     * @param EmployeeNumber
+     * @return
+     */
+    public String CheckEmployeeCategory(int EmployeeNumber);
 }

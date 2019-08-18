@@ -82,7 +82,7 @@ public class Data implements IData{
                 }
             }
             else {
-                LogData("ConError","No se pudo conectar con el sql server");
+                System.out.println("ConError No se pudo conectar con el sql server");
             }
         }catch (Exception ex){
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
@@ -118,7 +118,7 @@ public class Data implements IData{
                 }
             }
             else {
-                LogData("ConError","No se pudo conectar con el sql server");
+                System.out.println("ConError No se pudo conectar con el sql server");
             }
         }catch (Exception ex){
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
@@ -162,7 +162,7 @@ public class Data implements IData{
                 }
             }
             else {
-                LogData("ConError","No se pudo conectar con el sql server");
+                System.out.println("ConError No se pudo conectar con el sql server");
             }
         }catch (Exception ex){
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
@@ -195,7 +195,7 @@ public class Data implements IData{
                 boolean rst = stm.execute();
             }
             else {
-                LogData("ConError","No se pudo conectar con el sql server");
+                System.out.println("ConError No se pudo conectar con el sql server");
             }
         }catch (Exception ex){
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
@@ -220,16 +220,16 @@ public class Data implements IData{
                 String query="select Nrocliente,NombreCompleto,Telefono,Email,Direccion,FechaNac from cliente";
                 ResultSet rst = stm.executeQuery(query);
                 while(rst.next()) {
-                    result += (rst.getString("NombreCompleto"))+"_";
-                    result += (rst.getString("Nrocliente"))+"_";
-                    result += (rst.getString("Telefono"))+"_";
-                    result += (rst.getString("Email"))+"_";
-                    result += (rst.getString("Direccion"))+"_";
+                    result += (rst.getString("NombreCompleto").trim())+"_";
+                    result += (rst.getString("Nrocliente").trim())+"_";
+                    result += (rst.getString("Telefono").trim())+"_";
+                    result += (rst.getString("Email").trim())+"_";
+                    result += (rst.getString("Direccion").trim())+"_";
                     result += (rst.getString("FechaNac")+"/");
                 }
             }
             else {
-                LogData("ConError","No se pudo conectar con el sql server");
+                System.out.println("ConError No se pudo conectar con el sql server");
             }
         }catch (Exception ex){
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
@@ -240,6 +240,40 @@ public class Data implements IData{
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("GetAllClients","Pedido de lista de clientes");
+        return result;
+    }
+
+    /**
+     * Consulto con la base de dato el rol del empleado
+     *
+     * @param EmployeeNumber
+     * @return
+     */
+    @Override
+    public String CheckEmployeeCategory(int EmployeeNumber) {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                Statement stm = connection.createStatement();
+                String query="select CodRol from empleado where nroempleado="+EmployeeNumber;
+                ResultSet rst = stm.executeQuery(query);
+                while(rst.next()) {
+                    result += (rst.getString("CodRol")).trim();
+                }
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        if(result.isEmpty()){
+            LogData("NotFound","No se encontro el cliente con id "+EmployeeNumber);
+            return null;
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("GetRolByEID","Pedido de estado de empleado");
         return result;
     }
 }
