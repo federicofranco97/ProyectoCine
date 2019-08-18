@@ -59,4 +59,10 @@ public interface IData {
      * @return
      */
     public String CheckEmployeeCategory(int EmployeeNumber);
+
+    /**
+     * Trae la lista de todos los empleados
+     * @return
+     */
+    public String GetAllEmployees();
 }

@@ -137,5 +137,25 @@ public class MappingTool implements IMapping{
         return null;
     }
 
+    /**
+     * Mapea string de sql a employee sql
+     *
+     * @param SQLData
+     * @return
+     */
+    @Override
+    public EmployeeDTO MapDTOEmployeeSQL(String SQLData) {
+        String [] aux = SQLData.split("_");
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        employeeDTO.setFullName(aux[0]);
+        employeeDTO.setPhoneNumber(aux[1]);
+        employeeDTO.setEmail(aux[2]);
+        employeeDTO.setAddress(aux[3]);
+        employeeDTO.setDateOfBirth(aux[4]);
+        employeeDTO.setEmployeeNumber(Integer.parseInt(aux[5]));
+        employeeDTO.setRank(aux[6]);
+        return employeeDTO;
+    }
+
 
 }

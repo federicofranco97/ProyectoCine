@@ -1,5 +1,7 @@
 package ar.edu.ub.progiii.mvc.dto;
 
+import ar.edu.ub.progiii.mvc.model.Employee;
+
 import java.sql.Date;
 
 public class EmployeeDTO extends PersonDTO{
@@ -21,13 +23,15 @@ public class EmployeeDTO extends PersonDTO{
 		this.EmployeeNumber = EmployeeNumber;
 		this.Rank = Rank;
 	}
-	
+
+	public EmployeeDTO(){}
+
 	//Getters y Setters
 	public int getEmployeeNumber() {
 		return EmployeeNumber;
 	}
 
-	private void setEmployeeNumber(int employeeNumber) {
+	public void setEmployeeNumber(int employeeNumber) {
 		EmployeeNumber = employeeNumber;
 	}
 
@@ -35,7 +39,7 @@ public class EmployeeDTO extends PersonDTO{
 		return Rank;
 	}
 
-	private void setRank(String rank) {
+	public void setRank(String rank) {
 		Rank = rank;
 	}
 		

@@ -2,6 +2,7 @@ package ar.edu.ub.progiii.mvc.service;
 
 import ar.edu.ub.progiii.mvc.dto.BookingDTO;
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
+import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.repository.Data;
@@ -95,5 +96,15 @@ public class ClientService {
     public int GetEmployeeCategory(int EmployeeNumber){
         String response = dataManager.CheckEmployeeCategory(EmployeeNumber);
         return Integer.parseInt(response);
+    }
+
+    public ArrayList<EmployeeDTO> GetAllEmployees(){
+        String response = dataManager.GetAllEmployees();
+        ArrayList<EmployeeDTO> list = new ArrayList<>();
+        String [] aux = response.split("/");
+        for (String item : aux) {
+            list.add(mappingTool.MapDTOEmployeeSQL(item));
+        }
+        return list;
     }
 }

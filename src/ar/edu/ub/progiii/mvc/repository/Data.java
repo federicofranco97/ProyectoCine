@@ -276,4 +276,44 @@ public class Data implements IData{
         LogData("GetRolByEID","Pedido de estado de empleado");
         return result;
     }
+
+    /**
+     * Trae la lista de todos los empleados
+     *
+     * @return
+     */
+    @Override
+    public String GetAllEmployees() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                Statement stm = connection.createStatement();
+                String query="select * from empleado where codRol<>4";
+                ResultSet rst = stm.executeQuery(query);
+                while(rst.next()) {
+                    result += (rst.getString("NombreCompleto").trim())+"_";
+                    result += (rst.getString("Telefono").trim())+"_";
+                    result += (rst.getString("Email").trim())+"_";
+                    result += (rst.getString("Direccion").trim())+"_";
+                    result += (rst.getString("FechaNac").trim())+"_";
+                    result += (rst.getString("NroEmpleado").trim())+"_";
+                    result += (rst.getString("CodRol").trim()+"/");
+                }
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Si no encontro nada devuelvo null.
+        if((result.isEmpty())) {
+            LogData("ErrorNotFound","No se pudo encontrar la tabla");
+            return null;
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("GetAllEmployees","Busqueda de todos los empleados");
+        return result;
+    }
 }
