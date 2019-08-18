@@ -67,6 +67,10 @@ public class ClientService {
         return response;
     }
 
+    /**
+     * Get list of all clients
+     * @return
+     */
     public ArrayList<ClientDTO> GetAllClients(){
         String response = dataManager.GetAllClients();
         ArrayList<ClientDTO> clientList = new ArrayList<>();
@@ -77,5 +81,4 @@ public class ClientService {
         return clientList;
     }
 
-    
 }
