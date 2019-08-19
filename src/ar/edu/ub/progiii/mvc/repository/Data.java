@@ -2,7 +2,7 @@ package ar.edu.ub.progiii.mvc.repository;
 
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import org.springframework.stereotype.Repository;
-import sun.rmi.runtime.Log;
+
 
 import java.sql.*;
 import java.sql.Connection;
