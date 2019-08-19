@@ -4,6 +4,7 @@ import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,8 +62,15 @@ public class ManagerController {
     public ModelAndView GetEditPage(@RequestParam("employeeid")int EmployeeNumber){
         ModelAndView model = new ModelAndView("EditEmployee");
         EmployeeDTO employeeDTO = clientService.GetEmployee(EmployeeNumber);
-
         model.addObject("empleado",employeeDTO);
         return model;
+    }
+
+    @PostMapping("/update_employee")
+    public ModelAndView UpdateEmployee(EmployeeDTO employee){
+        clientService.UpdateEmployee(employee);
+        RedirectView redirectView = new RedirectView("/manage_employees");
+        redirectView.setExposePathVariables(false);
+        return new ModelAndView(redirectView);
     }
 }

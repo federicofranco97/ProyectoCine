@@ -15,3 +15,13 @@
 {
     cursor:pointer;
 }
+
+.data-form
+{
+    margin-top:8%;
+    width:80%;
+    margin-left:auto;
+    margin-right:auto;
+    height: 70%;
+    padding-bottom:25px;
+}

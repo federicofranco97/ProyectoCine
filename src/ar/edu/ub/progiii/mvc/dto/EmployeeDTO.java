@@ -3,6 +3,7 @@ package ar.edu.ub.progiii.mvc.dto;
 import ar.edu.ub.progiii.mvc.model.Employee;
 
 import java.sql.Date;
+import java.util.Objects;
 
 public class EmployeeDTO extends PersonDTO{
 	private int EmployeeNumber;
@@ -42,7 +43,16 @@ public class EmployeeDTO extends PersonDTO{
 	public void setRank(String rank) {
 		Rank = rank;
 	}
-		
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof EmployeeDTO)) return false;
+		EmployeeDTO emp = (EmployeeDTO) o;
+		if(emp.getFullName().equals(this.getFullName()) && emp.getDateOfBirth().equals(this.getDateOfBirth())){
+			return true;
+		}
+		return false;
+	}
 
 }

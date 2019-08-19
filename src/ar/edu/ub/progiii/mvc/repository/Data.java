@@ -1,6 +1,7 @@
 package ar.edu.ub.progiii.mvc.repository;
 
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
+import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.stereotype.Repository;
 import sun.rmi.runtime.Log;
@@ -129,8 +130,6 @@ public class Data implements IData{
             LogData("ErrorNotFound","No se pudo encontrar la tabla");
             return null;
         }
-        //Logeo la informacion de la busqueda, Id de busqueda y resultado
-        LogData("SearchAllFilms","Busqueda de todas las peliculas "+result);
         return result;
     }
 
@@ -239,8 +238,6 @@ public class Data implements IData{
             LogData("NotFound","No se encontro la lista de clientes");
             return null;
         }
-        //Logeo la informacion de la busqueda, Id de busqueda y resultado
-        LogData("GetAllClients","Pedido de lista de clientes");
         return result;
     }
 
@@ -313,8 +310,6 @@ public class Data implements IData{
             LogData("ErrorNotFound","No se pudo encontrar la tabla");
             return null;
         }
-        //Logeo la informacion de la busqueda, Id de busqueda y resultado
-        LogData("GetAllEmployees","Busqueda de todos los empleados");
         return result;
     }
 
@@ -369,6 +364,34 @@ public class Data implements IData{
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("DeleteEmployee","Borrar empleado "+EmployeeNumber);
+        return result;
+    }
+
+    /**
+     * Actualizar perfil
+     *
+     * @param employeeDTO
+     */
+    @Override
+    public int UpdateProfile(EmployeeDTO employeeDTO) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                String query="exec ActualizarEmpleado '"+employeeDTO.getAddress()+"','"+employeeDTO.getEmail()+"','"
+                        +employeeDTO.getPhoneNumber()+"',"+employeeDTO.getEmployeeNumber();
+                PreparedStatement stm = connection.prepareStatement(query);
+                result = stm.executeUpdate();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("UpdateEmployee","Actualizar empleado "+employeeDTO.getEmployeeNumber()+"\n"+employeeDTO.getAddress()+
+                "\n"+employeeDTO.getEmail()+"\n"+employeeDTO.getPhoneNumber());
         return result;
     }
 }

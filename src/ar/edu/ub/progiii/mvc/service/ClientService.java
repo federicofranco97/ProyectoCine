@@ -125,4 +125,16 @@ public class ClientService {
         }
         return null;
     }
+
+    public void UpdateEmployee(EmployeeDTO employee) {
+        ArrayList<EmployeeDTO> list = GetAllEmployees();
+        for (EmployeeDTO emp:list) {
+            if(emp.equals(employee)){
+                emp.setAddress(employee.getAddress());
+                emp.setEmail(employee.getEmail());
+                emp.setPhoneNumber(employee.getPhoneNumber());
+                dataManager.UpdateProfile(emp);
+            }
+        }
+    }
 }

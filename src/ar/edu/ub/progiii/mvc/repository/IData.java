@@ -1,6 +1,7 @@
 package ar.edu.ub.progiii.mvc.repository;
 
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
+import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 
 import java.sql.Connection;
 
@@ -79,4 +80,10 @@ public interface IData {
      * @return
      */
     public int DeleteEmployee(int EmployeeNumber);
+
+    /**
+     * Actualizar perfil
+     * @param employeeDTO
+     */
+    public int UpdateProfile(EmployeeDTO employeeDTO);
 }

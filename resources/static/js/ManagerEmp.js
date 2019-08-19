@@ -1,6 +1,7 @@
 //move to edit employee information
 function EditEmployee(Component){
-    console.log("sth");
+    var id=Component.parentNode.className;
+    window.open("/edit_employee?employeeid="+id,"_self");
 }
 
 //Ban employee
@@ -50,5 +51,9 @@ function DeleteEmployee(Component){
         });
       }
     });
+}
 
+function ReturnToMenu(){
+    document.getElementById('btnLimpiar').click();
+    window.open("/manage_employees","_self");
 }
