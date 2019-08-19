@@ -107,4 +107,9 @@ public class ClientService {
         }
         return list;
     }
+
+    public Boolean BanEmployee(int EmployeeNumber){
+        Boolean result = dataManager.BanEmployee(EmployeeNumber);
+        return result;
+    }
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Title</title>
 </head>
-<body>
+<body class="bg-secondary">
     <div th:replace="layout :: menu"></div>
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
     <a class="navbar-brand" href="/admin_main">Administrador</a>
@@ -43,23 +43,30 @@
         </ul>
     </div>
 </nav>
-    <table class="table table-dark" style="margin-top:5%">
-        <thead>
+
+    <table class="table table-dark table-style" >
+        <thead class="center-text">
         <th>Nombre Completo</th>
         <th>Direccion</th>
         <th>Telefono</th>
         <th>Email</th>
         <th>Numero Empleado</th>
         <th>Categoria</th>
+        <th>Editar</th>
+        <th>Banear</th>
+        <th>Eliminar</th>
         </thead>
         <tbody  id="tablaPrincipal">
-        <tr th:each="empleado : ${EmployeeList}" style="cursor: pointer;text-align:center;">
+        <tr th:each="empleado : ${EmployeeList}" style="text-align:center" th:class="${empleado.getEmployeeNumber()}">
             <td style="vertical-align: inherit;" th:text="${empleado.getFullName()}"></td>
             <td style="vertical-align: inherit;"  th:text="${empleado.getAddress()}"></td>
             <td style="vertical-align: inherit;"  th:text="${empleado.getPhoneNumber()}"></td>
             <td style="vertical-align: inherit;"  th:text="${empleado.getEmail()}" ></td>
             <td style="vertical-align: inherit;"  th:text="${empleado.getEmployeeNumber()}"></td>
             <td style="vertical-align: inherit;"  th:text="${empleado.getRank()}"></td>
+            <td title="Editar Empleado" class="pointer" onclick="EditEmployee(this)"><i class="fas fa-user-edit"></i></td>
+            <td title="Banear Empleado" class="pointer" onclick="BanEmployee(this)"><i class="fas fa-user-lock"></i></td>
+            <td title="Eliminar Empleado" class="pointer" onclick="DeleteEmployee(this)"><i class="fas fa-user-slash"></i></td>
         </tr>
         </tbody>
     </table>

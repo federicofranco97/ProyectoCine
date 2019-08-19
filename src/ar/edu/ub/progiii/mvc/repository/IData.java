@@ -65,4 +65,11 @@ public interface IData {
      * @return
      */
     public String GetAllEmployees();
+
+    /**
+     * Banear un empleado
+     * @param EmployeeNumber
+     * @return
+     */
+    public Boolean BanEmployee(int EmployeeNumber);
 }
