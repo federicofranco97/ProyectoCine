@@ -290,7 +290,7 @@ public class Data implements IData{
         try {
             if(connection != null) {
                 Statement stm = connection.createStatement();
-                String query="select * from empleado";
+                String query="select * from empleado where codrol<>5";
                 ResultSet rst = stm.executeQuery(query);
                 while(rst.next()) {
                     result += (rst.getString("NombreCompleto").trim())+"_";
@@ -342,6 +342,33 @@ public class Data implements IData{
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("BanEmployee","Banear empleado "+EmployeeNumber);
+        return result;
+    }
+
+    /**
+     * "Elmina" un empleado del sistema.
+     *
+     * @param EmployeeNumber
+     * @return
+     */
+    @Override
+    public int DeleteEmployee(int EmployeeNumber) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                String query="update empleado set CodRol=5 where NroEmpleado="+EmployeeNumber;
+                PreparedStatement stm = connection.prepareStatement(query);
+                result = stm.executeUpdate();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("DeleteEmployee","Borrar empleado "+EmployeeNumber);
         return result;
     }
 }

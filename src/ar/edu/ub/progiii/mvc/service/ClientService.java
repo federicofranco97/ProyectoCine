@@ -112,4 +112,17 @@ public class ClientService {
         int result = dataManager.BanEmployee(EmployeeNumber);
         return result;
     }
+
+    public int DeleteEmployee(int EmployeeNumber){
+        int result = dataManager.DeleteEmployee(EmployeeNumber);
+        return result;
+    }
+
+    public EmployeeDTO GetEmployee(int EmployeeNumber){
+        ArrayList<EmployeeDTO> list = GetAllEmployees();
+        for (EmployeeDTO item : list) {
+            if(item.getEmployeeNumber() == EmployeeNumber)return item;
+        }
+        return null;
+    }
 }

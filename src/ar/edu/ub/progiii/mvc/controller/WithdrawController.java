@@ -14,7 +14,7 @@ public class WithdrawController {
 	@Autowired
 	ClientService clientService;
 
-	@GetMapping("/")
+	@GetMapping("/withdraw")
 	public ModelAndView GetView() {
 		ModelAndView model = new ModelAndView("Alivio");
 		//Test de traer un cliente de bd

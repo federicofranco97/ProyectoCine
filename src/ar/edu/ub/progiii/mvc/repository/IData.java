@@ -72,4 +72,11 @@ public interface IData {
      * @return
      */
     public int BanEmployee(int EmployeeNumber);
+
+    /**
+     * "Elmina" un empleado del sistema.
+     * @param EmployeeNumber
+     * @return
+     */
+    public int DeleteEmployee(int EmployeeNumber);
 }

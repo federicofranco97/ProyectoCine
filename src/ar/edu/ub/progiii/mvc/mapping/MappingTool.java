@@ -151,7 +151,8 @@ public class MappingTool implements IMapping{
         employeeDTO.setPhoneNumber(aux[1]);
         employeeDTO.setEmail(aux[2]);
         employeeDTO.setAddress(aux[3]);
-        employeeDTO.setDateOfBirth(aux[4]);
+        String [] auxDOB = aux[4].split(" ");
+        employeeDTO.setDateOfBirth(auxDOB[0]);
         employeeDTO.setEmployeeNumber(Integer.parseInt(aux[5]));
         employeeDTO.setRank(aux[6]);
         return employeeDTO;

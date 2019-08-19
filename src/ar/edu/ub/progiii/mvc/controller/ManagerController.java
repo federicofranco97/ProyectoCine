@@ -1,5 +1,6 @@
 package ar.edu.ub.progiii.mvc.controller;
 
+import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,8 +37,32 @@ public class ManagerController {
             redirectView.setExposePathVariables(false);
             return new ModelAndView(redirectView);
         }else{
-            ModelAndView model = new ModelAndView("ManagerPage");
-            return model;
+            RedirectView redirectView = new RedirectView("/admin_main");
+            redirectView.setExposePathVariables(false);
+            return new ModelAndView(redirectView);
         }
+    }
+
+    @GetMapping("/delete_employee")
+    public ModelAndView DeleteEmployee(@RequestParam("employeeid")int EmployeeNumber){
+        int result = clientService.DeleteEmployee(EmployeeNumber);
+        if(result == 1 ){
+            RedirectView redirectView = new RedirectView("/manage_employees");
+            redirectView.setExposePathVariables(false);
+            return new ModelAndView(redirectView);
+        }else{
+            RedirectView redirectView = new RedirectView("/admin_main");
+            redirectView.setExposePathVariables(false);
+            return new ModelAndView(redirectView);
+        }
+    }
+
+    @GetMapping("/edit_employee")
+    public ModelAndView GetEditPage(@RequestParam("employeeid")int EmployeeNumber){
+        ModelAndView model = new ModelAndView("EditEmployee");
+        EmployeeDTO employeeDTO = clientService.GetEmployee(EmployeeNumber);
+
+        model.addObject("empleado",employeeDTO);
+        return model;
     }
 }
