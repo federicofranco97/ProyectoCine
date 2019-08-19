@@ -71,5 +71,5 @@ public interface IData {
      * @param EmployeeNumber
      * @return
      */
-    public Boolean BanEmployee(int EmployeeNumber);
+    public int BanEmployee(int EmployeeNumber);
 }

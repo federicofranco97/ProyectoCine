@@ -290,7 +290,7 @@ public class Data implements IData{
         try {
             if(connection != null) {
                 Statement stm = connection.createStatement();
-                String query="select * from empleado where codRol<>4";
+                String query="select * from empleado";
                 ResultSet rst = stm.executeQuery(query);
                 while(rst.next()) {
                     result += (rst.getString("NombreCompleto").trim())+"_";
@@ -325,14 +325,14 @@ public class Data implements IData{
      * @return
      */
     @Override
-    public Boolean BanEmployee(int EmployeeNumber) {
-        Boolean result= false;
+    public int BanEmployee(int EmployeeNumber) {
+        int result= -1;
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
                 String query="update empleado set CodRol=4 where NroEmpleado="+EmployeeNumber;
                 PreparedStatement stm = connection.prepareStatement(query);
-                result = stm.execute();
+                result = stm.executeUpdate();
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");

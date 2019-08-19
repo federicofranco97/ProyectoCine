@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class ManagerController {
@@ -28,9 +29,15 @@ public class ManagerController {
     }
 
     @GetMapping("/ban_employee")
-    public void BanEmployee(@RequestParam("employeeid")int EmployeeNumber){
-        Boolean result = clientService.BanEmployee(EmployeeNumber);
-
-
+    public ModelAndView BanEmployee(@RequestParam("employeeid")int EmployeeNumber){
+        int result = clientService.BanEmployee(EmployeeNumber);
+        if(result == 1 ){
+            RedirectView redirectView = new RedirectView("/manage_employees");
+            redirectView.setExposePathVariables(false);
+            return new ModelAndView(redirectView);
+        }else{
+            ModelAndView model = new ModelAndView("ManagerPage");
+            return model;
+        }
     }
 }
