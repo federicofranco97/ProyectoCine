@@ -143,4 +143,13 @@ public class ClientService {
         }
         return list;
     }
+
+    public ArrayList<TicketDTO> GetActiveTickets(){
+        ArrayList<TicketDTO> list = new ArrayList<>();
+        String [] response = dataManager.GetActiveTickets().split("/");
+        for (String item: response) {
+            list.add(mappingTool.MapDTOTicketSQL(item));
+        }
+        return list;
+    }
 }

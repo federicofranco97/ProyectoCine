@@ -92,4 +92,10 @@ public interface IData {
      * @return
      */
     public String GetAllTickets();
+
+    /**
+     * Trae solo los tickets activos
+     * @return
+     */
+    public String GetActiveTickets();
 }

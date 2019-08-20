@@ -429,4 +429,36 @@ public class Data implements IData{
         }
         return result;
     }
+
+    @Override
+    public String GetActiveTickets() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                Statement stm = connection.createStatement();
+                String query="select * from tickets where estado='activo'";
+                ResultSet rst = stm.executeQuery(query);
+                while(rst.next()) {
+                    result += (rst.getString("ID").trim())+"_";
+                    result += (rst.getString("Title").trim())+"_";
+                    result += (rst.getString("Employee").trim())+"_";
+                    result += (rst.getString("Mensaje").trim())+"_";
+                    result += (rst.getString("Fecha").trim()+"_");
+                    result += (rst.getString("Estado").trim()+"/");
+                }
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Si no encontro nada devuelvo null.
+        if((result.isEmpty())) {
+            LogData("ErrorNotFound","No se pudo encontrar la tabla");
+            return null;
+        }
+        return result;
+    }
 }

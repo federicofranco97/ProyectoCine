@@ -15,6 +15,13 @@ public class TicketsController {
     @GetMapping("/tickets")
     public ModelAndView GetTickets(){
         ModelAndView model = new ModelAndView("Tickets");
+        model.addObject("Tickets",clientService.GetActiveTickets());
+        return model;
+    }
+
+    @GetMapping("/tickets_all")
+    public ModelAndView GetTicketsAll(){
+        ModelAndView model = new ModelAndView("TicketsAll");
         model.addObject("Tickets",clientService.GetAllTickets());
         return model;
     }
