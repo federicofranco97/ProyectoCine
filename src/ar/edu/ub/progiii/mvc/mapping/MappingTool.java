@@ -158,5 +158,24 @@ public class MappingTool implements IMapping{
         return employeeDTO;
     }
 
+    /**
+     * Mapea data proveniente del sql como ticket dto
+     *
+     * @param SQLData
+     * @return
+     */
+    @Override
+    public TicketDTO MapDTOTicketSQL(String SQLData) {
+        String [] aux = SQLData.split("_");
+        TicketDTO ticketDTO = new TicketDTO();
+        ticketDTO.setTicketID(aux[0]);
+        ticketDTO.setTicketTitle(aux[1]);
+        ticketDTO.setTicketAuthor(aux[2]);
+        ticketDTO.setTicketContent(aux[3]);
+        ticketDTO.setTicketDate(aux[4]);
+        ticketDTO.setTicketStatus(aux[5]);
+        return ticketDTO;
+    }
+
 
 }

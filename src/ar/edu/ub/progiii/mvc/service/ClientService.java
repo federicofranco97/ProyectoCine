@@ -1,9 +1,6 @@
 package ar.edu.ub.progiii.mvc.service;
 
-import ar.edu.ub.progiii.mvc.dto.BookingDTO;
-import ar.edu.ub.progiii.mvc.dto.ClientDTO;
-import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
-import ar.edu.ub.progiii.mvc.dto.FilmDTO;
+import ar.edu.ub.progiii.mvc.dto.*;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.repository.Data;
 import org.springframework.stereotype.Service;
@@ -136,5 +133,14 @@ public class ClientService {
                 dataManager.UpdateProfile(emp);
             }
         }
+    }
+
+    public ArrayList<TicketDTO> GetAllTickets(){
+        ArrayList<TicketDTO> list = new ArrayList<>();
+        String [] response = dataManager.GetAllTickets().split("/");
+        for (String item: response) {
+            list.add(mappingTool.MapDTOTicketSQL(item));
+        }
+        return list;
     }
 }

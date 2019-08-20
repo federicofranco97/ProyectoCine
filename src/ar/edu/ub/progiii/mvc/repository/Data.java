@@ -335,7 +335,7 @@ public class Data implements IData{
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
-        LogData("BanEmployee","Banear empleado "+EmployeeNumber);
+        LogData("BanEmployee","Banear empleado id:"+EmployeeNumber);
         return result;
     }
 
@@ -368,7 +368,6 @@ public class Data implements IData{
 
     /**
      * Actualizar perfil
-     *
      * @param employeeDTO
      */
     @Override
@@ -391,6 +390,43 @@ public class Data implements IData{
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("UpdateEmployee","Actualizar empleado "+employeeDTO.getEmployeeNumber()+"\n"+employeeDTO.getAddress()+
                 "\n"+employeeDTO.getEmail()+"\n"+employeeDTO.getPhoneNumber());
+        return result;
+    }
+
+    /**
+     * Trae la lista de todos los tickets
+     *
+     * @return
+     */
+    @Override
+    public String GetAllTickets() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                Statement stm = connection.createStatement();
+                String query="select * from tickets";
+                ResultSet rst = stm.executeQuery(query);
+                while(rst.next()) {
+                    result += (rst.getString("ID").trim())+"_";
+                    result += (rst.getString("Title").trim())+"_";
+                    result += (rst.getString("Employee").trim())+"_";
+                    result += (rst.getString("Mensaje").trim())+"_";
+                    result += (rst.getString("Fecha").trim()+"_");
+                    result += (rst.getString("Estado").trim()+"/");
+                }
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Si no encontro nada devuelvo null.
+        if((result.isEmpty())) {
+            LogData("ErrorNotFound","No se pudo encontrar la tabla");
+            return null;
+        }
         return result;
     }
 }

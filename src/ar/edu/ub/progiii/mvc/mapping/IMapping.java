@@ -89,4 +89,10 @@ public interface IMapping {
      */
     public EmployeeDTO MapDTOEmployeeSQL(String SQLData);
 
+    /**
+     * Mapea data proveniente del sql como ticket dto
+     * @param SQLData
+     * @return
+     */
+    public TicketDTO MapDTOTicketSQL(String SQLData);
 }

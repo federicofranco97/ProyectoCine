@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: header">
     <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link href="../static/css/Tickets.css"  type="text/css" />
 </head>
 <body class="bg-secondary">
     <div th:replace="layout :: menu"></div>
@@ -41,41 +43,21 @@
             </ul>
         </div>
     </nav>
-    <form class="data-form" method="post" action="/update_employee">
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Nombre Completo</label>
-                <input type="text" class="form-control" th:value="${empleado.getFullName()}"
-                     name="FullName"  id="inputEmail4" placeholder="Nombre Completo" readonly="readonly"/>
+    <div id="CardsContainer" class="CardContainer" style="margin-left:auto;margin-right:auto;margin-top:5%;width:80%;height:700px;overflow-y: auto;">
+        <div  th:each="ticket : ${Tickets}" class="card text-white bg-dark mb-3" style="width:100%;">
+            <div class="card-header" style="font-size:30px">
+                <label th:text="${ticket.getTicketTitle()}"></label>
+                <a href="#" class="btn btn-secondary" style="float:right">Inspeccionar</a><h6 class="card-title" th:text="${ticket.getTicketDate()}"></h6>
             </div>
-            <div class="form-group col-md-6">
-                <label>Telefono</label>
-                <input type="number" th:value="${empleado.getPhoneNumber()}"
-                      name="PhoneNumber" class="form-control" id="inputPassword4" placeholder="Telefono"/>
+            <div class="card-body">
+                <h6 class="card-title" th:text="${ticket.getTicketAuthor()}"></h6>
+                <p class="card-text" th:text="${ticket.getTicketContent()}"></p>
             </div>
         </div>
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" th:value="${empleado.getEmail()}" class="form-control"
-                   name="Email" id="inputAddress" placeholder="email@dominio.com"/>
-        </div>
-        <div class="form-group">
-            <label >Address</label>
-            <input type="text" th:value="${empleado.getAddress()}" class="form-control"
-                   name="Address" id="inputAddress2" placeholder="Direccion"/>
-        </div>
-        <div class="form-group">
-            <label>Fehca de nacimiento</label>
-            <input type="date" class="form-control" id="fechaNac"
-                  name="DateOfBirth" th:value="${empleado.getDateOfBirth()}" readonly="readonly"/>
-        </div>
-        <div id="HiddenData">
-            <input type="text" hidden="hidden" name="Rank" value="${empleado.getRank()}" />
-        </div>
-        <button type="submit" class="btn btn-success">Actualizar</button>
-        <button type="reset" class="btn btn-danger" id="btnLimpiar">Limpiar</button>
-        <button type="button" class="btn btn-warning" onclick="ReturnToMenu()">Volver</button>
-    </form>
+    </div>
+
+
+
     <div th:replace="layout :: footer"></div>
 </body>
 </html>

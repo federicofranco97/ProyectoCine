@@ -86,4 +86,10 @@ public interface IData {
      * @param employeeDTO
      */
     public int UpdateProfile(EmployeeDTO employeeDTO);
+
+    /**
+     * Trae la lista de todos los tickets
+     * @return
+     */
+    public String GetAllTickets();
 }
