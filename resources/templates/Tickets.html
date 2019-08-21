@@ -50,6 +50,12 @@
             </ul>
         </div>
     </nav>
+
+    <ul class="nav flex-column bg-dark" style="position:fixed;left:0;margin-top:20%">
+        <li class="nav-item" style="padding:15px;color:white">
+            <a href="#" title="Agregar Ticket"><i class="fas fa-plus fa-2x"></i></a>
+        </li>
+    </ul>
     <div id="CardsContainer" class="CardContainer" style="margin-left:auto;margin-right:auto;margin-top:5%;width:80%;height:700px;overflow-y: auto;">
         <div  th:each="ticket : ${Tickets}" class="card text-white bg-dark mb-3" style="width:100%;">
             <!-- CARD FORMAT -->
