@@ -50,6 +50,55 @@ public class Data implements IData{
     public String GetQuery(String data) {
         return null;
     }
+    
+    /**
+     * Metodo para traer un empleado x nro de empleado
+     *
+     * @param data
+     * @return
+     */
+    @Override
+	public String GetEmployeeByID(String data) {
+    	String result="";
+        //Validacion para asegurar que solo pasa un entero como parametro
+         try {
+            Integer.parseInt(data);
+        }catch (NumberFormatException ex){
+            System.out.println("El numero ingresado no es valido");
+            return null;
+        }
+         //empiezo la conexion y recibo el resultado de la query
+         try {
+             if(connection != null) {
+                 Statement stm = connection.createStatement();
+                 String query="select * from empleado where nroempleado="+data;
+                 ResultSet rst = stm.executeQuery(query);
+                 while(rst.next()) {
+                     result += (rst.getString("NombreCompleto"))+"_";
+                     result += (rst.getString("Telefono"))+"_";
+                     result += (rst.getString("Email"))+"_";
+                     result += (rst.getString("Direccion"))+"_";
+                     result += (rst.getString("FechaNac"))+"_";
+                     result += (Integer.parseInt(data))+"_";
+                     result += (rst.getString("Clave"))+"_";
+                     result += (rst.getString("CodRol"));
+                 }
+             }
+             else {
+                 System.out.println("ConError No se pudo conectar con el sql server");
+             }
+         }catch (Exception ex){
+             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+         }
+         //Si no encontro nada devuelvo null.
+         if((result.isEmpty())) {
+             LogData("ErrorNotFound","No se pudo encontrar el empleado");
+             return null;
+         }
+         //Logeo la informacion de la busqueda, Id de busqueda y resultado
+         LogData("SearchCID","Busqueda empleado por id***Data: "+result);
+         return result;
+	}
 
     /**
      * Metodo para traer un cliente x nro cliente

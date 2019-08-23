@@ -26,7 +26,7 @@ public class EmployeeDTO extends PersonDTO{
 	}
 
 	public EmployeeDTO(){}
-
+	
 	//Getters y Setters
 	public int getEmployeeNumber() {
 		return EmployeeNumber;

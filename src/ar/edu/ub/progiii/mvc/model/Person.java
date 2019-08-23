@@ -36,7 +36,7 @@ public class Person {
 		return FullName;
 	}
 
-	private void setFullName(String fullName) {
+	public void setFullName(String fullName) {
 		FullName = fullName;
 	}
 
@@ -44,7 +44,7 @@ public class Person {
 		return Address;
 	}
 
-	private void setAddress(String address) {
+	public void setAddress(String address) {
 		Address = address;
 	}
 
@@ -52,7 +52,7 @@ public class Person {
 		return PhoneNumber;
 	}
 
-	private void setPhoneNumber(String phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		PhoneNumber = phoneNumber;
 	}
 
@@ -60,7 +60,7 @@ public class Person {
 		return Email;
 	}
 
-	private void setEmail(String email) {
+	public void setEmail(String email) {
 		Email = email;
 	}
 
@@ -68,7 +68,7 @@ public class Person {
 		return DateOfBirth;
 	}
 
-	private void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		DateOfBirth = dateOfBirth;
 	}
 	

@@ -4,7 +4,14 @@ import ar.edu.ub.progiii.mvc.dto.*;
 import ar.edu.ub.progiii.mvc.model.*;
 
 public interface IMapping {
-
+	
+	/**
+     * Mapea la rta del sql a un empleado
+     * @param SQLData
+     * @return
+     */
+	public Employee MapEmployeeSQL(String SQLData);
+	
     /**
      * Mapeo de cliente a dto
      * @param cliente cliente que ingresa
