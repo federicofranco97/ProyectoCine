@@ -22,12 +22,14 @@ public class EmployeeDTO extends PersonDTO{
 		this.Rank = Rank;
 	}
 	
+	public EmployeeDTO(){}
+	
 	//Getters y Setters
 	public int getEmployeeNumber() {
 		return EmployeeNumber;
 	}
 
-	private void setEmployeeNumber(int employeeNumber) {
+	public void setEmployeeNumber(int employeeNumber) {
 		EmployeeNumber = employeeNumber;
 	}
 

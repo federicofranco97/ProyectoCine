@@ -35,8 +35,15 @@ public class MappingTool implements IMapping{
      * @return employee de dto
      */
     @Override
-    public EmployeeDTO MapDTOEmployee(Employee eployee) {
-        return null;
+    public EmployeeDTO MapDTOEmployee(Employee employee) {
+        EmployeeDTO aux = new EmployeeDTO();
+        aux.setAddress(employee.getAddress());
+        aux.setDateOfBirth(employee.getDateOfBirth());
+        aux.setEmail(employee.getEmail());
+        aux.setFullName(employee.getFullName());
+        aux.setPhoneNumber(employee.getPhoneNumber());
+        aux.setEmployeeNumber(employee.getEmployeeNumber());
+        return aux;
     }
 
     /**
@@ -136,6 +143,21 @@ public class MappingTool implements IMapping{
     public FilmDTO MapDTOFilmSQL(String SQLData) {
         return null;
     }
+
+	@Override
+	public Employee MapEmployeeSQL(String SQLData) {
+		String [] aux = SQLData.split("_");
+        Employee Employee;
+        //si ocurre un error en el mapeo vuelve el cliente null
+        try {
+            String [] splitDate = aux[4].split(" ");
+            Employee = new Employee(aux[0],aux[3],aux[1], aux[2],(splitDate[0]),Integer.parseInt(aux[5]), aux[6], aux[7]);
+        }catch (Exception ex){
+            Employee=null;
+            System.out.println("Ocurrio un error en el mapeo");
+        }
+        return Employee;
+	}
 
 
 }
