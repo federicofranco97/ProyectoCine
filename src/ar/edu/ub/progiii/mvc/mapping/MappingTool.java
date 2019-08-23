@@ -35,8 +35,15 @@ public class MappingTool implements IMapping{
      * @return employee de dto
      */
     @Override
-    public EmployeeDTO MapDTOEmployee(Employee eployee) {
-        return null;
+    public EmployeeDTO MapDTOEmployee(Employee employee) {
+        EmployeeDTO aux = new EmployeeDTO();
+        aux.setAddress(employee.getAddress());
+        aux.setDateOfBirth(employee.getDateOfBirth());
+        aux.setEmail(employee.getEmail());
+        aux.setFullName(employee.getFullName());
+        aux.setPhoneNumber(employee.getPhoneNumber());
+        aux.setEmployeeNumber(employee.getEmployeeNumber());
+        return aux;
     }
 
     /**
@@ -137,5 +144,59 @@ public class MappingTool implements IMapping{
         return null;
     }
 
+    /**
+     * Mapea string de sql a employee sql
+     *
+     * @param SQLData
+     * @return
+     */
+    @Override
+    public EmployeeDTO MapDTOEmployeeSQL(String SQLData) {
+        String [] aux = SQLData.split("_");
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        employeeDTO.setFullName(aux[0]);
+        employeeDTO.setPhoneNumber(aux[1]);
+        employeeDTO.setEmail(aux[2]);
+        employeeDTO.setAddress(aux[3]);
+        String [] auxDOB = aux[4].split(" ");
+        employeeDTO.setDateOfBirth(auxDOB[0]);
+        employeeDTO.setEmployeeNumber(Integer.parseInt(aux[5]));
+        employeeDTO.setRank(aux[6]);
+        return employeeDTO;
+    }
+
+    /**
+     * Mapea data proveniente del sql como ticket dto
+     *
+     * @param SQLData
+     * @return
+     */
+    @Override
+    public TicketDTO MapDTOTicketSQL(String SQLData) {
+        String [] aux = SQLData.split("_");
+        TicketDTO ticketDTO = new TicketDTO();
+        ticketDTO.setTicketID(aux[0]);
+        ticketDTO.setTicketTitle(aux[1]);
+        ticketDTO.setTicketAuthor(aux[2]);
+        ticketDTO.setTicketContent(aux[3]);
+        ticketDTO.setTicketDate(aux[4]);
+        ticketDTO.setTicketStatus(aux[5]);
+        return ticketDTO;
+    }
+
+  @Override
+	public Employee MapEmployeeSQL(String SQLData) {
+		String [] aux = SQLData.split("_");
+        Employee Employee;
+        //si ocurre un error en el mapeo vuelve el cliente null
+        try {
+            String [] splitDate = aux[4].split(" ");
+            Employee = new Employee(aux[0],aux[3],aux[1], aux[2],(splitDate[0]),Integer.parseInt(aux[5]), aux[6], aux[7]);
+        }catch (Exception ex){
+            Employee=null;
+            System.out.println("Ocurrio un error en el mapeo");
+        }
+        return Employee;
+	}
 
 }

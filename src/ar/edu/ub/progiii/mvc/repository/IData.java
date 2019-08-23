@@ -1,6 +1,7 @@
 package ar.edu.ub.progiii.mvc.repository;
 
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
+import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 
 import java.sql.Connection;
 
@@ -19,6 +20,13 @@ public interface IData {
      * @return
      */
     public String GetQuery(String data);
+    
+    /**
+     * Metodo para traer un cliente con pass
+     * @param data
+     * @return
+     */
+    public String GetEmployeeByID(String data);
 
     /**
      * Metodo para traer un cliente x nro cliente
@@ -59,4 +67,42 @@ public interface IData {
      * @return
      */
     public String CheckEmployeeCategory(int EmployeeNumber);
+
+    /**
+     * Trae la lista de todos los empleados
+     * @return
+     */
+    public String GetAllEmployees();
+
+    /**
+     * Banear un empleado
+     * @param EmployeeNumber
+     * @return
+     */
+    public int BanEmployee(int EmployeeNumber);
+
+    /**
+     * "Elmina" un empleado del sistema.
+     * @param EmployeeNumber
+     * @return
+     */
+    public int DeleteEmployee(int EmployeeNumber);
+
+    /**
+     * Actualizar perfil
+     * @param employeeDTO
+     */
+    public int UpdateProfile(EmployeeDTO employeeDTO);
+
+    /**
+     * Trae la lista de todos los tickets
+     * @return
+     */
+    public String GetAllTickets();
+
+    /**
+     * Trae solo los tickets activos
+     * @return
+     */
+    public String GetActiveTickets();
 }
