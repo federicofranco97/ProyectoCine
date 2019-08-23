@@ -22,7 +22,7 @@ public class ClientService {
      * @return
      */
     public boolean IsEmployeeAlowed(int EmployeeNumber){
-        if(GetEmployeeCategory(EmployeeNumber)==4)return false;
+        if(GetEmployeeCategory(EmployeeNumber)==4 || GetEmployeeCategory(EmployeeNumber)==5)return false;
         return true;
     }
 
