@@ -9,6 +9,7 @@ public class MenuController {
     @GetMapping("/menu")
     public ModelAndView GetMenu(){
         ModelAndView model = new ModelAndView("menu");
+        model.addObject("modelDisplay",false);
         return model;
     }
 }
