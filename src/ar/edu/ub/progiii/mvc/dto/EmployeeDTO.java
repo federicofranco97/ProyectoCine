@@ -29,7 +29,7 @@ public class EmployeeDTO extends PersonDTO{
 		return EmployeeNumber;
 	}
 
-	private void setEmployeeNumber(int employeeNumber) {
+	public void setEmployeeNumber(int employeeNumber) {
 		EmployeeNumber = employeeNumber;
 	}
 

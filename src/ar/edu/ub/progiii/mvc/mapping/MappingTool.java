@@ -35,8 +35,15 @@ public class MappingTool implements IMapping{
      * @return employee de dto
      */
     @Override
-    public EmployeeDTO MapDTOEmployee(Employee eployee) {
-        return null;
+    public EmployeeDTO MapDTOEmployee(Employee employee) {
+        EmployeeDTO aux = new EmployeeDTO();
+        aux.setAddress(employee.getAddress());
+        aux.setDateOfBirth(employee.getDateOfBirth());
+        aux.setEmail(employee.getEmail());
+        aux.setFullName(employee.getFullName());
+        aux.setPhoneNumber(employee.getPhoneNumber());
+        aux.setEmployeeNumber(employee.getEmployeeNumber());
+        return aux;
     }
 
     /**

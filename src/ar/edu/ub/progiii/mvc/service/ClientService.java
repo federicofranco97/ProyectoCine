@@ -16,7 +16,7 @@ public class ClientService {
 
     Data dataManager = new Data();
     MappingTool mappingTool = new MappingTool();
-    public static EmployeeDTO currentEmployee;  
+    public static EmployeeDTO currentEmployee = new EmployeeDTO();  
 
     /**
      * Metodo booleano que checkea si el empleado que este logeado en la sesion de trabajo
@@ -41,6 +41,7 @@ public class ClientService {
     	Employee Employee = mappingTool.MapEmployeeSQL(response);
     	//Retorna true o false si se cumple la condicion dentro del return
     	if((IsEmployeeAlowed(Integer.parseInt(EmployeeId)) && (Employee.getHashedPassword().equals(EmployeePass)))) {
+    		currentEmployee = mappingTool.MapDTOEmployee(Employee);
     		return true;
     	}
     	return false;
