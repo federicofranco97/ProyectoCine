@@ -22,14 +22,13 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login_sent")
-	public ModelAndView EmployeeLogin(@RequestParam("EmployeeId") String employeeId, @RequestParam("EmployeePass") String employeePass) {
-		try {
-			ModelAndView model = new ModelAndView("Alivio");
-			clientService.verifyEmployeeLogin(employeeId, employeePass);
-			return model;
-		} catch (Exception e) {
-			ModelAndView model = new ModelAndView("error");
+	public ModelAndView EmployeeLogin(@RequestParam("EmployeeId") String employeeId, @RequestParam("EmployeePass") String employeePass) {	
+		ModelAndView model = new ModelAndView("Alivio");
+		boolean aux = clientService.verifyEmployeeLogin(employeeId, employeePass);
+		if(aux) {
 			return model;
 		}
+		ModelAndView modelError = new ModelAndView("error");
+		return modelError;
 	}
 }

@@ -40,7 +40,11 @@ public class ClientService {
     	String response = dataManager.GetEmployeeByID(EmployeeId);
     	Employee Employee = mappingTool.MapEmployeeSQL(response);
     	//Retorna true o false si se cumple la condicion dentro del return
-    	return (IsEmployeeAlowed(Integer.parseInt(EmployeeId)) && (Employee.getHashedPassword().equals(EmployeePass))); 
+    	if((IsEmployeeAlowed(Integer.parseInt(EmployeeId)) && (Employee.getHashedPassword().equals(EmployeePass)))) {
+    		return true;
+    	}
+    	return false;
+    	 
     }
 
     /**
