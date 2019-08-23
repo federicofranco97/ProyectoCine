@@ -6,7 +6,22 @@
 </head>
 <body class="bg-secondary">
 <div th:replace="layout :: menu"></div>
-<div>Insert code here</div>
+<form id="formPass" class="form-group bg-dark" action="" method="post">
+      <div id="title" class="input-group">
+        <h1>Login</h1>
+      </div>
+    <div class="form-group col-md-9">
+    	<label class= "badge badge-dark" for="adminId">ID</label>  
+    	<input id="adminId" class="form-control" type="text" name="adminId" placeholder="Id" autofocus="">
+    </div>
+    <div class="form-group col-md-9">
+    	<label class= "badge badge-dark" for="passAdmin">Pass</label>  
+    	<input id="passAdmin" class="form-control" type="password" name="passAdmin" placeholder="Pass" autofocus="">
+    </div>
+    <div class="form-group col-md-9">
+    	<input type="submit" value="Reembolsar" class="btn btn-secondary"/>
+    </div><br>
+    </form>
 <div th:replace="layout :: footer"></div>
 </body>
 </html>
