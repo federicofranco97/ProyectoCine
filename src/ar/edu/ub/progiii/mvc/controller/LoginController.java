@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.ub.progiii.mvc.service.ClientService;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class LoginController {
@@ -22,13 +23,14 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login_sent")
-	public ModelAndView EmployeeLogin(@RequestParam("EmployeeId") String employeeId, @RequestParam("EmployeePass") String employeePass) {	
-		ModelAndView model = new ModelAndView("Alivio");
+	public ModelAndView EmployeeLogin(@RequestParam("EmployeeId") String employeeId, @RequestParam("EmployeePass") String employeePass) {
+		RedirectView redirectView = new RedirectView("/menu");
+		redirectView.setExposePathVariables(false);
 		boolean aux = clientService.verifyEmployeeLogin(employeeId, employeePass);
 		if(aux) {
-			return model;
+			return new ModelAndView(redirectView);
 		}
-		ModelAndView modelError = new ModelAndView("error");
+ 		ModelAndView modelError = new ModelAndView("error");
 		return modelError;
 	}
 }

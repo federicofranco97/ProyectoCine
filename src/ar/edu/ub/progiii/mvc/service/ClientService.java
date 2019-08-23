@@ -1,9 +1,6 @@
 package ar.edu.ub.progiii.mvc.service;
 
-import ar.edu.ub.progiii.mvc.dto.BookingDTO;
-import ar.edu.ub.progiii.mvc.dto.ClientDTO;
-import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
-import ar.edu.ub.progiii.mvc.dto.FilmDTO;
+import ar.edu.ub.progiii.mvc.dto.*;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.model.Employee;
 import ar.edu.ub.progiii.mvc.repository.Data;

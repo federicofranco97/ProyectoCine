@@ -15,8 +15,11 @@ public class MenuController {
     @GetMapping("/menu")
     public ModelAndView GetMenu(){
         ModelAndView model = new ModelAndView("menu");
-        int employeeCatNum = clientService.GetEmployeeCategory(5);
-        model.addObject("modelDisplay",employeeCatNum==1);
+        if(clientService.currentEmployee.getEmployeeNumber() > 0 ){
+            int employeeCatNum = clientService.GetEmployeeCategory(clientService.currentEmployee.getEmployeeNumber());
+            model.addObject("modelDisplay",employeeCatNum==1);
+        }
+
         return model;
     }
 }
