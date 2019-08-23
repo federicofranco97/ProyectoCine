@@ -2,8 +2,10 @@ package ar.edu.ub.progiii.mvc.service;
 
 import ar.edu.ub.progiii.mvc.dto.BookingDTO;
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
+import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
+import ar.edu.ub.progiii.mvc.model.Employee;
 import ar.edu.ub.progiii.mvc.repository.Data;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ public class ClientService {
 
     Data dataManager = new Data();
     MappingTool mappingTool = new MappingTool();
+    public static EmployeeDTO currentEmployee;  
 
     /**
      * Metodo booleano que checkea si el empleado que este logeado en la sesion de trabajo
@@ -24,6 +27,20 @@ public class ClientService {
     public boolean IsEmployeeAlowed(int EmployeeNumber){
         if(GetEmployeeCategory(EmployeeNumber)==4 || GetEmployeeCategory(EmployeeNumber)==5)return false;
         return true;
+    }
+    
+    /**
+     * Verifica que el empleado exista, valida su clave
+     * y si su rango es valido 
+     * @param EmployeeId
+     * @param EmployeePass
+     * @return
+     */
+    public boolean verifyEmployeeLogin(String EmployeeId, String EmployeePass) {
+    	String response = dataManager.GetEmployeeByID(EmployeeId);
+    	Employee Employee = mappingTool.MapEmployeeSQL(response);
+    	//Retorna true o false si se cumple la condicion dentro del return
+    	return (IsEmployeeAlowed(Integer.parseInt(EmployeeId)) && (Employee.getHashedPassword().equals(EmployeePass))); 
     }
 
     /**

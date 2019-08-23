@@ -19,6 +19,13 @@ public interface IData {
      * @return
      */
     public String GetQuery(String data);
+    
+    /**
+     * Metodo para traer un cliente con pass
+     * @param data
+     * @return
+     */
+    public String GetEmployeeByID(String data);
 
     /**
      * Metodo para traer un cliente x nro cliente

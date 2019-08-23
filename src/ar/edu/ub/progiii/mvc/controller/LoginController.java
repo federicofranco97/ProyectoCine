@@ -23,7 +23,13 @@ public class LoginController {
 	
 	@PostMapping("/login_sent")
 	public ModelAndView EmployeeLogin(@RequestParam("EmployeeId") String employeeId, @RequestParam("EmployeePass") String employeePass) {
-		ModelAndView model = new ModelAndView();
-		return model;
+		try {
+			ModelAndView model = new ModelAndView("Alivio");
+			clientService.verifyEmployeeLogin(employeeId, employeePass);
+			return model;
+		} catch (Exception e) {
+			ModelAndView model = new ModelAndView("error");
+			return model;
+		}
 	}
 }
