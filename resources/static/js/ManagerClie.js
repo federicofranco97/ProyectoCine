@@ -53,7 +53,7 @@ function DeleteClient(Component){
     });
 }
 
-function ReturnToMenu(){
+function ReturnToMenuClient(){
     document.getElementById('btnLimpiar').click();
     window.open("/manage_clients","_self");
 }
