@@ -181,4 +181,16 @@ public class ClientService {
         currentEmployee = new EmployeeDTO();
     }
 
+    /**
+     * Verificar si hay un usuario cargado como current
+     * @return
+     */
+    public boolean IsActiveUser(){
+        if(currentEmployee.getEmployeeNumber()<0 || currentEmployee.getPhoneNumber() == null || currentEmployee.getFullName() == null
+        || currentEmployee.getFullName().equals("") || currentEmployee.getEmail().isEmpty() || currentEmployee.getEmail() == null){
+            return false;
+        }
+        return true;
+    }
+
 }
