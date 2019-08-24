@@ -17,8 +17,6 @@ public class WithdrawController {
 	@GetMapping("/withdraw")
 	public ModelAndView GetView() {
 		ModelAndView model = new ModelAndView("Alivio");
-		//Test de traer un cliente de bd
-		//clientService.GetEmployeeCategory(2);
 		return model;
 	}
 

@@ -173,4 +173,12 @@ public class ClientService {
         }
         return list;
     }
+
+    /**
+     * Limpio el usuario que esta en la sesion.
+     */
+    public void ClearCurrentUser(){
+        currentEmployee = new EmployeeDTO();
+    }
+
 }

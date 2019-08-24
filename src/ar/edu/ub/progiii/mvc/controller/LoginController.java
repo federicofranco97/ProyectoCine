@@ -16,9 +16,10 @@ public class LoginController {
 	@Autowired
 	ClientService clientService;
 	
-	@GetMapping("/login")
+	@GetMapping("/")
 	public ModelAndView GetLoginView() {
 		ModelAndView model = new ModelAndView("login");
+		clientService.ClearCurrentUser();
 		return model;
 	}
 	

@@ -4,48 +4,57 @@
 	<meta charset="UTF-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Menu</title>
-
 </head>
 <body class="bg-secondary">
-<div th:replace="layout :: menu"></div>
 <table id="menuTable" class="table table-striped table-dark">
 	<tbody>
 	<tr>
-		<a href="#">
-
-			<td>Ventas</td>
-			<td><i class="fas fa-arrow-circle-right"></i></td>
+		<td>
+		<a href="/ventas">
+			Ventas
+			<i class="fas fa-arrow-circle-right"></i>
 		</a>
+		</td>
 	</tr>
 	<tr>
-		<a href="#">
-			<td>Alivios</td>
-			<td><i class="fas fa-arrow-circle-right"></i></td>
+		<td>
+		<a href="/withdraw">
+			Alivios
+			<i class="fas fa-arrow-circle-right"></i>
 		</a>
+		</td>
 	</tr>
 	<tr>
-		<a href="#">
-			<td>Clave</td>
-			<td><i class="fas fa-arrow-circle-right"></i></td>
+		<td>
+		<a href="/cambio_clave">
+			Clave
+			<i class="fas fa-arrow-circle-right"></i>
 		</a>
+		</td>
 	</tr>
 	<tr>
-		<a href="#">
-			<td>Reembolso</td>
-			<td><i class="fas fa-arrow-circle-right"></i></td>
+		<td>
+		<a href="/devolucion">
+			Reembolso
+			<i class="fas fa-arrow-circle-right"></i>
 		</a>
+		</td>
 	</tr>
 	<tr th:style="${modelDisplay} ? 'display: table-row' : 'display:none'">
-		<a href="#">
-			<td>Panel administrativo</td>
-			<td><i class="fas fa-arrow-circle-right"></i></td>
+		<td>
+		<a href="/admin_main">
+			Panel administrativo
+			<i class="fas fa-arrow-circle-right"></i>
 		</a>
+		</td>
 	</tr>
 	<tr>
-		<a href="#">
-			<td>Salir</td>
-			<td><i class="fas fa-arrow-circle-right"></i></td>
+		<td>
+		<a href="/">
+			Salir
+			<i class="fas fa-arrow-circle-right"></i>
 		</a>
+		</td>
 	</tr>
 	</tbody>
 </table>
