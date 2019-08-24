@@ -4,9 +4,11 @@ import ar.edu.ub.progiii.mvc.dto.TicketDTO;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Arrays;
 
@@ -38,8 +40,11 @@ public class TicketsController {
 
     @PostMapping("/create_ticket")
     public ModelAndView CreateTicket(TicketDTO ticketDTO){
-        ModelAndView model = new ModelAndView("Menu");
+        RedirectView redirectView = new RedirectView("/tickets");
+        redirectView.setExposePathVariables(false);
         int result = clientService.CreateTicket(ticketDTO);
-        return model;
+        if(result == 1)return new ModelAndView(redirectView);
+        else return new ModelAndView("error");
+
     }
 }
