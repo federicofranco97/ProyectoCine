@@ -47,16 +47,13 @@
                         <a class="dropdown-item" href="/manage_clients">Clientes</a>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/add_ticket" title="Agregar Ticket">Agregar Ticket</a>
+                </li>
             </ul>
         </div>
     </nav>
-
-    <ul class="nav flex-column bg-dark" style="position:fixed;left:0;margin-top:20%">
-        <li class="nav-item" style="padding:15px;color:white">
-            <a href="#" title="Agregar Ticket"><i class="fas fa-plus fa-2x"></i></a>
-        </li>
-    </ul>
-    <div id="CardsContainer" class="CardContainer" style="margin-left:auto;margin-right:auto;margin-top:5%;width:80%;height:700px;overflow-y: auto;">
+    <div id="CardsContainer" class="CardContainer" style="margin-left:auto;margin-right:auto;margin-top:7%;width:80%;height:70vh;overflow-y: auto;">
         <div  th:each="ticket : ${Tickets}" class="card text-white bg-dark mb-3" style="width:100%;">
             <!-- CARD FORMAT -->
             <div class="card-header" style="font-size:30px">
@@ -64,18 +61,14 @@
                 <a href="#" class="btn btn-secondary" style="float:right">Inspeccionar</a>
                 <div  style="width:100%">
                     <h6 class="card-title" th:text="${ticket.getTicketStatus()}"></h6>
-                    <h6 class="card-title" th:text="${ticket.getTicketDate()}"></h6>
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-title" th:text="${ticket.getTicketAuthor()}"></h6>
+                <h6 class="card-title" th:text="${ticket.getTicketAuthor()}"></h6><h6 class="card-title" th:text="${ticket.getTicketDate()}" style="float:right"></h6>
                 <p class="card-text" th:text="${ticket.getTicketContent()}"></p>
             </div>
         </div>
     </div>
-
-
-
     <div th:replace="layout :: footer"></div>
 </body>
 </html>
