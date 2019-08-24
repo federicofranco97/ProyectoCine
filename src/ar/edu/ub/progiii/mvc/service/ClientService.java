@@ -193,4 +193,13 @@ public class ClientService {
         return true;
     }
 
+    /**
+     * agregar el ticket a la base
+     * @param ticketDTO
+     */
+    public int CreateTicket(TicketDTO ticketDTO){
+        int result = dataManager.AddTicket(ticketDTO);
+        return result;
+    }
+
 }
