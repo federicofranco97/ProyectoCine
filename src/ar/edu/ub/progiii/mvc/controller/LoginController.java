@@ -1,5 +1,7 @@
 package ar.edu.ub.progiii.mvc.controller;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +33,8 @@ public class LoginController {
 		if(aux) {
 			return new ModelAndView(redirectView);
 		}
- 		ModelAndView modelError = new ModelAndView("error");
+ 		ModelAndView modelError = new ModelAndView("ErrorPage");
+ 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no pudo ser logueado, redireccionando a login!"));
 		return modelError;
 	}
 }
