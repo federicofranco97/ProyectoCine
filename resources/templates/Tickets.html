@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: header">
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link href="../static/css/Tickets.css"  type="text/css" />
+</head>
+<body class="bg-secondary">
+    <div th:replace="layout :: menu"></div>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="/admin_main">Administrador</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/menu" title="Volver al menu">Menu Principal</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Tickets
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/tickets" >Activos</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/tickets_all">Todos</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Reportes
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/ventas_dia" >Total ventas dia</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/ventas_mes">Total ventas mes</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Administrar
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/manage_employees">Empleados</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/manage_clients">Clientes</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <ul class="nav flex-column bg-dark" style="position:fixed;left:0;margin-top:20%">
+        <li class="nav-item" style="padding:15px;color:white">
+            <a href="#" title="Agregar Ticket"><i class="fas fa-plus fa-2x"></i></a>
+        </li>
+    </ul>
+    <div id="CardsContainer" class="CardContainer" style="margin-left:auto;margin-right:auto;margin-top:5%;width:80%;height:700px;overflow-y: auto;">
+        <div  th:each="ticket : ${Tickets}" class="card text-white bg-dark mb-3" style="width:100%;">
+            <!-- CARD FORMAT -->
+            <div class="card-header" style="font-size:30px">
+                <label th:text="${ticket.getTicketTitle()}"></label>
+                <a href="#" class="btn btn-secondary" style="float:right">Inspeccionar</a>
+                <div  style="width:100%">
+                    <h6 class="card-title" th:text="${ticket.getTicketStatus()}"></h6>
+                    <h6 class="card-title" th:text="${ticket.getTicketDate()}"></h6>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-title" th:text="${ticket.getTicketAuthor()}"></h6>
+                <p class="card-text" th:text="${ticket.getTicketContent()}"></p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div th:replace="layout :: footer"></div>
+</body>
+</html>

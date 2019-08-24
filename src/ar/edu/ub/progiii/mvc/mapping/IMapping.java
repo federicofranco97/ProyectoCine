@@ -88,4 +88,18 @@ public interface IMapping {
      * @return
      */
     public FilmDTO MapDTOFilmSQL(String SQLData);
+
+    /**
+     * Mapea string de sql a employee sql
+     * @param SQLData
+     * @return
+     */
+    public EmployeeDTO MapDTOEmployeeSQL(String SQLData);
+
+    /**
+     * Mapea data proveniente del sql como ticket dto
+     * @param SQLData
+     * @return
+     */
+    public TicketDTO MapDTOTicketSQL(String SQLData);
 }

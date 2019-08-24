@@ -1,9 +1,6 @@
 package ar.edu.ub.progiii.mvc.service;
 
-import ar.edu.ub.progiii.mvc.dto.BookingDTO;
-import ar.edu.ub.progiii.mvc.dto.ClientDTO;
-import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
-import ar.edu.ub.progiii.mvc.dto.FilmDTO;
+import ar.edu.ub.progiii.mvc.dto.*;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.model.Employee;
 import ar.edu.ub.progiii.mvc.repository.Data;
@@ -118,4 +115,70 @@ public class ClientService {
         String response = dataManager.CheckEmployeeCategory(EmployeeNumber);
         return Integer.parseInt(response);
     }
+
+    public ArrayList<EmployeeDTO> GetAllEmployees(){
+        String response = dataManager.GetAllEmployees();
+        ArrayList<EmployeeDTO> list = new ArrayList<>();
+        String [] aux = response.split("/");
+        for (String item : aux) {
+            list.add(mappingTool.MapDTOEmployeeSQL(item));
+        }
+        return list;
+    }
+
+    public int BanEmployee(int EmployeeNumber){
+        int result = dataManager.BanEmployee(EmployeeNumber);
+        return result;
+    }
+
+    public int DeleteEmployee(int EmployeeNumber){
+        int result = dataManager.DeleteEmployee(EmployeeNumber);
+        return result;
+    }
+
+    public EmployeeDTO GetEmployee(int EmployeeNumber){
+        ArrayList<EmployeeDTO> list = GetAllEmployees();
+        for (EmployeeDTO item : list) {
+            if(item.getEmployeeNumber() == EmployeeNumber)return item;
+        }
+        return null;
+    }
+
+    public void UpdateEmployee(EmployeeDTO employee) {
+        ArrayList<EmployeeDTO> list = GetAllEmployees();
+        for (EmployeeDTO emp:list) {
+            if(emp.equals(employee)){
+                emp.setAddress(employee.getAddress());
+                emp.setEmail(employee.getEmail());
+                emp.setPhoneNumber(employee.getPhoneNumber());
+                dataManager.UpdateProfile(emp);
+            }
+        }
+    }
+
+    public ArrayList<TicketDTO> GetAllTickets(){
+        ArrayList<TicketDTO> list = new ArrayList<>();
+        String [] response = dataManager.GetAllTickets().split("/");
+        for (String item: response) {
+            list.add(mappingTool.MapDTOTicketSQL(item));
+        }
+        return list;
+    }
+
+    public ArrayList<TicketDTO> GetActiveTickets(){
+        ArrayList<TicketDTO> list = new ArrayList<>();
+        String [] response = dataManager.GetActiveTickets().split("/");
+        for (String item: response) {
+            list.add(mappingTool.MapDTOTicketSQL(item));
+        }
+        return list;
+    }
+
+    /**
+     * Limpio el usuario que esta en la sesion.
+     */
+    public void ClearCurrentUser(){
+        currentEmployee = new EmployeeDTO();
+    }
+
 }

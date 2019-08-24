@@ -144,7 +144,47 @@ public class MappingTool implements IMapping{
         return null;
     }
 
-	@Override
+    /**
+     * Mapea string de sql a employee sql
+     *
+     * @param SQLData
+     * @return
+     */
+    @Override
+    public EmployeeDTO MapDTOEmployeeSQL(String SQLData) {
+        String [] aux = SQLData.split("_");
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        employeeDTO.setFullName(aux[0]);
+        employeeDTO.setPhoneNumber(aux[1]);
+        employeeDTO.setEmail(aux[2]);
+        employeeDTO.setAddress(aux[3]);
+        String [] auxDOB = aux[4].split(" ");
+        employeeDTO.setDateOfBirth(auxDOB[0]);
+        employeeDTO.setEmployeeNumber(Integer.parseInt(aux[5]));
+        employeeDTO.setRank(aux[6]);
+        return employeeDTO;
+    }
+
+    /**
+     * Mapea data proveniente del sql como ticket dto
+     *
+     * @param SQLData
+     * @return
+     */
+    @Override
+    public TicketDTO MapDTOTicketSQL(String SQLData) {
+        String [] aux = SQLData.split("_");
+        TicketDTO ticketDTO = new TicketDTO();
+        ticketDTO.setTicketID(aux[0]);
+        ticketDTO.setTicketTitle(aux[1]);
+        ticketDTO.setTicketAuthor(aux[2]);
+        ticketDTO.setTicketContent(aux[3]);
+        ticketDTO.setTicketDate(aux[4]);
+        ticketDTO.setTicketStatus(aux[5]);
+        return ticketDTO;
+    }
+
+  @Override
 	public Employee MapEmployeeSQL(String SQLData) {
 		String [] aux = SQLData.split("_");
         Employee Employee;
@@ -158,6 +198,5 @@ public class MappingTool implements IMapping{
         }
         return Employee;
 	}
-
 
 }
