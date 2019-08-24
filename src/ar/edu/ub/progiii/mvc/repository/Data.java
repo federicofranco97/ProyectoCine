@@ -266,7 +266,7 @@ public class Data implements IData{
         try {
             if(connection != null) {
                 Statement stm = connection.createStatement();
-                String query="select Nrocliente,NombreCompleto,Telefono,Email,Direccion,FechaNac from cliente";
+                String query="select c.Nrocliente,c.NombreCompleto,c.Telefono,c.Email,c.Direccion,c.FechaNac from cliente c inner join clientstatus cs on c.NroCliente=cs.Nrocliente where cs.CodRol=1004 or cs.CodRol=1005";
                 ResultSet rst = stm.executeQuery(query);
                 while(rst.next()) {
                     result += (rst.getString("NombreCompleto").trim())+"_";
@@ -536,6 +536,60 @@ public class Data implements IData{
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("CreateTicket","crear ticket "+ticketDTO.getTicketTitle()+"\n"+ticketDTO.getTicketAuthor()+
                 "\n"+ticketDTO.getTicketContent());
+        return result;
+    }
+
+    /**
+     * Banear un cliente de las compras
+     *
+     * @param ClientNumber
+     * @return
+     */
+    @Override
+    public int BanClient(int ClientNumber) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                String query ="update ClientStatus set codrol=1005 where Nrocliente="+ClientNumber;
+                PreparedStatement stm = connection.prepareStatement(query);
+                result = stm.executeUpdate();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("BanClient","Banear estaod de cliente "+ClientNumber);
+        return result;
+    }
+
+    /**
+     * Borrado logico de un cliente.
+     *
+     * @param ClientNumber
+     * @return
+     */
+    @Override
+    public int DeleteClient(int ClientNumber) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                String query ="update ClientStatus set codrol=1006 where Nrocliente="+ClientNumber;
+                PreparedStatement stm = connection.prepareStatement(query);
+                result = stm.executeUpdate();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("DeleteClient","Borrado de cliente "+ClientNumber);
         return result;
     }
 }

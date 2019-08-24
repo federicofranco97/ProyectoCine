@@ -202,4 +202,23 @@ public class ClientService {
         return result;
     }
 
+    /**
+     * Banear cliente en base de datos
+     * @param ClientNumber
+     * @return
+     */
+    public int BanClient(int ClientNumber){
+        int result = dataManager.BanClient(ClientNumber);
+        return result;
+    }
+
+    /**
+     * Borrado logico del cliente
+     * @param ClientNumber
+     * @return
+     */
+    public int DeleteClient(int ClientNumber){
+        int result = dataManager.DeleteClient(ClientNumber);
+        return result;
+    }
 }
