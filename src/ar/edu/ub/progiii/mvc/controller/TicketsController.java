@@ -35,6 +35,7 @@ public class TicketsController {
     @GetMapping("/add_ticket")
     public ModelAndView AddTicket(){
         ModelAndView model = new ModelAndView("TicketAdd");
+        model.addObject("Valor","Hola");
         return model;
     }
 
