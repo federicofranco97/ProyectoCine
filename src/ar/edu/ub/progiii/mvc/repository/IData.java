@@ -2,6 +2,7 @@ package ar.edu.ub.progiii.mvc.repository;
 
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
+import ar.edu.ub.progiii.mvc.dto.TicketDTO;
 
 import java.sql.Connection;
 
@@ -105,4 +106,10 @@ public interface IData {
      * @return
      */
     public String GetActiveTickets();
+
+    /**
+     * Metodo para agregar un ticket a la base de datos
+     * @return
+     */
+    public int AddTicket(TicketDTO ticketDTO);
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: header">
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body class="bg-secondary">
+    <div th:replace="layout :: footer"></div>
+    <script th:inline="javascript">
+         /*<![CDATA[*/
+        var listaContenido = /*[[${Contenido}]]*/ 'default';
+        var p1=(listaContenido[0]);
+        var p2=(listaContenido[1]);
+         /*]]>*/
+         swal({
+              title: p1,
+              text: p2,
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+            setTimeout(function(){ window.open("/","_self"); }, 500);
+
+         });
+</script>
+
+</body>
+
+</html>

@@ -2,6 +2,7 @@ package ar.edu.ub.progiii.mvc.repository;
 
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
+import ar.edu.ub.progiii.mvc.dto.TicketDTO;
 import org.springframework.stereotype.Repository;
 
 
@@ -508,6 +509,33 @@ public class Data implements IData{
             LogData("ErrorNotFound","No se pudo encontrar la tabla");
             return null;
         }
+        return result;
+    }
+
+    /**
+     * Metodo para agregar un ticket a la base de datos
+     *
+     * @return
+     */
+    @Override
+    public int AddTicket(TicketDTO ticketDTO) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                String query = "exec CrearTicket '"+ticketDTO.getTicketTitle()+"', '"+ticketDTO.getTicketAuthor()+"', '"+ticketDTO.getTicketContent()+"' ";
+                PreparedStatement stm = connection.prepareStatement(query);
+                result = stm.executeUpdate();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("CreateTicket","crear ticket "+ticketDTO.getTicketTitle()+"\n"+ticketDTO.getTicketAuthor()+
+                "\n"+ticketDTO.getTicketContent());
         return result;
     }
 }
