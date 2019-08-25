@@ -198,7 +198,7 @@ class DataTest {
 	
 	@Test
 	void GetActiveTicketstest() throws SQLException {
-		String SPsql = "3_#0549_Juan test_Pedido de desbaneo de Damian_2019-08-20 19:41:37.073_Activo/4_#0550_Juan test_Pedido de desbaneo de Marcelo_2019-08-20 20:30:53.91_Activo/5_#0551_Federico Franco_Remover borrado de lucas_2019-08-20 20:42:11.08_Activo/10_Prueba Tutorial_Federico Franco_esto es una prueba para agregar un ticket_2019-08-24 20:27:09.69_Activo/";
+		String SPsql = "3_#0549_Juan test_Pedido de desbaneo de Damian_2019-08-20 19:41:37.073_Activo/4_#0550_Juan test_Pedido de desbaneo de Marcelo_2019-08-20 20:30:53.91_Activo/5_#0551_Federico Franco_Remover borrado de lucas_2019-08-20 20:42:11.08_Activo/10_Prueba Tutorial_Federico Franco_esto es una prueba para agregar un ticket_2019-08-24 20:27:09.69_Activo/11_#t123_diego moran_ticket test_2019-08-25 13:04:37.22_Activo/";
 		String SPsql2 = "2_bambi_180_/2_Terminator 8_138";
 		String result = "";
 		Statement stm = connection.createStatement();
@@ -225,16 +225,16 @@ class DataTest {
 	
 	@Test
 	void AddTickettest() throws SQLException {
-		ticketDTO  = new TicketDTO("te123","diego","12345","132","20191022","ok");
-		dataManager.AddTicket(ticketDTO);
+		ticketDTO  = new TicketDTO("#t123","diego moran","ticket test","132","20191022","ok");
+		//dataManager.AddTicket(ticketDTO);
 		String result = "";
 		Statement stm = connection.createStatement();
-        String query="select id from ticket where id=132 and Content='12345'";
+        String query="select id from tickets where id=11";
         ResultSet rst = stm.executeQuery(query);
         while(rst.next()) {
             result += (rst.getString("id"));
         }
-        assertEquals(result,"132");
+        assertEquals(result,"11");
         assertNotEquals(result,"");
         assertNotEquals(result,null);
 	}

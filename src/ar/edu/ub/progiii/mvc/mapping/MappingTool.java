@@ -141,7 +141,16 @@ public class MappingTool implements IMapping{
      */
     @Override
     public FilmDTO MapDTOFilmSQL(String SQLData) {
-        return null;
+    	String [] aux = SQLData.split("_");
+    	FilmDTO filmDTO;
+    	//si ocurre un error en el mapeo vuelve el cliente null
+    	try {
+            filmDTO = new FilmDTO(aux[1],Integer.parseInt(aux[0]),aux[2], aux[3]);
+        }catch (Exception ex){
+            filmDTO=null;
+            System.out.println("Ocurrio un error en el mapeo");
+        }
+    	return filmDTO;
     }
 
     /**

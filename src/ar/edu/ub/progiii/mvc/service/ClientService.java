@@ -69,7 +69,6 @@ public class ClientService {
         String [] aux = response.split("/");
         ArrayList<FilmDTO> filmList = new ArrayList<>();
         for (String item:aux) {
-            //Falta implementar el mapping tool.
             filmList.add(mappingTool.MapDTOFilmSQL(item));
         }
         return filmList;
