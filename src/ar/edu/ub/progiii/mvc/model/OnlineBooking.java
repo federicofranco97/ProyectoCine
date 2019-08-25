@@ -7,7 +7,7 @@ public class OnlineBooking extends Booking{
 	/**
 	 * Constructor que hereda de Booking
 	 */
-	public OnlineBooking(String bookingCode, Date bookingDate, String movieName, String show, String location,
+	public OnlineBooking(String bookingCode, String bookingDate, String movieName, String show, String location,
 			int theatreNumber, int ticketAmount, int clientNumber, int bookingStatus, int channelCode,
 			double totalValue) {
 		

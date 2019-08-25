@@ -7,7 +7,7 @@ public class OnSiteBookingDTO extends BookingDTO{
 	/**
 	 * Constructor que hereda de BookingDTO 
 	 */
-	public OnSiteBookingDTO(String bookingCode, Date bookingDate, String movieName, String show, String location,
+	public OnSiteBookingDTO(String bookingCode, String bookingDate, String movieName, String show, String location,
 			int theatreNumber, int ticketAmount, int clientNumber, int bookingStatus, int channelCode,
 			double totalValue) {
 		
