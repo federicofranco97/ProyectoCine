@@ -78,13 +78,17 @@ public class ClientService {
      * Busqueda de reserva por id
      * @param id
      */
-    public BookingDTO GetBookingById(String id){
+   /* public BookingDTO GetBookingById(String id){
         BookingDTO bookingDTO = new BookingDTO();
         String response = dataManager.GetBookingById(id);
-        //Falta hacer el mapeo de la response a una booking dto
-        //Falta mapear todos los valores que vengan numericos como el cod sucursal, etc etc.
+        if(response==null){
+            //No se encontro el usuario
+            System.out.println("No se encontro la reserva");
+            return null;
+        }
+        bookingDTO = mappingTool.MapSQLBookingDTO(response);
         return bookingDTO;
-    }
+    }*/
 
     /**
      * Agreagar un nuevo cliente dado de alta en la pagina a la base de datos
