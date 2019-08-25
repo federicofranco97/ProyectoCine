@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class BookingDTO {
 	private String BookingCode;
-	private Date BookingDate;
+	private String BookingDate;
 	private String MovieName;
 	private String Show;
 	private String Location;
@@ -29,7 +29,7 @@ public class BookingDTO {
 	 *@param channelCode representa el numero de canal de donde provino la reserva.
 	 *@param totalValue representa el importe total de la reserva.
 	 */
-	public BookingDTO(String bookingCode, Date bookingDate, String movieName, String show, String location,
+	public BookingDTO(String bookingCode, String bookingDate, String movieName, String show, String location,
 			int theatreNumber, int ticketAmount, int clientNumber, int bookingStatus, int channelCode,double totalValue) {
 		
 		BookingCode = bookingCode;
@@ -59,7 +59,7 @@ public class BookingDTO {
 		return BookingCode;
 	}
 
-	public Date getBookingDate() {
+	public String getBookingDate() {
 		return BookingDate;
 	}
 
@@ -99,7 +99,7 @@ public class BookingDTO {
 		BookingCode = bookingCode;
 	}
 
-	private void setBookingDate(Date bookingDate) {
+	private void setBookingDate(String bookingDate) {
 		BookingDate = bookingDate;
 	}
 
