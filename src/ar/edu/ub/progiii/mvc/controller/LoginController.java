@@ -1,5 +1,7 @@
 package ar.edu.ub.progiii.mvc.controller;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.ub.progiii.mvc.repository.Connection;
+import ar.edu.ub.progiii.mvc.repository.Data;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -17,10 +21,12 @@ public class LoginController {
 	
 	@Autowired
 	ClientService clientService;
+	Data data = new Data();
+	Connection connection = new Connection();
 	
 	@GetMapping("/")
 	public ModelAndView GetLoginView() {
-		ModelAndView model = new ModelAndView("login");
+		ModelAndView model = new ModelAndView("login"); 
 		clientService.ClearCurrentUser();
 		return model;
 	}
