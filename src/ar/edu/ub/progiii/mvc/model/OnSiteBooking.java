@@ -7,7 +7,7 @@ public class OnSiteBooking extends Booking{
 	/**
 	 * Constructor que hereda de Booking
 	 */
-	public OnSiteBooking(String bookingCode, Date bookingDate, String movieName, String show, String location,
+	public OnSiteBooking(String bookingCode, String bookingDate, String movieName, String show, String location,
 			int theatreNumber, int ticketAmount, int clientNumber, int bookingStatus, int channelCode,
 			double totalValue) {
 		
