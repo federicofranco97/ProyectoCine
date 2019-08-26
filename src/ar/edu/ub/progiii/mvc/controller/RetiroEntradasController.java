@@ -9,7 +9,7 @@ public class RetiroEntradasController {
 
     @GetMapping("/retiroentradas")
     public ModelAndView GetRetiroEntradas(){
-        ModelAndView model = new ModelAndView("retiroentradas");
+        ModelAndView model = new ModelAndView("RetiroEntradas");
         return model;
     }
 }
