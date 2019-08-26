@@ -30,12 +30,6 @@ public class LoginController {
 	@GetMapping("/")
 	public ModelAndView GetLoginView() {
 		ModelAndView model = new ModelAndView("login");
-		 System.out.println(data.GetBookingById("2"));
-		 String [] aux = data.GetBookingById("2").split("_");
-		 for (String string : aux) {
-			System.out.println(string);
-		}
-		map.MapSQLBookingDTO(data.GetBookingById("2"));
 		clientService.ClearCurrentUser();
 		return model;
 	}

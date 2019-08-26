@@ -2,6 +2,8 @@ package ar.edu.ub.progiii.mvc.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -115,6 +117,13 @@ class ClientServiceTest {
 		}
 		assertEquals(numbers,"23456");
 		assertNotNull(clientService.GetAllClients());
+		assertTrue(clientService.GetAllClients() instanceof ArrayList);
+	}
+	
+	@Test
+	void BanEmployeetest() {
+		assertEquals(clientService.BanEmployee(6),1);
+		assertEquals(clientService.BanEmployee(100),0);
 	}
 	
 	

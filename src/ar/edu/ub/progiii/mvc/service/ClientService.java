@@ -123,6 +123,10 @@ public class ClientService {
         return Integer.parseInt(response);
     }
 
+    /**
+     * Trae todos los empleados que esten activos
+     * @return arrayList EmployeeDTO
+     */
     public ArrayList<EmployeeDTO> GetAllEmployees(){
         String response = dataManager.GetAllEmployees();
         ArrayList<EmployeeDTO> list = new ArrayList<>();
@@ -133,6 +137,10 @@ public class ClientService {
         return list;
     }
 
+    /**
+     * Banea a un empleado por id
+     * @return int result
+     */
     public int BanEmployee(int EmployeeNumber){
         int result = dataManager.BanEmployee(EmployeeNumber);
         return result;
