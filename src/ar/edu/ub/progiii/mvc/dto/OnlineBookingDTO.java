@@ -13,6 +13,6 @@ public class OnlineBookingDTO extends BookingDTO{
 		
 		super(bookingCode, bookingDate, movieName, show, location, theatreNumber, ticketAmount, clientNumber, bookingStatus,
 				channelCode, totalValue);
-		
+
 	}
 }
