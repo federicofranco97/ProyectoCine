@@ -234,15 +234,15 @@ public class Data implements IData{
      * @return
      */
     @Override
-    public String PostNewClient(ClientDTO data) {
-        String result="";
+    public boolean PostNewClient(ClientDTO data) {
+        boolean result=false;
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
                 String query="insert into Cliente (NombreCompleto,Telefono,Email,Direccion,FechaNac) " +
                         " values ('"+data.getFullName()+"','"+data.getPhoneNumber()+"','"+data.getEmail()+"','"+data.getAddress()+"','"+data.getDateOfBirth()+"')";
                 PreparedStatement stm = connection.prepareStatement(query);
-                boolean rst = stm.execute();
+                result = stm.execute();
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
