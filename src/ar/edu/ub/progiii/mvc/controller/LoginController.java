@@ -18,6 +18,8 @@ import ar.edu.ub.progiii.mvc.repository.Data;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Arrays;
+
 @Controller
 public class LoginController {
 	

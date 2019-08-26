@@ -45,7 +45,9 @@ public class TicketsController {
         redirectView.setExposePathVariables(false);
         int result = clientService.CreateTicket(ticketDTO);
         if(result == 1)return new ModelAndView(redirectView);
-        else return new ModelAndView("error");
-
+        ModelAndView model = new ModelAndView("ErrorPage");
+        model.addObject("Content",Arrays.asList("Error al crear Ticket","Ocurrio un error al crear el " +
+                    "ticket, por facor consulte con un supervisor"));
+        return model;
     }
 }

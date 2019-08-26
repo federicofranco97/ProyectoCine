@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Arrays;
+
 @Controller
 public class ManagerController {
 
@@ -72,5 +74,40 @@ public class ManagerController {
         RedirectView redirectView = new RedirectView("/manage_employees");
         redirectView.setExposePathVariables(false);
         return new ModelAndView(redirectView);
+    }
+
+     @GetMapping("/manage_clients")
+    public ModelAndView GetClients(){
+        ModelAndView model = new ModelAndView("ManagerClients");
+        model.addObject("ClientList",clientService.GetAllClients());
+        return model;
+    }
+
+    @GetMapping("/ban_client")
+    public ModelAndView BanClient(@RequestParam("clientid")int ClientNumber){
+        int result = clientService.BanClient(ClientNumber);
+        if(result == 1 ){
+            RedirectView redirectView = new RedirectView("/manage_clients");
+            redirectView.setExposePathVariables(false);
+            return new ModelAndView(redirectView);
+        }else{
+            ModelAndView model = new ModelAndView("ErrorPage");
+            model.addObject("Content", Arrays.asList("Error","Ocurrio un error al Banear el cliente"));
+            return model;
+        }
+    }
+
+    @GetMapping("/delete_client")
+    public ModelAndView DeleteClient(@RequestParam("clientid")int ClientNumber){
+        int result = clientService.DeleteClient(ClientNumber);
+        if(result == 1 ){
+            RedirectView redirectView = new RedirectView("/manage_clients");
+            redirectView.setExposePathVariables(false);
+            return new ModelAndView(redirectView);
+        }else{
+            ModelAndView model = new ModelAndView("ErrorPage");
+            model.addObject("Content", Arrays.asList("Error","Ocurrio un error al borrar el cliente"));
+            return model;
+        }
     }
 }

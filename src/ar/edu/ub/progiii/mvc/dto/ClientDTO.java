@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class ClientDTO extends PersonDTO{
 	private int ClientNumber;
+	private String ClientStatus;
 
 	/**
 	 * Constructor
@@ -34,4 +35,11 @@ public class ClientDTO extends PersonDTO{
 		ClientNumber = clientNumber;
 	}
 
+	public String getClientStatus() {
+		return ClientStatus;
+	}
+
+	public void setClientStatus(String clientStatus) {
+		ClientStatus = clientStatus;
+	}
 }

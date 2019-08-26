@@ -112,4 +112,18 @@ public interface IData {
      * @return
      */
     public int AddTicket(TicketDTO ticketDTO);
+
+    /**
+     * Banear un cliente de las compras
+     * @param ClientNumber
+     * @return
+     */
+    public int BanClient(int ClientNumber );
+
+    /**
+     * Borrado logico de un cliente.
+     * @param ClientNumber
+     * @return
+     */
+    public int DeleteClient(int ClientNumber);
 }
