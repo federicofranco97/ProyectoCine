@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Arrays;
+
 @Controller
 public class LoginController {
 	
@@ -32,6 +34,7 @@ public class LoginController {
 			return new ModelAndView(redirectView);
 		}
  		ModelAndView modelError = new ModelAndView("ErrorPage");
+		modelError.addObject("Contenido", Arrays.asList("Error","Ocurrio un error al realizar el log in"));
 		return modelError;
 	}
 }
