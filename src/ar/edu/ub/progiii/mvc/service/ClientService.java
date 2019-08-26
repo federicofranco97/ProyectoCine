@@ -155,6 +155,10 @@ public class ClientService {
         return result;
     }
 
+    /**
+     * Traea un empleado por id
+     * @return EmployeeDTO
+     */
     public EmployeeDTO GetEmployee(int EmployeeNumber){
         ArrayList<EmployeeDTO> list = GetAllEmployees();
         for (EmployeeDTO item : list) {
@@ -163,6 +167,9 @@ public class ClientService {
         return null;
     }
 
+    /**
+     * Actualiza un empeado
+     */
     public void UpdateEmployee(EmployeeDTO employee) {
         ArrayList<EmployeeDTO> list = GetAllEmployees();
         for (EmployeeDTO emp:list) {

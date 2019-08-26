@@ -128,9 +128,23 @@ class ClientServiceTest {
 	
 	@Test
 	void DeleteEmployeetest() {
-		assertEquals(clientService.DeleteEmployee(6),1);
+		assertEquals(clientService.DeleteEmployee(5),1);
 		assertEquals(clientService.DeleteEmployee(100),0);
 	}
 	
+	@Test
+	void GetEmployeetest() {
+		assertEquals(clientService.GetEmployee(6).getEmployeeNumber(),6);
+		assertNull(clientService.GetEmployee(100));
+		assertTrue(clientService.GetEmployee(6) instanceof EmployeeDTO);
+	}
 	
+	@Test
+	void UpdateEmployeetest() {
+		employeeDTO = new EmployeeDTO("rick wakem","peru","1530042888","rick@test.com","2001022",8,"5");
+		clientService.UpdateEmployee(employeeDTO);
+		assertEquals(clientService.GetEmployee(8).getAddress(),"peru");
+		assertEquals(clientService.GetEmployee(8).getEmail(),"rick@test.com");
+		assertEquals(clientService.GetEmployee(8).getPhoneNumber(),"1530042888");
+	}
 }
