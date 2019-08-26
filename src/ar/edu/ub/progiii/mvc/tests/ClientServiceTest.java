@@ -78,5 +78,22 @@ class ClientServiceTest {
 		assertEquals(clientService.GetBookingById("2").getBookingCode(),bookingDTO.getBookingCode());
 	}
 	
+	/*@Test
+	void CreateNewClienttest() {
+		clientDto = new ClientDTO("Samanta Wallace","11 de septiembre", "1564760343","sam@hotmail.com","1997-11-08");
+		assertTrue(clientService.CreateNewClient(clientDto));
+		assertNotNull(clientService.CreateNewClient(clientDto));
+	}*/
 	
+	@Test
+	void GetAllClientstest() {
+		String numbers = "";
+		assertEquals(clientService.GetAllClients().size(),5);
+		assertNotEquals(clientService.GetAllClients().size(),3);
+		for (ClientDTO client : clientService.GetAllClients()) {
+			numbers += client.getClientNumber();
+		}
+		assertEquals(numbers,"2351000310005");
+		assertNotNull(clientService.GetAllClients());
+	}
 }
