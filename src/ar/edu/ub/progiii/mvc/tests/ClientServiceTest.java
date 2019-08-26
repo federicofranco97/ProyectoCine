@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.ub.progiii.mvc.dto.BookingDTO;
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
@@ -23,6 +24,7 @@ class ClientServiceTest {
 	TicketDTO ticketDTO;
 	MappingTool mapping;
 	ClientService clientService;
+	BookingDTO bookingDTO;
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -54,6 +56,7 @@ class ClientServiceTest {
 		assertTrue(clientService.GetClientByUID("2") instanceof ClientDTO);
 		assertEquals(clientService.GetClientByUID("10003").getFullName(),clientDto.getFullName());
 	}
+	
 	@Test
 	void GetAllFilmstest() {
 		String nombres = "";
@@ -64,6 +67,15 @@ class ClientServiceTest {
 		}
 		assertEquals(nombres,"BambiTerminator 8");
 		assertNotNull(clientService.GetAllFilms());
+	}
+	
+	@Test
+	void GetBookingByIdtest() {
+	     bookingDTO = new BookingDTO("2", "2019-08-13", "1", "1", "1",1, 3, 2, 2, 1,350.55);
+		assertNotNull(clientService.GetBookingById("2"));
+		assertNull(clientService.GetBookingById("100"));
+		assertTrue(clientService.GetBookingById("2") instanceof BookingDTO);
+		assertEquals(clientService.GetBookingById("2").getBookingCode(),bookingDTO.getBookingCode());
 	}
 	
 	

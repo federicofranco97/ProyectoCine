@@ -78,7 +78,7 @@ public class ClientService {
      * Busqueda de reserva por id
      * @param id
      */
-   /* public BookingDTO GetBookingById(String id){
+    public BookingDTO GetBookingById(String id){
         BookingDTO bookingDTO = new BookingDTO();
         String response = dataManager.GetBookingById(id);
         if(response==null){
@@ -88,7 +88,7 @@ public class ClientService {
         }
         bookingDTO = mappingTool.MapSQLBookingDTO(response);
         return bookingDTO;
-    }*/
+    }
 
     /**
      * Agreagar un nuevo cliente dado de alta en la pagina a la base de datos

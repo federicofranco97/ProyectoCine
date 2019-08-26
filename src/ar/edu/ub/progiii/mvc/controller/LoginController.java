@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
+import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.repository.Connection;
 import ar.edu.ub.progiii.mvc.repository.Data;
 import ar.edu.ub.progiii.mvc.service.ClientService;
@@ -24,10 +25,17 @@ public class LoginController {
 	ClientService clientService;
 	Data data = new Data();
 	Connection connection = new Connection();
+	MappingTool map = new MappingTool();
 	
 	@GetMapping("/")
 	public ModelAndView GetLoginView() {
 		ModelAndView model = new ModelAndView("login");
+		 System.out.println(data.GetBookingById("2"));
+		 String [] aux = data.GetBookingById("2").split("_");
+		 for (String string : aux) {
+			System.out.println(string);
+		}
+		map.MapSQLBookingDTO(data.GetBookingById("2"));
 		clientService.ClearCurrentUser();
 		return model;
 	}
