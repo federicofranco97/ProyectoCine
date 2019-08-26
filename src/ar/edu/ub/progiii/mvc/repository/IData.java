@@ -54,7 +54,7 @@ public interface IData {
      * @param data
      * @return
      */
-    public String PostNewClient(ClientDTO data);
+    public boolean PostNewClient(ClientDTO data);
 
     /**
      * Gets list o all clients
