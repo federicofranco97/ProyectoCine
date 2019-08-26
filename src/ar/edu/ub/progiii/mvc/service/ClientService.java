@@ -93,7 +93,7 @@ public class ClientService {
     /**
      * Agreagar un nuevo cliente dado de alta en la pagina a la base de datos
      * @param clientDTO
-     * @return
+     * @return string dataManager
      */
     public String CreateNewClient(ClientDTO clientDTO){
         String response = dataManager.PostNewClient(clientDTO);
@@ -102,7 +102,7 @@ public class ClientService {
 
     /**
      * Get list of all clients
-     * @return
+     * @return arrayList de ClientDTO
      */
     public ArrayList<ClientDTO> GetAllClients(){
         String response = dataManager.GetAllClients();
@@ -114,6 +114,10 @@ public class ClientService {
         return clientList;
     }
 
+    /**
+     * Obtiene la categoria de un empleado
+     * @return int categoria
+     */
     public int GetEmployeeCategory(int EmployeeNumber){
         String response = dataManager.CheckEmployeeCategory(EmployeeNumber);
         return Integer.parseInt(response);

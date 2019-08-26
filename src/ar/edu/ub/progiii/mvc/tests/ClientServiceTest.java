@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import ar.edu.ub.progiii.mvc.dto.BookingDTO;
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
@@ -96,4 +97,11 @@ class ClientServiceTest {
 		assertEquals(numbers,"2351000310005");
 		assertNotNull(clientService.GetAllClients());
 	}
+	
+	/*@Test
+	void GetEmployeeCategorytest() {
+		assertEquals(clientService.GetEmployeeCategory(2),2);
+		assertNull(clientService.GetEmployeeCategory(100));
+		assertNotNull(3);
+	}*/
 }
