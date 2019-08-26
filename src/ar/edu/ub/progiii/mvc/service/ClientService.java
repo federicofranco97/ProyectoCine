@@ -146,6 +146,10 @@ public class ClientService {
         return result;
     }
 
+    /**
+     * Borra a un empleado por id
+     * @return int result
+     */
     public int DeleteEmployee(int EmployeeNumber){
         int result = dataManager.DeleteEmployee(EmployeeNumber);
         return result;

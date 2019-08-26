@@ -126,5 +126,11 @@ class ClientServiceTest {
 		assertEquals(clientService.BanEmployee(100),0);
 	}
 	
+	@Test
+	void DeleteEmployeetest() {
+		assertEquals(clientService.DeleteEmployee(6),1);
+		assertEquals(clientService.DeleteEmployee(100),0);
+	}
+	
 	
 }
