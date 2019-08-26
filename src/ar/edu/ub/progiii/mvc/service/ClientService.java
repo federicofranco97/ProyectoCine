@@ -69,7 +69,6 @@ public class ClientService {
         String [] aux = response.split("/");
         ArrayList<FilmDTO> filmList = new ArrayList<>();
         for (String item:aux) {
-            //Falta implementar el mapping tool.
             filmList.add(mappingTool.MapDTOFilmSQL(item));
         }
         return filmList;
@@ -82,15 +81,19 @@ public class ClientService {
     public BookingDTO GetBookingById(String id){
         BookingDTO bookingDTO = new BookingDTO();
         String response = dataManager.GetBookingById(id);
-        //Falta hacer el mapeo de la response a una booking dto
-        //Falta mapear todos los valores que vengan numericos como el cod sucursal, etc etc.
+        if(response==null){
+            //No se encontro el usuario
+            System.out.println("No se encontro la reserva");
+            return null;
+        }
+        bookingDTO = mappingTool.MapSQLBookingDTO(response);
         return bookingDTO;
     }
 
     /**
      * Agreagar un nuevo cliente dado de alta en la pagina a la base de datos
      * @param clientDTO
-     * @return
+     * @return string dataManager
      */
     public boolean CreateNewClient(ClientDTO clientDTO){
         boolean response = dataManager.PostNewClient(clientDTO);
@@ -99,7 +102,7 @@ public class ClientService {
 
     /**
      * Get list of all clients
-     * @return
+     * @return arrayList de ClientDTO
      */
     public ArrayList<ClientDTO> GetAllClients(){
         String response = dataManager.GetAllClients();
@@ -111,11 +114,19 @@ public class ClientService {
         return clientList;
     }
 
+    /**
+     * Obtiene la categoria de un empleado
+     * @return int categoria
+     */
     public int GetEmployeeCategory(int EmployeeNumber){
         String response = dataManager.CheckEmployeeCategory(EmployeeNumber);
         return Integer.parseInt(response);
     }
 
+    /**
+     * Trae todos los empleados que esten activos
+     * @return arrayList EmployeeDTO
+     */
     public ArrayList<EmployeeDTO> GetAllEmployees(){
         String response = dataManager.GetAllEmployees();
         ArrayList<EmployeeDTO> list = new ArrayList<>();
@@ -126,16 +137,28 @@ public class ClientService {
         return list;
     }
 
+    /**
+     * Banea a un empleado por id
+     * @return int result
+     */
     public int BanEmployee(int EmployeeNumber){
         int result = dataManager.BanEmployee(EmployeeNumber);
         return result;
     }
 
+    /**
+     * Borra a un empleado por id
+     * @return int result
+     */
     public int DeleteEmployee(int EmployeeNumber){
         int result = dataManager.DeleteEmployee(EmployeeNumber);
         return result;
     }
 
+    /**
+     * Traea un empleado por id
+     * @return EmployeeDTO
+     */
     public EmployeeDTO GetEmployee(int EmployeeNumber){
         ArrayList<EmployeeDTO> list = GetAllEmployees();
         for (EmployeeDTO item : list) {
@@ -144,6 +167,9 @@ public class ClientService {
         return null;
     }
 
+    /**
+     * Actualiza un empeado
+     */
     public void UpdateEmployee(EmployeeDTO employee) {
         ArrayList<EmployeeDTO> list = GetAllEmployees();
         for (EmployeeDTO emp:list) {

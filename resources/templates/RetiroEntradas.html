@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: header">
+    <meta charset="UTF-8"/>
+    <title>Retiro de entradas</title>
+</head>
+<body class="bg-secondary">
+    <div th:replace="layout :: menu"></div>
+    <div class="center" style="margin-top: 7%;">
+        <h4 style="margin: auto; text-align: center; font-size: 50px">Retiro de entradas</h4>
+    </div>
+    <div class="center">
+        <span class="badge badge-dark">Código de reserva</span>
+    </div>
+    <div style="width: 50%;" class="input-group mb-3 center">
+
+    <input type="number" id="inputCode" class="form-control" placeholder="Código" />
+    </div>
+    <div>
+        <table id="tableDesign" class="table table-striped table-dark">
+            <thead id="thDesign">
+            <tr>
+                <th scope="col">Entrada</th>
+                <th scope="col">Pelicula</th>
+                <th scope="col">Función</th>
+                <th scope="col">Complejo</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+
+                <td>NR123</td>
+                <td>Ghost world</td>
+                <td>21/08 15hs</td>
+                <td>Caballito</td>
+
+            </tr>
+            <tr>
+                <td>NR124</td>
+                <td>Godzilla </td>
+                <td>21/08 16hs</td>
+                <td>Palermo</td>
+            </tr>
+
+            </tbody>
+    </table>
+    </div>
+    <div class="center">
+        <button type="button" onclick="BringBooking()" class="btn btn-secondary btn-dark"><i class="fas fa-print"></i> Validar</button>
+        <button type="button" class="btn btn-secondary btn-dark"><i class="fas fa-door-open"></i>  Salir</button>
+
+    </div>
+    <div th:replace="layout :: footer"></div>
+</body>
+</html>

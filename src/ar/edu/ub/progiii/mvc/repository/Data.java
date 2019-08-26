@@ -207,7 +207,8 @@ public class Data implements IData{
                     result += (rst.getString("nrocliente").trim())+"_";
                     result += (rst.getString("codestadoreserva").trim())+"_";
                     result += (rst.getString("codcanal").trim())+"_";
-                    result += (rst.getString("codsucursal").trim())+"/";
+                    result += (rst.getString("codsucursal").trim())+"_";
+                    result += (rst.getString("PrecioTotal").trim())+"/";
                 }
             }
             else {
