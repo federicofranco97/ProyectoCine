@@ -92,8 +92,8 @@ public class ClientService {
      * @param clientDTO
      * @return
      */
-    public String CreateNewClient(ClientDTO clientDTO){
-        String response = dataManager.PostNewClient(clientDTO);
+    public boolean CreateNewClient(ClientDTO clientDTO){
+        boolean response = dataManager.PostNewClient(clientDTO);
         return response;
     }
 
