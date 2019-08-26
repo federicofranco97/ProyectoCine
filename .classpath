@@ -46,5 +46,7 @@
 	<classpathentry kind="lib" path="libs/unbescape-1.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="libs/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Administrator/Downloads/sqljdbc_6.0/esn/jre8/sqljdbc42.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/Facu/springboot-workspace/ProyectoCine/libs/junit-jupiter-5.5.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
