@@ -104,4 +104,18 @@ class ClientServiceTest {
 		assertNull(clientService.GetEmployeeCategory(100));
 		assertNotNull(3);
 	}*/
+	
+	@Test
+	void GetAllEmployeestest() {
+		String numbers = "";
+		assertEquals(clientService.GetAllEmployees().size(),5);
+		assertNotEquals(clientService.GetAllEmployees().size(),3);
+		for (EmployeeDTO employee : clientService.GetAllEmployees()) {
+			numbers += employee.getEmployeeNumber();
+		}
+		assertEquals(numbers,"23456");
+		assertNotNull(clientService.GetAllClients());
+	}
+	
+	
 }
