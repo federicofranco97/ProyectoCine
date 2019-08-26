@@ -31,7 +31,7 @@ public class LoginController {
 		if(aux) {
 			return new ModelAndView(redirectView);
 		}
- 		ModelAndView modelError = new ModelAndView("error");
+ 		ModelAndView modelError = new ModelAndView("ErrorPage");
 		return modelError;
 	}
 }
