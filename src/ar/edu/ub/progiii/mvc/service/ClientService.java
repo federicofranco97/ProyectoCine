@@ -230,6 +230,7 @@ public class ClientService {
     /**
      * agregar el ticket a la base
      * @param ticketDTO
+     * @return int result
      */
     public int CreateTicket(TicketDTO ticketDTO){
         int result = dataManager.AddTicket(ticketDTO);

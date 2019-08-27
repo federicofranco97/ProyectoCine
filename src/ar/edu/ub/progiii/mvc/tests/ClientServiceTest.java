@@ -193,6 +193,21 @@ class ClientServiceTest {
 		assertTrue(clientService.IsActiveUser());
 	}
 	
-	
-	
+	@Test
+	void CreateTickettest() {
+		boolean result = false;
+		TicketDTO ticket = new TicketDTO();
+		ticket.setTicketAuthor("diego");
+		ticket.setTicketContent("testing");
+		ticket.setTicketDate("20190820");
+		ticket.setTicketStatus("activo");
+		ticket.setTicketTitle("test");
+		assertEquals(clientService.CreateTicket(ticket), 1);
+		for (TicketDTO tickets : clientService.GetAllTickets()) {
+			if(tickets.getTicketID().equals("12") && tickets.getTicketAuthor().equalsIgnoreCase("diego")) {
+				result = true;
+			}
+		}
+		assertTrue(result);
+	}
 }
