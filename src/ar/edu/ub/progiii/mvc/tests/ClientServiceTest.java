@@ -29,6 +29,7 @@ class ClientServiceTest {
 	ClientService clientService;
 	BookingDTO bookingDTO;
 	
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		dataManager = new Data();
@@ -184,7 +185,13 @@ class ClientServiceTest {
 		assertEquals(count, 0);
 	}
 	
-	
+	@Test
+	void IsActiveUsertest() {
+		clientService.currentEmployee  = new EmployeeDTO();
+		assertFalse(clientService.IsActiveUser());
+		clientService.currentEmployee  = new  EmployeeDTO("rick wakem","uruguay","1530042277","ricks@test.com","2001022",8,"5");
+		assertTrue(clientService.IsActiveUser());
+	}
 	
 	
 	

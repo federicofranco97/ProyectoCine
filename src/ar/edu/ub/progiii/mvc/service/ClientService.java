@@ -217,7 +217,7 @@ public class ClientService {
 
     /**
      * Verificar si hay un usuario cargado como current
-     * @return
+     * @return boolean
      */
     public boolean IsActiveUser(){
         if(currentEmployee.getEmployeeNumber()<0 || currentEmployee.getPhoneNumber() == null || currentEmployee.getFullName() == null
