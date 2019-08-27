@@ -82,12 +82,12 @@ class ClientServiceTest {
 		assertEquals(clientService.GetBookingById("2").getBookingCode(),bookingDTO.getBookingCode());
 	}
 	
-	/*@Test
+	@Test
 	void CreateNewClienttest() {
 		clientDto = new ClientDTO("Samanta Wallace","11 de septiembre", "1564760343","sam@hotmail.com","1997-11-08");
 		assertTrue(clientService.CreateNewClient(clientDto));
 		assertNotNull(clientService.CreateNewClient(clientDto));
-	}*/
+	}
 	
 	@Test
 	void GetAllClientstest() {
@@ -101,12 +101,12 @@ class ClientServiceTest {
 		assertNotNull(clientService.GetAllClients());
 	}
 	
-	/*@Test
+	@Test
 	void GetEmployeeCategorytest() {
 		assertEquals(clientService.GetEmployeeCategory(2),2);
 		assertNull(clientService.GetEmployeeCategory(100));
 		assertNotNull(3);
-	}*/
+	}
 	
 	@Test
 	void GetAllEmployeestest() {
