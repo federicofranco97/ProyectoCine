@@ -153,5 +153,17 @@ class ClientServiceTest {
 		assertEquals(clientService.GetEmployee(8).getPhoneNumber(),"1530042888");
 	}
 	
+	@Test
+	void GetAllTicketstest() {
+		String numbers = "";
+		assertEquals(clientService.GetAllTickets().size(),11);
+		assertNotEquals(clientService.GetAllTickets().size(),3);
+		for (TicketDTO ticket : clientService.GetAllTickets()) {
+			numbers += ticket.getTicketID();
+		}
+		assertEquals(numbers,"1234567891011");
+		assertNotNull(clientService.GetAllTickets());
+		assertTrue(clientService.GetAllTickets() instanceof ArrayList);
+	}
 	
 }
