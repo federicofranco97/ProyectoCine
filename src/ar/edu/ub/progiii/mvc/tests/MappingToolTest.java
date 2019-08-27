@@ -70,14 +70,14 @@ class MappingToolTest {
             String query="select * from pelicula where id=2";
             ResultSet rst = stm.executeQuery(query);
             while(rst.next()) {
-                result += (rst.getString("NombreCompleto"))+"_";
+                /*result += (rst.getString("NombreCompleto"))+"_";
                 result += (rst.getString("Telefono"))+"_";
                 result += (rst.getString("Email"))+"_";
                 result += (rst.getString("Direccion"))+"_";
                 result += (rst.getString("FechaNac"))+"_";
                 result += (Integer.parseInt(rst.getString("id")))+"_";
                 result += (rst.getString("Clave"))+"_";
-                result += (rst.getString("CodRol"));
+                result += (rst.getString("CodRol"));*/
             }
        }
 		assertEquals(mapping.MapDTOFilmSQL(result).getCode(),2);
@@ -91,6 +91,32 @@ class MappingToolTest {
 		assertTrue(mapping.MapDTOEmployeeSQL(SQLData) instanceof EmployeeDTO);
 	}
 	
+	@Test
+	void MapDTOTicketSQLtest() {
+		String result = "";
+		if(connection != null) {
+            Statement stm = connection.createStatement();
+            //String query="select * from ticket where id=2";
+            ResultSet rst = stm.executeQuery(query);
+            while(rst.next()) {
+                /*result += (rst.getString("NombreCompleto"))+"_";
+                result += (rst.getString("Telefono"))+"_";
+                result += (rst.getString("Email"))+"_";
+                result += (rst.getString("Direccion"))+"_";
+                result += (rst.getString("FechaNac"))+"_";
+                result += (Integer.parseInt(rst.getString("id")))+"_";
+                result += (rst.getString("Clave"))+"_";
+                result += (rst.getString("CodRol"));*/
+            }
+       }
+		assertEquals(mapping.MapDTOTicketSQL(result).getTicketID(),1);
+		assertTrue(mapping.MapDTOTicketSQL(result) instanceof TicketDTO);
+	}
 	
-	
+	@Test
+	void MapEmployeeSQLtest() {
+		String SQLData = dataManager.GetEmployeeByID("2");
+		assertEquals(mapping.MapEmployeeSQL(SQLData).getEmployeeNumber(),2);
+		assertTrue(mapping.MapEmployeeSQL(SQLData) instanceof Employee);
+	}
 }

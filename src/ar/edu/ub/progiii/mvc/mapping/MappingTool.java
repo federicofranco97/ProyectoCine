@@ -175,10 +175,10 @@ public class MappingTool implements IMapping{
     }
 
     /**
-     * Mapea string de sql a employee sql
+     * Mapea string de sql a employee DTO
      *
      * @param SQLData
-     * @return
+     * @return Employee DTO
      */
     @Override
     public EmployeeDTO MapDTOEmployeeSQL(String SQLData) {
@@ -214,6 +214,12 @@ public class MappingTool implements IMapping{
         return ticketDTO;
     }
 
+    /**
+     * Mapea data proveniente del sql como Employee
+     *
+     * @param SQLData
+     * @return Employee
+     */
   @Override
 	public Employee MapEmployeeSQL(String SQLData) {
 		String [] aux = SQLData.split("_");
