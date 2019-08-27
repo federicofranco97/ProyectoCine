@@ -182,6 +182,10 @@ public class ClientService {
         }
     }
 
+    /**
+     * Traea todos los tickets
+     * @return arrayLIst list
+     */
     public ArrayList<TicketDTO> GetAllTickets(){
         ArrayList<TicketDTO> list = new ArrayList<>();
         String [] response = dataManager.GetAllTickets().split("/");
@@ -191,6 +195,10 @@ public class ClientService {
         return list;
     }
 
+    /**
+     * Traea todoslos tickets activos
+     * @return arrayList list
+     */
     public ArrayList<TicketDTO> GetActiveTickets(){
         ArrayList<TicketDTO> list = new ArrayList<>();
         String [] response = dataManager.GetActiveTickets().split("/");
