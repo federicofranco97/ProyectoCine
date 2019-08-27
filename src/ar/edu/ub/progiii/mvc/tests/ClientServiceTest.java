@@ -141,10 +141,17 @@ class ClientServiceTest {
 	
 	@Test
 	void UpdateEmployeetest() {
-		employeeDTO = new EmployeeDTO("rick wakem","peru","1530042888","rick@test.com","2001022",8,"5");
+		employeeDTO = new EmployeeDTO();
+		employeeDTO.setAddress("uruguay");
+		employeeDTO.setEmail("rick@prueba.com");
+		employeeDTO.setPhoneNumber("1530042888");
+		employeeDTO.setFullName("rick wakem");
+		employeeDTO.setDateOfBirth("2000-10-22");
 		clientService.UpdateEmployee(employeeDTO);
-		assertEquals(clientService.GetEmployee(8).getAddress(),"peru");
-		assertEquals(clientService.GetEmployee(8).getEmail(),"rick@test.com");
+		assertEquals(clientService.GetEmployee(8).getAddress(),"uruguay");
+		assertEquals(clientService.GetEmployee(8).getEmail(),"rick@prueba.com");
 		assertEquals(clientService.GetEmployee(8).getPhoneNumber(),"1530042888");
 	}
+	
+	
 }
