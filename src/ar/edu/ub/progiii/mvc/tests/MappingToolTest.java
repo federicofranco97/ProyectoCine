@@ -50,8 +50,8 @@ class MappingToolTest {
 	
 	@Test
 	void MapSQLBookingDTOtest() {
-		String SPsql ="2_1_1_2019-08-13 19:49:18.81_1_3_2_2_1_1/";
-		assertEquals(mapping.MapSQLBookingDTO(SPsql).getTotalValue(),1);
+		String SPsql =dataManager.GetBookingById("2");
+		assertEquals(mapping.MapSQLBookingDTO(SPsql).getTotalValue(),350.55);
 		assertTrue(mapping.MapSQLBookingDTO(SPsql) instanceof BookingDTO);
 	}
 	
@@ -67,17 +67,13 @@ class MappingToolTest {
 		String result = "";
 		if(connection != null) {
             Statement stm = connection.createStatement();
-            String query="select * from pelicula where id=2";
+            String query="select * from pelicula where codPelicula=2";
             ResultSet rst = stm.executeQuery(query);
             while(rst.next()) {
-                /*result += (rst.getString("NombreCompleto"))+"_";
-                result += (rst.getString("Telefono"))+"_";
-                result += (rst.getString("Email"))+"_";
-                result += (rst.getString("Direccion"))+"_";
-                result += (rst.getString("FechaNac"))+"_";
-                result += (Integer.parseInt(rst.getString("id")))+"_";
-                result += (rst.getString("Clave"))+"_";
-                result += (rst.getString("CodRol"));*/
+                result += (rst.getString("NombrePelicula"))+"_";
+                result += (rst.getString("CodPelicula"))+"_";
+                result += (rst.getString("DuracionMinutos"))+"_";
+                result += (rst.getString("Sinopsis"));
             }
        }
 		assertEquals(mapping.MapDTOFilmSQL(result).getCode(),2);
@@ -92,24 +88,22 @@ class MappingToolTest {
 	}
 	
 	@Test
-	void MapDTOTicketSQLtest() {
+	void MapDTOTicketSQLtest() throws SQLException {
 		String result = "";
 		if(connection != null) {
             Statement stm = connection.createStatement();
-            //String query="select * from ticket where id=2";
+            String query="select * from tickets where ID=3";
             ResultSet rst = stm.executeQuery(query);
             while(rst.next()) {
-                /*result += (rst.getString("NombreCompleto"))+"_";
-                result += (rst.getString("Telefono"))+"_";
-                result += (rst.getString("Email"))+"_";
-                result += (rst.getString("Direccion"))+"_";
-                result += (rst.getString("FechaNac"))+"_";
-                result += (Integer.parseInt(rst.getString("id")))+"_";
-                result += (rst.getString("Clave"))+"_";
-                result += (rst.getString("CodRol"));*/
+                result += (rst.getString("ID"))+"_";
+                result += (rst.getString("Title"))+"_";
+                result += (rst.getString("Employee"))+"_";
+                result += (rst.getString("Mensaje"))+"_";
+                result += (rst.getString("Fecha"))+"_";
+                result += (rst.getString("Estado"));
             }
        }
-		assertEquals(mapping.MapDTOTicketSQL(result).getTicketID(),1);
+		assertEquals(mapping.MapDTOTicketSQL(result).getTicketID(),"3");
 		assertTrue(mapping.MapDTOTicketSQL(result) instanceof TicketDTO);
 	}
 	
