@@ -166,4 +166,24 @@ class ClientServiceTest {
 		assertTrue(clientService.GetAllTickets() instanceof ArrayList);
 	}
 	
+	@Test
+	void GetActiveTicketstest() {
+		String numbers = "";
+		int count = 0;
+		assertEquals(clientService.GetActiveTickets().size(),5);
+		assertNotEquals(clientService.GetActiveTickets().size(),3);
+		for (TicketDTO ticketA : clientService.GetActiveTickets()) {
+			if(!ticketA.getTicketStatus().equalsIgnoreCase("activo")) {
+				count += 1;
+			}
+			numbers += ticketA.getTicketID();
+		}
+		assertEquals(numbers,"3451011");
+		assertNotNull(clientService.GetActiveTickets());
+		assertTrue(clientService.GetActiveTickets() instanceof ArrayList);
+		assertEquals(count, 0);
+	}
+	
+	
+	
 }
