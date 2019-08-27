@@ -226,7 +226,7 @@ class DataTest {
 	@Test
 	void AddTickettest() throws SQLException {
 		ticketDTO  = new TicketDTO("#t123","diego moran","ticket test","132","20191022","ok");
-		//dataManager.AddTicket(ticketDTO);
+		dataManager.AddTicket(ticketDTO);
 		String result = "";
 		Statement stm = connection.createStatement();
         String query="select id from tickets where id=11";

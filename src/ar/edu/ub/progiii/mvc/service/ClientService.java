@@ -182,6 +182,10 @@ public class ClientService {
         }
     }
 
+    /**
+     * Traea todos los tickets
+     * @return arrayLIst list
+     */
     public ArrayList<TicketDTO> GetAllTickets(){
         ArrayList<TicketDTO> list = new ArrayList<>();
         String [] response = dataManager.GetAllTickets().split("/");
@@ -191,6 +195,10 @@ public class ClientService {
         return list;
     }
 
+    /**
+     * Traea todoslos tickets activos
+     * @return arrayList list
+     */
     public ArrayList<TicketDTO> GetActiveTickets(){
         ArrayList<TicketDTO> list = new ArrayList<>();
         String [] response = dataManager.GetActiveTickets().split("/");
@@ -209,7 +217,7 @@ public class ClientService {
 
     /**
      * Verificar si hay un usuario cargado como current
-     * @return
+     * @return boolean
      */
     public boolean IsActiveUser(){
         if(currentEmployee.getEmployeeNumber()<0 || currentEmployee.getPhoneNumber() == null || currentEmployee.getFullName() == null
@@ -222,6 +230,7 @@ public class ClientService {
     /**
      * agregar el ticket a la base
      * @param ticketDTO
+     * @return int result
      */
     public int CreateTicket(TicketDTO ticketDTO){
         int result = dataManager.AddTicket(ticketDTO);

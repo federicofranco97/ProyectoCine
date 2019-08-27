@@ -166,7 +166,7 @@ public class MappingTool implements IMapping{
     	FilmDTO filmDTO;
     	//si ocurre un error en el mapeo vuelve el cliente null
     	try {
-            filmDTO = new FilmDTO(aux[1],Integer.parseInt(aux[0]),aux[2], aux[3]);
+            filmDTO = new FilmDTO(aux[0],Integer.parseInt(aux[1]),aux[2], aux[3]);
         }catch (Exception ex){
             filmDTO=null;
             System.out.println("Ocurrio un error en el mapeo");
@@ -175,10 +175,10 @@ public class MappingTool implements IMapping{
     }
 
     /**
-     * Mapea string de sql a employee sql
+     * Mapea string de sql a employee DTO
      *
      * @param SQLData
-     * @return
+     * @return Employee DTO
      */
     @Override
     public EmployeeDTO MapDTOEmployeeSQL(String SQLData) {
@@ -214,6 +214,12 @@ public class MappingTool implements IMapping{
         return ticketDTO;
     }
 
+    /**
+     * Mapea data proveniente del sql como Employee
+     *
+     * @param SQLData
+     * @return Employee
+     */
   @Override
 	public Employee MapEmployeeSQL(String SQLData) {
 		String [] aux = SQLData.split("_");
