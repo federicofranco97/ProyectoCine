@@ -41,5 +41,13 @@ class MappingToolTest {
 		assertEquals(mapping.MapDTOEmployee(employee).getFullName(),employee.getFullName());
 		assertTrue(mapping.MapDTOEmployee(employee) instanceof EmployeeDTO);
 	}
+	
+	@Test
+	void MapSQLBookingDTOtest() {
+		String SPsql ="2_1_1_2019-08-13 19:49:18.81_1_3_2_2_1_1/";
+		assertEquals(mapping.MapSQLBookingDTO(SPsql).getTotalValue(),1);
+		assertTrue(mapping.MapSQLBookingDTO(SPsql) instanceof BookingDTO);
+	}
+	
 
 }
