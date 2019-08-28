@@ -69,7 +69,6 @@ public class ClientService {
         String [] aux = response.split("/");
         ArrayList<FilmDTO> filmList = new ArrayList<>();
         for (String item:aux) {
-            //Falta implementar el mapping tool.
             filmList.add(mappingTool.MapDTOFilmSQL(item));
         }
         return filmList;
@@ -82,24 +81,28 @@ public class ClientService {
     public BookingDTO GetBookingById(String id){
         BookingDTO bookingDTO = new BookingDTO();
         String response = dataManager.GetBookingById(id);
-        //Falta hacer el mapeo de la response a una booking dto
-        //Falta mapear todos los valores que vengan numericos como el cod sucursal, etc etc.
+        if(response==null){
+            //No se encontro el usuario
+            System.out.println("No se encontro la reserva");
+            return null;
+        }
+        bookingDTO = mappingTool.MapSQLBookingDTO(response);
         return bookingDTO;
     }
 
     /**
      * Agreagar un nuevo cliente dado de alta en la pagina a la base de datos
      * @param clientDTO
-     * @return
+     * @return string dataManager
      */
-    public String CreateNewClient(ClientDTO clientDTO){
-        String response = dataManager.PostNewClient(clientDTO);
+    public boolean CreateNewClient(ClientDTO clientDTO){
+        boolean response = dataManager.PostNewClient(clientDTO);
         return response;
     }
 
     /**
      * Get list of all clients
-     * @return
+     * @return arrayList de ClientDTO
      */
     public ArrayList<ClientDTO> GetAllClients(){
         String response = dataManager.GetAllClients();
@@ -111,11 +114,19 @@ public class ClientService {
         return clientList;
     }
 
+    /**
+     * Obtiene la categoria de un empleado
+     * @return int categoria
+     */
     public int GetEmployeeCategory(int EmployeeNumber){
         String response = dataManager.CheckEmployeeCategory(EmployeeNumber);
         return Integer.parseInt(response);
     }
 
+    /**
+     * Trae todos los empleados que esten activos
+     * @return arrayList EmployeeDTO
+     */
     public ArrayList<EmployeeDTO> GetAllEmployees(){
         String response = dataManager.GetAllEmployees();
         ArrayList<EmployeeDTO> list = new ArrayList<>();
@@ -126,16 +137,28 @@ public class ClientService {
         return list;
     }
 
+    /**
+     * Banea a un empleado por id
+     * @return int result
+     */
     public int BanEmployee(int EmployeeNumber){
         int result = dataManager.BanEmployee(EmployeeNumber);
         return result;
     }
 
+    /**
+     * Borra a un empleado por id
+     * @return int result
+     */
     public int DeleteEmployee(int EmployeeNumber){
         int result = dataManager.DeleteEmployee(EmployeeNumber);
         return result;
     }
 
+    /**
+     * Traea un empleado por id
+     * @return EmployeeDTO
+     */
     public EmployeeDTO GetEmployee(int EmployeeNumber){
         ArrayList<EmployeeDTO> list = GetAllEmployees();
         for (EmployeeDTO item : list) {
@@ -144,6 +167,9 @@ public class ClientService {
         return null;
     }
 
+    /**
+     * Actualiza un empeado
+     */
     public void UpdateEmployee(EmployeeDTO employee) {
         ArrayList<EmployeeDTO> list = GetAllEmployees();
         for (EmployeeDTO emp:list) {
@@ -156,6 +182,10 @@ public class ClientService {
         }
     }
 
+    /**
+     * Traea todos los tickets
+     * @return arrayLIst list
+     */
     public ArrayList<TicketDTO> GetAllTickets(){
         ArrayList<TicketDTO> list = new ArrayList<>();
         String [] response = dataManager.GetAllTickets().split("/");
@@ -165,6 +195,10 @@ public class ClientService {
         return list;
     }
 
+    /**
+     * Traea todoslos tickets activos
+     * @return arrayList list
+     */
     public ArrayList<TicketDTO> GetActiveTickets(){
         ArrayList<TicketDTO> list = new ArrayList<>();
         String [] response = dataManager.GetActiveTickets().split("/");
@@ -183,7 +217,7 @@ public class ClientService {
 
     /**
      * Verificar si hay un usuario cargado como current
-     * @return
+     * @return boolean
      */
     public boolean IsActiveUser(){
         if(currentEmployee.getEmployeeNumber()<0 || currentEmployee.getPhoneNumber() == null || currentEmployee.getFullName() == null
@@ -196,10 +230,30 @@ public class ClientService {
     /**
      * agregar el ticket a la base
      * @param ticketDTO
+     * @return int result
      */
     public int CreateTicket(TicketDTO ticketDTO){
         int result = dataManager.AddTicket(ticketDTO);
         return result;
     }
 
+    /**
+     * Banear cliente en base de datos
+     * @param ClientNumber
+     * @return
+     */
+    public int BanClient(int ClientNumber){
+        int result = dataManager.BanClient(ClientNumber);
+        return result;
+    }
+
+    /**
+     * Borrado logico del cliente
+     * @param ClientNumber
+     * @return
+     */
+    public int DeleteClient(int ClientNumber){
+        int result = dataManager.DeleteClient(ClientNumber);
+        return result;
+    }
 }

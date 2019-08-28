@@ -56,6 +56,27 @@ public class MappingTool implements IMapping{
     public Employee MapEmployeeDTO(EmployeeDTO eployeeDTO) {
         return null;
     }
+    
+    /**
+     * Mapea booking a booking dto
+     *
+     * @param string data sql
+     * @return BookingDTO
+     */
+    public BookingDTO MapSQLBookingDTO(String SQLData) {
+    	String [] aux = SQLData.split("_");
+        BookingDTO bookingDTO;
+        //si ocurre un error en el mapeo vuelve el cliente null
+        try {
+            String [] splitDate = aux[3].split(" ");
+            String [] splitTotal = aux[10].split("/");
+            bookingDTO = new BookingDTO(aux[0],(splitDate[0]),aux[1], aux[2],aux[9],Integer.parseInt(aux[4]),Integer.parseInt(aux[5]),Integer.parseInt(aux[6]),Integer.parseInt(aux[7]),Integer.parseInt(aux[8]),Double.parseDouble(splitTotal[0]));
+        }catch (Exception ex){
+            bookingDTO=null;
+            System.out.println("Ocurrio un error en el mapeo");
+        }
+        return bookingDTO;
+    }
 
     /**
      * Mapea booking a booking dto
@@ -141,14 +162,23 @@ public class MappingTool implements IMapping{
      */
     @Override
     public FilmDTO MapDTOFilmSQL(String SQLData) {
-        return null;
+    	String [] aux = SQLData.split("_");
+    	FilmDTO filmDTO;
+    	//si ocurre un error en el mapeo vuelve el cliente null
+    	try {
+            filmDTO = new FilmDTO(aux[0],Integer.parseInt(aux[1]),aux[2], aux[3]);
+        }catch (Exception ex){
+            filmDTO=null;
+            System.out.println("Ocurrio un error en el mapeo");
+        }
+    	return filmDTO;
     }
 
     /**
-     * Mapea string de sql a employee sql
+     * Mapea string de sql a employee DTO
      *
      * @param SQLData
-     * @return
+     * @return Employee DTO
      */
     @Override
     public EmployeeDTO MapDTOEmployeeSQL(String SQLData) {
@@ -184,6 +214,12 @@ public class MappingTool implements IMapping{
         return ticketDTO;
     }
 
+    /**
+     * Mapea data proveniente del sql como Employee
+     *
+     * @param SQLData
+     * @return Employee
+     */
   @Override
 	public Employee MapEmployeeSQL(String SQLData) {
 		String [] aux = SQLData.split("_");
