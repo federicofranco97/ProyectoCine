@@ -4,23 +4,62 @@
         <title>TODO supply a title</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <style>
-            @page{ size: auto;  margin: 0mm; }
-        </style>
     </head>
-    <body class="bg-warning">
-          <div th:replace="layout :: menu"></div>
-          <div th:replace="layout :: footer"></div>
+    <body class="bg-secondary">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+      <a class="navbar-brand" href="/admin_main">Administrador</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/menu" title="Volver al menu">Menu Principal</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Tickets
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/tickets" >Activos</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/tickets_all">Todos</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Reportes
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/ventas_dia" >Total ventas dia</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/ventas_mes">Total ventas mes</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Administrar
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/manage_employees">Empleados</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/manage_clients">Clientes</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div style="margin-top:20vh">
           <!-- Content Row  1-->
           <div class="row" style="width: 90vw;margin-left: auto;margin-right: auto;margin-top:5%">
-            <!-- Dato Empleado-->
+            <!-- Cantidad Empleado-->
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Empleado </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Carlos Test</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Cantidad Empleados</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Activos hoy: <label th:text="${employeeAmount}"></label></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-user-tie fa-2x"></i>
@@ -36,7 +75,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Ventas (Presencial)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><label th:text="${employeeRevDaily}"></label></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -77,7 +116,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Reservas Online</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Impresas: 20</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Impresas: <label th:text="${onlineTickets}"></label></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-wifi fa-2x"></i>
@@ -98,7 +137,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Mas vendida </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Bambi</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><label th:text="${mostViewed.getFilmName()}"></label></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-film fa-2x"></i>
@@ -114,7 +153,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Tarifa Promedio</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$140</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><label th:text="${categoryDay}"></label></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-funnel-dollar fa-2x"></i>
@@ -157,7 +196,7 @@
               </div>
             </div>
           </div>
-          <!-- Content Row 2-->
-          
+    </div>
+    <div th:replace="layout :: footer"></div>
     </body>
 </html>

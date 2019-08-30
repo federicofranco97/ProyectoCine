@@ -2,6 +2,7 @@ package ar.edu.ub.progiii.mvc.repository;
 
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
+import ar.edu.ub.progiii.mvc.dto.FilmDTO;
 import ar.edu.ub.progiii.mvc.dto.TicketDTO;
 import org.springframework.stereotype.Repository;
 
@@ -591,6 +592,205 @@ public class Data implements IData{
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("DeleteClient","Borrado de cliente "+ClientNumber);
+        return result;
+    }
+
+    /**
+     * Trae el total de ventas del dia del empleado
+     *
+     * @param EmployeeNumber
+     * @return
+     */
+    @Override
+    public String GetEmployeeDailySales(int EmployeeNumber) {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                String query = "exec ventasempleado "+EmployeeNumber;
+                Statement stm = connection.createStatement();
+                ResultSet rst = stm.executeQuery(query);
+                while(rst.next()) {
+                    result += (rst.getString("VentasEmpleado").trim());
+                }
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Trae el total de ventas de todo el dia
+     *
+     * @return
+     */
+    @Override
+    public String GetGeneralDailySales() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                String query = "exec ventastotaldia ";
+                Statement stm = connection.createStatement();
+                ResultSet rst = stm.executeQuery(query);
+                while(rst.next()) {
+                    result += (rst.getString("VentasDia").trim());
+                }
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Trae los empleados que estuvieron activos durante el dia
+     *
+     * @return
+     */
+    @Override
+    public String GetEployeesActive() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                String query = "select count(e.nroempleado) as CantidadEmpleados from Empleado e inner join VentaPresencial v " +
+                        "on e.NroEmpleado=v.NroEmpleado inner join Reserva r on v.CodReserva=r.CodReserva " +
+                        "where datediff(day,getdate(),r.fecha)=0";
+                Statement stm = connection.createStatement();
+                ResultSet rst = stm.executeQuery(query);
+                while(rst.next()) {
+                    result += (rst.getString("CantidadEmpleados").trim());
+                }
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Devuelve la cantidad de entradas sacadas por internet en el dia.
+     *
+     * @return
+     */
+    @Override
+    public String GetOnlineBooQuantity() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                String query = "select count(codreserva)  as ReservasOnline from Reserva where codcanal=2 and CodEstadoReserva=3";
+                Statement stm = connection.createStatement();
+                ResultSet rst = stm.executeQuery(query);
+                while(rst.next()) {
+                    result += (rst.getString("ReservasOnline").trim());
+                }
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Trae la pelicula mas comprada en el dia
+     *
+     * @return
+     */
+    @Override
+    public String GetDayMostViewed() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                String query = "exec peliculapromediodia";
+                Statement stm = connection.createStatement();
+                ResultSet rst = stm.executeQuery(query);
+                while(rst.next()) {
+                    result += (rst.getString("CodPelicula").trim())+"_";
+                    result += (rst.getString("NombrePelicula").trim())+"_";
+                    result += (rst.getString("DuracionMinutos").trim())+"_";
+                    result += (rst.getString("Sinopsis").trim());
+                }
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Trae la pelicula mas comprada en el mes
+     *
+     * @return
+     */
+    @Override
+    public String GetMonthMostViewed() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                String query = "exec peliculapromediomes";
+                Statement stm = connection.createStatement();
+                ResultSet rst = stm.executeQuery(query);
+                while(rst.next()) {
+                    result += (rst.getString("CodPelicula").trim())+"_";
+                    result += (rst.getString("NombrePelicula").trim())+"_";
+                    result += (rst.getString("DuracionMinutos").trim())+"_";
+                    result += (rst.getString("Sinopsis").trim());
+                }
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Trae la tarifa promedio del dia
+     *
+     * @return
+     */
+    @Override
+    public String GetCategoryDay() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                String query = "exec tarifapromediodia";
+                Statement stm = connection.createStatement();
+                ResultSet rst = stm.executeQuery(query);
+                while(rst.next()) {
+                    result += (rst.getString("NombreTarifa").trim())+"_";
+                    result += (rst.getString("Precio").trim());
+                }
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
         return result;
     }
 }

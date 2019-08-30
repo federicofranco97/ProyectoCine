@@ -4,6 +4,11 @@ function EditEmployee(Component){
     window.open("/edit_employee?employeeid="+id,"_self");
 }
 
+function GetReport(Component){
+    var id=Component.parentNode.className;
+    window.open("/get_report?employeeid="+id,"_self");
+}
+
 //Ban employee
 function BanEmployee(Component){
     var id=Component.parentNode.className;
