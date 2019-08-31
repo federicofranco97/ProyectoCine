@@ -1,8 +1,65 @@
 package ar.edu.ub.progiii.mvc.repository.querys;
 
-import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
-public class QueryStoredProcedure implements IQueryBuilder {
+public class QueryStoredProcedure implements IQueryBuilder<String> {
+
+    private static final String StatementContant = "EXEC";
+    private String Command;
+    private static ArrayList<String> Parameters = new ArrayList<>();
+
+    public QueryStoredProcedure(String command) {
+        Command = command;
+    }
+
+    public void addParameter(List<String> Parameters){
+        Parameters.addAll(Parameters);
+    }
+
+    public void addParameter(String Parameter){
+        Parameters.add(Parameter);
+    }
+
+    public QueryStoredProcedure(String command, List<String> Parameters) {
+        Command = command;
+        Parameters.addAll(Parameters);
+    }
+
+    public static String getStatementContant() {
+        return StatementContant;
+    }
+
+    public String getCommand() {
+        return Command;
+    }
+
+    public void setCommand(String command) {
+        Command = command;
+    }
+
+    public static ArrayList<String> getParameters() {
+        return Parameters;
+    }
+
+    public static void setParameters(ArrayList<String> parameters) {
+        Parameters = parameters;
+    }
+
+    public String BuildParameters(){
+        String result = "";
+        if(Parameters.size()==0){
+            return "";
+        }
+        for (int i = 0; i < Parameters.size(); i++) {
+            result += Parameters.get(i);
+            if(i == Parameters.size()-1){
+                result += ", ";
+            }
+        }
+        return result;
+    }
+
     /**
      * Metodo para construir querys
      *
@@ -10,7 +67,7 @@ public class QueryStoredProcedure implements IQueryBuilder {
      */
     @Override
     public String Build() {
-        return null;
+        return StatementContant + " "+ Command +" "+BuildParameters();
     }
 
     /**
@@ -19,7 +76,8 @@ public class QueryStoredProcedure implements IQueryBuilder {
      * @return
      */
     @Override
-    public ResultSet Run() {
-        return null;
+    public String Run() {
+        return "";
+
     }
 }

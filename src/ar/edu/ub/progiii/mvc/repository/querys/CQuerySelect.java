@@ -1,7 +1,6 @@
 package ar.edu.ub.progiii.mvc.repository.querys;
 
 import ar.edu.ub.progiii.mvc.repository.Data;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -50,6 +49,9 @@ public class CQuerySelect extends ConditionQueryBuilder {
     @Override
     public String buildConditionString() {
         String result="";
+        if(StatementConditions.size()==0){
+            return "";
+        }
         for (int i=0;i<StatementConditions.size();i++){
             result += StatementConditions.get(i);
             if(i!=StatementConditions.size()-1){
@@ -61,6 +63,9 @@ public class CQuerySelect extends ConditionQueryBuilder {
 
     public String buildParametersString(){
         String result="";
+        if(Parameters.size()==0){
+            return "";
+        }
         for (int i=0;i<Parameters.size();i++){
             result += Parameters.get(i);
             if(i!=Parameters.size()-1){
@@ -85,11 +90,14 @@ public class CQuerySelect extends ConditionQueryBuilder {
      * @return
      */
     @Override
-    public ResultSet Run() throws SQLException {
+    public String Run() throws SQLException {
         String result="";
         Statement stm = Data.connection.createStatement();
         ResultSet rst = stm.executeQuery(Build());
-        return rst;
+        while(rst.next()) {
+            result+=(rst.getString("NombreCompleto"));
+        }
+        return result;
     }
 
     /**
@@ -100,9 +108,7 @@ public class CQuerySelect extends ConditionQueryBuilder {
     public static void main(String[] args) throws SQLException {
         CQuerySelect qr = new CQuerySelect("Empleado", "*");
         qr.addStatementCondition(Arrays.asList("nroempleado > 2 ","nroempleado < 8"));
-        ResultSet result = qr.Run();
-        while(result.next()) {
-            System.out.println(result.getString("NombreCompleto"));
-        }
+        String result = qr.Run();
+
     }
 }

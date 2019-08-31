@@ -3,7 +3,7 @@ package ar.edu.ub.progiii.mvc.repository.querys;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public interface IQueryBuilder {
+public interface IQueryBuilder <T>{
 
     /**
      * Metodo para construir querys
@@ -15,5 +15,6 @@ public interface IQueryBuilder {
      * Metodo para correr querys
      * @return
      */
-    public ResultSet Run() throws SQLException;
+    public T Run() throws SQLException;
+
 }
