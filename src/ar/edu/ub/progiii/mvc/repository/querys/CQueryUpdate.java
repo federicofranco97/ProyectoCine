@@ -2,6 +2,7 @@ package ar.edu.ub.progiii.mvc.repository.querys;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CQueryUpdate extends ConditionQueryBuilder {
     @Override
@@ -16,6 +17,11 @@ public class CQueryUpdate extends ConditionQueryBuilder {
 
     @Override
     public void addStatementCondition(String Condition) {
+
+    }
+
+    @Override
+    public void addStatementCondition(List<String> Conditions) {
 
     }
 

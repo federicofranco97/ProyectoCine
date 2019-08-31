@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class CQuerySelect extends ConditionQueryBuilder {
 
@@ -42,12 +43,17 @@ public class CQuerySelect extends ConditionQueryBuilder {
     }
 
     @Override
+    public void addStatementCondition(List<String> Conditions) {
+        StatementConditions.addAll(Conditions);
+    }
+
+    @Override
     public String buildConditionString() {
         String result="";
         for (int i=0;i<StatementConditions.size();i++){
             result += StatementConditions.get(i);
             if(i!=StatementConditions.size()-1){
-                result += "and";
+                result += " and ";
             }
         }
         return result;
@@ -93,7 +99,7 @@ public class CQuerySelect extends ConditionQueryBuilder {
      */
     public static void main(String[] args) throws SQLException {
         CQuerySelect qr = new CQuerySelect("Empleado", "*");
-        qr.addStatementCondition("nroempleado = 2");
+        qr.addStatementCondition(Arrays.asList("nroempleado > 2 ","nroempleado < 8"));
         ResultSet result = qr.Run();
         while(result.next()) {
             System.out.println(result.getString("NombreCompleto"));
