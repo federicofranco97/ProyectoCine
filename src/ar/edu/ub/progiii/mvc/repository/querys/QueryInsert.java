@@ -1,5 +1,7 @@
 package ar.edu.ub.progiii.mvc.repository.querys;
 
+import java.sql.ResultSet;
+
 public class QueryInsert implements IQueryBuilder {
     /**
      * Metodo para construir querys
@@ -17,7 +19,7 @@ public class QueryInsert implements IQueryBuilder {
      * @return
      */
     @Override
-    public String Run() {
+    public ResultSet Run() {
         return null;
     }
 }

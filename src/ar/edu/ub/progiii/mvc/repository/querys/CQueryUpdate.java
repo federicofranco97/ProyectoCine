@@ -1,5 +1,6 @@
 package ar.edu.ub.progiii.mvc.repository.querys;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class CQueryUpdate extends ConditionQueryBuilder {
@@ -19,7 +20,7 @@ public class CQueryUpdate extends ConditionQueryBuilder {
     }
 
     @Override
-    public String buildConditionString(ArrayList<String> Condtions) {
+    public String buildConditionString() {
         return null;
     }
 
@@ -39,7 +40,7 @@ public class CQueryUpdate extends ConditionQueryBuilder {
      * @return
      */
     @Override
-    public String Run() {
+    public ResultSet Run() {
         return null;
     }
 }

@@ -13,7 +13,7 @@ import java.sql.Connection;
 @Repository
 public class Data implements IData{
 
-    Connection connection = ar.edu.ub.progiii.mvc.repository.Connection.getConnection();
+    public static Connection connection = ar.edu.ub.progiii.mvc.repository.Connection.getConnection();
 
     /**
      * Metodo que logea informacion a la base de datos.

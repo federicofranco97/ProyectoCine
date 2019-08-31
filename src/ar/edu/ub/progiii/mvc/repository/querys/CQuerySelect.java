@@ -1,17 +1,29 @@
 package ar.edu.ub.progiii.mvc.repository.querys;
 
-import javax.swing.plaf.nimbus.State;
+import ar.edu.ub.progiii.mvc.repository.Data;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CQuerySelect extends ConditionQueryBuilder {
 
     private static final String StatementConstant = "Select";
     private static String TableName;
-    private static ArrayList<String> Parameters;
+    private static ArrayList<String> Parameters = new ArrayList<>();
 
     public CQuerySelect(String TableName, ArrayList<String> Parameters) {
         this.TableName = TableName;
         this.Parameters = Parameters;
+        setStatementConditions(new ArrayList<>());
+    }
+
+    public CQuerySelect(String TableName, String Parameter) {
+        this.TableName = TableName;
+        this.Parameters.add(Parameter);
+        setStatementConditions(new ArrayList<>());
     }
 
     @Override
@@ -67,7 +79,24 @@ public class CQuerySelect extends ConditionQueryBuilder {
      * @return
      */
     @Override
-    public String Run() {
-        return null;
+    public ResultSet Run() throws SQLException {
+        String result="";
+        Statement stm = Data.connection.createStatement();
+        ResultSet rst = stm.executeQuery(Build());
+        return rst;
+    }
+
+    /**
+     * Main To test QueryBuilder
+     * @param args
+     * @throws SQLException
+     */
+    public static void main(String[] args) throws SQLException {
+        CQuerySelect qr = new CQuerySelect("Empleado", "*");
+        qr.addStatementCondition("nroempleado = 2");
+        ResultSet result = qr.Run();
+        while(result.next()) {
+            System.out.println(result.getString("NombreCompleto"));
+        }
     }
 }
