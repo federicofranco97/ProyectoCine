@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Arrays;
+
 @Controller
 public class ReportController {
 
@@ -15,6 +17,12 @@ public class ReportController {
     @GetMapping("/ventas_dia")
     public ModelAndView GetReport(){
         ModelAndView model = new ModelAndView("ReportTemplate");
+        if(clientService.ActiveEmployees().equals("0") || clientService.ActiveEmployees()==null){
+            ModelAndView errorModel = new ModelAndView("ErrorPage");
+            errorModel.addObject("Contenido", Arrays.asList("Error","No hay actividad registrada para el este dia,por" +
+                    " favor dirigas cree un ticket si considera que el resultado obtenido es erroneo."));
+            return errorModel;
+        }
         model.addObject("employeeAmount",clientService.ActiveEmployees());
         model.addObject("employeeRevDaily","AR$ "+clientService.DailySales());
         model.addObject("onlineTickets",clientService.AmountOnlineTickets());
