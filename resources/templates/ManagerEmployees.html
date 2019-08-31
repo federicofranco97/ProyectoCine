@@ -61,6 +61,7 @@
             <th>Categoria</th>
             <th>Editar</th>
             <th>Banear</th>
+            <th>Reporte</th>
             <th>Eliminar</th>
             </thead>
             <tbody  id="tablaPrincipal">
@@ -71,9 +72,10 @@
                 <td style="vertical-align: inherit;"  th:text="${empleado.getEmail()}" ></td>
                 <td style="vertical-align: inherit;"  th:text="${empleado.getEmployeeNumber()}"></td>
                 <td style="vertical-align: inherit;"  th:text="${empleado.getRank()}"></td>
-                <td title="Editar Empleado" class="pointer" onclick="EditEmployee(this)"><i class="fas fa-user-edit"></i></td>
-                <td title="Banear Empleado" class="pointer" onclick="BanEmployee(this)"><i class="fas fa-user-lock"></i></td>
-                <td title="Eliminar Empleado" class="pointer" onclick="DeleteEmployee(this)"><i class="fas fa-user-slash"></i></td>
+                <td title="Editar Empleado" class="pointer" onclick="EditEmployee(this)" style="vertical-align: inherit;"><i class="fas fa-user-edit"></i></td>
+                <td title="Banear Empleado" class="pointer" onclick="BanEmployee(this)" style="vertical-align: inherit;"><i class="fas fa-user-lock"></i></td>
+                <td title="Emitir Reporte" class="pointer" onclick="GetReport(this)" style="vertical-align: inherit;"><i class="fas fa-file-invoice-dollar"></i></td>
+                <td title="Eliminar Empleado" class="pointer" onclick="DeleteEmployee(this)" style="vertical-align: inherit;"><i class="fas fa-user-slash"></i></td>
             </tr>
             </tbody>
         </table>
