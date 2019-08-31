@@ -12,5 +12,5 @@ public abstract class ConditionQueryBuilder implements IQueryBuilder{
 
     public abstract void addStatementCondition(String Condition);
 
-    public abstract String buildConditionString(ArrayList<String> Condtions);
+    public abstract String buildConditionString();
 }
