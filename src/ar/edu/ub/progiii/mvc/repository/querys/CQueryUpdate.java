@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ar.edu.ub.progiii.mvc.repository.Data;
@@ -34,17 +35,17 @@ public class CQueryUpdate extends ConditionQueryBuilder {
 
     @Override
     public void setStatementConditions(ArrayList<String> statementConditions) {
-
+    	StatementConditions = statementConditions;
     }
 
     @Override
     public void addStatementCondition(String Condition) {
-
+    	StatementConditions.add(Condition);
     }
 
     @Override
     public void addStatementCondition(List<String> Conditions) {
-
+    	StatementConditions.addAll(Conditions);
     }
 
     /**
