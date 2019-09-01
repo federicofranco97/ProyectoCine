@@ -13,17 +13,17 @@ public class CQueryUpdate extends ConditionQueryBuilder {
 	
 	 private static final String StatementConstant = "update";
 	 private static String TableName;
-	 private static ArrayList<String> ColumnValaue = new ArrayList<>();
+	 private static ArrayList<String> ColumnValue = new ArrayList<>();
 	 
 	public CQueryUpdate(String TableName, ArrayList<String> ColumnValue) {
 		this.TableName = TableName;
-        this.ColumnValaue = ColumnValue;
+        this.ColumnValue = ColumnValue;
         setStatementConditions(new ArrayList<>());
 	}
 	 
 	 public CQueryUpdate(String TableName, String columnValue) {
 		 this.TableName = TableName;
-		 this.ColumnValaue.add(columnValue);
+		 this.ColumnValue.add(columnValue);
 		 setStatementConditions(new ArrayList<>());
 	 }
 	 
@@ -75,12 +75,12 @@ public class CQueryUpdate extends ConditionQueryBuilder {
      */
     public String buildColumnValueString(){
         String result="";
-        if(ColumnValaue.size()==0){
+        if(ColumnValue.size()==0){
             return "";
         }
-        for (int i=0;i<ColumnValaue.size();i++){
-            result += ColumnValaue.get(i);
-            if(i!=ColumnValaue.size()-1){
+        for (int i=0;i<ColumnValue.size();i++){
+            result += ColumnValue.get(i);
+            if(i!=ColumnValue.size()-1){
                 result += ",";
             }
         }
