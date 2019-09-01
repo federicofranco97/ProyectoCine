@@ -109,6 +109,5 @@ public class CQuerySelect extends ConditionQueryBuilder {
         CQuerySelect qr = new CQuerySelect("Empleado", "*");
         qr.addStatementCondition(Arrays.asList("nroempleado > 2 ","nroempleado < 8"));
         String result = qr.Run();
-
     }
 }

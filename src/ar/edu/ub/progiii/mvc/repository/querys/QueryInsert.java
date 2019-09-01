@@ -14,6 +14,34 @@ public class QueryInsert implements IQueryBuilder<Boolean> {
 	private static ArrayList<String> Columns = new ArrayList<>();
 	private static ArrayList<String> Values = new ArrayList<>();
 	
+	public QueryInsert(String TableName, ArrayList<String> Columns, ArrayList<String> Values) {
+		this.TableName = TableName;
+        this.Columns = Columns;
+        this.Values = Values;
+	}
+	
+	public QueryInsert(String TableName, String Column, String Value) {
+		this.TableName = TableName;
+		this.Columns.add(Column);
+		this.Values.add(Value);
+	}
+	
+	public static ArrayList<String> getColumns() {
+		return Columns;
+	}
+
+	public static void setColumns(ArrayList<String> columns) {
+		Columns = columns;
+	}
+
+	public static ArrayList<String> getValues() {
+		return Values;
+	}
+
+	public static void setValues(ArrayList<String> values) {
+		Values = values;
+	}
+
 	/**
      * Metodo para construir la/s Columna/s
      * a ser insertadas
