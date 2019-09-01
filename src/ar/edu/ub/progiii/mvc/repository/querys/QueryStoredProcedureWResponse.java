@@ -82,9 +82,8 @@ public class QueryStoredProcedureWResponse implements IQueryBuilder<ResultSet> {
      */
     @Override
     public ResultSet Run() throws SQLException {
-        String query = "exec tarifapromediodia";
         Statement stm = Data.connection.createStatement();
-        ResultSet rst = stm.executeQuery(query);
+        ResultSet rst = stm.executeQuery(Build());
         return rst;
     }
 }

@@ -90,24 +90,11 @@ public class CQuerySelect extends ConditionQueryBuilder {
      * @return
      */
     @Override
-    public String Run() throws SQLException {
+    public ResultSet Run() throws SQLException {
         String result="";
         Statement stm = Data.connection.createStatement();
         ResultSet rst = stm.executeQuery(Build());
-        while(rst.next()) {
-            result+=(rst.getString("NombreCompleto"));
-        }
-        return result;
+        return rst;
     }
 
-    /**
-     * Main To test QueryBuilder
-     * @param args
-     * @throws SQLException
-     */
-    public static void main(String[] args) throws SQLException {
-        CQuerySelect qr = new CQuerySelect("Empleado", "*");
-        qr.addStatementCondition(Arrays.asList("nroempleado > 2 ","nroempleado < 8"));
-        String result = qr.Run();
-    }
 }
