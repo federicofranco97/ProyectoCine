@@ -4,7 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.repository.Data;
 
 public class QueryInsert implements IQueryBuilder<Boolean> {
@@ -41,6 +43,14 @@ public class QueryInsert implements IQueryBuilder<Boolean> {
 	public static void setValues(ArrayList<String> values) {
 		Values = values;
 	}
+	
+	public void addColumns(String column) {
+        this.Columns.add(column);
+    }
+	
+	public void addValuies(String value) {
+        this.Values.add(value);
+    }
 
 	/**
      * Metodo para construir la/s Columna/s
@@ -50,7 +60,7 @@ public class QueryInsert implements IQueryBuilder<Boolean> {
      */
     public String buildColumnString(){
         String result="";
-        if(Columns.size()==0 || Columns.size() != Values.size()){
+        if(Columns.size()==0){
             return "";
         }
         for (int i=0;i<Columns.size();i++){
@@ -70,7 +80,7 @@ public class QueryInsert implements IQueryBuilder<Boolean> {
      */
     public String buildValueString(){
         String result="";
-        if(Values.size()==0 || Columns.size() != Values.size()){
+        if(Values.size()==0){
             return "";
         }
         for (int i=0;i<Values.size();i++){
@@ -89,7 +99,7 @@ public class QueryInsert implements IQueryBuilder<Boolean> {
      */
     @Override
     public String Build() {
-        return StatementConstant+" "+TableName+" "+"("+buildColumnString()+")"+" "+"("+buildValueString()+")";
+        return StatementConstant+" "+TableName+" "+"("+buildColumnString()+")"+" values ("+buildValueString()+")";
     }
 
     /**
@@ -104,5 +114,13 @@ public class QueryInsert implements IQueryBuilder<Boolean> {
         PreparedStatement stm = Data.connection.prepareStatement(Build());
         result = stm.execute();
         return result;
+    }
+    
+    //prueba de insert
+    public static void main(String[] args) throws SQLException{
+    	ClientDTO data = new ClientDTO("Roberto gomez","lavalle 3435", "43442275","roberto@gmail.com","1997-11-08 00:00:00.0");
+    	QueryInsert qr = new QueryInsert("cliente","NombreCompleto,Telefono,Email,Direccion,FechaNac","'"+data.getFullName()+"','"+data.getPhoneNumber()+"','"+data.getEmail()+"','"+data.getAddress()+"','"+data.getDateOfBirth()+"'");
+    	boolean result = qr.Run().booleanValue();
+    	System.out.println(result);
     }
 }
