@@ -2,17 +2,19 @@ package ar.edu.ub.progiii.mvc.repository.querys;
 
 import ar.edu.ub.progiii.mvc.repository.Data;
 
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueryStoredProcedure implements IQueryBuilder<Integer>  {
+public class QueryStoredProcedureWResponse implements IQueryBuilder<ResultSet> {
+
     private static final String StatementContant = "EXEC";
     private String Command;
     private static ArrayList<String> Parameters = new ArrayList<>();
 
-    public QueryStoredProcedure(String command) {
+    public QueryStoredProcedureWResponse(String command) {
         Command = command;
     }
 
@@ -24,7 +26,7 @@ public class QueryStoredProcedure implements IQueryBuilder<Integer>  {
         Parameters.add(Parameter);
     }
 
-    public QueryStoredProcedure(String command, List<String> Parameters) {
+    public QueryStoredProcedureWResponse(String command, List<String> Parameters) {
         Command = command;
         Parameters.addAll(Parameters);
     }
@@ -72,14 +74,17 @@ public class QueryStoredProcedure implements IQueryBuilder<Integer>  {
     public String Build() {
         return StatementContant + " "+ Command +" "+BuildParameters();
     }
+
     /**
      * Metodo para correr querys
      *
      * @return
      */
     @Override
-    public Integer Run() throws SQLException {
-        PreparedStatement stm = Data.connection.prepareStatement(Build());
-        return stm.executeUpdate();
+    public ResultSet Run() throws SQLException {
+        String query = "exec tarifapromediodia";
+        Statement stm = Data.connection.createStatement();
+        ResultSet rst = stm.executeQuery(query);
+        return rst;
     }
 }
