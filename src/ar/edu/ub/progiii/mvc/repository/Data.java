@@ -4,11 +4,14 @@ import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
 import ar.edu.ub.progiii.mvc.dto.TicketDTO;
+import ar.edu.ub.progiii.mvc.repository.querys.CQuerySelect;
+
 import org.springframework.stereotype.Repository;
 
 
 import java.sql.*;
 import java.sql.Connection;
+import java.util.Arrays;
 
 @Repository
 public class Data implements IData{
@@ -72,9 +75,9 @@ public class Data implements IData{
          //empiezo la conexion y recibo el resultado de la query
          try {
              if(connection != null) {
-                 Statement stm = connection.createStatement();
-                 String query="select * from empleado where nroempleado="+data;
-                 ResultSet rst = stm.executeQuery(query);
+            	 CQuerySelect querySelect = new CQuerySelect("empleado", "*");
+            	 querySelect.addStatementCondition(Arrays.asList("nroempleado="+data));
+            	 ResultSet rst = querySelect.Run();
                  while(rst.next()) {
                      result += (rst.getString("NombreCompleto"))+"_";
                      result += (rst.getString("Telefono"))+"_";
@@ -121,9 +124,9 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
-                String query="select * from cliente where nrocliente="+data;
-                ResultSet rst = stm.executeQuery(query);
+            	CQuerySelect querySelect = new CQuerySelect("cliente", "*");
+            	querySelect.addStatementCondition(Arrays.asList("nrocliente="+data));
+            	ResultSet rst = querySelect.Run();
                 while(rst.next()) {
                     result += (rst.getString("NombreCompleto"))+"_";
                     result += (Integer.parseInt(data))+"_";
@@ -792,5 +795,9 @@ public class Data implements IData{
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         return result;
+    }
+    public static void main(String[] args) throws SQLException{
+    	Data data = new Data();
+    	System.out.println(data.GetClientByUId("2"));
     }
 }
