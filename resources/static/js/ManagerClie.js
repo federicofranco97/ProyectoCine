@@ -1,12 +1,12 @@
-//move to edit client information
+//Declaracion de variables
+var idCliente=Component.parentNode.className;
+//Permite editar la info del cliente
 function EditClient(Component){
-    var id=Component.parentNode.className;
     window.open("/edit_client?clientid="+id,"_self");
 }
 
-//Ban client
+//Banea el cliente
 function BanClient(Component){
-    var id=Component.parentNode.className;
     swal({
           title: "Esta seguro?",
           text: "Luego de banear un cliente solo un administrador puede recuperarlo.",
@@ -19,7 +19,7 @@ function BanClient(Component){
             swal("Cliente baneado!", {
               icon: "warning",
             });
-            setTimeout(function(){ window.open("/ban_client?clientid="+id,"_self"); }, 2000);
+            setTimeout(function(){ window.open("/ban_client?clientid="+idCliente,"_self"); }, 2000);
 
           } else {
             swal("Accion Revertida!", {
@@ -29,9 +29,8 @@ function BanClient(Component){
         });
 }
 
-//delete a client
+//Elimina un cliente
 function DeleteClient(Component){
-    var id=Component.parentNode.className;
     swal({
       title: "Esta seguro?",
       text: "Luego de borrar un cliente solo un administrador puede recuperarlo.",
@@ -44,7 +43,7 @@ function DeleteClient(Component){
         swal("Cliente eliminado!", {
           icon: "success",
         });
-        setTimeout(function(){ window.open("/delete_client?clientid="+id,"_self"); }, 1000);
+        setTimeout(function(){ window.open("/delete_client?clientid="+idCliente,"_self"); }, 1000);
       } else {
         swal("Accion Revertida!", {
             icon: "success",
@@ -52,8 +51,8 @@ function DeleteClient(Component){
       }
     });
 }
-
+//Te devuelve al menu cliente
 function ReturnToMenuClient(){
-    document.getElementById('btnLimpiar').click();
+    document.getElementById("btnLimpiar").click();
     window.open("/manage_clients","_self");
 }
