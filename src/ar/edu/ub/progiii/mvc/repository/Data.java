@@ -197,9 +197,9 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
-                String query="select * from reserva where codreserva='"+data+"'";
-                ResultSet rst = stm.executeQuery(query);
+            	CQuerySelect querySelect = new CQuerySelect("reserva", "*");
+            	querySelect.addStatementCondition(Arrays.asList("codreserva="+data));
+            	ResultSet rst = querySelect.Run();
                 while(rst.next()) {
                     result += (rst.getString("CodReserva").trim())+"_";
                     result += (rst.getString("codpelicula").trim())+"_";
@@ -797,6 +797,6 @@ public class Data implements IData{
     }
     public static void main(String[] args) throws SQLException{
     	Data data = new Data();
-    	System.out.println(data.GetAllFilms());
+    	System.out.println(data.GetBookingById("2"));
     }
 }
