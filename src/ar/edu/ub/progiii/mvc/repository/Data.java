@@ -7,6 +7,7 @@ import ar.edu.ub.progiii.mvc.dto.TicketDTO;
 import ar.edu.ub.progiii.mvc.repository.querys.CQuerySelect;
 import ar.edu.ub.progiii.mvc.repository.querys.QueryStoredProcedure;
 
+import com.sun.javafx.scene.control.TableColumnSortTypeWrapper;
 import org.springframework.stereotype.Repository;
 
 
@@ -14,6 +15,7 @@ import java.sql.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Repository
 public class Data implements IData{
@@ -35,12 +37,41 @@ public class Data implements IData{
         }
     }
 
+    /**
+     * Transforma un resultset en una cadena de texto
+     * @param resultSet
+     * @param ParameterAmount
+     * @return
+     * @throws SQLException
+     */
     private String ParseResultSet(ResultSet resultSet,int ParameterAmount) throws SQLException {
         String result = "";
         while(resultSet.next()){
             for (int i = 1; i < ParameterAmount; i++) {
                 result += resultSet.getString(i);
                 if(i != ParameterAmount-1){
+                    result += "_";
+                }
+            }
+            result += "/";
+        }
+        return result;
+    }
+
+    /**
+     * Transforma el result set en una cadena, acorde a las columnas que piden.
+     * @param resultSet
+     * @param SelectedColumnns
+     * @return
+     * @throws SQLException
+     */
+    private String ParseSpecificResultSet(ResultSet resultSet, ArrayList<String> SelectedColumnns) throws SQLException {
+        String result = "";
+        while(resultSet.next()){
+            for (int i = 1; i < SelectedColumnns.size(); i++) {
+                String ColumnName = SelectedColumnns.get(i);
+                result += resultSet.getString(ColumnName);
+                if(i != SelectedColumnns.size()-1){
                     result += "_";
                 }
             }
