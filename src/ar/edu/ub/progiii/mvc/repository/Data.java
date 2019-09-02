@@ -689,9 +689,9 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                String query = "select count(codreserva)  as ReservasOnline from Reserva where codcanal=2 and CodEstadoReserva=3";
-                Statement stm = connection.createStatement();
-                ResultSet rst = stm.executeQuery(query);
+            	CQuerySelect querySelect = new CQuerySelect("reserva", "count(codreserva)  as ReservasOnline");
+            	querySelect.addStatementCondition(Arrays.asList("codcanal=2","CodEstadoReserva=3"));
+            	ResultSet rst = querySelect.Run();
                 while(rst.next()) {
                     result += (rst.getString("ReservasOnline").trim());
                 }
@@ -794,6 +794,6 @@ public class Data implements IData{
     }
     public static void main(String[] args) throws SQLException{
     	Data data = new Data();
-    	System.out.println(data.GetEployeesActive());
+    	System.out.println(data.GetOnlineBooQuantity());
     }
 }
