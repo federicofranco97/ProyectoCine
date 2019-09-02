@@ -110,17 +110,7 @@ public class QueryInsert implements IQueryBuilder<Boolean> {
      */
     @Override
     public Boolean Run() throws SQLException {
-    	boolean result= false;
-        PreparedStatement stm = Data.connection.prepareStatement(Build());
-        result = stm.execute();
-        return result;
-    }
-    
-    //prueba de insert
-    public static void main(String[] args) throws SQLException{
-    	ClientDTO data = new ClientDTO("Roberto gomez","lavalle 3435", "43442275","roberto@gmail.com","1997-11-08 00:00:00.0");
-    	QueryInsert qr = new QueryInsert("cliente","NombreCompleto,Telefono,Email,Direccion,FechaNac","'"+data.getFullName()+"','"+data.getPhoneNumber()+"','"+data.getEmail()+"','"+data.getAddress()+"','"+data.getDateOfBirth()+"'");
-    	boolean result = qr.Run().booleanValue();
-    	System.out.println(result);
+        PreparedStatement stm = Data.connection.prepareStatement(Build()); 
+        return stm.execute();
     }
 }
