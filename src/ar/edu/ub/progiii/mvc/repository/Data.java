@@ -35,6 +35,20 @@ public class Data implements IData{
         }
     }
 
+    private String ParseResultSet(ResultSet resultSet,int ParameterAmount) throws SQLException {
+        String result = "";
+        while(resultSet.next()){
+            for (int i = 1; i < ParameterAmount; i++) {
+                result += resultSet.getString(i);
+                if(i != ParameterAmount-1){
+                    result += "_";
+                }
+            }
+            result += "/";
+        }
+        return result;
+    }
+
     /**
      * Metodo para traer un empleado x nro de empleado
      *

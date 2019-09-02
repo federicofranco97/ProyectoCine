@@ -9,20 +9,7 @@ import java.sql.Connection;
 
 public interface IData {
 
-    /**
-     * Metodo para hacer un post generico
-     * @param data
-     * @return
-     */
-    public String PostQuery(String data);
 
-    /**
-     * Metodo para hacer un get generico
-     * @param data
-     * @return
-     */
-    public String GetQuery(String data);
-    
     /**
      * Metodo para traer un cliente con pass
      * @param data
