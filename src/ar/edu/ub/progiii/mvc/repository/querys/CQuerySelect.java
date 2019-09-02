@@ -48,7 +48,7 @@ public class CQuerySelect extends ConditionQueryBuilder {
 
     @Override
     public String buildConditionString() {
-        String result="";
+        String result=" where ";
         if(StatementConditions.size()==0){
             return "";
         }
@@ -81,7 +81,7 @@ public class CQuerySelect extends ConditionQueryBuilder {
      */
     @Override
     public String Build() {
-        return StatementConstant+" "+buildParametersString()+" from "+TableName+" where "+buildConditionString();
+        return StatementConstant+" "+buildParametersString()+" from "+TableName+" "+buildConditionString();
     }
 
     /**
@@ -91,7 +91,6 @@ public class CQuerySelect extends ConditionQueryBuilder {
      */
     @Override
     public ResultSet Run() throws SQLException {
-        String result="";
         Statement stm = Data.connection.createStatement();
         ResultSet rst = stm.executeQuery(Build());
         return rst;

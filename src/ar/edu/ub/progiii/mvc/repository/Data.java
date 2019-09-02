@@ -162,9 +162,8 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
-                String query="select * from Pelicula";
-                ResultSet rst = stm.executeQuery(query);
+            	CQuerySelect querySelect = new CQuerySelect("Pelicula", "*");
+            	ResultSet rst = querySelect.Run();
                 while(rst.next()) {
                     result += (rst.getString("CodPelicula").trim())+"_";
                     result += (rst.getString("NombrePelicula").trim())+"_";
@@ -798,6 +797,6 @@ public class Data implements IData{
     }
     public static void main(String[] args) throws SQLException{
     	Data data = new Data();
-    	System.out.println(data.GetClientByUId("2"));
+    	System.out.println(data.GetAllFilms());
     }
 }
