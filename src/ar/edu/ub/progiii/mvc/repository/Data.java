@@ -339,9 +339,9 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
-                String query="select * from empleado where codrol<>5";
-                ResultSet rst = stm.executeQuery(query);
+            	CQuerySelect querySelect = new CQuerySelect("empleado", "*");
+            	querySelect.addStatementCondition(Arrays.asList("codrol<>5"));
+            	ResultSet rst = querySelect.Run();
                 while(rst.next()) {
                     result += (rst.getString("NombreCompleto").trim())+"_";
                     result += (rst.getString("Telefono").trim())+"_";
@@ -797,6 +797,6 @@ public class Data implements IData{
     }
     public static void main(String[] args) throws SQLException{
     	Data data = new Data();
-    	System.out.println(data.CheckEmployeeCategory(2));
+    	System.out.println(data.GetAllEmployees());
     }
 }
