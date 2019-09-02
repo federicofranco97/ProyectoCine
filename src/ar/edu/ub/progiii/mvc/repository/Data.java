@@ -36,29 +36,6 @@ public class Data implements IData{
     }
 
     /**
-     * Metodo para hacer un post generico
-     *
-     * @param data
-     * @return
-     */
-    @Override
-
-    public String PostQuery(String data) {
-        return null;
-    }
-
-    /**
-     * Metodo para hacer un get generico
-     *
-     * @param data
-     * @return
-     */
-    @Override
-    public String GetQuery(String data) {
-        return null;
-    }
-    
-    /**
      * Metodo para traer un empleado x nro de empleado
      *
      * @param data
