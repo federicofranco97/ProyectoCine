@@ -269,9 +269,9 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
-                String query="select c.Nrocliente,c.NombreCompleto,c.Telefono,c.Email,c.Direccion,c.FechaNac from cliente c inner join clientstatus cs on c.NroCliente=cs.Nrocliente where cs.CodRol=1004 or cs.CodRol=1005";
-                ResultSet rst = stm.executeQuery(query);
+            	CQuerySelect querySelect = new CQuerySelect("cliente c inner join clientstatus cs on c.NroCliente=cs.Nrocliente", "c.Nrocliente,c.NombreCompleto,c.Telefono,c.Email,c.Direccion,c.FechaNac");
+            	querySelect.addStatementCondition(Arrays.asList("cs.CodRol=1004 or cs.CodRol=1005"));
+            	ResultSet rst = querySelect.Run();
                 while(rst.next()) {
                     result += (rst.getString("NombreCompleto").trim())+"_";
                     result += (rst.getString("Nrocliente").trim())+"_";
@@ -306,9 +306,12 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
+            	CQuerySelect querySelect = new CQuerySelect("reserva", "*");
+            	querySelect.addStatementCondition(Arrays.asList("codreserva="+data));
+            	ResultSet rst = querySelect.Run();
+                /*Statement stm = connection.createStatement();
                 String query="select CodRol from empleado where nroempleado="+EmployeeNumber;
-                ResultSet rst = stm.executeQuery(query);
+                ResultSet rst = stm.executeQuery(query);*/
                 while(rst.next()) {
                     result += (rst.getString("CodRol")).trim();
                 }
@@ -797,6 +800,6 @@ public class Data implements IData{
     }
     public static void main(String[] args) throws SQLException{
     	Data data = new Data();
-    	System.out.println(data.GetBookingById("2"));
+    	System.out.println(data.GetAllClients());
     }
 }
