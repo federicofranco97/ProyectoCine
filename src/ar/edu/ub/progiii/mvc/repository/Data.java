@@ -489,9 +489,9 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
-                String query="select * from tickets where estado='activo'";
-                ResultSet rst = stm.executeQuery(query);
+            	CQuerySelect querySelect = new CQuerySelect("tickets", "*");
+            	querySelect.addStatementCondition(Arrays.asList("estado='activo'"));
+            	ResultSet rst = querySelect.Run();
                 while(rst.next()) {
                     result += (rst.getString("ID").trim())+"_";
                     result += (rst.getString("Title").trim())+"_";
@@ -796,6 +796,6 @@ public class Data implements IData{
     }
     public static void main(String[] args) throws SQLException{
     	Data data = new Data();
-    	System.out.println(data.GetAllTickets());
+    	System.out.println(data.GetActiveTickets());
     }
 }
