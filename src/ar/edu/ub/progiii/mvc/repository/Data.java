@@ -5,6 +5,7 @@ import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
 import ar.edu.ub.progiii.mvc.dto.TicketDTO;
 import ar.edu.ub.progiii.mvc.repository.querys.CQuerySelect;
+import ar.edu.ub.progiii.mvc.repository.querys.QueryStoredProcedure;
 
 import org.springframework.stereotype.Repository;
 
@@ -792,8 +793,10 @@ public class Data implements IData{
         }
         return result;
     }
+    //Pruebas
     public static void main(String[] args) throws SQLException{
     	Data data = new Data();
-    	System.out.println(data.GetOnlineBooQuantity());
+    	EmployeeDTO e = new EmployeeDTO("rick wakem","uruguay","1530042888","ricks@test.com","2000-10-22 00:00:00.000",8,"2");
+    	System.out.println(data.UpdateProfile(e));
     }
 }
