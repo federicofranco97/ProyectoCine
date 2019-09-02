@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 @Repository
@@ -527,9 +528,8 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                String query = "exec CrearTicket '"+ticketDTO.getTicketTitle()+"', '"+ticketDTO.getTicketAuthor()+"', '"+ticketDTO.getTicketContent()+"' ";
-                PreparedStatement stm = connection.prepareStatement(query);
-                result = stm.executeUpdate();
+            	QueryStoredProcedure QSP = new QueryStoredProcedure("CrearTicket" ,Arrays.asList("'"+ticketDTO.getTicketTitle()+"', '"+ticketDTO.getTicketAuthor()+"', '"+ticketDTO.getTicketContent()+"'"));
+            	result = QSP.Run();
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -796,7 +796,7 @@ public class Data implements IData{
     //Pruebas
     public static void main(String[] args) throws SQLException{
     	Data data = new Data();
-    	EmployeeDTO e = new EmployeeDTO("rick wakem","uruguay","1530042888","ricks@test.com","2000-10-22 00:00:00.000",8,"2");
-    	System.out.println(data.UpdateProfile(e));
+    	TicketDTO ticketDTO  = new TicketDTO("#t123","roberto gomez","ticket test","###132","2019-08-20","activo");
+    	System.out.println(data.AddTicket(ticketDTO));
     }
 }

@@ -58,7 +58,7 @@ public class QueryStoredProcedureWResponse implements IQueryBuilder<ResultSet> {
         }
         for (int i = 0; i < Parameters.size(); i++) {
             result += Parameters.get(i);
-            if(i == Parameters.size()-1){
+            if(i!=Parameters.size()-1){
                 result += ", ";
             }
         }

@@ -16,17 +16,17 @@ public class QueryStoredProcedure implements IQueryBuilder<Integer>  {
         Command = command;
     }
 
-    public void addParameter(List<String> Parameters){
-        Parameters.addAll(Parameters);
+    public void addParameter(List<String> parameters){
+        Parameters.addAll(parameters);
     }
 
-    public void addParameter(String Parameter){
-        Parameters.add(Parameter);
+    public void addParameter(String parameter){
+        Parameters.add(parameter);
     }
 
-    public QueryStoredProcedure(String command, List<String> Parameters) {
+    public QueryStoredProcedure(String command, List<String> parameters) {
         Command = command;
-        Parameters.addAll(Parameters);
+        Parameters.addAll(parameters);
     }
 
     public static String getStatementContant() {
@@ -56,8 +56,8 @@ public class QueryStoredProcedure implements IQueryBuilder<Integer>  {
         }
         for (int i = 0; i < Parameters.size(); i++) {
             result += Parameters.get(i);
-            if(i == Parameters.size()-1){
-                result += ", ";
+            if(i!=Parameters.size()-1){
+                result += ",";
             }
         }
         return result;
