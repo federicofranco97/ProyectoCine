@@ -662,11 +662,9 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                String query = "select count(e.nroempleado) as CantidadEmpleados from Empleado e inner join VentaPresencial v " +
-                        "on e.NroEmpleado=v.NroEmpleado inner join Reserva r on v.CodReserva=r.CodReserva " +
-                        "where datediff(day,getdate(),r.fecha)=0";
-                Statement stm = connection.createStatement();
-                ResultSet rst = stm.executeQuery(query);
+            	CQuerySelect querySelect = new CQuerySelect("Empleado e inner join VentaPresencial v on e.NroEmpleado=v.NroEmpleado inner join Reserva r on v.CodReserva=r.CodReserva ", "count(e.nroempleado) as CantidadEmpleados");
+            	querySelect.addStatementCondition(Arrays.asList("datediff(day,getdate(),r.fecha)=0"));
+            	ResultSet rst = querySelect.Run();
                 while(rst.next()) {
                     result += (rst.getString("CantidadEmpleados").trim());
                 }
@@ -796,6 +794,6 @@ public class Data implements IData{
     }
     public static void main(String[] args) throws SQLException{
     	Data data = new Data();
-    	System.out.println(data.GetActiveTickets());
+    	System.out.println(data.GetEployeesActive());
     }
 }
