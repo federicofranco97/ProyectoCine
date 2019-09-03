@@ -31,7 +31,7 @@ public class MappingTool implements IMapping{
     /**
      * Mape de emplado de modle a empleado dto
      *
-     * @param eployee empleado de model entrante
+     * @param employee empleado de model entrante
      * @return employee de dto
      */
     @Override
@@ -59,8 +59,7 @@ public class MappingTool implements IMapping{
     
     /**
      * Mapea booking a booking dto
-     *
-     * @param string data sql
+     * @param SQLData data sql
      * @return BookingDTO
      */
     public BookingDTO MapSQLBookingDTO(String SQLData) {
@@ -228,13 +227,14 @@ public class MappingTool implements IMapping{
         try {
             String [] splitDate = aux[4].split(" ");
             Employee = new Employee();
-            Employee.setPhoneNumber(aux[0]);
-            Employee.setEmail(aux[1]);
-            Employee.setAddress(aux[2]);
+            Employee.setFullName(aux[0]);
+            Employee.setPhoneNumber(aux[1]);
+            Employee.setEmail(aux[2]);
+            Employee.setAddress(aux[3]);
             Employee.setDateOfBirth(splitDate[0]);
-            Employee.setEmployeeNumber(Integer.parseInt(aux[4]));
-            Employee.setHashedPassword(aux[5]);
-            Employee.setRank(aux[6]);
+            Employee.setEmployeeNumber(Integer.parseInt(aux[5]));
+            Employee.setHashedPassword(aux[6]);
+            Employee.setRank(aux[7]);
         }catch (Exception ex){
             Employee=null;
             System.out.println("Ocurrio un error en el mapeo");
