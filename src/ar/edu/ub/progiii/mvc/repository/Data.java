@@ -605,9 +605,7 @@ public class Data implements IData{
             if(connection != null) {
             	QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("ventastotaldia");
             	ResultSet rst = queryStoredProcedureWResponse.Run();
-                while(rst.next()) {
-                    result += (rst.getString("VentasDia").trim());
-                }
+            	result = ParseSpecificResultSet(rst,Arrays.asList("VentasDia"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -632,9 +630,7 @@ public class Data implements IData{
             	CQuerySelect querySelect = new CQuerySelect("Empleado e inner join VentaPresencial v on e.NroEmpleado=v.NroEmpleado inner join Reserva r on v.CodReserva=r.CodReserva ", "count(e.nroempleado) as CantidadEmpleados");
             	querySelect.addStatementCondition(Arrays.asList("datediff(day,getdate(),r.fecha)=0"));
             	ResultSet rst = querySelect.Run();
-                while(rst.next()) {
-                    result += (rst.getString("CantidadEmpleados").trim());
-                }
+            	result = ParseSpecificResultSet(rst,Arrays.asList("CantidadEmpleados"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
