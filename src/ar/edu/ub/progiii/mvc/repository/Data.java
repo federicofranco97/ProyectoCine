@@ -607,9 +607,9 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                String query ="update ClientStatus set codrol=1006 where Nrocliente="+ClientNumber;
-                PreparedStatement stm = connection.prepareStatement(query);
-                result = stm.executeUpdate();
+            	CQueryUpdate cQueryUpdate = new CQueryUpdate("ClientStatus", "codrol=1006");
+            	cQueryUpdate.addStatementCondition("Nrocliente="+ClientNumber);
+            	result = cQueryUpdate.Run();
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
