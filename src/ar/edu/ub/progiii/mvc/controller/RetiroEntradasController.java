@@ -15,13 +15,13 @@ public class RetiroEntradasController {
     ClientService clientService;
 
     @GetMapping("/retiroentradas")
-    public ModelAndView GetRetiroEntradas(){
-        ModelAndView model = new ModelAndView("RetiroEntradas");
+    public ModelAndView GetRedeemTickets(){
+        ModelAndView model = new ModelAndView("RedeemTickets");
         return model;
     }
     @GetMapping("/buscar_reserva")
     public ModelAndView GetBuscarReserva(@RequestParam("bonumber")String BookingNumber){
-        ModelAndView model = new ModelAndView("RetiroEntradas");
+        ModelAndView model = new ModelAndView("RedeemTickets");
         clientService.GetBookingById(BookingNumber);
         return model;
     }

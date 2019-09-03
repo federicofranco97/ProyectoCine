@@ -27,5 +27,5 @@ formEmployee.onsubmit = function(event){
 	
 }
 // Funcion que produce una tooltip en cada campo, recibiendo el id del tag y el mensaje que queremos mostrar
-tippy('#EmployeeId', {content: 'Campo requerido'});
-tippy('#EmployeePass', {content: 'Campo requerido'});
+tippy("#EmployeeId", {content: "Campo requerido"});
+tippy("#EmployeePass", {content: "Campo requerido"});

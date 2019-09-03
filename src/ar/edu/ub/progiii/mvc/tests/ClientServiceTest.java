@@ -29,6 +29,7 @@ class ClientServiceTest {
 	ClientService clientService;
 	BookingDTO bookingDTO;
 	
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		dataManager = new Data();
@@ -81,12 +82,12 @@ class ClientServiceTest {
 		assertEquals(clientService.GetBookingById("2").getBookingCode(),bookingDTO.getBookingCode());
 	}
 	
-	/*@Test
+	@Test
 	void CreateNewClienttest() {
 		clientDto = new ClientDTO("Samanta Wallace","11 de septiembre", "1564760343","sam@hotmail.com","1997-11-08");
 		assertTrue(clientService.CreateNewClient(clientDto));
 		assertNotNull(clientService.CreateNewClient(clientDto));
-	}*/
+	}
 	
 	@Test
 	void GetAllClientstest() {
@@ -100,12 +101,12 @@ class ClientServiceTest {
 		assertNotNull(clientService.GetAllClients());
 	}
 	
-	/*@Test
+	@Test
 	void GetEmployeeCategorytest() {
 		assertEquals(clientService.GetEmployeeCategory(2),2);
 		assertNull(clientService.GetEmployeeCategory(100));
 		assertNotNull(3);
-	}*/
+	}
 	
 	@Test
 	void GetAllEmployeestest() {
@@ -141,10 +142,72 @@ class ClientServiceTest {
 	
 	@Test
 	void UpdateEmployeetest() {
-		employeeDTO = new EmployeeDTO("rick wakem","peru","1530042888","rick@test.com","2001022",8,"5");
+		employeeDTO = new EmployeeDTO();
+		employeeDTO.setAddress("uruguay");
+		employeeDTO.setEmail("rick@prueba.com");
+		employeeDTO.setPhoneNumber("1530042888");
+		employeeDTO.setFullName("rick wakem");
+		employeeDTO.setDateOfBirth("2000-10-22");
 		clientService.UpdateEmployee(employeeDTO);
-		assertEquals(clientService.GetEmployee(8).getAddress(),"peru");
-		assertEquals(clientService.GetEmployee(8).getEmail(),"rick@test.com");
+		assertEquals(clientService.GetEmployee(8).getAddress(),"uruguay");
+		assertEquals(clientService.GetEmployee(8).getEmail(),"rick@prueba.com");
 		assertEquals(clientService.GetEmployee(8).getPhoneNumber(),"1530042888");
+	}
+	
+	@Test
+	void GetAllTicketstest() {
+		String numbers = "";
+		assertEquals(clientService.GetAllTickets().size(),11);
+		assertNotEquals(clientService.GetAllTickets().size(),3);
+		for (TicketDTO ticket : clientService.GetAllTickets()) {
+			numbers += ticket.getTicketID();
+		}
+		assertEquals(numbers,"1234567891011");
+		assertNotNull(clientService.GetAllTickets());
+		assertTrue(clientService.GetAllTickets() instanceof ArrayList);
+	}
+	
+	@Test
+	void GetActiveTicketstest() {
+		String numbers = "";
+		int count = 0;
+		assertEquals(clientService.GetActiveTickets().size(),5);
+		assertNotEquals(clientService.GetActiveTickets().size(),3);
+		for (TicketDTO ticketA : clientService.GetActiveTickets()) {
+			if(!ticketA.getTicketStatus().equalsIgnoreCase("activo")) {
+				count += 1;
+			}
+			numbers += ticketA.getTicketID();
+		}
+		assertEquals(numbers,"3451011");
+		assertNotNull(clientService.GetActiveTickets());
+		assertTrue(clientService.GetActiveTickets() instanceof ArrayList);
+		assertEquals(count, 0);
+	}
+	
+	@Test
+	void IsActiveUsertest() {
+		clientService.currentEmployee  = new EmployeeDTO();
+		assertFalse(clientService.IsActiveUser());
+		clientService.currentEmployee  = new  EmployeeDTO("rick wakem","uruguay","1530042277","ricks@test.com","2001022",8,"5");
+		assertTrue(clientService.IsActiveUser());
+	}
+	
+	@Test
+	void CreateTickettest() {
+		boolean result = false;
+		TicketDTO ticket = new TicketDTO();
+		ticket.setTicketAuthor("diego");
+		ticket.setTicketContent("testing");
+		ticket.setTicketDate("20190820");
+		ticket.setTicketStatus("activo");
+		ticket.setTicketTitle("test");
+		assertEquals(clientService.CreateTicket(ticket), 1);
+		for (TicketDTO tickets : clientService.GetAllTickets()) {
+			if(tickets.getTicketID().equals("12") && tickets.getTicketAuthor().equalsIgnoreCase("diego")) {
+				result = true;
+			}
+		}
+		assertTrue(result);
 	}
 }

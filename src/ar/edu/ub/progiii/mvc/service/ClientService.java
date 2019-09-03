@@ -182,6 +182,10 @@ public class ClientService {
         }
     }
 
+    /**
+     * Traea todos los tickets
+     * @return arrayLIst list
+     */
     public ArrayList<TicketDTO> GetAllTickets(){
         ArrayList<TicketDTO> list = new ArrayList<>();
         String [] response = dataManager.GetAllTickets().split("/");
@@ -191,6 +195,10 @@ public class ClientService {
         return list;
     }
 
+    /**
+     * Traea todoslos tickets activos
+     * @return arrayList list
+     */
     public ArrayList<TicketDTO> GetActiveTickets(){
         ArrayList<TicketDTO> list = new ArrayList<>();
         String [] response = dataManager.GetActiveTickets().split("/");
@@ -209,7 +217,7 @@ public class ClientService {
 
     /**
      * Verificar si hay un usuario cargado como current
-     * @return
+     * @return boolean
      */
     public boolean IsActiveUser(){
         if(currentEmployee.getEmployeeNumber()<0 || currentEmployee.getPhoneNumber() == null || currentEmployee.getFullName() == null
@@ -222,10 +230,60 @@ public class ClientService {
     /**
      * agregar el ticket a la base
      * @param ticketDTO
+     * @return int result
      */
     public int CreateTicket(TicketDTO ticketDTO){
         int result = dataManager.AddTicket(ticketDTO);
         return result;
     }
 
+    /**
+     * Banear cliente en base de datos
+     * @param ClientNumber
+     * @return
+     */
+    public int BanClient(int ClientNumber){
+        int result = dataManager.BanClient(ClientNumber);
+        return result;
+    }
+
+    /**
+     * Borrado logico del cliente
+     * @param ClientNumber
+     * @return
+     */
+    public int DeleteClient(int ClientNumber){
+        int result = dataManager.DeleteClient(ClientNumber);
+        return result;
+    }
+
+    public String EmployeeDailySales(int EmployeeNumber){
+        return dataManager.GetEmployeeDailySales(EmployeeNumber);
+    }
+
+    public String DailySales(){
+        return dataManager.GetGeneralDailySales();
+    }
+
+    public String ActiveEmployees(){
+        return dataManager.GetEployeesActive();
+    }
+
+    public String AmountOnlineTickets(){
+        return dataManager.GetOnlineBooQuantity();
+    }
+
+    public FilmDTO DayFilmMostWatched(){
+        FilmDTO filmDTO = mappingTool.MapDTOFilmSQL(dataManager.GetDayMostViewed());
+        return filmDTO;
+    }
+
+    public FilmDTO MonthFilmMostWatched(){
+        FilmDTO filmDTO = mappingTool.MapDTOFilmSQL(dataManager.GetMonthMostViewed());
+        return filmDTO;
+    }
+
+    public String[] CategoryDay(){
+        return dataManager.GetCategoryDay().split("_");
+    }
 }

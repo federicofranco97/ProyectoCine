@@ -18,6 +18,8 @@ import ar.edu.ub.progiii.mvc.repository.Data;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Arrays;
+
 @Controller
 public class LoginController {
 	
@@ -29,7 +31,7 @@ public class LoginController {
 	
 	@GetMapping("/")
 	public ModelAndView GetLoginView() {
-		ModelAndView model = new ModelAndView("login");
+		ModelAndView model = new ModelAndView("Login");
 		clientService.ClearCurrentUser();
 		return model;
 	}

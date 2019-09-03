@@ -1,12 +1,16 @@
-//move to edit employee information
+
+//Te lleva a editar la info del empleado
 function EditEmployee(Component){
-    var id=Component.parentNode.className;
-    window.open("/edit_employee?employeeid="+id,"_self");
+    var idEmployee = Component.parentNode.className;
+    window.open("/edit_employee?employeeid="+idEmployee,"_self");
 }
 
-//Ban employee
+function GetReport(Component){
+    window.open("/get_report?employeeid="+idEmployee,"_self");
+}
+
+//Banea empleado
 function BanEmployee(Component){
-    var id=Component.parentNode.className;
     swal({
           title: "Esta seguro?",
           text: "Luego de banear un empleado solo un administrador puede recuperarlo.",
@@ -19,7 +23,7 @@ function BanEmployee(Component){
             swal("Empleado baneado!", {
               icon: "warning",
             });
-            setTimeout(function(){ window.open("/ban_employee?employeeid="+id,"_self"); }, 2000);
+            setTimeout(function(){ window.open("/ban_employee?employeeid="+idEmployee,"_self"); }, 2000);
 
           } else {
             swal("Accion Revertida!", {
@@ -29,9 +33,8 @@ function BanEmployee(Component){
         });
 }
 
-//delete an employee
+//Elimina un empleado
 function DeleteEmployee(Component){
-    var id=Component.parentNode.className;
     swal({
       title: "Esta seguro?",
       text: "Luego de borrar un empleado solo un administrador puede recuperarlo.",
@@ -44,7 +47,7 @@ function DeleteEmployee(Component){
         swal("Empleado eliminado!", {
           icon: "success",
         });
-        setTimeout(function(){ window.open("/delete_employee?employeeid="+id,"_self"); }, 2000);
+        setTimeout(function(){ window.open("/delete_employee?employeeid="+idEmployee,"_self"); }, 2000);
       } else {
         swal("Accion Revertida!", {
             icon: "success",

@@ -2,26 +2,14 @@ package ar.edu.ub.progiii.mvc.repository;
 
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
+import ar.edu.ub.progiii.mvc.dto.FilmDTO;
 import ar.edu.ub.progiii.mvc.dto.TicketDTO;
 
 import java.sql.Connection;
 
 public interface IData {
 
-    /**
-     * Metodo para hacer un post generico
-     * @param data
-     * @return
-     */
-    public String PostQuery(String data);
 
-    /**
-     * Metodo para hacer un get generico
-     * @param data
-     * @return
-     */
-    public String GetQuery(String data);
-    
     /**
      * Metodo para traer un cliente con pass
      * @param data
@@ -112,4 +100,61 @@ public interface IData {
      * @return
      */
     public int AddTicket(TicketDTO ticketDTO);
+
+    /**
+     * Banear un cliente de las compras
+     * @param ClientNumber
+     * @return
+     */
+    public int BanClient(int ClientNumber );
+
+    /**
+     * Borrado logico de un cliente.
+     * @param ClientNumber
+     * @return
+     */
+    public int DeleteClient(int ClientNumber);
+
+    /**
+     * Trae el total de ventas del dia del empleado
+     * @param EmployeeNumber
+     * @return
+     */
+    public String GetEmployeeDailySales(int EmployeeNumber);
+
+    /**
+     * Trae el total de ventas de todo el dia
+     * @return
+     */
+    public String GetGeneralDailySales();
+
+    /**
+     * Trae los empleados que estuvieron activos durante el dia
+     * @return
+     */
+    public String GetEployeesActive();
+
+    /**
+     * Devuelve la cantidad de entradas sacadas por internet en el dia.
+     * @return
+     */
+    public String GetOnlineBooQuantity();
+
+    /**
+     * Trae la pelicula mas comprada en el dia
+     * @return
+     */
+    public String GetDayMostViewed();
+
+    /**
+     * Trae la pelicula mas comprada en el mes
+     * @return
+     */
+    public String GetMonthMostViewed();
+
+    /**
+     * Trae la tarifa promedio del dia
+     * @return
+     */
+    public String GetCategoryDay();
 }

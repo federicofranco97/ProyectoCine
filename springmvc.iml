@@ -44,6 +44,7 @@
     <libelement value="jar://$MODULE_DIR$/libs/unbescape-1.1.0.RELEASE.jar!/" />
     <libelement value="jar://$MODULE_DIR$/libs/validation-api-1.1.0.Final.jar!/" />
     <libelement value="file://C:/Users/Administrator/Downloads/sqljdbc_6.0/esn/jre8/sqljdbc42.jar" />
+    <libelement value="file://C:/Users/Administrator/Desktop/Facu/springboot-workspace/ProyectoCine/libs/junit-jupiter-5.5.1.jar" />
     <src_description expected_position="1">
       <src_folder value="file://$MODULE_DIR$/src" expected_position="1" />
       <src_folder value="file://$MODULE_DIR$/resources" expected_position="2" />
@@ -445,8 +446,25 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library name="junit-jupiter-5.5.1.jar">
+        <CLASSES>
+          <root url="file://C:/Users/Administrator/Desktop/Facu/springboot-workspace/ProyectoCine/libs/junit-jupiter-5.5.1.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="junit5">
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/junit.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="sqljdbc42" level="project" />
-    <orderEntry type="library" name="junit-jupiter-5.5.1" level="project" />
-    <orderEntry type="library" name="org.junit.jupiter:junit-jupiter:5.5.1" level="project" />
+    <orderEntry type="library" name="junit-jupiter-api-5.5.1" level="project" />
   </component>
 </module>
