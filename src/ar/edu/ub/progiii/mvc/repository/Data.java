@@ -660,9 +660,8 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                String query = "exec ventastotaldia ";
-                Statement stm = connection.createStatement();
-                ResultSet rst = stm.executeQuery(query);
+            	QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("ventastotaldia");
+            	ResultSet rst = queryStoredProcedureWResponse.Run();
                 while(rst.next()) {
                     result += (rst.getString("VentasDia").trim());
                 }
@@ -821,6 +820,6 @@ public class Data implements IData{
     public static void main(String[] args) throws SQLException{
     	Data data = new Data();
     	//TicketDTO ticketDTO  = new TicketDTO("#t123","roberto gomez","ticket test","###132","2019-08-20","activo");
-    	System.out.println(data.GetEmployeeDailySales(2));
+    	System.out.println(data.GetGeneralDailySales());
     }
 }
