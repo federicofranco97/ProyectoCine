@@ -18,17 +18,17 @@ public class QueryStoredProcedureWResponse implements IQueryBuilder<ResultSet> {
         Command = command;
     }
 
-    public void addParameter(List<String> Parameters){
-        Parameters.addAll(Parameters);
+    public void addParameter(List<String> parameters){
+        Parameters.addAll(parameters);
     }
 
-    public void addParameter(String Parameter){
-        Parameters.add(Parameter);
+    public void addParameter(String parameter){
+        Parameters.add(parameter);
     }
 
-    public QueryStoredProcedureWResponse(String command, List<String> Parameters) {
+    public QueryStoredProcedureWResponse(String command, List<String> parameters) {
         Command = command;
-        Parameters.addAll(Parameters);
+        Parameters.addAll(parameters);
     }
 
     public static String getStatementContant() {

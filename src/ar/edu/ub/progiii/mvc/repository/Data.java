@@ -6,6 +6,7 @@ import ar.edu.ub.progiii.mvc.dto.FilmDTO;
 import ar.edu.ub.progiii.mvc.dto.TicketDTO;
 import ar.edu.ub.progiii.mvc.repository.querys.CQuerySelect;
 import ar.edu.ub.progiii.mvc.repository.querys.QueryStoredProcedure;
+import ar.edu.ub.progiii.mvc.repository.querys.QueryStoredProcedureWResponse;
 
 import com.sun.javafx.scene.control.TableColumnSortTypeWrapper;
 import org.springframework.stereotype.Repository;
@@ -552,8 +553,8 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-            	QueryStoredProcedure QSP = new QueryStoredProcedure("CrearTicket" ,Arrays.asList("'"+ticketDTO.getTicketTitle()+"', '"+ticketDTO.getTicketAuthor()+"', '"+ticketDTO.getTicketContent()+"'"));
-            	result = QSP.Run();
+            	QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("CrearTicket" ,Arrays.asList("'"+ticketDTO.getTicketTitle()+"', '"+ticketDTO.getTicketAuthor()+"', '"+ticketDTO.getTicketContent()+"'"));
+            	result = queryStoredProcedure.Run();
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -633,9 +634,8 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                String query = "exec ventasempleado "+EmployeeNumber;
-                Statement stm = connection.createStatement();
-                ResultSet rst = stm.executeQuery(query);
+            	QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("ventasempleado",Arrays.asList(String.valueOf(EmployeeNumber)));
+            	ResultSet rst = queryStoredProcedureWResponse.Run();
                 while(rst.next()) {
                     result += (rst.getString("VentasEmpleado").trim());
                 }
@@ -820,7 +820,7 @@ public class Data implements IData{
     //Pruebas
     public static void main(String[] args) throws SQLException{
     	Data data = new Data();
-    	TicketDTO ticketDTO  = new TicketDTO("#t123","roberto gomez","ticket test","###132","2019-08-20","activo");
-    	System.out.println(data.AddTicket(ticketDTO));
+    	//TicketDTO ticketDTO  = new TicketDTO("#t123","roberto gomez","ticket test","###132","2019-08-20","activo");
+    	System.out.println(data.GetEmployeeDailySales(2));
     }
 }
