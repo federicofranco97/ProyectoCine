@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.repository.Data;
@@ -16,10 +17,10 @@ public class QueryInsert implements IQueryBuilder<Boolean> {
 	private static ArrayList<String> Columns = new ArrayList<>();
 	private static ArrayList<String> Values = new ArrayList<>();
 	
-	public QueryInsert(String TableName, ArrayList<String> Columns, ArrayList<String> Values) {
+	public QueryInsert(String TableName, List<String> columns, List<String> values) {
 		this.TableName = TableName;
-        this.Columns = Columns;
-        this.Values = Values;
+        this.Columns.addAll(columns);
+        this.Values.addAll(values); 
 	}
 	
 	public QueryInsert(String TableName, String Column, String Value) {
