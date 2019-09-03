@@ -16,9 +16,9 @@ public class CQueryUpdate extends ConditionQueryBuilder {
 	 private static String TableName;
 	 private static ArrayList<String> ColumnValue = new ArrayList<>();
 	 
-	public CQueryUpdate(String TableName, ArrayList<String> ColumnValue) {
+	public CQueryUpdate(String TableName, List<String> ColumnValue) {
 		this.TableName = TableName;
-        this.ColumnValue = ColumnValue;
+        this.ColumnValue.addAll(ColumnValue);
         setStatementConditions(new ArrayList<>());
 	}
 	 

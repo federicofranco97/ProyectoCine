@@ -14,9 +14,9 @@ public class CQuerySelect extends ConditionQueryBuilder {
     private static String TableName;
     private static ArrayList<String> Parameters = new ArrayList<>();
 
-    public CQuerySelect(String TableName, ArrayList<String> Parameters) {
+    public CQuerySelect(String TableName, List<String> Parameters) {
         this.TableName = TableName;
-        this.Parameters = Parameters;
+        this.Parameters.addAll(Parameters);
         setStatementConditions(new ArrayList<>());
     }
 
