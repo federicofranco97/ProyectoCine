@@ -184,12 +184,7 @@ public class Data implements IData{
             if(connection != null) {
             	CQuerySelect querySelect = new CQuerySelect("Pelicula", "*");
             	ResultSet rst = querySelect.Run();
-                while(rst.next()) {
-                    result += (rst.getString("CodPelicula").trim())+"_";
-                    result += (rst.getString("NombrePelicula").trim())+"_";
-                    result += (rst.getString("DuracionMinutos").trim())+"_";
-                    result += (rst.getString("Sinopsis").trim())+"/";
-                }
+            	result = ParseSpecificResultSet(rst,Arrays.asList("CodPelicula","NombrePelicula","DuracionMinutos","Sinopsis"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -220,19 +215,7 @@ public class Data implements IData{
             	CQuerySelect querySelect = new CQuerySelect("reserva", "*");
             	querySelect.addStatementCondition(Arrays.asList("codreserva="+data));
             	ResultSet rst = querySelect.Run();
-                while(rst.next()) {
-                    result += (rst.getString("CodReserva").trim())+"_";
-                    result += (rst.getString("codpelicula").trim())+"_";
-                    result += (rst.getString("codfuncion").trim())+"_";
-                    result += (rst.getString("fecha").trim())+"_";
-                    result += (rst.getString("nrosala").trim())+"_";
-                    result += (rst.getString("cantentradas").trim())+"_";
-                    result += (rst.getString("nrocliente").trim())+"_";
-                    result += (rst.getString("codestadoreserva").trim())+"_";
-                    result += (rst.getString("codcanal").trim())+"_";
-                    result += (rst.getString("codsucursal").trim())+"_";
-                    result += (rst.getString("PrecioTotal").trim())+"/";
-                }
+            	result = ParseSpecificResultSet(rst,Arrays.asList("CodReserva", "codpelicula", "codfuncion", "fecha", "nrosala", "cantentradas", "nrocliente", "codestadoreserva", "codcanal", "codsucursal", "PrecioTotal"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -290,14 +273,7 @@ public class Data implements IData{
             	CQuerySelect querySelect = new CQuerySelect("cliente c inner join clientstatus cs on c.NroCliente=cs.Nrocliente", "c.Nrocliente,c.NombreCompleto,c.Telefono,c.Email,c.Direccion,c.FechaNac");
             	querySelect.addStatementCondition(Arrays.asList("cs.CodRol=1004 or cs.CodRol=1005"));
             	ResultSet rst = querySelect.Run();
-                while(rst.next()) {
-                    result += (rst.getString("NombreCompleto").trim())+"_";
-                    result += (rst.getString("Nrocliente").trim())+"_";
-                    result += (rst.getString("Telefono").trim())+"_";
-                    result += (rst.getString("Email").trim())+"_";
-                    result += (rst.getString("Direccion").trim())+"_";
-                    result += (rst.getString("FechaNac")+"/");
-                }
+            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto", "Nrocliente", "Telefono", "Email", "Direccion", "FechaNac"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -808,6 +784,6 @@ public class Data implements IData{
     }
     public static void main(String[] args) {
     	Data data = new Data();
-    	System.out.println(data.GetClientByUId("2"));
+    	System.out.println(data.GetAllFilms());
     }
 }
