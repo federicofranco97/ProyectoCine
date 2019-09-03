@@ -471,14 +471,7 @@ public class Data implements IData{
             	CQuerySelect querySelect = new CQuerySelect("tickets", "*");
             	querySelect.addStatementCondition(Arrays.asList("estado='activo'"));
             	ResultSet rst = querySelect.Run();
-                while(rst.next()) {
-                    result += (rst.getString("ID").trim())+"_";
-                    result += (rst.getString("Title").trim())+"_";
-                    result += (rst.getString("Employee").trim())+"_";
-                    result += (rst.getString("Mensaje").trim())+"_";
-                    result += (rst.getString("Fecha").trim()+"_");
-                    result += (rst.getString("Estado").trim()+"/");
-                }
+              	result = ParseSpecificResultSet(rst,Arrays.asList("ID", "Title", "Employee", "Mensaje", "Fecha", "Estado"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -588,9 +581,7 @@ public class Data implements IData{
             if(connection != null) {
             	QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("ventasempleado",Arrays.asList(String.valueOf(EmployeeNumber)));
             	ResultSet rst = queryStoredProcedureWResponse.Run();
-                while(rst.next()) {
-                    result += (rst.getString("VentasEmpleado").trim());
-                }
+              	result = ParseSpecificResultSet(rst,Arrays.asList("VentasEmpleado"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
