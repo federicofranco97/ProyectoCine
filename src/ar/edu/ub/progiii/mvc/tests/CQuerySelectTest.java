@@ -72,5 +72,4 @@ class CQuerySelectTest {
 	    }
 		assertEquals(result,"Juan Perez");
 	}
-
 }
