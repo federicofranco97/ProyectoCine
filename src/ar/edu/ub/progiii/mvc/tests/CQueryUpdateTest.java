@@ -64,5 +64,4 @@ class CQueryUpdateTest {
     	cQueryUpdate.addStatementCondition("NroEmpleado=2");
 		assertEquals(cQueryUpdate.Run(),1);
 	}
-
 }
