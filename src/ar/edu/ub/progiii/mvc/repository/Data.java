@@ -446,14 +446,7 @@ public class Data implements IData{
             if(connection != null) {
             	CQuerySelect querySelect = new CQuerySelect("tickets", "*");
             	ResultSet rst = querySelect.Run();
-                while(rst.next()) {
-                    result += (rst.getString("ID").trim())+"_";
-                    result += (rst.getString("Title").trim())+"_";
-                    result += (rst.getString("Employee").trim())+"_";
-                    result += (rst.getString("Mensaje").trim())+"_";
-                    result += (rst.getString("Fecha").trim()+"_");
-                    result += (rst.getString("Estado").trim()+"/");
-                }
+               	result = ParseSpecificResultSet(rst,Arrays.asList("ID", "Title", "Employee", "Mensaje", "Fecha", "Estado"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
