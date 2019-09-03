@@ -48,12 +48,16 @@ public class Data implements IData{
         String result = "";
         while(resultSet.next()){
             for (int i = 1; i < ParameterAmount; i++) {
-                result += resultSet.getString(i);
+                result += resultSet.getString(i).trim();
                 if(i != ParameterAmount-1){
                     result += "_";
                 }
             }
             result += "/";
+            String [] aux = result.split("/");
+            if(aux.length == 1){
+                result = result.replaceAll("/","");
+            }
         }
         return result;
     }
@@ -70,12 +74,16 @@ public class Data implements IData{
         while(resultSet.next()){
             for (int i = 1; i < SelectedColumnns.size(); i++) {
                 String ColumnName = SelectedColumnns.get(i);
-                result += resultSet.getString(ColumnName);
+                result += resultSet.getString(ColumnName).trim();
                 if(i != SelectedColumnns.size()-1){
                     result += "_";
                 }
             }
             result += "/";
+            String [] aux = result.split("/");
+            if(aux.length == 1){
+                result = result.replaceAll("/","");
+            }
         }
         return result;
     }
