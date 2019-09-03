@@ -75,7 +75,7 @@ public class Data implements IData{
     private String ParseSpecificResultSet(ResultSet resultSet, List<String> SelectedColumnns) throws SQLException {
         String result = "";
         while(resultSet.next()){
-            for (int i = 1; i < SelectedColumnns.size(); i++) {
+            for (int i = 0; i < SelectedColumnns.size(); i++) {
                 String ColumnName = SelectedColumnns.get(i);
                 result += resultSet.getString(ColumnName).trim();
                 if(i != SelectedColumnns.size()-1){
@@ -154,14 +154,7 @@ public class Data implements IData{
             	CQuerySelect querySelect = new CQuerySelect("cliente", "*");
             	querySelect.addStatementCondition(Arrays.asList("nrocliente="+data));
             	ResultSet rst = querySelect.Run();
-                while(rst.next()) {
-                    result += (rst.getString("NombreCompleto"))+"_";
-                    result += (Integer.parseInt(data))+"_";
-                    result += (rst.getString("Telefono"))+"_";
-                    result += (rst.getString("Email"))+"_";
-                    result += (rst.getString("Direccion"))+"_";
-                    result += (rst.getString("FechaNac"));
-                }
+            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","NroCliente","Telefono","Email","Direccion","FechaNac"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -813,11 +806,8 @@ public class Data implements IData{
         }
         return result;
     }
-    //Pruebas
-    public static void main(String[] args) throws SQLException{
+    public static void main(String[] args) {
     	Data data = new Data();
-    	ClientDTO clientDto = new ClientDTO("Roberto gomez","lavalle4356", "1530042275","roberto@gmail.com","1997-11-08 00:00:00.0");
-    	//TicketDTO ticketDTO  = new TicketDTO("#t123","roberto gomez","ticket test","###132","2019-08-20","activo");
-    	System.out.println(data.BanEmployee(8));
+    	System.out.println(data.GetClientByUId("2"));
     }
 }
