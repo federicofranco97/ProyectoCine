@@ -303,9 +303,7 @@ public class Data implements IData{
             	CQuerySelect querySelect = new CQuerySelect("empleado", "CodRol");
             	querySelect.addStatementCondition(Arrays.asList("nroempleado="+EmployeeNumber));
             	ResultSet rst = querySelect.Run();
-                while(rst.next()) {
-                    result += (rst.getString("CodRol")).trim();
-                }
+            	result = ParseSpecificResultSet(rst,Arrays.asList("CodRol"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -336,15 +334,7 @@ public class Data implements IData{
             	CQuerySelect querySelect = new CQuerySelect("empleado", "*");
             	querySelect.addStatementCondition(Arrays.asList("codrol<>5"));
             	ResultSet rst = querySelect.Run();
-                while(rst.next()) {
-                    result += (rst.getString("NombreCompleto").trim())+"_";
-                    result += (rst.getString("Telefono").trim())+"_";
-                    result += (rst.getString("Email").trim())+"_";
-                    result += (rst.getString("Direccion").trim())+"_";
-                    result += (rst.getString("FechaNac").trim())+"_";
-                    result += (rst.getString("NroEmpleado").trim())+"_";
-                    result += (rst.getString("CodRol").trim()+"/");
-                }
+            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto", "Telefono", "Email", "Direccion", "FechaNac", "NroEmpleado", "CodRol"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
