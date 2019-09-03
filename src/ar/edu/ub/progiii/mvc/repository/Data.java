@@ -655,9 +655,7 @@ public class Data implements IData{
             	CQuerySelect querySelect = new CQuerySelect("reserva", "count(codreserva)  as ReservasOnline");
             	querySelect.addStatementCondition(Arrays.asList("codcanal=2","CodEstadoReserva=3"));
             	ResultSet rst = querySelect.Run();
-                while(rst.next()) {
-                    result += (rst.getString("ReservasOnline").trim());
-                }
+            	result = ParseSpecificResultSet(rst,Arrays.asList("ReservasOnline"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -681,12 +679,7 @@ public class Data implements IData{
             if(connection != null) {
             	QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("peliculapromediodia");
                 ResultSet rst = queryStoredProcedureWResponse.Run();
-                while(rst.next()) {
-                    result += (rst.getString("CodPelicula").trim())+"_";
-                    result += (rst.getString("NombrePelicula").trim())+"_";
-                    result += (rst.getString("DuracionMinutos").trim())+"_";
-                    result += (rst.getString("Sinopsis").trim());
-                }
+                result = ParseSpecificResultSet(rst,Arrays.asList("CodPelicula", "NombrePelicula", "DuracionMinutos", "Sinopsis"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
