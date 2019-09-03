@@ -1,6 +1,9 @@
 package ar.edu.ub.progiii.mvc.repository.querys;
 
-public interface IQueryBuilder {
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public interface IQueryBuilder <T>{
 
     /**
      * Metodo para construir querys
@@ -12,5 +15,6 @@ public interface IQueryBuilder {
      * Metodo para correr querys
      * @return
      */
-    public String Run();
+    public T Run() throws SQLException;
+
 }

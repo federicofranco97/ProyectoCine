@@ -16,7 +16,7 @@ public class WithdrawController {
 
 	@GetMapping("/withdraw")
 	public ModelAndView GetView() {
-		ModelAndView model = new ModelAndView("Alivio");
+		ModelAndView model = new ModelAndView("Withdraw");
 		return model;
 	}
 

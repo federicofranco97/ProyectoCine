@@ -1,6 +1,7 @@
 package ar.edu.ub.progiii.mvc.repository.querys;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ConditionQueryBuilder implements IQueryBuilder{
 
@@ -12,5 +13,7 @@ public abstract class ConditionQueryBuilder implements IQueryBuilder{
 
     public abstract void addStatementCondition(String Condition);
 
-    public abstract String buildConditionString(ArrayList<String> Condtions);
+    public abstract void addStatementCondition(List<String> Conditions);
+
+    public abstract String buildConditionString();
 }
