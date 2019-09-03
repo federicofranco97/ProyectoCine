@@ -1,8 +1,9 @@
-//Declaracion de variables
-var idCliente=Component.parentNode.className;
+
 //Permite editar la info del cliente
 function EditClient(Component){
-    window.open("/edit_client?clientid="+id,"_self");
+    //Declaracion de variables
+    var idCliente=Component.parentNode.className;
+    window.open("/edit_client?clientid="+idCliente,"_self");
 }
 
 //Banea el cliente

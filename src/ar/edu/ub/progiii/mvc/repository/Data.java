@@ -446,10 +446,12 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                String query="exec ActualizarEmpleado '"+employeeDTO.getAddress()+"','"+employeeDTO.getEmail()+"','"
-                        +employeeDTO.getPhoneNumber()+"',"+employeeDTO.getEmployeeNumber();
-                PreparedStatement stm = connection.prepareStatement(query);
-                result = stm.executeUpdate();
+                QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("ActualizarEmpleado");
+                queryStoredProcedure.addParameter(Arrays.asList("'"+employeeDTO.getAddress()+"'","'"+employeeDTO.getEmail()+"'",
+                        "'"+employeeDTO.getPhoneNumber()+"'",String.valueOf(employeeDTO.getEmployeeNumber())));
+                queryStoredProcedure.BuildParameters();
+                queryStoredProcedure.Build();
+                result = queryStoredProcedure.Run();
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");

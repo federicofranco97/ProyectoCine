@@ -1,8 +1,8 @@
-//Declaracion de variables
-var idEmployee = Component.parentNode.className;
+
 //Te lleva a editar la info del empleado
 function EditEmployee(Component){
-    window.open("/edit_employee?employeeid="+id,"_self");
+    var idEmployee = Component.parentNode.className;
+    window.open("/edit_employee?employeeid="+idEmployee,"_self");
 }
 
 function GetReport(Component){

@@ -222,12 +222,19 @@ public class MappingTool implements IMapping{
      */
   @Override
 	public Employee MapEmployeeSQL(String SQLData) {
-		String [] aux = SQLData.split("_");
+		String [] aux = SQLData.replaceAll("/","").split("_");
         Employee Employee;
         //si ocurre un error en el mapeo vuelve el cliente null
         try {
             String [] splitDate = aux[4].split(" ");
-            Employee = new Employee(aux[0],aux[3],aux[1], aux[2],(splitDate[0]),Integer.parseInt(aux[5]), aux[6], aux[7]);
+            Employee = new Employee();
+            Employee.setPhoneNumber(aux[0]);
+            Employee.setEmail(aux[1]);
+            Employee.setAddress(aux[2]);
+            Employee.setDateOfBirth(splitDate[0]);
+            Employee.setEmployeeNumber(Integer.parseInt(aux[4]));
+            Employee.setHashedPassword(aux[5]);
+            Employee.setRank(aux[6]);
         }catch (Exception ex){
             Employee=null;
             System.out.println("Ocurrio un error en el mapeo");
