@@ -703,12 +703,7 @@ public class Data implements IData{
             if(connection != null) {
             	QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("peliculapromediomes");
                 ResultSet rst = queryStoredProcedureWResponse.Run();
-                while(rst.next()) {
-                    result += (rst.getString("CodPelicula").trim())+"_";
-                    result += (rst.getString("NombrePelicula").trim())+"_";
-                    result += (rst.getString("DuracionMinutos").trim())+"_";
-                    result += (rst.getString("Sinopsis").trim());
-                }
+                result = ParseSpecificResultSet(rst,Arrays.asList("CodPelicula", "NombrePelicula", "DuracionMinutos", "Sinopsis"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -732,10 +727,7 @@ public class Data implements IData{
             if(connection != null) {
             	QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("tarifapromediodia");
                 ResultSet rst = queryStoredProcedureWResponse.Run();
-                while(rst.next()) {
-                    result += (rst.getString("NombreTarifa").trim())+"_";
-                    result += (rst.getString("Precio").trim());
-                }
+                result = ParseSpecificResultSet(rst,Arrays.asList("NombreTarifa", "Precio"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -744,9 +736,5 @@ public class Data implements IData{
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         return result;
-    }
-    public static void main(String[] args) {
-    	Data data = new Data();
-    	System.out.println(data.GetAllFilms());
     }
 }
