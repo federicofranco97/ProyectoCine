@@ -65,7 +65,7 @@ public class Data implements IData{
      * @return
      * @throws SQLException
      */
-    private String ParseSpecificResultSet(ResultSet resultSet, ArrayList<String> SelectedColumnns) throws SQLException {
+    private String ParseSpecificResultSet(ResultSet resultSet, List<String> SelectedColumnns) throws SQLException {
         String result = "";
         while(resultSet.next()){
             for (int i = 1; i < SelectedColumnns.size(); i++) {
@@ -102,16 +102,8 @@ public class Data implements IData{
             	 CQuerySelect querySelect = new CQuerySelect("empleado", "*");
             	 querySelect.addStatementCondition(Arrays.asList("nroempleado="+data));
             	 ResultSet rst = querySelect.Run();
-                 while(rst.next()) {
-                     result += (rst.getString("NombreCompleto"))+"_";
-                     result += (rst.getString("Telefono"))+"_";
-                     result += (rst.getString("Email"))+"_";
-                     result += (rst.getString("Direccion"))+"_";
-                     result += (rst.getString("FechaNac"))+"_";
-                     result += (Integer.parseInt(data))+"_";
-                     result += (rst.getString("Clave"))+"_";
-                     result += (rst.getString("CodRol"));
-                 }
+            	 result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","Telefono","Email","Direccion","FechaNac",
+                         "NroEmpleado","Clave","CodRol"));
              }
              else {
                  System.out.println("ConError No se pudo conectar con el sql server");
