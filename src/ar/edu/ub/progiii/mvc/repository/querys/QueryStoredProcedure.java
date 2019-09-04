@@ -26,6 +26,7 @@ public class QueryStoredProcedure implements IQueryBuilder<Integer>  {
 
     public QueryStoredProcedure(String command, List<String> parameters) {
         Command = command;
+        Parameters.clear();
         Parameters.addAll(parameters);
     }
 
