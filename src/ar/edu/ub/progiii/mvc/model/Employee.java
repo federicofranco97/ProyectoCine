@@ -26,12 +26,14 @@ public class Employee extends Person{
 		this.Rank = Rank;
 	}
 
+	public Employee(){}
+
 	//Getters y Setters
 	public int getEmployeeNumber() {
 		return EmployeeNumber;
 	}
 
-	private void setEmployeeNumber(int employeeNumber) {
+	public void setEmployeeNumber(int employeeNumber) {
 		EmployeeNumber = employeeNumber;
 	}
 
@@ -39,7 +41,7 @@ public class Employee extends Person{
 		return HashedPassword;
 	}
 
-	private void setHashedPassword(String hashedPassword) {
+	public void setHashedPassword(String hashedPassword) {
 		HashedPassword = hashedPassword;
 	}
 
@@ -47,7 +49,7 @@ public class Employee extends Person{
 		return Rank;
 	}
 
-	private void setRank(String rank) {
+	public void setRank(String rank) {
 		Rank = rank;
 	}
 	

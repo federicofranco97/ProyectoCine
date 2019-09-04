@@ -2,17 +2,28 @@ package ar.edu.ub.progiii.mvc.repository;
 
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
+import ar.edu.ub.progiii.mvc.dto.FilmDTO;
 import ar.edu.ub.progiii.mvc.dto.TicketDTO;
+import ar.edu.ub.progiii.mvc.repository.querys.CQuerySelect;
+import ar.edu.ub.progiii.mvc.repository.querys.CQueryUpdate;
+import ar.edu.ub.progiii.mvc.repository.querys.QueryInsert;
+import ar.edu.ub.progiii.mvc.repository.querys.QueryStoredProcedure;
+import ar.edu.ub.progiii.mvc.repository.querys.QueryStoredProcedureWResponse;
+
+import com.sun.javafx.scene.control.TableColumnSortTypeWrapper;
 import org.springframework.stereotype.Repository;
 
 
 import java.sql.*;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Repository
 public class Data implements IData{
 
-    Connection connection = ar.edu.ub.progiii.mvc.repository.Connection.getConnection();
+    public static Connection connection = ar.edu.ub.progiii.mvc.repository.Connection.getConnection();
 
     /**
      * Metodo que logea informacion a la base de datos.
@@ -30,28 +41,56 @@ public class Data implements IData{
     }
 
     /**
-     * Metodo para hacer un post generico
-     *
-     * @param data
+     * Transforma un resultset en una cadena de texto
+     * @param resultSet
+     * @param ParameterAmount
      * @return
+     * @throws SQLException
      */
-    @Override
-
-    public String PostQuery(String data) {
-        return null;
+    private String ParseResultSet(ResultSet resultSet,int ParameterAmount) throws SQLException {
+        String result = "";
+        while(resultSet.next()){
+            for (int i = 1; i < ParameterAmount; i++) {
+                result += resultSet.getString(i).trim();
+                if(i != ParameterAmount-1){
+                    result += "_";
+                }
+            }
+            result += "/";
+            String [] aux = result.split("/");
+            if(aux.length == 1){
+                result = result.replaceAll("/","");
+            }
+        }
+        return result;
     }
 
     /**
-     * Metodo para hacer un get generico
-     *
-     * @param data
+     * Transforma el result set en una cadena, acorde a las columnas que piden.
+     * @param resultSet
+     * @param SelectedColumnns
      * @return
+     * @throws SQLException
      */
-    @Override
-    public String GetQuery(String data) {
-        return null;
+    private String ParseSpecificResultSet(ResultSet resultSet, List<String> SelectedColumnns) throws SQLException {
+        String result = "";
+        while(resultSet.next()){
+            for (int i = 0; i < SelectedColumnns.size(); i++) {
+                String ColumnName = SelectedColumnns.get(i);
+                result += resultSet.getString(ColumnName).trim();
+                if(i != SelectedColumnns.size()-1){
+                    result += "_";
+                }
+            }
+            result += "/";
+            String [] aux = result.split("/");
+            if(aux.length == 1){
+                result = result.replaceAll("/","");
+            }
+        }
+        return result;
     }
-    
+
     /**
      * Metodo para traer un empleado x nro de empleado
      *
@@ -71,19 +110,11 @@ public class Data implements IData{
          //empiezo la conexion y recibo el resultado de la query
          try {
              if(connection != null) {
-                 Statement stm = connection.createStatement();
-                 String query="select * from empleado where nroempleado="+data;
-                 ResultSet rst = stm.executeQuery(query);
-                 while(rst.next()) {
-                     result += (rst.getString("NombreCompleto"))+"_";
-                     result += (rst.getString("Telefono"))+"_";
-                     result += (rst.getString("Email"))+"_";
-                     result += (rst.getString("Direccion"))+"_";
-                     result += (rst.getString("FechaNac"))+"_";
-                     result += (Integer.parseInt(data))+"_";
-                     result += (rst.getString("Clave"))+"_";
-                     result += (rst.getString("CodRol"));
-                 }
+            	 CQuerySelect querySelect = new CQuerySelect("empleado", "*");
+            	 querySelect.addStatementCondition(Arrays.asList("nroempleado="+data));
+            	 ResultSet rst = querySelect.Run();
+            	 result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","Telefono","Email","Direccion","FechaNac",
+                         "NroEmpleado","Clave","CodRol"));
              }
              else {
                  System.out.println("ConError No se pudo conectar con el sql server");
@@ -120,17 +151,10 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
-                String query="select * from cliente where nrocliente="+data;
-                ResultSet rst = stm.executeQuery(query);
-                while(rst.next()) {
-                    result += (rst.getString("NombreCompleto"))+"_";
-                    result += (Integer.parseInt(data))+"_";
-                    result += (rst.getString("Telefono"))+"_";
-                    result += (rst.getString("Email"))+"_";
-                    result += (rst.getString("Direccion"))+"_";
-                    result += (rst.getString("FechaNac"));
-                }
+            	CQuerySelect querySelect = new CQuerySelect("cliente", "*");
+            	querySelect.addStatementCondition(Arrays.asList("nrocliente="+data));
+            	ResultSet rst = querySelect.Run();
+            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","NroCliente","Telefono","Email","Direccion","FechaNac"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -158,15 +182,9 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
-                String query="select * from Pelicula";
-                ResultSet rst = stm.executeQuery(query);
-                while(rst.next()) {
-                    result += (rst.getString("CodPelicula").trim())+"_";
-                    result += (rst.getString("NombrePelicula").trim())+"_";
-                    result += (rst.getString("DuracionMinutos").trim())+"_";
-                    result += (rst.getString("Sinopsis").trim())+"/";
-                }
+            	CQuerySelect querySelect = new CQuerySelect("Pelicula", "*");
+            	ResultSet rst = querySelect.Run();
+            	result = ParseSpecificResultSet(rst,Arrays.asList("CodPelicula","NombrePelicula","DuracionMinutos","Sinopsis"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -194,22 +212,10 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
-                String query="select * from reserva where codreserva='"+data+"'";
-                ResultSet rst = stm.executeQuery(query);
-                while(rst.next()) {
-                    result += (rst.getString("CodReserva").trim())+"_";
-                    result += (rst.getString("codpelicula").trim())+"_";
-                    result += (rst.getString("codfuncion").trim())+"_";
-                    result += (rst.getString("fecha").trim())+"_";
-                    result += (rst.getString("nrosala").trim())+"_";
-                    result += (rst.getString("cantentradas").trim())+"_";
-                    result += (rst.getString("nrocliente").trim())+"_";
-                    result += (rst.getString("codestadoreserva").trim())+"_";
-                    result += (rst.getString("codcanal").trim())+"_";
-                    result += (rst.getString("codsucursal").trim())+"_";
-                    result += (rst.getString("PrecioTotal").trim())+"/";
-                }
+            	CQuerySelect querySelect = new CQuerySelect("reserva", "*");
+            	querySelect.addStatementCondition(Arrays.asList("codreserva="+data));
+            	ResultSet rst = querySelect.Run();
+            	result = ParseSpecificResultSet(rst,Arrays.asList("CodReserva", "codpelicula", "codfuncion", "fecha", "nrosala", "cantentradas", "nrocliente", "codestadoreserva", "codcanal", "codsucursal", "PrecioTotal"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -239,10 +245,8 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                String query="insert into Cliente (NombreCompleto,Telefono,Email,Direccion,FechaNac) " +
-                        " values ('"+data.getFullName()+"','"+data.getPhoneNumber()+"','"+data.getEmail()+"','"+data.getAddress()+"','"+data.getDateOfBirth()+"')";
-                PreparedStatement stm = connection.prepareStatement(query);
-                result = stm.execute();
+            	QueryInsert queryInsert = new QueryInsert("Cliente", "NombreCompleto,Telefono,Email,Direccion,FechaNac", "'"+data.getFullName()+"','"+data.getPhoneNumber()+"','"+data.getEmail()+"','"+data.getAddress()+"','"+data.getDateOfBirth()+"'");
+            	result = queryInsert.Run();
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -266,17 +270,10 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
-                String query="select c.Nrocliente,c.NombreCompleto,c.Telefono,c.Email,c.Direccion,c.FechaNac from cliente c inner join clientstatus cs on c.NroCliente=cs.Nrocliente where cs.CodRol=1004 or cs.CodRol=1005";
-                ResultSet rst = stm.executeQuery(query);
-                while(rst.next()) {
-                    result += (rst.getString("NombreCompleto").trim())+"_";
-                    result += (rst.getString("Nrocliente").trim())+"_";
-                    result += (rst.getString("Telefono").trim())+"_";
-                    result += (rst.getString("Email").trim())+"_";
-                    result += (rst.getString("Direccion").trim())+"_";
-                    result += (rst.getString("FechaNac")+"/");
-                }
+            	CQuerySelect querySelect = new CQuerySelect("cliente c inner join clientstatus cs on c.NroCliente=cs.Nrocliente", "c.Nrocliente,c.NombreCompleto,c.Telefono,c.Email,c.Direccion,c.FechaNac");
+            	querySelect.addStatementCondition(Arrays.asList("cs.CodRol=1004 or cs.CodRol=1005"));
+            	ResultSet rst = querySelect.Run();
+            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto", "Nrocliente", "Telefono", "Email", "Direccion", "FechaNac"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -303,12 +300,10 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
-                String query="select CodRol from empleado where nroempleado="+EmployeeNumber;
-                ResultSet rst = stm.executeQuery(query);
-                while(rst.next()) {
-                    result += (rst.getString("CodRol")).trim();
-                }
+            	CQuerySelect querySelect = new CQuerySelect("empleado", "CodRol");
+            	querySelect.addStatementCondition(Arrays.asList("nroempleado="+EmployeeNumber));
+            	ResultSet rst = querySelect.Run();
+            	result = ParseSpecificResultSet(rst,Arrays.asList("CodRol"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -336,18 +331,10 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
-                String query="select * from empleado where codrol<>5";
-                ResultSet rst = stm.executeQuery(query);
-                while(rst.next()) {
-                    result += (rst.getString("NombreCompleto").trim())+"_";
-                    result += (rst.getString("Telefono").trim())+"_";
-                    result += (rst.getString("Email").trim())+"_";
-                    result += (rst.getString("Direccion").trim())+"_";
-                    result += (rst.getString("FechaNac").trim())+"_";
-                    result += (rst.getString("NroEmpleado").trim())+"_";
-                    result += (rst.getString("CodRol").trim()+"/");
-                }
+            	CQuerySelect querySelect = new CQuerySelect("empleado", "*");
+            	querySelect.addStatementCondition(Arrays.asList("codrol<>5"));
+            	ResultSet rst = querySelect.Run();
+            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto", "Telefono", "Email", "Direccion", "FechaNac", "NroEmpleado", "CodRol"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -375,9 +362,9 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                String query="update empleado set CodRol=4 where NroEmpleado="+EmployeeNumber;
-                PreparedStatement stm = connection.prepareStatement(query);
-                result = stm.executeUpdate();
+            	CQueryUpdate cQueryUpdate = new CQueryUpdate("empleado", "CodRol=4");
+            	cQueryUpdate.addStatementCondition("NroEmpleado="+EmployeeNumber);
+            	result = cQueryUpdate.Run();
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -402,9 +389,9 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                String query="update empleado set CodRol=5 where NroEmpleado="+EmployeeNumber;
-                PreparedStatement stm = connection.prepareStatement(query);
-                result = stm.executeUpdate();
+            	CQueryUpdate cQueryUpdate = new CQueryUpdate("empleado", "CodRol=5");
+            	cQueryUpdate.addStatementCondition("NroEmpleado="+EmployeeNumber);
+            	result = cQueryUpdate.Run();
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -427,10 +414,12 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                String query="exec ActualizarEmpleado '"+employeeDTO.getAddress()+"','"+employeeDTO.getEmail()+"','"
-                        +employeeDTO.getPhoneNumber()+"',"+employeeDTO.getEmployeeNumber();
-                PreparedStatement stm = connection.prepareStatement(query);
-                result = stm.executeUpdate();
+                QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("ActualizarEmpleado");
+                queryStoredProcedure.addParameter(Arrays.asList("'"+employeeDTO.getAddress()+"'","'"+employeeDTO.getEmail()+"'",
+                        "'"+employeeDTO.getPhoneNumber()+"'",String.valueOf(employeeDTO.getEmployeeNumber())));
+                queryStoredProcedure.BuildParameters();
+                queryStoredProcedure.Build();
+                result = queryStoredProcedure.Run();
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -455,17 +444,9 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
-                String query="select * from tickets";
-                ResultSet rst = stm.executeQuery(query);
-                while(rst.next()) {
-                    result += (rst.getString("ID").trim())+"_";
-                    result += (rst.getString("Title").trim())+"_";
-                    result += (rst.getString("Employee").trim())+"_";
-                    result += (rst.getString("Mensaje").trim())+"_";
-                    result += (rst.getString("Fecha").trim()+"_");
-                    result += (rst.getString("Estado").trim()+"/");
-                }
+            	CQuerySelect querySelect = new CQuerySelect("tickets", "*");
+            	ResultSet rst = querySelect.Run();
+               	result = ParseSpecificResultSet(rst,Arrays.asList("ID", "Title", "Employee", "Mensaje", "Fecha", "Estado"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -487,17 +468,10 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                Statement stm = connection.createStatement();
-                String query="select * from tickets where estado='activo'";
-                ResultSet rst = stm.executeQuery(query);
-                while(rst.next()) {
-                    result += (rst.getString("ID").trim())+"_";
-                    result += (rst.getString("Title").trim())+"_";
-                    result += (rst.getString("Employee").trim())+"_";
-                    result += (rst.getString("Mensaje").trim())+"_";
-                    result += (rst.getString("Fecha").trim()+"_");
-                    result += (rst.getString("Estado").trim()+"/");
-                }
+            	CQuerySelect querySelect = new CQuerySelect("tickets", "*");
+            	querySelect.addStatementCondition(Arrays.asList("estado='activo'"));
+            	ResultSet rst = querySelect.Run();
+              	result = ParseSpecificResultSet(rst,Arrays.asList("ID", "Title", "Employee", "Mensaje", "Fecha", "Estado"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -524,9 +498,8 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                String query = "exec CrearTicket '"+ticketDTO.getTicketTitle()+"', '"+ticketDTO.getTicketAuthor()+"', '"+ticketDTO.getTicketContent()+"' ";
-                PreparedStatement stm = connection.prepareStatement(query);
-                result = stm.executeUpdate();
+            	QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("CrearTicket" ,Arrays.asList("'"+ticketDTO.getTicketTitle()+"', '"+ticketDTO.getTicketAuthor()+"', '"+ticketDTO.getTicketContent()+"'"));
+            	result = queryStoredProcedure.Run();
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -552,9 +525,9 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                String query ="update ClientStatus set codrol=1005 where Nrocliente="+ClientNumber;
-                PreparedStatement stm = connection.prepareStatement(query);
-                result = stm.executeUpdate();
+            	CQueryUpdate cQueryUpdate = new CQueryUpdate("ClientStatus", "codrol=1005");
+            	cQueryUpdate.addStatementCondition("Nrocliente="+ClientNumber);
+            	result = cQueryUpdate.Run();
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -579,9 +552,9 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                String query ="update ClientStatus set codrol=1006 where Nrocliente="+ClientNumber;
-                PreparedStatement stm = connection.prepareStatement(query);
-                result = stm.executeUpdate();
+            	CQueryUpdate cQueryUpdate = new CQueryUpdate("ClientStatus", "codrol=1006");
+            	cQueryUpdate.addStatementCondition("Nrocliente="+ClientNumber);
+            	result = cQueryUpdate.Run();
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -591,6 +564,177 @@ public class Data implements IData{
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("DeleteClient","Borrado de cliente "+ClientNumber);
+        return result;
+    }
+
+    /**
+     * Trae el total de ventas del dia del empleado
+     *
+     * @param EmployeeNumber
+     * @return
+     */
+    @Override
+    public String GetEmployeeDailySales(int EmployeeNumber) {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("ventasempleado",Arrays.asList(String.valueOf(EmployeeNumber)));
+            	ResultSet rst = queryStoredProcedureWResponse.Run();
+              	result = ParseSpecificResultSet(rst,Arrays.asList("VentasEmpleado"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Trae el total de ventas de todo el dia
+     *
+     * @return
+     */
+    @Override
+    public String GetGeneralDailySales() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("ventastotaldia");
+            	ResultSet rst = queryStoredProcedureWResponse.Run();
+            	result = ParseSpecificResultSet(rst,Arrays.asList("VentasDia"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Trae los empleados que estuvieron activos durante el dia
+     *
+     * @return
+     */
+    @Override
+    public String GetEployeesActive() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	CQuerySelect querySelect = new CQuerySelect("Empleado e inner join VentaPresencial v on e.NroEmpleado=v.NroEmpleado inner join Reserva r on v.CodReserva=r.CodReserva ", "count(e.nroempleado) as CantidadEmpleados");
+            	querySelect.addStatementCondition(Arrays.asList("datediff(day,getdate(),r.fecha)=0"));
+            	ResultSet rst = querySelect.Run();
+            	result = ParseSpecificResultSet(rst,Arrays.asList("CantidadEmpleados"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Devuelve la cantidad de entradas sacadas por internet en el dia.
+     *
+     * @return
+     */
+    @Override
+    public String GetOnlineBooQuantity() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	CQuerySelect querySelect = new CQuerySelect("reserva", "count(codreserva)  as ReservasOnline");
+            	querySelect.addStatementCondition(Arrays.asList("codcanal=2","CodEstadoReserva=3"));
+            	ResultSet rst = querySelect.Run();
+            	result = ParseSpecificResultSet(rst,Arrays.asList("ReservasOnline"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Trae la pelicula mas comprada en el dia
+     *
+     * @return
+     */
+    @Override
+    public String GetDayMostViewed() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("peliculapromediodia");
+                ResultSet rst = queryStoredProcedureWResponse.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("CodPelicula", "NombrePelicula", "DuracionMinutos", "Sinopsis"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Trae la pelicula mas comprada en el mes
+     *
+     * @return
+     */
+    @Override
+    public String GetMonthMostViewed() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("peliculapromediomes");
+                ResultSet rst = queryStoredProcedureWResponse.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("CodPelicula", "NombrePelicula", "DuracionMinutos", "Sinopsis"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Trae la tarifa promedio del dia
+     *
+     * @return
+     */
+    @Override
+    public String GetCategoryDay() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("tarifapromediodia");
+                ResultSet rst = queryStoredProcedureWResponse.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("NombreTarifa", "Precio"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
         return result;
     }
 }

@@ -256,4 +256,34 @@ public class ClientService {
         int result = dataManager.DeleteClient(ClientNumber);
         return result;
     }
+
+    public String EmployeeDailySales(int EmployeeNumber){
+        return dataManager.GetEmployeeDailySales(EmployeeNumber);
+    }
+
+    public String DailySales(){
+        return dataManager.GetGeneralDailySales();
+    }
+
+    public String ActiveEmployees(){
+        return dataManager.GetEployeesActive();
+    }
+
+    public String AmountOnlineTickets(){
+        return dataManager.GetOnlineBooQuantity();
+    }
+
+    public FilmDTO DayFilmMostWatched(){
+        FilmDTO filmDTO = mappingTool.MapDTOFilmSQL(dataManager.GetDayMostViewed());
+        return filmDTO;
+    }
+
+    public FilmDTO MonthFilmMostWatched(){
+        FilmDTO filmDTO = mappingTool.MapDTOFilmSQL(dataManager.GetMonthMostViewed());
+        return filmDTO;
+    }
+
+    public String[] CategoryDay(){
+        return dataManager.GetCategoryDay().split("_");
+    }
 }

@@ -31,7 +31,7 @@ public class LoginController {
 	
 	@GetMapping("/")
 	public ModelAndView GetLoginView() {
-		ModelAndView model = new ModelAndView("login");
+		ModelAndView model = new ModelAndView("Login");
 		clientService.ClearCurrentUser();
 		return model;
 	}
