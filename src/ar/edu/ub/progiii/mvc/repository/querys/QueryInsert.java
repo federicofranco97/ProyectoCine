@@ -19,12 +19,16 @@ public class QueryInsert implements IQueryBuilder<Boolean> {
 	
 	public QueryInsert(String TableName, List<String> columns, List<String> values) {
 		this.TableName = TableName;
+		Columns.clear();
+		Values.clear();
         this.Columns.addAll(columns);
         this.Values.addAll(values); 
 	}
 	
 	public QueryInsert(String TableName, String Column, String Value) {
 		this.TableName = TableName;
+        Columns.clear();
+        Values.clear();
 		this.Columns.add(Column);
 		this.Values.add(Value);
 	}

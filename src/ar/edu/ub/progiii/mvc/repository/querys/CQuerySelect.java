@@ -16,12 +16,14 @@ public class CQuerySelect extends ConditionQueryBuilder {
 
     public CQuerySelect(String TableName, List<String> Parameters) {
         this.TableName = TableName;
+        this.Parameters.clear();
         this.Parameters.addAll(Parameters);
         setStatementConditions(new ArrayList<>());
     }
 
     public CQuerySelect(String TableName, String Parameter) {
         this.TableName = TableName;
+        this.Parameters.clear();
         this.Parameters.add(Parameter);
         setStatementConditions(new ArrayList<>());
     }
