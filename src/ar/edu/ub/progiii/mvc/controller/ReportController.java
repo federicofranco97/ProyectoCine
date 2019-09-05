@@ -17,7 +17,8 @@ public class ReportController {
     @GetMapping("/ventas_dia")
     public ModelAndView GetReport(){
         ModelAndView model = new ModelAndView("ReportTemplate");
-        if(clientService.ActiveEmployees().equals("0") || clientService.ActiveEmployees()==null){
+        if(clientService.ActiveEmployees().equals("0") || clientService.ActiveEmployees()==null
+                || clientService.ActiveEmployees().equals("")){
             ModelAndView errorModel = new ModelAndView("ErrorPage");
             errorModel.addObject("Contenido", Arrays.asList("Error","No hay actividad registrada para el este dia,por" +
                     " favor dirigas cree un ticket si considera que el resultado obtenido es erroneo."));
