@@ -165,7 +165,11 @@ public class MappingTool implements IMapping{
     	FilmDTO filmDTO;
     	//si ocurre un error en el mapeo vuelve el cliente null
     	try {
-            filmDTO = new FilmDTO(aux[0],Integer.parseInt(aux[1]),aux[2], aux[3]);
+            filmDTO = new FilmDTO();
+            filmDTO.setCode(Integer.parseInt(aux[0]));
+            filmDTO.setFilmName(aux[1]);
+            filmDTO.setDuration(aux[2]);
+            filmDTO.setSummary(aux[3]);
         }catch (Exception ex){
             filmDTO=null;
             System.out.println("Ocurrio un error en el mapeo");

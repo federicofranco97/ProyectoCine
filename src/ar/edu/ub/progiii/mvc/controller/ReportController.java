@@ -29,6 +29,7 @@ public class ReportController {
         model.addObject("onlineTickets",clientService.AmountOnlineTickets());
         model.addObject("mostViewed",clientService.DayFilmMostWatched());
         model.addObject("categoryDay",clientService.CategoryDay()[0]+" AR$"+clientService.CategoryDay()[1]);
+        model.addObject("supervisorsActive",clientService.SupervisorsActiveDay());
         return model;
     }
 }

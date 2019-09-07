@@ -157,4 +157,17 @@ public interface IData {
      * @return
      */
     public String GetCategoryDay();
+
+    /**
+     * Trae el numero de supervisores que hubo logeados
+     * @return
+     */
+    public String GetSupervisorsActive();
+
+    /**
+     * Registrar el login del empleado.
+     * @param NroEmpleado
+     * @param CodRol
+     */
+    public void RegistrarLog(String NroEmpleado,String CodRol);
 }
