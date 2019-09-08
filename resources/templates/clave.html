@@ -18,7 +18,7 @@
       <!--Contenedor del campo id y su icono-->
       <div class="input-group-prepend">
         <div class="input-group-text"><i class="fas fa-user"></i></div>  
-        <input id="Id" class="form-control" type="text" disabled="" th:value="${}" name="Id" placeholder="Id" autofocus=""/>
+        <input id="Id" class="form-control" type="text" disabled="" th:value="${currentID}" name="Id" placeholder="Id" autofocus=""/>
       </div><br/>
       <label class= "badge badge-dark" for="oldPass">Clave anterior</label><br/>
       <!--Contenedor del campo clave anterior y su icono-->
@@ -26,22 +26,22 @@
         <div class="input-group-text"><i class="fas fa-key"></i></div>  
         <input id="oldPass" class="form-control" type="password" name="oldPass" placeholder="Pass" autofocus=""/>
       </div><br/>
-      <label class= "badge badge-dark" for="newPass">Nuevo pass</label><br>
+      <label class= "badge badge-dark" for="newPass">Nuevo pass</label><br/>
       <!--Contenedor del campo nuevo pass y su icono-->
       <div class="input-group-prepend">
         <div class="input-group-text"><i class="fas fa-unlock-alt"></i></div>  
         <input id="newPass" class="form-control" type="password" name="newPass" placeholder="Pass" autofocus=""/>
       </div><br/>
-      <label class= "badge badge-dark" for="repeatPass">Repetir pass</label><br>
+      <label class= "badge badge-dark" for="repeatPass">Repetir pass</label><br/>
       <!--Contenedor del campo repetir pass y su icono-->
       <div class="input-group-prepend">
-        <div class="input-group-text"><i class="fas fa-unlock-alt"></i></i></div>  
+        <div class="input-group-text"><i class="fas fa-unlock-alt"></i></div>  
         <input id="repeatPass" class="form-control" type="password" name="repeatPass" placeholder="Pass" autofocus=""/>
       </div><br/>
       <!--Tag del boton submit con atributo id para javaScript y su correspondiente clase para estilo de bootstrap-->
       <button type="submit" id="PassSubmit" class="btn btn-dark">Aceptar</button>
-    </div>
-    </form>
+    </form>  
+    </div>    
   <!--Asociamos con Thymeleaf nuestro archivo layout para linkear scripts en el footer-->
   <div th:replace="layout :: footer"></div>
 </body>
