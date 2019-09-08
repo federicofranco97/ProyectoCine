@@ -71,6 +71,15 @@ public interface IData {
     public int BanEmployee(int EmployeeNumber);
 
     /**
+     * Cambiar la clave de un empleado
+     *
+     * @param EmployeeNumber
+     * @param newPass
+     * @return
+     */
+    public int ChangePassEmployee(int EmployeeNumber, String newPass);
+    
+    /**
      * "Elmina" un empleado del sistema.
      * @param EmployeeNumber
      * @return

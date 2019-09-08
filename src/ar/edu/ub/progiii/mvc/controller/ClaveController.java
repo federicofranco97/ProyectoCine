@@ -33,21 +33,26 @@ public class ClaveController {
 			return model;
 		}
 		ModelAndView modelError = new ModelAndView("ErrorPage");
- 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no pudo ser logueado, redireccionando a login!","/"));
+ 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no tiene acceso a esta pagina, redireccionando a login!","/"));
 		return modelError;
 		
 	}
 	
-	/*@PostMapping("/login_sent")
-	public ModelAndView EmployeeLogin(@RequestParam("EmployeeId") String employeeId, @RequestParam("EmployeePass") String employeePass) {
-		RedirectView redirectView = new RedirectView("/menu");
+	@PostMapping("/pass_sent")
+	public ModelAndView changePass(@RequestParam("EmployeeId") String employeeId, @RequestParam("oldPass") String oldPass, @RequestParam("newPass") String newPass) {
+		RedirectView redirectView = new RedirectView("/clave");
 		redirectView.setExposePathVariables(false);
-		boolean aux = clientService.verifyEmployeeLogin(employeeId, employeePass);
-		if(aux) {
+		int aux = clientService.changePass(employeeId, oldPass, newPass);
+		if(aux == 1) {
 			return new ModelAndView(redirectView);
 		}
- 		ModelAndView modelError = new ModelAndView("ErrorPage");
- 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no pudo ser logueado, redireccionando a login!"));
-		return modelError;
-	}*/
+		if(aux == 2) {
+			ModelAndView modelError = new ModelAndView("ErrorPage");
+	 		modelError.addObject("Contenido", Arrays.asList("Error","Clave incorrecta!","/clave"));
+			return modelError;
+		}
+			ModelAndView modelError = new ModelAndView("ErrorPage");
+	 		modelError.addObject("Contenido", Arrays.asList("Error","Clave incorrecta, 3 intentos fallidos, usuario baneado!","/"));
+			return modelError;
+	}
 }

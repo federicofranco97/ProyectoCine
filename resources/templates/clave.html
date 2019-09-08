@@ -13,12 +13,12 @@
     <!--Titulo de formulario-->
     <h1 style="color: white">Clave</h1>
     <!--Formulario, cada input correspondiente a su tipo y con su respectiva clase de estilo bootstrap-->
-    <form id="formPass" action="/sent_pass" method="post">
+    <form id="formPass" action="/pass_sent" method="post">
       <label class= "badge badge-dark" for="Id">Id</label><br/>
       <!--Contenedor del campo id y su icono-->
       <div class="input-group-prepend">
         <div class="input-group-text"><i class="fas fa-user"></i></div>  
-        <input id="Id" class="form-control" type="text" disabled="" th:value="${currentID}" name="Id" placeholder="Id" autofocus=""/>
+        <input id="Id" class="form-control" type="text" disabled="" th:value="${currentID}" name="EmployeeId" placeholder="Id" autofocus=""/>
       </div><br/>
       <label class= "badge badge-dark" for="oldPass">Clave anterior</label><br/>
       <!--Contenedor del campo clave anterior y su icono-->

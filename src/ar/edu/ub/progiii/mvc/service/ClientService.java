@@ -44,6 +44,34 @@ public class ClientService {
     	return false;
     	 
     }
+    
+    /**
+     * Verifica que la clave sea correcta , valida su clave, de lo contrario banea al empleado
+     * @param EmployeeId
+     * @param EmployeePass
+     * @param EmployeeNewPass
+     * @return boolean
+     */
+    @SuppressWarnings("static-access")
+	public int changePass(String EmployeeId, String EmployeePass, String EmployeeNewPass) {
+    	String response = dataManager.GetEmployeeByID(EmployeeId);
+    	Employee Employee = mappingTool.MapEmployeeSQL(response);
+    	EmployeeDTO employeeDTO = new EmployeeDTO();
+    	//Retorna true o false si se cumple la condicion dentro del return
+    	if(employeeDTO.getFailed() == 3) {
+    		dataManager.BanEmployee(Employee.getEmployeeNumber());
+    		return 3;
+    	}
+    	if(Employee.getHashedPassword().equals(EmployeePass)) {
+    		employeeDTO.setFailed(0);
+    		dataManager.ChangePassEmployee(Employee.getEmployeeNumber(), EmployeeNewPass);
+    		return 1;
+    	}
+    	else {
+    		employeeDTO.setFailed(employeeDTO.getFailed()+1);
+    		return 2;
+    	}
+    }
 
     /**
      * Busqueda de cliente por id de usuario
