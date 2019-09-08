@@ -18,7 +18,8 @@
       <!--Contenedor del campo id y su icono-->
       <div class="input-group-prepend">
         <div class="input-group-text"><i class="fas fa-user"></i></div>  
-        <input id="Id" class="form-control" type="text" disabled="" th:value="${currentID}" name="EmployeeId" placeholder="Id" autofocus=""/>
+        <input id="Id" class="form-control" type="text" disabled="" th:value="${currentID}" name="EmployeeId" placeholder="Id" autofocus=""/><br/>
+        <input id="Id" class="form-control" type="text" th:value="${currentID}" name="EmployeeId" placeholder="Id" autofocus="" style="visibility:hidden; position:absolute"/>
       </div><br/>
       <label class= "badge badge-dark" for="oldPass">Clave anterior</label><br/>
       <!--Contenedor del campo clave anterior y su icono-->
@@ -39,10 +40,28 @@
         <input id="repeatPass" class="form-control" type="password" name="repeatPass" placeholder="Pass" autofocus=""/>
       </div><br/>
       <!--Tag del boton submit con atributo id para javaScript y su correspondiente clase para estilo de bootstrap-->
-      <button type="submit" id="PassSubmit" class="btn btn-dark">Aceptar</button>
+      <input type="submit" id="PassSubmit" class="btn btn-dark" value="Aceptar"/>
     </form>  
     </div>    
   <!--Asociamos con Thymeleaf nuestro archivo layout para linkear scripts en el footer-->
   <div th:replace="layout :: footer"></div>
+  <script th:inline="javascript">
+         /*<![CDATA[*/
+        var listaContenido = /*[[${Contenido}]]*/ 'default';
+        var p1=(listaContenido[0]);
+        var p2=(listaContenido[1]);
+        var p3=(listaContenido[2]);
+         /*]]>*/
+         if(p3== "1"){
+        	 swal({
+                 title: p1,
+                 text: p2,
+                 icon: "success"
+               })
+               .then((willDelete) => {
+                   setTimeout(function(){ window.open("menu","_self"); }, 500);
+                });
+         }
+</script>
 </body>
 </html>

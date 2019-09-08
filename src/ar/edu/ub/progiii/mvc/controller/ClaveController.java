@@ -40,11 +40,11 @@ public class ClaveController {
 	
 	@PostMapping("/pass_sent")
 	public ModelAndView changePass(@RequestParam("EmployeeId") String employeeId, @RequestParam("oldPass") String oldPass, @RequestParam("newPass") String newPass) {
-		RedirectView redirectView = new RedirectView("/clave");
-		redirectView.setExposePathVariables(false);
 		int aux = clientService.changePass(employeeId, oldPass, newPass);
 		if(aux == 1) {
-			return new ModelAndView(redirectView);
+			ModelAndView modelSucces = new ModelAndView("clave");
+			modelSucces.addObject("Contenido", Arrays.asList("Exito","La clave ha sido cambiada con exito!","1"));
+			return modelSucces;
 		}
 		if(aux == 2) {
 			ModelAndView modelError = new ModelAndView("ErrorPage");
