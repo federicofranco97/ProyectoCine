@@ -45,7 +45,7 @@ public class LoginController {
 			return new ModelAndView(redirectView);
 		}
  		ModelAndView modelError = new ModelAndView("ErrorPage");
- 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no pudo ser logueado, redireccionando a login!"));
+ 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no pudo ser logueado, redireccionando a login!","/"));
 		return modelError;
 	}
 }

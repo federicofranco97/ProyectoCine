@@ -26,9 +26,16 @@ public class ClaveController {
 	
 	@GetMapping("/cambio_clave")
 	public ModelAndView GetPassView() {
-		ModelAndView model = new ModelAndView("clave");
-		model.addObject("currentID",clientService.currentEmployee.getEmployeeNumber());
-		return model;
+		int employeeNumber = clientService.currentEmployee.getEmployeeNumber();
+		if(clientService.IsEmployeeAlowed(employeeNumber)) {
+			ModelAndView model = new ModelAndView("clave");
+			model.addObject("currentID",employeeNumber);
+			return model;
+		}
+		ModelAndView modelError = new ModelAndView("ErrorPage");
+ 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no pudo ser logueado, redireccionando a login!","/"));
+		return modelError;
+		
 	}
 	
 	/*@PostMapping("/login_sent")
