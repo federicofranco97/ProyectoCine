@@ -5,6 +5,7 @@ import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.model.Employee;
 import ar.edu.ub.progiii.mvc.repository.Data;
 import org.springframework.stereotype.Service;
+import sun.security.krb5.internal.Ticket;
 
 import java.util.ArrayList;
 
@@ -290,5 +291,9 @@ public class ClientService {
 
     public String SupervisorsActiveDay(){
         return dataManager.GetSupervisorsActive();
+    }
+
+    public void CloseTicket(int TicketNumber){
+        dataManager.CloseTicket(TicketNumber);
     }
 }
