@@ -377,6 +377,34 @@ public class Data implements IData{
         LogData("BanEmployee","Banear empleado id:"+EmployeeNumber);
         return result;
     }
+    
+    /**
+     * Cambiar la clave de un empleado
+     *
+     * @param EmployeeNumber
+     * @param newPass
+     * @return
+     */
+    @Override
+    public int ChangePassEmployee(int EmployeeNumber, String newPass) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	CQueryUpdate cQueryUpdate = new CQueryUpdate("empleado", "Clave='"+newPass+"'");
+            	cQueryUpdate.addStatementCondition("NroEmpleado="+EmployeeNumber);
+            	result = cQueryUpdate.Run();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("BanEmployee","Cambiar clave empleado id:"+EmployeeNumber);
+        return result;
+    }
 
     /**
      * "Elmina" un empleado del sistema.

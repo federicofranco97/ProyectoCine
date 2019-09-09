@@ -40,12 +40,18 @@ public class LoginController {
 	public ModelAndView EmployeeLogin(@RequestParam("EmployeeId") String employeeId, @RequestParam("EmployeePass") String employeePass) {
 		RedirectView redirectView = new RedirectView("/menu");
 		redirectView.setExposePathVariables(false);
-		boolean aux = clientService.verifyEmployeeLogin(employeeId, employeePass);
-		if(aux) {
-			return new ModelAndView(redirectView);
+		try {
+			boolean aux = clientService.verifyEmployeeLogin(employeeId, employeePass);
+			if(aux) {
+				return new ModelAndView(redirectView);
+			}
+		} catch (Exception e) {
+			ModelAndView modelError = new ModelAndView("ErrorPage");
+	 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no pudo ser logueado, redireccionando a login!","/"));
+			return modelError;
 		}
- 		ModelAndView modelError = new ModelAndView("ErrorPage");
- 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no pudo ser logueado, redireccionando a login!"));
+		ModelAndView modelError = new ModelAndView("ErrorPage");
+ 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no pudo ser logueado, redireccionando a login!","/"));
 		return modelError;
 	}
 }
