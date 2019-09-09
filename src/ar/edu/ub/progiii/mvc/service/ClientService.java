@@ -53,14 +53,14 @@ public class ClientService {
      * @return boolean
      */
     @SuppressWarnings("static-access")
-	public int changePass(String EmployeeId, String EmployeePass, String EmployeeNewPass) {
-    	String response = dataManager.GetEmployeeByID(EmployeeId);
+	public int changePass(String employeeId, String employeePass, String employeeNewPass) {
+    	String response = dataManager.GetEmployeeByID(employeeId);
     	Employee Employee = mappingTool.MapEmployeeSQL(response);
     	EmployeeDTO employeeDTO = new EmployeeDTO();
     	//Retorna true o false si se cumple la condicion dentro del return
-    	if(Employee.getHashedPassword().equals(EmployeePass)) {
+    	if(Employee.getHashedPassword().equals(employeePass)) {
     		employeeDTO.setFailed(0);
-    		dataManager.ChangePassEmployee(Employee.getEmployeeNumber(), EmployeeNewPass);
+    		dataManager.ChangePassEmployee(Employee.getEmployeeNumber(), employeeNewPass);
     		return 1;
     	}
     	else {
