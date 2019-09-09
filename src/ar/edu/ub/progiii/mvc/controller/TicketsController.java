@@ -56,7 +56,14 @@ public class TicketsController {
     @GetMapping("/close_ticket")
     public ModelAndView CloseTicket(@RequestParam("ticket")int TicketNumber){
         RedirectView redirectView = new RedirectView("/tickets");
-        clientService.CloseTicket(TicketNumber);
-        return new ModelAndView(redirectView);
+        if(clientService.CloseTicket(TicketNumber)){
+            return new ModelAndView(redirectView);
+        }else{
+            ModelAndView errorModel = new ModelAndView("ErrorPage");
+            errorModel.addObject("Contenido", Arrays.asList("Error","Ocurrio un error al cerrar el ticket," +
+                    "no hay empleado logeado o el empleado actual no tiene los permisos requeridos."));
+            return errorModel;
+        }
+
     }
 }

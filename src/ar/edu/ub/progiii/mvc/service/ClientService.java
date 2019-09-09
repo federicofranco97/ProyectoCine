@@ -293,7 +293,15 @@ public class ClientService {
         return dataManager.GetSupervisorsActive();
     }
 
-    public void CloseTicket(int TicketNumber){
-        dataManager.CloseTicket(TicketNumber);
+    public boolean CloseTicket(int TicketNumber){
+        int CurrentEmployeeCategory=0;
+        try {
+            CurrentEmployeeCategory = GetEmployeeCategory(currentEmployee.getEmployeeNumber());
+        }catch(Exception e){}
+        if(CurrentEmployeeCategory ==1){
+            dataManager.CloseTicket(TicketNumber);
+            return true;
+        }
+        return false;
     }
 }
