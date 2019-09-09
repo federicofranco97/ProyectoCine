@@ -21,9 +21,12 @@
               dangerMode: true,
             })
             .then((willDelete) => {
-            setTimeout(function(){ window.open(p3,"_self"); }, 500);
+            setTimeout("RedirectPage()", 500);
 
          });
+         function RedirectPage(){
+        	 window.open(p3,"_self"); 
+        	 }
 </script>
 
 </body>
