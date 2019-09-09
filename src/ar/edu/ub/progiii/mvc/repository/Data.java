@@ -10,6 +10,7 @@ import ar.edu.ub.progiii.mvc.repository.querys.QueryInsert;
 import ar.edu.ub.progiii.mvc.repository.querys.QueryStoredProcedure;
 import ar.edu.ub.progiii.mvc.repository.querys.QueryStoredProcedureWResponse;
 
+import ar.edu.ub.progiii.mvc.service.ClientService;
 import com.sun.javafx.scene.control.TableColumnSortTypeWrapper;
 import org.springframework.stereotype.Repository;
 
@@ -30,7 +31,7 @@ public class Data implements IData{
      * @param Tipo Tipo de log
      * @param Mensaje Mensaje que contiene el log
      */
-    private void LogData(String Tipo,String Mensaje){
+    public void LogData(String Tipo,String Mensaje){
         String SPsql = "EXEC GenerarLog '"+Tipo+"' , '"+Mensaje+"' ";
         try {
             PreparedStatement stm = connection.prepareStatement(SPsql);
@@ -57,10 +58,10 @@ public class Data implements IData{
                 }
             }
             result += "/";
-            String [] aux = result.split("/");
-            if(aux.length == 1){
-                result = result.replaceAll("/","");
-            }
+        }
+        String [] aux = result.split("/");
+        if(aux.length == 1){
+            result = result.replaceAll("/","");
         }
         return result;
     }
@@ -83,10 +84,10 @@ public class Data implements IData{
                 }
             }
             result += "/";
-            String [] aux = result.split("/");
-            if(aux.length == 1){
-                result = result.replaceAll("/","");
-            }
+        }
+        String [] aux = result.split("/");
+        if(aux.length == 1){
+            result = result.replaceAll("/","");
         }
         return result;
     }
@@ -374,6 +375,34 @@ public class Data implements IData{
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("BanEmployee","Banear empleado id:"+EmployeeNumber);
+        return result;
+    }
+    
+    /**
+     * Cambiar la clave de un empleado
+     *
+     * @param EmployeeNumber
+     * @param newPass
+     * @return
+     */
+    @Override
+    public int ChangePassEmployee(int EmployeeNumber, String newPass) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	CQueryUpdate cQueryUpdate = new CQueryUpdate("empleado", "Clave='"+newPass+"'");
+            	cQueryUpdate.addStatementCondition("NroEmpleado="+EmployeeNumber);
+            	result = cQueryUpdate.Run();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("BanEmployee","Cambiar clave empleado id:"+EmployeeNumber);
         return result;
     }
 
@@ -736,5 +765,70 @@ public class Data implements IData{
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         return result;
+    }
+
+    /**
+     * Trae el numero de llegadas tarde que hubo.
+     *
+     * @return
+     */
+    @Override
+    public String GetSupervisorsActive() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("supervisoresonline");
+                ResultSet rst = queryStoredProcedureWResponse.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("Online"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Registrar el login del empleado.
+     *
+     * @param NroEmpleado
+     * @param CodRol
+     */
+    @Override
+    public void RegistrarLog(String NroEmpleado, String CodRol) {
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("RegistrarLogin");
+                queryStoredProcedure.addParameter(Arrays.asList(NroEmpleado,CodRol));
+                queryStoredProcedure.Run();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+    }
+
+    /**
+     * Metodo para marcar un ticket como cerrado
+     *
+     * @param TicketNumber
+     */
+    @Override
+    public void CloseTicket(int TicketNumber) {
+        int result;
+        try {
+            CQueryUpdate cQueryUpdate = new CQueryUpdate("tickets", "Estado='Cerrado'");
+            cQueryUpdate.addStatementCondition("ID="+TicketNumber);
+            result = cQueryUpdate.Run();
+        }catch(Exception ex){
+            System.out.println("Ocurrio una excepcion al cerrar el ticket "+TicketNumber+" "+ex.getMessage());
+        }
+        LogData("TicketClose","Se cerro el ticket "+TicketNumber+" por empleado"+ ClientService.currentEmployee.getEmployeeNumber());
     }
 }

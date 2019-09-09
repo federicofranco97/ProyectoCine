@@ -11,6 +11,7 @@
         var listaContenido = /*[[${Contenido}]]*/ 'default';
         var p1=(listaContenido[0]);
         var p2=(listaContenido[1]);
+        var p3=(listaContenido[2]);
          /*]]>*/
          swal({
               title: p1,
@@ -20,9 +21,12 @@
               dangerMode: true,
             })
             .then((willDelete) => {
-            setTimeout(function(){ window.open("/","_self"); }, 500);
+            setTimeout("RedirectPage()", 500);
 
          });
+         function RedirectPage(){
+        	 window.open(p3,"_self"); 
+        	 }
 </script>
 
 </body>
