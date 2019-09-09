@@ -17,7 +17,8 @@ public class MenuController {
         ModelAndView model = new ModelAndView("menu");
         if(clientService.currentEmployee.getEmployeeNumber() > 0 ){
             int employeeCatNum = clientService.GetEmployeeCategory(clientService.currentEmployee.getEmployeeNumber());
-            model.addObject("modelDisplay",employeeCatNum==1);
+            boolean isEmployeeAllowed = employeeCatNum==1 || employeeCatNum==3;
+            model.addObject("modelDisplay",isEmployeeAllowed);
         }
 
         return model;

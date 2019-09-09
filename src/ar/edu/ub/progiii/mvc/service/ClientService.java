@@ -297,7 +297,9 @@ public class ClientService {
         int CurrentEmployeeCategory=0;
         try {
             CurrentEmployeeCategory = GetEmployeeCategory(currentEmployee.getEmployeeNumber());
-        }catch(Exception e){}
+        }catch(Exception e){
+            System.out.println("Empleado no autorizado");
+        }
         if(CurrentEmployeeCategory ==1){
             dataManager.CloseTicket(TicketNumber);
             return true;

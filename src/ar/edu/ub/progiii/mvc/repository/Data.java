@@ -801,6 +801,6 @@ public class Data implements IData{
         }catch(Exception ex){
             System.out.println("Ocurrio una excepcion al cerrar el ticket "+TicketNumber+" "+ex.getMessage());
         }
-        LogData("TicketClose","Se cerro el ticket "+TicketNumber+" por "+ ClientService.currentEmployee.getEmployeeNumber());
+        LogData("TicketClose","Se cerro el ticket "+TicketNumber+" por empleado"+ ClientService.currentEmployee.getEmployeeNumber());
     }
 }
