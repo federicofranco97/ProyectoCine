@@ -14,7 +14,7 @@ public class ReportController {
     @Autowired
     ClientService clientService;
 
-    @GetMapping("/ventas_dia")
+    @GetMapping("/reporte_dia")
     public ModelAndView GetReport(){
         ModelAndView model = new ModelAndView("ReportTemplate");
         if(clientService.ActiveEmployees().equals("0") || clientService.ActiveEmployees()==null
@@ -30,6 +30,12 @@ public class ReportController {
         model.addObject("mostViewed",clientService.DayFilmMostWatched());
         model.addObject("categoryDay",clientService.CategoryDay()[0]+" AR$"+clientService.CategoryDay()[1]);
         model.addObject("supervisorsActive",clientService.SupervisorsActiveDay());
+        return model;
+    }
+
+    @GetMapping("/reporte_mes")
+    public ModelAndView GetMonthlyReport(){
+        ModelAndView model = new ModelAndView("ReportMonth");
         return model;
     }
 }
