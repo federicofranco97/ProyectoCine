@@ -51,5 +51,5 @@ form.onsubmit = function (event)
 // Tooltips para  cada campo con el mesnsaje en cuestion
 tippy('#Id',{content: 'Campo requerido'});
 tippy('#oldPass',{content: 'Campo requerido'});
-tippy('#newPass',{content: 'Campo requerido, caracteres no permitidos "/""_"'});
-tippy('#repeatPass',{content: 'Campo requerido, caracteres no permitidos "/""_"'});
+tippy('#newPass',{content: 'Campo requerido, caracteres no permitidos ( /, _ )'});
+tippy('#repeatPass',{content: 'Campo requerido, caracteres no permitidos ( /, _ )'});
