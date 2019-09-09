@@ -24,6 +24,7 @@ public class ClaveController {
 	Connection connection = new Connection();
 	MappingTool map = new MappingTool();
 	
+	@SuppressWarnings("static-access")
 	@GetMapping("/cambio_clave")
 	public ModelAndView GetPassView() {
 		int employeeNumber = clientService.currentEmployee.getEmployeeNumber();
