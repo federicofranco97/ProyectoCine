@@ -5,6 +5,7 @@ import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.model.Employee;
 import ar.edu.ub.progiii.mvc.repository.Data;
 import org.springframework.stereotype.Service;
+import sun.security.krb5.internal.Ticket;
 
 import java.util.ArrayList;
 
@@ -290,5 +291,19 @@ public class ClientService {
 
     public String SupervisorsActiveDay(){
         return dataManager.GetSupervisorsActive();
+    }
+
+    public boolean CloseTicket(int TicketNumber){
+        int CurrentEmployeeCategory=0;
+        try {
+            CurrentEmployeeCategory = GetEmployeeCategory(currentEmployee.getEmployeeNumber());
+        }catch(Exception e){
+            System.out.println("Empleado no autorizado");
+        }
+        if(CurrentEmployeeCategory ==1){
+            dataManager.CloseTicket(TicketNumber);
+            return true;
+        }
+        return false;
     }
 }

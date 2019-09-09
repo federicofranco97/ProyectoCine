@@ -10,6 +10,7 @@ import ar.edu.ub.progiii.mvc.repository.querys.QueryInsert;
 import ar.edu.ub.progiii.mvc.repository.querys.QueryStoredProcedure;
 import ar.edu.ub.progiii.mvc.repository.querys.QueryStoredProcedureWResponse;
 
+import ar.edu.ub.progiii.mvc.service.ClientService;
 import com.sun.javafx.scene.control.TableColumnSortTypeWrapper;
 import org.springframework.stereotype.Repository;
 
@@ -783,5 +784,23 @@ public class Data implements IData{
         }catch (Exception ex){
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
+    }
+
+    /**
+     * Metodo para marcar un ticket como cerrado
+     *
+     * @param TicketNumber
+     */
+    @Override
+    public void CloseTicket(int TicketNumber) {
+        int result;
+        try {
+            CQueryUpdate cQueryUpdate = new CQueryUpdate("tickets", "Estado='Cerrado'");
+            cQueryUpdate.addStatementCondition("ID="+TicketNumber);
+            result = cQueryUpdate.Run();
+        }catch(Exception ex){
+            System.out.println("Ocurrio una excepcion al cerrar el ticket "+TicketNumber+" "+ex.getMessage());
+        }
+        LogData("TicketClose","Se cerro el ticket "+TicketNumber+" por empleado"+ ClientService.currentEmployee.getEmployeeNumber());
     }
 }

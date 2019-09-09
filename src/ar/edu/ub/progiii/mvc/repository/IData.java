@@ -170,4 +170,10 @@ public interface IData {
      * @param CodRol
      */
     public void RegistrarLog(String NroEmpleado,String CodRol);
+
+    /**
+     * Metodo para marcar un ticket como cerrado
+     * @param TicketNumber
+     */
+    public void CloseTicket(int TicketNumber);
 }
