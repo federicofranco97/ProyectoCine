@@ -57,10 +57,10 @@ public class Data implements IData{
                 }
             }
             result += "/";
-            String [] aux = result.split("/");
-            if(aux.length == 1){
-                result = result.replaceAll("/","");
-            }
+        }
+        String [] aux = result.split("/");
+        if(aux.length == 1){
+            result = result.replaceAll("/","");
         }
         return result;
     }
@@ -83,10 +83,10 @@ public class Data implements IData{
                 }
             }
             result += "/";
-            String [] aux = result.split("/");
-            if(aux.length == 1){
-                result = result.replaceAll("/","");
-            }
+        }
+        String [] aux = result.split("/");
+        if(aux.length == 1){
+            result = result.replaceAll("/","");
         }
         return result;
     }
