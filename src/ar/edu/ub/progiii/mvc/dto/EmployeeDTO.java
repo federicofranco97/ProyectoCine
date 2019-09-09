@@ -8,7 +8,7 @@ import java.util.Objects;
 public class EmployeeDTO extends PersonDTO{
 	private int EmployeeNumber;
 	private String Rank;
-	private static int failed=0;
+	private int failed=0;
 	
 	/**
 	 * Constructor
@@ -44,13 +44,13 @@ public class EmployeeDTO extends PersonDTO{
 	public void setRank(String rank) {
 		Rank = rank;
 	}
-	
-	public static int getFailed() {
+
+	public int getFailed() {
 		return failed;
 	}
 
-	public static void setFailed(int failed) {
-		EmployeeDTO.failed = failed;
+	public void setFailed(int failed) {
+		this.failed = failed;
 	}
 
 	@Override

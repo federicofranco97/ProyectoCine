@@ -56,20 +56,19 @@ public class ClientService {
 	public int changePass(String employeeId, String employeePass, String employeeNewPass) {
     	String response = dataManager.GetEmployeeByID(employeeId);
     	Employee Employee = mappingTool.MapEmployeeSQL(response);
-    	EmployeeDTO employeeDTO = new EmployeeDTO();
     	//Retorna true o false si se cumple la condicion dentro del return
     	if(Employee.getHashedPassword().equals(employeePass)) {
-    		employeeDTO.setFailed(0);
+    		currentEmployee.setFailed(0);
     		dataManager.ChangePassEmployee(Employee.getEmployeeNumber(), employeeNewPass);
     		return 1;
     	}
     	else {
-    		if(employeeDTO.getFailed() == 2) {
+    		if(currentEmployee .getFailed() == 2) {
         		dataManager.BanEmployee(Employee.getEmployeeNumber());
         		return 3;
         	}
         	else {
-        		employeeDTO.setFailed(employeeDTO.getFailed()+1);
+        		currentEmployee.setFailed(currentEmployee.getFailed()+1);
         		return 2;
         	}
     	}
