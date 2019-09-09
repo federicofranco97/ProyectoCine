@@ -30,7 +30,7 @@ public class Data implements IData{
      * @param Tipo Tipo de log
      * @param Mensaje Mensaje que contiene el log
      */
-    private void LogData(String Tipo,String Mensaje){
+    public void LogData(String Tipo,String Mensaje){
         String SPsql = "EXEC GenerarLog '"+Tipo+"' , '"+Mensaje+"' ";
         try {
             PreparedStatement stm = connection.prepareStatement(SPsql);
@@ -57,10 +57,10 @@ public class Data implements IData{
                 }
             }
             result += "/";
-            String [] aux = result.split("/");
-            if(aux.length == 1){
-                result = result.replaceAll("/","");
-            }
+        }
+        String [] aux = result.split("/");
+        if(aux.length == 1){
+            result = result.replaceAll("/","");
         }
         return result;
     }
@@ -83,10 +83,10 @@ public class Data implements IData{
                 }
             }
             result += "/";
-            String [] aux = result.split("/");
-            if(aux.length == 1){
-                result = result.replaceAll("/","");
-            }
+        }
+        String [] aux = result.split("/");
+        if(aux.length == 1){
+            result = result.replaceAll("/","");
         }
         return result;
     }
@@ -736,5 +736,52 @@ public class Data implements IData{
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         return result;
+    }
+
+    /**
+     * Trae el numero de llegadas tarde que hubo.
+     *
+     * @return
+     */
+    @Override
+    public String GetSupervisorsActive() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("supervisoresonline");
+                ResultSet rst = queryStoredProcedureWResponse.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("Online"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Registrar el login del empleado.
+     *
+     * @param NroEmpleado
+     * @param CodRol
+     */
+    @Override
+    public void RegistrarLog(String NroEmpleado, String CodRol) {
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("RegistrarLogin");
+                queryStoredProcedure.addParameter(Arrays.asList(NroEmpleado,CodRol));
+                queryStoredProcedure.Run();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
     }
 }

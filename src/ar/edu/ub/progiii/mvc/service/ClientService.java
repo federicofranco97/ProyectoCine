@@ -39,6 +39,7 @@ public class ClientService {
     	//Retorna true o false si se cumple la condicion dentro del return
     	if((IsEmployeeAlowed(Integer.parseInt(EmployeeId)) && (Employee.getHashedPassword().equals(EmployeePass)))) {
     		currentEmployee = mappingTool.MapDTOEmployee(Employee);
+    		dataManager.RegistrarLog(EmployeeId,Employee.getRank());
     		return true;
     	}
     	return false;
@@ -285,5 +286,9 @@ public class ClientService {
 
     public String[] CategoryDay(){
         return dataManager.GetCategoryDay().split("_");
+    }
+
+    public String SupervisorsActiveDay(){
+        return dataManager.GetSupervisorsActive();
     }
 }
