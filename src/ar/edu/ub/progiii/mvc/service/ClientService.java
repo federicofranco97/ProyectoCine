@@ -4,10 +4,15 @@ import ar.edu.ub.progiii.mvc.dto.*;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.model.Employee;
 import ar.edu.ub.progiii.mvc.repository.Data;
+import org.codehaus.groovy.runtime.ConvertedClosure;
 import org.springframework.stereotype.Service;
 import sun.security.krb5.internal.Ticket;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 public class ClientService {
@@ -305,5 +310,37 @@ public class ClientService {
             return true;
         }
         return false;
+    }
+
+    public String GetMonthlySales(){
+        return dataManager.GetGeneralMonthlySales();
+    }
+
+    public String GetEmployeesActiveMonth(){
+        return dataManager.GetEployeesActiveMonth();
+    }
+
+    public String GetOnlineBookingsMonth(){
+        if(dataManager.GetOnlineBooQuantityMonth()!=null || dataManager.GetOnlineBooQuantityMonth()!="")return dataManager.GetOnlineBooQuantityMonth();
+        return "0";
+    }
+
+    public String[] CategoryMonth(){
+        return dataManager.GetCategoryMonth().split("_");
+    }
+
+    public String GetSupervisorsOnlineMonth(){
+        return dataManager.GetSupervisorsActiveMonth();
+    }
+
+    public String GetServerDate(){
+        return dataManager.GetServerDate();
+    }
+
+    public String GetServerMonth() throws ParseException {
+        String currentDate = dataManager.GetServerDate();
+        Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(currentDate);
+        DateFormat out = new SimpleDateFormat("MMMMM yyyy");
+        return out.format(date1);
     }
 }

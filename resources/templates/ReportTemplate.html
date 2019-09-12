@@ -59,7 +59,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Cantidad Empleados</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Activos hoy: <label th:text="${employeeAmount}"></label></div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Activos : <label th:text="${employeeAmount}"></label></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-user-tie fa-2x"></i>
@@ -93,7 +93,7 @@
                       <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Quejas</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Hoy</div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
                         </div>
                         <div class="col">
                           <div class="progress progress-sm mr-2">
@@ -169,8 +169,8 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1"
-                             title="Supervisores Activos Hoy">Supervisores</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Activos hoy: <label th:text="${supervisorsActive}"/> </div>
+                             title="Supervisores Activos ">Supervisores</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Activos : <label th:text="${supervisorsActive}"/> </div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-user-secret fa-2x"></i>
@@ -186,7 +186,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Fecha</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">2019-08-27</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><label th:text="${serverDate}"/></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar-alt fa-2x"></i>

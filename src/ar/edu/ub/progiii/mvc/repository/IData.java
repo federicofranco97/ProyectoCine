@@ -141,7 +141,7 @@ public interface IData {
     public String GetOnlineBooQuantity();
 
     /**
-     * Trae la pelicula mas comprada en el dia
+     * Trae la pelicula mas comprada en el mes
      * @return
      */
     public String GetDayMostViewed();
@@ -151,6 +151,37 @@ public interface IData {
      * @return
      */
     public String GetMonthMostViewed();
+
+
+    /**
+     * Trae el total de ventas de todo el mes
+     * @return
+     */
+    public String GetGeneralMonthlySales();
+
+    /**
+     * Trae los empleados que estuvieron activos durante el mes
+     * @return
+     */
+    public String GetEployeesActiveMonth();
+
+    /**
+     * Devuelve la cantidad de entradas sacadas por internet en el mes
+     * @return
+     */
+    public String GetOnlineBooQuantityMonth();
+
+    /**
+     * Trae la tarifa promedio del mes
+     * @return
+     */
+    public String GetCategoryMonth();
+
+    /**
+     * Trae el numero de supervisores que hubo logeados
+     * @return
+     */
+    public String GetSupervisorsActiveMonth();
 
     /**
      * Trae la tarifa promedio del dia
@@ -176,4 +207,10 @@ public interface IData {
      * @param TicketNumber
      */
     public void CloseTicket(int TicketNumber);
+
+    /**
+     * Pregunta la fecha del sql server
+     * @return
+     */
+    public String GetServerDate();
 }
