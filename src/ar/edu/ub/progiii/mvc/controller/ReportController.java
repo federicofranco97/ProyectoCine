@@ -54,4 +54,10 @@ public class ReportController {
         model.addObject("serverDate",clientService.GetServerMonth());
         return model;
     }
+
+    @GetMapping("/")
+    public ModelAndView GetEmpReport(){
+        ModelAndView model = new ModelAndView("EmployeeReport");
+        return model;
+    }
 }
