@@ -6,8 +6,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class DashboardController {
-
-    @GetMapping("/Admin")
+    /**
+     * Método que carga al dashboard
+     * @return
+     */
+    @GetMapping("/admin")
     public ModelAndView GetDashboard(){
         ModelAndView model = new ModelAndView("Dashboard");
         return model;

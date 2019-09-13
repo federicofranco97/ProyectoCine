@@ -28,21 +28,25 @@ public class LoginController {
 	Data data = new Data();
 	Connection connection = new Connection();
 	MappingTool map = new MappingTool();
-	
+	/*
+	Método que te lleva a la vista para logearte
+	 */
 	@GetMapping("/")
 	public ModelAndView GetLoginView() {
 		ModelAndView model = new ModelAndView("Login");
 		clientService.ClearCurrentUser();
 		return model;
 	}
-	
+	/*
+	Método que, en el caso de ingresar las credenciales correctas te lleva el menu
+	sino, te lleva a la página de Error
+	 */
 	@PostMapping("/login_sent")
 	public ModelAndView EmployeeLogin(@RequestParam("EmployeeId") String employeeId, @RequestParam("EmployeePass") String employeePass) {
 		RedirectView redirectView = new RedirectView("/menu");
 		redirectView.setExposePathVariables(false);
 		try {
-			boolean aux = clientService.verifyEmployeeLogin(employeeId, employeePass);
-			if(aux) {
+			if(clientService.verifyEmployeeLogin(employeeId, employeePass)) {
 				return new ModelAndView(redirectView);
 			}
 		} catch (Exception e) {

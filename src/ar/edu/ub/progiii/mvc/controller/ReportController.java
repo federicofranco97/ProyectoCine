@@ -13,7 +13,9 @@ public class ReportController {
 
     @Autowired
     ClientService clientService;
-
+    /*
+    Método que te lleva a la vista de reportes de ventas del dia
+     */
     @GetMapping("/ventas_dia")
     public ModelAndView GetReport(){
         ModelAndView model = new ModelAndView("ReportTemplate");

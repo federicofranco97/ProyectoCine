@@ -17,14 +17,17 @@ import ar.edu.ub.progiii.mvc.service.ClientService;
 
 @Controller
 public class ClaveController {
-	
+
 	@Autowired
 	ClientService clientService;
 	Data data = new Data();
 	Connection connection = new Connection();
 	MappingTool map = new MappingTool();
-	
-	@SuppressWarnings("static-access")
+
+	/**
+	 * Llama a la vista cambio de clave
+	 * @return
+	 */
 	@GetMapping("/cambio_clave")
 	public ModelAndView GetPassView() {
 		int employeeNumber = clientService.currentEmployee.getEmployeeNumber();
@@ -38,7 +41,16 @@ public class ClaveController {
 		return modelError;
 		
 	}
-	
+
+	/**
+	 * Método que te permite modificar la clave
+	 *O en caso de ingresar mal la clave actual, no te permite cambiarla
+	 * y te notifica que fuiste bloqueado
+	 * @param employeeId
+	 * @param oldPass
+	 * @param newPass
+	 * @return
+	 */
 	@PostMapping("/pass_sent")
 	public ModelAndView changePass(@RequestParam("EmployeeId") String employeeId, @RequestParam("oldPass") String oldPass, @RequestParam("newPass") String newPass) {
 		int aux = clientService.changePass(employeeId, oldPass, newPass);

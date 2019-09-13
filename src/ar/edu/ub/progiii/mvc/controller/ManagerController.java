@@ -18,20 +18,28 @@ public class ManagerController {
 
     @Autowired
     ClientService clientService;
-
+    /*
+    Método que te lleva a la vista del gerente principal
+     */
     @GetMapping("/admin_main")
     public ModelAndView GetMain(){
         ModelAndView model = new ModelAndView("ManagerPage");
         return model;
     }
-
+    /*
+    Método que te permite administrar los empleados
+     */
     @GetMapping("/manage_employees")
     public ModelAndView GetEmployeesView(){
         ModelAndView model = new ModelAndView("ManagerEmployees");
         model.addObject("EmployeeList",clientService.GetAllEmployees());
         return model;
     }
-
+    /*
+    Método que te permite banear empleado
+    luego te redirige o a la vista de gerente principal
+    o a la vista para administrar empleados
+     */
     @GetMapping("/ban_employee")
     public ModelAndView BanEmployee(@RequestParam("employeeid")int EmployeeNumber){
         int result = clientService.BanEmployee(EmployeeNumber);
@@ -45,7 +53,9 @@ public class ManagerController {
             return new ModelAndView(redirectView);
         }
     }
-
+    /*
+    Método que te lleva a la vista para eliminar empleados
+     */
     @GetMapping("/delete_employee")
     public ModelAndView DeleteEmployee(@RequestParam("employeeid")int EmployeeNumber){
         int result = clientService.DeleteEmployee(EmployeeNumber);
@@ -59,7 +69,9 @@ public class ManagerController {
             return new ModelAndView(redirectView);
         }
     }
-
+    /*
+    Método que te lleva a la vista para editar empleados
+     */
     @GetMapping("/edit_employee")
     public ModelAndView GetEditPage(@RequestParam("employeeid")int EmployeeNumber){
         ModelAndView model = new ModelAndView("EditEmployee");
@@ -67,7 +79,9 @@ public class ManagerController {
         model.addObject("empleado",employeeDTO);
         return model;
     }
-
+    /*
+    Método que te lleva a la vista para actualizar empleados
+     */
     @PostMapping("/update_employee")
     public ModelAndView UpdateEmployee(EmployeeDTO employee){
         clientService.UpdateEmployee(employee);
@@ -75,14 +89,18 @@ public class ManagerController {
         redirectView.setExposePathVariables(false);
         return new ModelAndView(redirectView);
     }
-
+    /*
+    Método que te lleva a la vista para administrar clientes
+     */
      @GetMapping("/manage_clients")
     public ModelAndView GetClients(){
         ModelAndView model = new ModelAndView("ManagerClients");
         model.addObject("ClientList",clientService.GetAllClients());
         return model;
     }
-
+    /*
+    Método que te lleva a la vista para banear clientes
+     */
     @GetMapping("/ban_client")
     public ModelAndView BanClient(@RequestParam("clientid")int ClientNumber){
         int result = clientService.BanClient(ClientNumber);
@@ -96,7 +114,9 @@ public class ManagerController {
             return model;
         }
     }
-
+    /*
+    Método que te lleva a la vista para elimianr clientes
+     */
     @GetMapping("/delete_client")
     public ModelAndView DeleteClient(@RequestParam("clientid")int ClientNumber){
         int result = clientService.DeleteClient(ClientNumber);
