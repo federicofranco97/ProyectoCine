@@ -28,6 +28,7 @@ public class QueryStoredProcedureWResponse implements IQueryBuilder<ResultSet> {
 
     public QueryStoredProcedureWResponse(String command, List<String> parameters) {
         Command = command;
+        Parameters.clear();
         Parameters.addAll(parameters);
     }
 

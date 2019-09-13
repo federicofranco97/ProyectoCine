@@ -5,6 +5,7 @@ import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.model.Employee;
 import ar.edu.ub.progiii.mvc.repository.Data;
 import org.springframework.stereotype.Service;
+import sun.security.krb5.internal.Ticket;
 
 import java.util.ArrayList;
 
@@ -39,10 +40,40 @@ public class ClientService {
     	//Retorna true o false si se cumple la condicion dentro del return
     	if((IsEmployeeAlowed(Integer.parseInt(EmployeeId)) && (Employee.getHashedPassword().equals(EmployeePass)))) {
     		currentEmployee = mappingTool.MapDTOEmployee(Employee);
+    		dataManager.RegistrarLog(EmployeeId,Employee.getRank());
     		return true;
     	}
     	return false;
     	 
+    }
+    
+    /**
+     * Verifica que la clave sea correcta , valida su clave, de lo contrario banea al empleado
+     * @param EmployeeId
+     * @param EmployeePass
+     * @param EmployeeNewPass
+     * @return boolean
+     */
+    @SuppressWarnings("static-access")
+	public int changePass(String employeeId, String employeePass, String employeeNewPass) {
+    	String response = dataManager.GetEmployeeByID(employeeId);
+    	Employee Employee = mappingTool.MapEmployeeSQL(response);
+    	//Retorna true o false si se cumple la condicion dentro del return
+    	if(Employee.getHashedPassword().equals(employeePass)) {
+    		currentEmployee.setFailed(0);
+    		dataManager.ChangePassEmployee(Employee.getEmployeeNumber(), employeeNewPass);
+    		return 1;
+    	}
+    	else {
+    		if(currentEmployee .getFailed() == 2) {
+        		dataManager.BanEmployee(Employee.getEmployeeNumber());
+        		return 3;
+        	}
+        	else {
+        		currentEmployee.setFailed(currentEmployee.getFailed()+1);
+        		return 2;
+        	}
+    	}
     }
 
     /**
@@ -285,5 +316,23 @@ public class ClientService {
 
     public String[] CategoryDay(){
         return dataManager.GetCategoryDay().split("_");
+    }
+
+    public String SupervisorsActiveDay(){
+        return dataManager.GetSupervisorsActive();
+    }
+
+    public boolean CloseTicket(int TicketNumber){
+        int CurrentEmployeeCategory=0;
+        try {
+            CurrentEmployeeCategory = GetEmployeeCategory(currentEmployee.getEmployeeNumber());
+        }catch(Exception e){
+            System.out.println("Empleado no autorizado");
+        }
+        if(CurrentEmployeeCategory ==1){
+            dataManager.CloseTicket(TicketNumber);
+            return true;
+        }
+        return false;
     }
 }

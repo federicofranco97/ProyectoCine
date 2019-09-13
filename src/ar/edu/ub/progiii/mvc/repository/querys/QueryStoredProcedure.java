@@ -14,6 +14,7 @@ public class QueryStoredProcedure implements IQueryBuilder<Integer>  {
 
     public QueryStoredProcedure(String command) {
         Command = command;
+        Parameters.clear();
     }
 
     public void addParameter(List<String> parameters){
@@ -26,6 +27,7 @@ public class QueryStoredProcedure implements IQueryBuilder<Integer>  {
 
     public QueryStoredProcedure(String command, List<String> parameters) {
         Command = command;
+        Parameters.clear();
         Parameters.addAll(parameters);
     }
 
@@ -50,6 +52,7 @@ public class QueryStoredProcedure implements IQueryBuilder<Integer>  {
     }
 
     public String BuildParameters(){
+
         String result = "";
         if(Parameters.size()==0){
             return "";

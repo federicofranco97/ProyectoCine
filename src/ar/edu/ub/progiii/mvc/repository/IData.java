@@ -71,6 +71,15 @@ public interface IData {
     public int BanEmployee(int EmployeeNumber);
 
     /**
+     * Cambiar la clave de un empleado
+     *
+     * @param EmployeeNumber
+     * @param newPass
+     * @return
+     */
+    public int ChangePassEmployee(int EmployeeNumber, String newPass);
+    
+    /**
      * "Elmina" un empleado del sistema.
      * @param EmployeeNumber
      * @return
@@ -157,4 +166,23 @@ public interface IData {
      * @return
      */
     public String GetCategoryDay();
+
+    /**
+     * Trae el numero de supervisores que hubo logeados
+     * @return
+     */
+    public String GetSupervisorsActive();
+
+    /**
+     * Registrar el login del empleado.
+     * @param NroEmpleado
+     * @param CodRol
+     */
+    public void RegistrarLog(String NroEmpleado,String CodRol);
+
+    /**
+     * Metodo para marcar un ticket como cerrado
+     * @param TicketNumber
+     */
+    public void CloseTicket(int TicketNumber);
 }
