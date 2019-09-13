@@ -22,9 +22,8 @@ function Validate(){
 
 }
 var idCode = document.getElementById("idCode").value;
-idCode.addEventListener("keyup", function(event) {
+document.getElementById("idCode").addEventListener("keydown", function(event) {
   if (event.keyCode === 13) {
-   event.preventDefault();
    document.getElementById("searchCode").click();
   }
 });

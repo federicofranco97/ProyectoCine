@@ -6,13 +6,13 @@
 </head>
 <body class="bg-secondary">
     <div th:replace="layout :: menu"></div>
-    <div class="center" style="margin-top: 7%;">
-        <h4 style="margin: auto; text-align: center; font-size: 50px">Retiro de entradas</h4>
-    </div>
+
+    <div class="redeemDiv"><h4 class="redeemTitle">Retiro de entradas</h4></div>
+
     <div class="center">
         <span class="badge badge-dark">Código de reserva </span>
     </div>
-    <div style="width: 50%;" class="input-group mb-3 center">
+    <div class="input-group mb-3 center width-50">
     <input type="number" id="idCode" class="form-control" placeholder="Código" />
      <button id="searchCode" class="badge badge-dark" onclick="Validate()" type="button"><i class="fas fa-search"></i></button>
     </div>
