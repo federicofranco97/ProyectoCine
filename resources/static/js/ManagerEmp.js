@@ -6,6 +6,7 @@ function EditEmployee(Component){
 }
 
 function GetReport(Component){
+    var idEmployee = Component.parentNode.className;
     window.open("/get_report?employeeid="+idEmployee,"_self");
 }
 

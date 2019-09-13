@@ -2,23 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: header">
     <meta charset="UTF-8"/>
+    <style>
+        @page{ size: auto;  margin: 0mm; }
+    </style>
 </head>
     <body style="background-color: black">
         <div th:replace="layout :: menu"></div>
-        <div id="ReportContainer" style="margin-left: 20%;margin-right: 20%;background-color: white;padding: 25px;height: 100%">
-            <img src="logo.png" style="height: 60px;width: 150px;">
+        <div id="ReportContainer" style="margin-left: 20%;margin-right: 20%;background-color: white;padding: 25px;height: 840px;margin-bottom:6%;   ">
+
             <h2>Reporte Diario de Empleado</h2>
-            <hr>
+            <hr/>
             <h4>Autor: <span></span></h4>
             <h4>Fecha creacion: <span></span></h4>
-            <hr>
+            <hr/>
             <div id="EmployeeData">
                 <h4>Datos del Empleado:</h4>
                 <h6><i class="fas fa-caret-right spacing"></i>Nombre: <span></span></h6>
                 <h6><i class="fas fa-caret-right spacing"></i>Apellido: <span></span></h6>
                 <h6><i class="fas fa-caret-right spacing"></i>Nombre: <span></span></h6>
             </div>
-            <hr>
+            <hr/>
             <div id="EmployeeSales">
                 <h4>Informacion de ventas:</h4>
                 <h6><i class="fas fa-angle-double-right spacingLow"></i>Total ventas dia: AR$ <span></span></h6>
@@ -27,8 +30,16 @@
                 <h6><i class="fas fa-angle-double-right spacingLow"></i>Cantidad entradas online retiradas: <span></span></h6>
                 <h6><i class="fas fa-angle-double-right spacingLow"></i>Monto descontado por alivios: <span></span></h6>
             </div>
-            <hr>
-
+            <hr/>
+            <div>
+                <h4>Informacion de la sucursal:</h4>
+                <h6><i class="fas fa-align-justify spacingLow"></i>Numero Sucursal: <span></span></h6>
+                <h6><i class="fas fa-align-justify spacingLow"></i>Localidad: <span></span></h6>
+                <h6><i class="fas fa-align-justify spacingLow"></i>Direccion: <span></span></h6>
+                <h6><i class="fas fa-align-justify spacingLow"></i>Telefono: <span></span></h6>
+            </div>
+            <hr/>
+            <img src="../static/img/logo.png" style="height: 60px;width: 150px;"/>
         </div>
         <div th:replace="layout :: footer"></div>
     </body>

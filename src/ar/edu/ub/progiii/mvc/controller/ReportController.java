@@ -55,9 +55,10 @@ public class ReportController {
         return model;
     }
 
-    @GetMapping("/")
+    @GetMapping("/get_report")
     public ModelAndView GetEmpReport(){
         ModelAndView model = new ModelAndView("EmployeeReport");
         return model;
     }
+
 }
