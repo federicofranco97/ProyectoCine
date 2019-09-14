@@ -23,7 +23,7 @@ function BanEmployee(Component){
             swal("Empleado baneado!", {
               icon: "warning",
             });
-            setTimeout(function(){ window.open("/ban_employee?employeeid="+idEmployee,"_self"); }, 2000);
+            setTimeout("MoveToBan()", 2000);
 
           } else {
             swal("Accion Revertida!", {
@@ -32,6 +32,9 @@ function BanEmployee(Component){
           }
         });
 }
+function MoveToBan(){
+    window.open("/ban_employee?employeeid="+idEmployee,"_self");
+     }
 
 //Elimina un empleado
 function DeleteEmployee(Component){
@@ -47,7 +50,7 @@ function DeleteEmployee(Component){
         swal("Empleado eliminado!", {
           icon: "success",
         });
-        setTimeout(function(){ window.open("/delete_employee?employeeid="+idEmployee,"_self"); }, 2000);
+        setTimeout("MoveToDelete()", 2000);
       } else {
         swal("Accion Revertida!", {
             icon: "success",
@@ -55,6 +58,10 @@ function DeleteEmployee(Component){
       }
     });
 }
+function MoveToDelete(){
+    window.open("/delete_employee?employeeid="+idEmployee,"_self");
+    }
+
 //Funcion que te devuelve al menu
 function ReturnToMenu(){
     document.getElementById('btnLimpiar').click();

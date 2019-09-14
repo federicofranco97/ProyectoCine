@@ -115,7 +115,7 @@ public class ManagerController {
         }
     }
     /*
-    Método que te lleva a la vista para elimianr clientes
+    Método que te lleva a la vista para eliminar clientes
      */
     @GetMapping("/delete_client")
     public ModelAndView DeleteClient(@RequestParam("clientid")int ClientNumber){
