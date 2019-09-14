@@ -213,4 +213,10 @@ public interface IData {
      * @return
      */
     public String GetServerDate();
+
+    /**
+     * Trae la lista de todas las sucursales.
+     * @return
+     */
+    public String GetAllBranches();
 }

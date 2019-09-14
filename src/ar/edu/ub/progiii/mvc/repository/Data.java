@@ -950,4 +950,32 @@ public class Data implements IData{
         }
         return result;
     }
+
+    /**
+     * Trae la lista de todas las sucursales.
+     *
+     * @return
+     */
+    @Override
+    public String GetAllBranches() {
+        String result ="";
+        try {
+            if(connection != null) {
+                CQuerySelect querySelect = new CQuerySelect("sucursal","*");
+                ResultSet rst = querySelect.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("CodSucursal","Nombre","Direccion","Telefono"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }
+        //Si no encontro nada devuelvo null.
+        if((result.isEmpty())) {
+            LogData("ErrorNotFound", "No se pudo encontrar el cliente");
+            return null;
+        }
+        return result;
+    }
 }

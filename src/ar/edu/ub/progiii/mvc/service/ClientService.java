@@ -20,6 +20,11 @@ public class ClientService {
     Data dataManager = new Data();
     MappingTool mappingTool = new MappingTool();
     public static EmployeeDTO currentEmployee = new EmployeeDTO();  
+    public ArrayList<BranchDTO> branchDTOArrayList = new ArrayList<>();
+
+    public ClientService(){
+        FillAllBranches();
+    }
 
     /**
      * Metodo booleano que checkea si el empleado que este logeado en la sesion de trabajo
@@ -342,5 +347,12 @@ public class ClientService {
         Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(currentDate);
         DateFormat out = new SimpleDateFormat("MMMMM yyyy");
         return out.format(date1);
+    }
+
+    public void FillAllBranches(){
+        String [] sqlResponse = dataManager.GetAllBranches().split("/");
+        for (String item:sqlResponse) {
+            branchDTOArrayList.add(mappingTool.MapDTOBranchSQL(item));
+        }
     }
 }

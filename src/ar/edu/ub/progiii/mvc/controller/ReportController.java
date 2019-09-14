@@ -4,6 +4,7 @@ import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
@@ -56,8 +57,12 @@ public class ReportController {
     }
 
     @GetMapping("/get_report")
-    public ModelAndView GetEmpReport(){
+    public ModelAndView GetEmpReport(@RequestParam("employeeid")int EmployeeId){
         ModelAndView model = new ModelAndView("EmployeeReport");
+        model.addObject("authorName",clientService.currentEmployee.getFullName());
+        model.addObject("reportDate",clientService.GetServerDate());
+        model.addObject("employee",clientService.GetEmployee(EmployeeId));
+        model.addObject("branch",clientService.branchDTOArrayList.get(0));
         return model;
     }
 

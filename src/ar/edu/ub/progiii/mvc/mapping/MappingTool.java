@@ -218,6 +218,23 @@ public class MappingTool implements IMapping{
     }
 
     /**
+     * Convierte el input string que viene de sql a un dto de branch
+     *
+     * @param SQLData
+     * @return
+     */
+    @Override
+    public BranchDTO MapDTOBranchSQL(String SQLData) {
+        String [] aux = SQLData.split("_");
+        BranchDTO branchDTO = new BranchDTO();
+        branchDTO.setBranchNumber(Integer.parseInt(aux[0]));
+        branchDTO.setBranchName(aux[1]);
+        branchDTO.setBranchAddress(aux[2]);
+        branchDTO.setBranchPhonenumber(aux[3]);
+        return branchDTO;
+    }
+
+    /**
      * Mapea data proveniente del sql como Employee
      *
      * @param SQLData
