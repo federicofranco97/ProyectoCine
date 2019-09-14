@@ -1,5 +1,5 @@
 
-//Te lleva a editar la info del empleado
+//Te lleva a editar la informacion del empleado
 function EditEmployee(Component){
     var idEmployee = Component.parentNode.className;
     window.open("/edit_employee?employeeid="+idEmployee,"_self");
@@ -9,7 +9,7 @@ function GetReport(Component){
     window.open("/get_report?employeeid="+idEmployee,"_self");
 }
 
-//Banea empleado
+//Banea al empleado
 function BanEmployee(Component){
     swal({
           title: "Esta seguro?",
@@ -55,7 +55,7 @@ function DeleteEmployee(Component){
       }
     });
 }
-
+//Funcion que te devuelve al menu
 function ReturnToMenu(){
     document.getElementById('btnLimpiar').click();
     window.open("/manage_employees","_self");

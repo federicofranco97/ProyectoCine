@@ -16,7 +16,7 @@ import ar.edu.ub.progiii.mvc.repository.Data;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 
 @Controller
-public class ClaveController {
+public class PasswordController {
 
 	@Autowired
 	ClientService clientService;

@@ -20,7 +20,7 @@ function BanClient(Component){
             swal("Cliente baneado!", {
               icon: "warning",
             });
-            setTimeout(function(){ window.open("/ban_client?clientid="+idCliente,"_self"); }, 2000);
+            setTimeout("MoveToDelete()", 2000);
 
           } else {
             swal("Accion Revertida!", {
@@ -29,6 +29,9 @@ function BanClient(Component){
           }
         });
 }
+function MoveToDelete(){
+    window.open("/ban_client?clientid="+idCliente,"_self");
+    }
 
 //Elimina un cliente
 function DeleteClient(Component){
@@ -44,7 +47,7 @@ function DeleteClient(Component){
         swal("Cliente eliminado!", {
           icon: "success",
         });
-        setTimeout(function(){ window.open("/delete_client?clientid="+idCliente,"_self"); }, 1000);
+        setTimeout("MoveToDelete()", 1000);
       } else {
         swal("Accion Revertida!", {
             icon: "success",
@@ -52,6 +55,10 @@ function DeleteClient(Component){
       }
     });
 }
+function MoveToDelete(){
+    window.open("/delete_client?clientid="+idCliente,"_self");
+}
+
 //Te devuelve al menu cliente
 function ReturnToMenuClient(){
     document.getElementById("btnLimpiar").click();

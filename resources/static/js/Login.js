@@ -16,10 +16,8 @@ formEmployee.onsubmit = function(event){
 	   que no este vacio ni con espacios en blanco, previniendo la accion por default del formulario
 	   y mostrando el aviso apropiado
 	*/
-	for (var i = 0; i < formEmployee.length; i++) 
-	{
-		if(formEmployee.elements[i].value == "" || whiteSpace.test(formEmployee.elements[i].value))
-		{
+	for (var i = 0; i < formEmployee.length; i++) {
+		if(formEmployee.elements[i].value == "" || whiteSpace.test(formEmployee.elements[i].value)){
 			event.preventDefault();
 			swal("Aviso", "Verifique los campos!", "warning");
 		}
