@@ -42,8 +42,7 @@ public class ManagerController {
      */
     @GetMapping("/ban_employee")
     public ModelAndView BanEmployee(@RequestParam("employeeid")int EmployeeNumber){
-        int result = clientService.BanEmployee(EmployeeNumber);
-        if(result == 1 ){
+        if(clientService.BanEmployee(EmployeeNumber) == 1 ){
             RedirectView redirectView = new RedirectView("/manage_employees");
             redirectView.setExposePathVariables(false);
             return new ModelAndView(redirectView);
@@ -58,8 +57,7 @@ public class ManagerController {
      */
     @GetMapping("/delete_employee")
     public ModelAndView DeleteEmployee(@RequestParam("employeeid")int EmployeeNumber){
-        int result = clientService.DeleteEmployee(EmployeeNumber);
-        if(result == 1 ){
+        if(clientService.DeleteEmployee(EmployeeNumber) == 1 ){
             RedirectView redirectView = new RedirectView("/manage_employees");
             redirectView.setExposePathVariables(false);
             return new ModelAndView(redirectView);
@@ -103,8 +101,7 @@ public class ManagerController {
      */
     @GetMapping("/ban_client")
     public ModelAndView BanClient(@RequestParam("clientid")int ClientNumber){
-        int result = clientService.BanClient(ClientNumber);
-        if(result == 1 ){
+        if(clientService.BanClient(ClientNumber) == 1 ){
             RedirectView redirectView = new RedirectView("/manage_clients");
             redirectView.setExposePathVariables(false);
             return new ModelAndView(redirectView);
@@ -119,8 +116,7 @@ public class ManagerController {
      */
     @GetMapping("/delete_client")
     public ModelAndView DeleteClient(@RequestParam("clientid")int ClientNumber){
-        int result = clientService.DeleteClient(ClientNumber);
-        if(result == 1 ){
+        if(clientService.DeleteClient(ClientNumber) == 1 ){
             RedirectView redirectView = new RedirectView("/manage_clients");
             redirectView.setExposePathVariables(false);
             return new ModelAndView(redirectView);
