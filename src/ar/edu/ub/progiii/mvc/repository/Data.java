@@ -32,10 +32,9 @@ public class Data implements IData{
      * @param Mensaje Mensaje que contiene el log
      */
     public void LogData(String Tipo,String Mensaje){
-        String SPsql = "EXEC GenerarLog '"+Tipo+"' , '"+Mensaje+"' ";
+    	QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("GenerarLog" ,Arrays.asList("'"+Tipo+"', '"+Mensaje+"'"));
         try {
-            PreparedStatement stm = connection.prepareStatement(SPsql);
-            boolean rst = stm.execute();
+        	queryStoredProcedure.Run();
         }catch (Exception ex) {
             System.out.println("Envio de log no realizado. "+ex.getMessage());
         }

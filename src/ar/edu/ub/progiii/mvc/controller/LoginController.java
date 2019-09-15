@@ -28,8 +28,8 @@ public class LoginController {
 	Data data = new Data();
 	Connection connection = new Connection();
 	MappingTool map = new MappingTool();
-	/*
-	Método que te lleva a la vista para logearte
+	/**
+	Metodo que te lleva a la vista para logearte
 	 */
 	@GetMapping("/")
 	public ModelAndView GetLoginView() {
@@ -37,8 +37,8 @@ public class LoginController {
 		clientService.ClearCurrentUser();
 		return model;
 	}
-	/*
-	Método que, en el caso de ingresar las credenciales correctas te lleva el menu
+	/**
+	Metodo que, en el caso de ingresar las credenciales correctas te lleva el menu
 	sino, te lleva a la página de Error
 	 */
 	@PostMapping("/login_sent")

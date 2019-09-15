@@ -19,8 +19,8 @@ public class TicketsController {
 
     @Autowired
     ClientService clientService;
-    /*
-    Método que te lleva a la vista de Tickets activos
+    /**
+    Metodo que te lleva a la vista de Tickets activos
      */
     @GetMapping("/tickets")
     public ModelAndView GetTickets(){
@@ -28,8 +28,8 @@ public class TicketsController {
         model.addObject("Tickets",clientService.GetActiveTickets());
         return model;
     }
-    /*
-    Método que te lleva a la vista de todos los Tickets
+    /**
+    Metodo que te lleva a la vista de todos los Tickets
      */
     @GetMapping("/tickets_all")
     public ModelAndView GetTicketsAll(){
@@ -37,8 +37,8 @@ public class TicketsController {
         model.addObject("Tickets",clientService.GetAllTickets());
         return model;
     }
-    /*
-    Método que te lleva a la vista para añadir Tickets
+    /**
+    Metodo que te lleva a la vista para añadir Tickets
      */
     @GetMapping("/add_ticket")
     public ModelAndView AddTicket(){
@@ -46,8 +46,8 @@ public class TicketsController {
         model.addObject("Valor","Hola");
         return model;
     }
-    /*
-    Método que te lleva a la vista de crear Tickets
+    /**
+    Metodo que te lleva a la vista de crear Tickets
      */
     @PostMapping("/create_ticket")
     public ModelAndView CreateTicket(TicketDTO ticketDTO){
@@ -62,8 +62,8 @@ public class TicketsController {
                     "ticket, por facor consulte con un supervisor"));
         return model;
     }
-    /*
-    Método que te lleva a la vista de cerrar Tickets
+    /**
+    Metodo que te lleva a la vista de cerrar Tickets
      */
     @GetMapping("/close_ticket")
     public ModelAndView CloseTicket(@RequestParam("ticket")int TicketNumber){

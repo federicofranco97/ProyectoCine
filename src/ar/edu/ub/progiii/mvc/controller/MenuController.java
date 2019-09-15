@@ -11,8 +11,8 @@ public class MenuController {
 
     @Autowired
     ClientService clientService;
-    /*
-    Método que te lleva a la vista Menu principal en el caso de estar autorizado
+    /**
+    Metodo que te lleva a la vista Menu principal en el caso de estar autorizado
      */
     @GetMapping("/menu")
     public ModelAndView GetMenu(){

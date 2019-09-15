@@ -13,16 +13,16 @@ public class RedeemTicketsController {
 
     @Autowired
     ClientService clientService;
-    /*
-    Método que te lleva a la vista para retirar entradas
+    /**
+    Metodo que te lleva a la vista para retirar entradas
      */
     @GetMapping("/retiroentradas")
     public ModelAndView GetRedeemTickets(){
         ModelAndView model = new ModelAndView("RedeemTickets");
         return model;
     }
-    /*
-    Método que te lleva a la vista para byscar reservas
+    /**
+    Metodo que te lleva a la vista para byscar reservas
      */
     @GetMapping("/buscar_reserva")
     public ModelAndView GetBuscarReserva(@RequestParam("bonumber")String BookingNumber){

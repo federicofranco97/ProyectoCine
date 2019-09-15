@@ -44,7 +44,6 @@ public class ClientService {
     		return true;
     	}
     	return false;
-    	 
     }
     
     /**
@@ -127,8 +126,7 @@ public class ClientService {
      * @return string dataManager
      */
     public boolean CreateNewClient(ClientDTO clientDTO){
-        boolean response = dataManager.PostNewClient(clientDTO);
-        return response;
+        return dataManager.PostNewClient(clientDTO);
     }
 
     /**
@@ -193,7 +191,9 @@ public class ClientService {
     public EmployeeDTO GetEmployee(int EmployeeNumber){
         ArrayList<EmployeeDTO> list = GetAllEmployees();
         for (EmployeeDTO item : list) {
-            if(item.getEmployeeNumber() == EmployeeNumber)return item;
+            if(item.getEmployeeNumber() == EmployeeNumber){
+            	return item;
+            }
         }
         return null;
     }
@@ -288,40 +288,77 @@ public class ClientService {
         return result;
     }
 
+    /**
+     * Retorna las ventas del dia de un empleado
+     * @param EmployeeNumber
+     * @return
+     */
     public String EmployeeDailySales(int EmployeeNumber){
         return dataManager.GetEmployeeDailySales(EmployeeNumber);
     }
 
+    /**
+     * Retorna las ventas totales del dia
+     * @return
+     */
     public String DailySales(){
         return dataManager.GetGeneralDailySales();
     }
 
+    /**
+     * Retorna los empelados activos
+     * @return
+     */
     public String ActiveEmployees(){
         return dataManager.GetEployeesActive();
     }
 
+    /**
+     * Retorna la cantidad de tickets online
+     * @return
+     */
     public String AmountOnlineTickets(){
         return dataManager.GetOnlineBooQuantity();
     }
 
+    /**
+     * Retorna la pelicula mas vista
+     * @return
+     */
     public FilmDTO DayFilmMostWatched(){
         FilmDTO filmDTO = mappingTool.MapDTOFilmSQL(dataManager.GetDayMostViewed());
         return filmDTO;
     }
 
+    /**
+     * Retorna la pelicula mas vista del mes
+     * @return
+     */
     public FilmDTO MonthFilmMostWatched(){
         FilmDTO filmDTO = mappingTool.MapDTOFilmSQL(dataManager.GetMonthMostViewed());
         return filmDTO;
     }
 
+    /**
+     * Retorna la categoria del dia
+     * @return
+     */
     public String[] CategoryDay(){
         return dataManager.GetCategoryDay().split("_");
     }
 
+    /**
+     * Retorna los supervisores activos del dia
+     * @return
+     */
     public String SupervisorsActiveDay(){
         return dataManager.GetSupervisorsActive();
     }
 
+    /**
+     * Cierra un ticket si el empleado esta autorizado
+     * @return
+     */
     public boolean CloseTicket(int TicketNumber){
         int CurrentEmployeeCategory=0;
         try {

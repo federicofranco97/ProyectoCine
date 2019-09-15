@@ -21,7 +21,6 @@ function BanClient(Component){
               icon: "warning",
             });
             setTimeout("MoveToDelete()", 2000);
-
           } else {
             swal("Accion Revertida!", {
               icon: "success",

@@ -10,21 +10,36 @@ import java.util.List;
 
 import ar.edu.ub.progiii.mvc.repository.Data;
 
+/**
+ * Clase para contruir las quieries con update
+ * @author Diego Moran
+ *
+ */
 public class CQueryUpdate extends ConditionQueryBuilder {
 	
 	 private static final String StatementConstant = "update";
 	 private static String TableName;
 	 private static ArrayList<String> ColumnValue = new ArrayList<>();
 	 
-	public CQueryUpdate(String TableName, List<String> ColumnValue) {
-		this.TableName = TableName;
+	 /** 
+		 *Constructor para query update
+		 *@param tableName representa el nombre de la tabla de la base de datos.
+		 *@param columnValue representa los valores de las columnas.
+		 */
+	public CQueryUpdate(String tableName, List<String> columnValue) {
+		this.TableName = tableName;
 		this.ColumnValue.clear();
-        this.ColumnValue.addAll(ColumnValue);
+        this.ColumnValue.addAll(columnValue);
         setStatementConditions(new ArrayList<>());
 	}
 	 
-	 public CQueryUpdate(String TableName, String columnValue) {
-		 this.TableName = TableName;
+	/**
+	 *Constructor para query update
+	 *@param tableName representa el nombre de la tabla de la base de datos.
+	 *@param columnValue representa los valores de las columnas.
+	 */
+	 public CQueryUpdate(String tableName, String columnValue) {
+		 this.TableName = tableName;
          this.ColumnValue.clear();
 		 this.ColumnValue.add(columnValue);
 		 setStatementConditions(new ArrayList<>());

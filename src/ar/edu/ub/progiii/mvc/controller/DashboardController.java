@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class DashboardController {
     /**
-     * Método que carga al dashboard
+     * Metodo que carga al dashboard
      * @return
      */
     @GetMapping("/admin")

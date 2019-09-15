@@ -3,6 +3,12 @@ package ar.edu.ub.progiii.mvc.repository.querys;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * 
+ * @author Federico Franco
+ *
+ * @param <T>
+ */
 public interface IQueryBuilder <T>{
 
     /**

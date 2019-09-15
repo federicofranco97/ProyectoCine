@@ -30,7 +30,6 @@ public class PasswordController {
 	 */
 	@GetMapping("/cambio_clave")
 	public ModelAndView GetPassView() {
-		System.out.println(clientService.currentEmployee.getFailed());
 		int employeeNumber = clientService.currentEmployee.getEmployeeNumber();
 		if(clientService.IsEmployeeAlowed(employeeNumber)) {
 			ModelAndView model = new ModelAndView("Password");
@@ -44,7 +43,7 @@ public class PasswordController {
 	}
 
 	/**
-	 * Método que te permite modificar la clave
+	 * Metodo que te permite modificar la clave
 	 *O en caso de ingresar mal la clave actual, no te permite cambiarla
 	 * y te notifica que fuiste bloqueado
 	 * @param employeeId

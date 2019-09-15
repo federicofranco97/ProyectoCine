@@ -13,8 +13,8 @@ public class WithdrawController {
 
 	@Autowired
 	ClientService clientService;
-	/*
-    Método que te lleva a la vista de Alivio
+	/**
+    Metodo que te lleva a la vista de Alivio
      */
 	@GetMapping("/withdraw")
 	public ModelAndView GetView() {
