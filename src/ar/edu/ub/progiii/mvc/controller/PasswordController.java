@@ -30,9 +30,10 @@ public class PasswordController {
 	 */
 	@GetMapping("/cambio_clave")
 	public ModelAndView GetPassView() {
+		System.out.println(clientService.currentEmployee.getFailed());
 		int employeeNumber = clientService.currentEmployee.getEmployeeNumber();
 		if(clientService.IsEmployeeAlowed(employeeNumber)) {
-			ModelAndView model = new ModelAndView("clave");
+			ModelAndView model = new ModelAndView("Password");
 			model.addObject("currentID",employeeNumber);
 			return model;
 		}
@@ -55,13 +56,13 @@ public class PasswordController {
 	public ModelAndView changePass(@RequestParam("EmployeeId") String employeeId, @RequestParam("oldPass") String oldPass, @RequestParam("newPass") String newPass) {
 		int aux = clientService.changePass(employeeId, oldPass, newPass);
 		if(aux == 1) {
-			ModelAndView modelSucces = new ModelAndView("clave");
-			modelSucces.addObject("Contenido", Arrays.asList("Exito","La clave ha sido cambiada con exito!","1"));
+			ModelAndView modelSucces = new ModelAndView("Password");
+			modelSucces.addObject("Content", Arrays.asList("Exito","La clave ha sido cambiada con exito!","1"));
 			return modelSucces;
 		}
 		if(aux == 2) {
 			ModelAndView modelError = new ModelAndView("ErrorPage");
-	 		modelError.addObject("Contenido", Arrays.asList("Error","Clave incorrecta!","/clave"));
+	 		modelError.addObject("Contenido", Arrays.asList("Error","Clave incorrecta!","/cambio_clave"));
 			return modelError;
 		}
 			ModelAndView modelError = new ModelAndView("ErrorPage");
