@@ -12,7 +12,7 @@ public class TicketDTO {
 
     public TicketDTO(){}
 
-    public TicketDTO(String ticketTitle, String ticketAuthor, String ticketContent,String ID,String Date,String Status) {
+    public TicketDTO(String ticketTitle, String ticketAuthor, String ticketContent, String ID, String Date, String Status) {
         TicketTitle = ticketTitle;
         TicketAuthor = ticketAuthor;
         TicketContent = ticketContent;

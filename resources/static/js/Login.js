@@ -1,7 +1,7 @@
 // Se definio la variable asignandole el tag por ID del formulario
 var formEmployee = document.getElementById("formPass");
 // Se definieron variables de los campos pass y Id
-var pasword = document.getElementById("EmployeeId");
+var password = document.getElementById("EmployeeId");
 var id = document.getElementById("EmployeePass");
 // Regex para campos vacios
 var whiteSpace = /^\s+$/;
