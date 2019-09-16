@@ -20,7 +20,7 @@ function BanClient(Component){
             swal("Cliente baneado!", {
               icon: "warning",
             });
-            setTimeout("MoveToDelete()", 2000);
+            setTimeout("MoveToBan()", 2000);
           } else {
             swal("Accion Revertida!", {
               icon: "success",
@@ -28,7 +28,8 @@ function BanClient(Component){
           }
         });
 }
-function MoveToDelete(){
+
+function MoveToBan(){
     window.open("/ban_client?clientid="+idCliente,"_self");
     }
 
@@ -54,6 +55,7 @@ function DeleteClient(Component){
       }
     });
 }
+
 function MoveToDelete(){
     window.open("/delete_client?clientid="+idCliente,"_self");
 }
