@@ -372,4 +372,12 @@ public class ClientService {
         }
         return false;
     }
+    
+    /**
+     * Retorna la fecha del dia actual
+     * @return
+     */
+    public String GetDateToday(){
+        return dataManager.GetDateToday();
+    }
 }

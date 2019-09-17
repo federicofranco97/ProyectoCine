@@ -185,4 +185,10 @@ public interface IData {
      * @param TicketNumber
      */
     public void CloseTicket(int TicketNumber);
+
+    /**
+     * Metodo para traer la fecha del dia
+     * @return
+     */
+	public String GetDateToday();
 }
