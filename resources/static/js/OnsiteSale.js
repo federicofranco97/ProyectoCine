@@ -19,7 +19,7 @@ $('td').on('click', function(){
    Guarda el valor del id de la pelicula en una variable
 */
 function saveValue(element){
-	var valueId = $(element).attr("value");
+	var valueId = $(element).attr("class");
 	idMovie = valueId;
 }
 
@@ -31,7 +31,7 @@ function saveBooking(element){
 		swal("Aviso", "Seleccione una pelicula!", "warning");
 	}
 	else{
-		idFunction = $(element).attr("value");
+		idFunction = $(element).attr("class");
 		window.open("/presencial_cantidadEntradas?ids="+idFunction+"_"+idMovie,"_self");
 	}
 }
