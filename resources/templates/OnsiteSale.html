@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: header">
+<meta charset="UTF-8"/>
+<title>Seleccion de peliculas presencial</title>
+</head>
+<body class="bg-secondary">
+	<!--Div que contiene la fecha y los botones correspodientes a pasar de feche hacia adelante o hacia atras-->
+	<div class="days">
+		<a href="#" onclick="" class="btn btn-secondary">-</a>
+		<label>15-10-2019</label>
+		<a href="#" onclick="" class="btn btn-secondary">+</a>
+	</div>
+	<!--Div contenedorde las tablas-->
+	<div class="container_tables">
+		<!--contenedor de tabla de peliculas-->
+		<div class="titleMovie bg-dark">
+			<strong>Peliculas</strong>
+		</div>
+		<!--contenedor de tabla de funciones-->
+		<div class="titleTime bg-dark">
+			<strong>Funciones</strong>
+		</div>
+		<div class="tableMovie">
+			<table class="table table-striped table-dark">
+				<tbody>
+					<!--Td que recibe un th que por cada tr se va a generar un td con los valores y texto de las peliculas-->
+					<tr th:each="">
+						<td value="21" th:text="" onclick="saveValue(this)">terminator</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="tableTime">
+			<table class="table table-striped table-dark">
+				<tbody>
+					<!--Td que recibe un th que por cada tr se va a generar un td con los valores y texto de las funciones-->
+					<tr th:each="">
+						<td th:text="" onclick="saveBooking(this)" value="24"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+<div th:replace="layout :: footer"></div>
+</body>
+</html>
