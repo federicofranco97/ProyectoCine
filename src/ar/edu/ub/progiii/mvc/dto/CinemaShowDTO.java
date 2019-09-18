@@ -1,5 +1,10 @@
 package ar.edu.ub.progiii.mvc.dto;
 
+/**
+ * Clase que define una funcion DTO
+ * @author Diego Moran
+ *
+ */
 public class CinemaShowDTO {
 
 	private String CodeShow;
@@ -7,6 +12,13 @@ public class CinemaShowDTO {
 	private String FinishTime;
 	private String Comments;
 	
+	/**
+	 * Constructor
+	 * @param codeShow representa el codigo de funcion.
+	 * @param startTime representa la hora enla que comienza la funcion.
+	 * @param finishTime representa la hora en la que termina la funcion.
+	 * @param comments representa un comentario sobre que funcion es.
+	 */
 	public CinemaShowDTO(String codeShow, String startTime, String finishTime, String comments) {
 		CodeShow = codeShow;
 		StartTime = startTime;

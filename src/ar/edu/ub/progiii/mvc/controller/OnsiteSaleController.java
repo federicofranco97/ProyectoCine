@@ -23,7 +23,7 @@ public class OnsiteSaleController {
 	MappingTool map = new MappingTool();
 		
 	/**
-	 * Llama a la vista venta presencial
+	 * Llama a la vista venta presencial, sus peliculas y funciones
 	 * @return
 	 */
 	@GetMapping("/venta_presencial")
@@ -32,6 +32,7 @@ public class OnsiteSaleController {
 		if(clientService.IsEmployeeAlowed(employeeNumber)) {
 			ModelAndView model = new ModelAndView("OnsiteSale");
 			model.addObject("films",clientService.GetAllFilms());
+			model.addObject("shows" ,clientService.GetShowsByHour());
 			//model.addObject("date",clientService.gets);
 			return model;
 		}

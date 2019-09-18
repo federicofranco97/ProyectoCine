@@ -406,8 +406,8 @@ public class ClientService {
      * Busqueda de las funciones por hora de comienzo
      */
     public ArrayList<CinemaShowDTO> GetShowsByHour(){
-    	ArrayList<CinemaShowDTO> showsList = GetAllShows();
-    	for (CinemaShowDTO show:showsList) {
+    	ArrayList<CinemaShowDTO> showsList = new ArrayList<>();
+    	for (CinemaShowDTO show:GetAllShows()) {
     		if(Integer.parseInt(show.getStartTime()) >Integer.parseInt(GetHourToday())) {
     			showsList.add(show);
     		}
