@@ -197,4 +197,10 @@ public interface IData {
      * @return
      */
 	public String GetHourNow();
+	
+	/**
+     * Metodo para traer todas las funciones
+     * @return
+     */
+	public String GetAllShows();
 }
