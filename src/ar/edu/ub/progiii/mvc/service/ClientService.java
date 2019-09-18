@@ -388,4 +388,30 @@ public class ClientService {
     public String GetHourToday(){
         return dataManager.GetHourNow();
     }
+    
+    /**
+     * Busqueda de todas las funciones
+     */
+    public ArrayList<CinemaShowDTO> GetAllShows(){
+        String response = dataManager.GetAllShows();
+        String [] aux = response.split("/");
+        ArrayList<CinemaShowDTO> showList = new ArrayList<>();
+        for (String item:aux) {
+            showList.add(mappingTool.MapDTOShowsSQL(item));
+        }
+        return showList;
+    }
+    
+    /**
+     * Busqueda de las funciones por hora de comienzo
+     */
+    public ArrayList<CinemaShowDTO> GetShowsByHour(){
+    	ArrayList<CinemaShowDTO> showsList = GetAllShows();
+    	for (CinemaShowDTO show:showsList) {
+    		if(Integer.parseInt(show.getStartTime()) >Integer.parseInt(GetHourToday())) {
+    			showsList.add(show);
+    		}
+    	}
+    	return showsList;
+    }
 }
