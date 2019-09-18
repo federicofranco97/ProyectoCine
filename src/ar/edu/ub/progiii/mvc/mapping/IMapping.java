@@ -102,4 +102,11 @@ public interface IMapping {
      * @return
      */
     public TicketDTO MapDTOTicketSQL(String SQLData);
+    
+    /**
+     * Mapea data proveniente del sql como CinemaShow dto 
+     * @param SQLData
+     * @return
+     */
+    public CinemaShowDTO MapDTOShowsSQL(String SQLData);
 }

@@ -13,6 +13,10 @@ public class CinemaShowDTO {
 		FinishTime = finishTime;
 		Comments = comments;
 	}
+	
+	public CinemaShowDTO() {
+		
+	}
 
 	public String getCodeShow() {
 		return CodeShow;
