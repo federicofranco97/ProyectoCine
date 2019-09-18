@@ -854,4 +854,28 @@ public class Data implements IData{
         }
         return result;
     }
+
+    /**
+     * Trae la hora actual
+     *
+     * @return
+     */
+	@Override
+	public String GetHourNow() {
+		String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("TraerHoraServidor");
+                ResultSet rst = queryStoredProcedureWResponse.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("hora"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }
+        return result;
+	}
 }

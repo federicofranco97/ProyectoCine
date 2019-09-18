@@ -191,4 +191,10 @@ public interface IData {
      * @return
      */
 	public String GetDateToday();
+	
+	/**
+     * Metodo para traer la hora actual
+     * @return
+     */
+	public String GetHourNow();
 }

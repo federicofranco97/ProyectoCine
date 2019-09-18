@@ -380,4 +380,12 @@ public class ClientService {
     public String GetDateToday(){
         return dataManager.GetDateToday();
     }
+    
+    /**
+     * Retorna la actual actual
+     * @return
+     */
+    public String GetHourToday(){
+        return dataManager.GetHourNow();
+    }
 }
