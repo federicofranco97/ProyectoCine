@@ -61,3 +61,7 @@ function ReturnToMenu(){
     document.getElementById('btnLimpiar').click();
     window.open("/manage_employees","_self");
 }
+
+function ReturnPage(){
+    window.history.back();
+}

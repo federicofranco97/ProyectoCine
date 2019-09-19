@@ -978,4 +978,96 @@ public class Data implements IData{
         }
         return result;
     }
+
+    /**
+     * Monto total de ventas del empleado en el dia.
+     *
+     * @return
+     */
+    @Override
+    public String EmployeeDaySales(String EmployeeNumber) {
+        String result="";
+        try {
+            if(connection != null) {
+                QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("VentasEmpleado",Arrays.asList(EmployeeNumber));
+                ResultSet rst = queryStoredProcedureWResponse.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("VentasEmpleado"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }
+        return result;
+    }
+
+    /**
+     * Cantidad de ventas presenciales que realizo un empleado
+     *
+     * @return
+     */
+    @Override
+    public String EmployeeDayBookings(String EmployeeNumber) {
+        String result="";
+        try {
+            if(connection != null) {
+                QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("ReservasEmpleadoPresencial",Arrays.asList(EmployeeNumber));
+                ResultSet rst = queryStoredProcedureWResponse.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("ReservasPresencial"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }
+        return result;
+    }
+
+    /**
+     * Cantidad de reservas que retiro un empleado en el dia
+     *
+     * @return
+     */
+    @Override
+    public String EmployeeDayOnlineBookings(String EmployeeNumber) {
+        String result="";
+        try {
+            if(connection != null) {
+                QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("ReservasEmpleadoOnline",Arrays.asList(EmployeeNumber));
+                ResultSet rst = queryStoredProcedureWResponse.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("ReservasOnline"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }
+        return result;
+    }
+
+    /**
+     * Monto total de dinero que se alivio del empleado.
+     *
+     * @return
+     */
+    @Override
+    public String EmployeeDayWithdraw(String EmployeeNumber) {
+        String result="";
+        try {
+            if(connection != null) {
+                QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("TotalEmpleadoAlivio",Arrays.asList(EmployeeNumber));
+                ResultSet rst = queryStoredProcedureWResponse.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("TotalAlivio"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }
+        return result;
+    }
 }

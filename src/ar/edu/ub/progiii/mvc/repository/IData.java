@@ -219,4 +219,28 @@ public interface IData {
      * @return
      */
     public String GetAllBranches();
+
+    /**
+     * Monto total de ventas del empleado en el dia.
+     * @return
+     */
+    public String EmployeeDaySales(String EmployeeNumber);
+
+    /**
+     * Cantidad de ventas presenciales que realizo un empleado
+     * @return
+     */
+    public String EmployeeDayBookings(String EmployeeNumber);
+
+    /**
+     * CAntidad de reservas que retiro un empleado en el dia
+     * @return
+     */
+    public String EmployeeDayOnlineBookings(String EmployeeNumber);
+
+    /**
+     * Monto total de dinero que se alivio del empleado.
+     * @return
+     */
+    public String EmployeeDayWithdraw(String EmployeeNumber);
 }

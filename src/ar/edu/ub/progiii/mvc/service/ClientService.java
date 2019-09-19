@@ -17,7 +17,7 @@ import java.util.Date;
 @Service
 public class ClientService {
 
-    Data dataManager = new Data();
+    public Data dataManager = new Data();
     MappingTool mappingTool = new MappingTool();
     public static EmployeeDTO currentEmployee = new EmployeeDTO();  
     public ArrayList<BranchDTO> branchDTOArrayList = new ArrayList<>();
@@ -355,4 +355,14 @@ public class ClientService {
             branchDTOArrayList.add(mappingTool.MapDTOBranchSQL(item));
         }
     }
+
+    public EmployeeReportDTO GetEmployeeReport(String EmployeeNumber){
+        EmployeeReportDTO report = new EmployeeReportDTO();
+        report.setEmployeeDaySales(dataManager.EmployeeDaySales(EmployeeNumber));
+        report.setEmployeeDayBookings(dataManager.EmployeeDayBookings(EmployeeNumber));
+        report.setEmployeeDayOnlineBookings(dataManager.EmployeeDayOnlineBookings(EmployeeNumber));
+        report.setEmployeeDayWithdraw(dataManager.EmployeeDayWithdraw(EmployeeNumber));
+        return report;
+    }
+
 }

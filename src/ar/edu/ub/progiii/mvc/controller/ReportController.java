@@ -58,11 +58,13 @@ public class ReportController {
 
     @GetMapping("/get_report")
     public ModelAndView GetEmpReport(@RequestParam("employeeid")int EmployeeId){
+        clientService.dataManager.LogData("INFO","Reporte de empleado pedido "+EmployeeId);
         ModelAndView model = new ModelAndView("EmployeeReport");
         model.addObject("authorName",clientService.currentEmployee.getFullName());
         model.addObject("reportDate",clientService.GetServerDate());
         model.addObject("employee",clientService.GetEmployee(EmployeeId));
         model.addObject("branch",clientService.branchDTOArrayList.get(0));
+        model.addObject("employeeReport",clientService.GetEmployeeReport(String.valueOf(EmployeeId)));
         return model;
     }
 

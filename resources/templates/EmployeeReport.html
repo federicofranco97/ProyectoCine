@@ -26,11 +26,10 @@
             <hr/>
             <div id="EmployeeSales">
                 <h4>Informacion de ventas:</h4>
-                <h6><i class="fas fa-angle-double-right spacingLow"></i>Total ventas dia: AR$ <span></span></h6>
-                <h6><i class="fas fa-angle-double-right spacingLow"></i>Tarifa mas vendida: <span></span></h6>
-                <h6><i class="fas fa-angle-double-right spacingLow"></i>Cantidad transacciones realizadas: <span></span></h6>
-                <h6><i class="fas fa-angle-double-right spacingLow"></i>Cantidad entradas online retiradas: <span></span></h6>
-                <h6><i class="fas fa-angle-double-right spacingLow"></i>Monto descontado por alivios: <span></span></h6>
+                <h6><i class="fas fa-angle-double-right spacingLow"></i>Total ventas dia: AR$ <span th:text="${employeeReport.getEmployeeDaySales()}"></span></h6>
+                <h6><i class="fas fa-angle-double-right spacingLow"></i>Cantidad transacciones realizadas: <span th:text="${employeeReport.getEmployeeDayBookings()}"></span></h6>
+                <h6><i class="fas fa-angle-double-right spacingLow"></i>Cantidad entradas online retiradas: <span th:text="${employeeReport.getEmployeeDayOnlineBookings()}"></span></h6>
+                <h6><i class="fas fa-angle-double-right spacingLow"></i>Monto descontado por alivios: <span th:text="${employeeReport.getEmployeeDayWithdraw()}"></span></h6>
             </div>
             <hr/>
             <div>
