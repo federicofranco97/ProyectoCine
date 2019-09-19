@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
@@ -48,6 +49,17 @@ public class OnsiteSaleController {
 	 */
 	@GetMapping("/sumar_fecha")
 	public ModelAndView GetAddDate(@RequestParam("datePage") String datePage) {
-		
+		ModelAndView model = new ModelAndView("OnsiteSale");
+		if(clientService.CanDaysBeAdded(datePage)) {
+			model.addObject("films",clientService.GetAllFilms());
+			model.addObject("shows" ,clientService.GetAllShows());
+	        model.addObject("date",clientService.AddDays(datePage, 1));
+	        return model;
+		}
+		model.addObject("films",clientService.GetAllFilms());
+		model.addObject("shows" ,clientService.GetAllShows());
+		model.addObject("date",datePage);
+		model.addObject("Content", Arrays.asList("Aviso","No hay mas fechas disponibles!","1"));
+		return model;
 	}
 }

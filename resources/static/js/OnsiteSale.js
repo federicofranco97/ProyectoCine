@@ -40,6 +40,6 @@ function saveBooking(element){
    Redirecciona al controllerpara sumar un dia
 */
 function addDays(){
-	date = $('#date').attr("text");
-	window.open("/presencial_cantidadEntradas?datePage="+date,"_self");
+	date = $('#idDate').attr("class");
+	window.open("/sumar_fecha?datePage="+date,"_self");
 }

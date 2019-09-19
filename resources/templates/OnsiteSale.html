@@ -7,9 +7,10 @@
 <body class="bg-secondary">
 	<!--Div que contiene la fecha y los botones correspodientes a pasar de feche hacia adelante o hacia atras-->
 	<div class="days">
-		<a href="#" onclick="addDays()" class="btn btn-secondary aOnsite">-</a>
-		<label id="date" class="labelOnsite" th:text="${date}"></label>
-		<a href="#" onclick="addDays()" class="btn btn-secondary aOnsite">+</a>
+		<button onclick="addDays()" class="btn btn-secondary aOnsite">-</button>
+		<label id="datePage" class="labelOnsite" th:text="${date}"></label>
+		<span id="idDate" th:class="${date}"></span>
+		<button onclick="addDays()" class="btn btn-secondary aOnsite">+</button>
 	</div>
 	<!--Div contenedorde las tablas-->
 	<div class="container_tables">
@@ -28,7 +29,7 @@
 					<tr th:each="film : ${films}">
 						<td id="tdOnsite" th:class="${film.getCode()}" th:inline="text" onclick="saveValue(this)">
 						  [[${film.getFilmName()}]]
-						  <label class="duration" th:text="${film.getDuration()}"></label>
+						  <label class="duration" th:text="${film.getDurationWithString()}"></label>
 						</td>
 					</tr>
 				</tbody>
@@ -57,11 +58,8 @@
         	 swal({
                  title: p1,
                  text: p2,
-                 icon: "success"
+                 icon: "warning"
                })
-               .then((willDelete) => {
-                   setTimeout(function(){ window.open("/menu","_self"); }, 500);
-                });
          }
     </script>
 </body>
