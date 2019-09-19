@@ -6,6 +6,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
@@ -39,5 +40,14 @@ public class OnsiteSaleController {
 		ModelAndView modelError = new ModelAndView("ErrorPage");
  		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no tiene acceso a esta pagina, redireccionando a login!","/"));
 		return modelError;
+	}
+	
+	/**
+	 * Suma a la fecha de la pagina un dia, de no poderse activa un mensaje de aviso
+	 * @return
+	 */
+	@GetMapping("/sumar_fecha")
+	public ModelAndView GetAddDate(@RequestParam("datePage") String datePage) {
+		
 	}
 }

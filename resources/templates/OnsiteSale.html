@@ -7,9 +7,9 @@
 <body class="bg-secondary">
 	<!--Div que contiene la fecha y los botones correspodientes a pasar de feche hacia adelante o hacia atras-->
 	<div class="days">
-		<a href="#" onclick="" class="btn btn-secondary aOnsite">-</a>
-		<label class="labelOnsite" th:text="${date}"></label>
-		<a href="#" onclick="" class="btn btn-secondary aOnsite">+</a>
+		<a href="#" onclick="addDays()" class="btn btn-secondary aOnsite">-</a>
+		<label id="date" class="labelOnsite" th:text="${date}"></label>
+		<a href="#" onclick="addDays()" class="btn btn-secondary aOnsite">+</a>
 	</div>
 	<!--Div contenedorde las tablas-->
 	<div class="container_tables">

@@ -7,6 +7,8 @@ import ar.edu.ub.progiii.mvc.repository.Data;
 import org.springframework.stereotype.Service;
 import sun.security.krb5.internal.Ticket;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 @Service
@@ -413,5 +415,55 @@ public class ClientService {
     		}
     	}
     	return showsList;
+    }
+    
+    /**
+     * Agrega dias a una fecha
+     * @param date
+     * @param days
+     * @return LocalDate
+     */
+    public LocalDate AddDays(String date, int days){
+       return LocalDate.parse(date).plusDays(days); 
+    }
+    
+    /**
+     * Saca dias a una fecha
+     * @param date
+     * @param days
+     * @return LocalDate
+     */
+    public LocalDate RemoveDays(String date, int days){
+       return LocalDate.parse(date).minusDays(days); 
+    }
+    
+    /**
+     * Devuelve true si puede seguir agregado dias dado que la fecha por parametro
+     * no es igual a la fecha actual pasado 5 dias
+     * @param date
+     * @return boolean
+     */
+    public boolean CanDaysBeAdded(String date){
+        return Period.between(LocalDate.parse(date), AddDays(GetDateToday(),5)).getDays() == 0?false:true;
+    }
+    
+    /**
+     * Devuelve true si puede seguir sacando dias dado que la fecha por 
+     * parametro es igual a la fecha actual
+     * @param date
+     * @return boolean
+     */
+    public boolean CanDaysBeRemoved(String date){
+        return Period.between(LocalDate.parse(date), LocalDate.parse(GetDateToday())).getDays() == 0?false:true;
+    }
+    
+    /**
+     * Si la fecha por parametro menos un dia es igual a la actual
+     * actual devuelve true
+     * @param date
+     * @return boolean
+     */
+    public boolean RedirectToBeginning(String date){
+        return Period.between(RemoveDays(date, 1), LocalDate.parse(GetDateToday())).getDays() == 0?true:false;
     }
 }
