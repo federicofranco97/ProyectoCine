@@ -33,7 +33,7 @@ public class OnsiteSaleController {
 			ModelAndView model = new ModelAndView("OnsiteSale");
 			model.addObject("films",clientService.GetAllFilms());
 			model.addObject("shows" ,clientService.GetShowsByHour());
-			//model.addObject("date",clientService.gets);
+			model.addObject("date",clientService.GetDateToday());
 			return model;
 		}
 		ModelAndView modelError = new ModelAndView("ErrorPage");

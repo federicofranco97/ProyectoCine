@@ -26,7 +26,10 @@
 				<tbody>
 					<!--Td que recibe un th que por cada tr se va a generar un td con los valores y texto de las peliculas-->
 					<tr th:each="film : ${films}">
-						<td id="tdOnsite" th:class="${film.getCode()}" th:text="${film.getFilmName()}" onclick="saveValue(this)"></td>
+						<td id="tdOnsite" th:class="${film.getCode()}" th:inline="text" onclick="saveValue(this)">
+						  [[${film.getFilmName()}]]
+						  <label class="duration" th:text="${film.getDuration()}"></label>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -36,12 +39,30 @@
 				<tbody>
 					<!--Td que recibe un th que por cada tr se va a generar un td con los valores y texto de las funciones-->
 					<tr th:each="show : ${shows}">
-						<td id="tdOnsite" th:class="${show.getCodeShow()}" th:text="${show.getStartTime()hs hasta  show.getFinishTime()hs show.getComments}" onclick="saveBooking(this)"></td>
+						<td id="tdOnsite" th:class="${show.getCodeShow()}" th:text="${show.toString()}" onclick="saveBooking(this)"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
     <div th:replace="layout :: footer"></div>
+    <script th:inline="javascript">
+         /*<![CDATA[*/
+        var contentList = /*[[${Content}]]*/ 'default';
+        var p1=(contentList[0]);
+        var p2=(contentList[1]);
+        var p3=(contentList[2]);
+         /*]]>*/
+         if(p3== "1"){
+        	 swal({
+                 title: p1,
+                 text: p2,
+                 icon: "success"
+               })
+               .then((willDelete) => {
+                   setTimeout(function(){ window.open("/menu","_self"); }, 500);
+                });
+         }
+    </script>
 </body>
 </html>

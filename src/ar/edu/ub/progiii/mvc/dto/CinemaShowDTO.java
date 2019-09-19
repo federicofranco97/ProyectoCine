@@ -1,5 +1,7 @@
 package ar.edu.ub.progiii.mvc.dto;
 
+import java.time.LocalDate;
+
 /**
  * Clase que define una funcion DTO
  * @author Diego Moran
@@ -60,5 +62,9 @@ public class CinemaShowDTO {
 
 	public void setComments(String comments) {
 		Comments = comments;
+	}
+	
+	public String toString() {
+		return getStartTime() + "hs" + " "+ getComments();
 	}
 }
