@@ -243,4 +243,11 @@ public interface IData {
      * @return
      */
     public String EmployeeDayWithdraw(String EmployeeNumber);
+
+    /**
+     * Actualizar un cliente en la base de datos.
+     * @param CliendId
+     * @return
+     */
+    public int UpdateClient(int CliendId, ClientDTO clientDTO);
 }

@@ -365,4 +365,15 @@ public class ClientService {
         return report;
     }
 
+    public int UpdateClient(int ClientId){
+        ArrayList<ClientDTO> list = GetAllClients();
+        int result =0;
+        for (ClientDTO client:list) {
+            if(client.getClientNumber() == ClientId){
+
+            }
+        }
+        return result;
+    }
+
 }
