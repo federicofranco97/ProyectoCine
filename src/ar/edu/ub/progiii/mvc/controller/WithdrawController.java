@@ -1,19 +1,24 @@
 package ar.edu.ub.progiii.mvc.controller;
 
-
-
+import ar.edu.ub.progiii.mvc.dto.ClientDTO;
+import ar.edu.ub.progiii.mvc.service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-
 @Controller
 public class WithdrawController {
-	
-	@GetMapping("/")
+
+	@Autowired
+	ClientService clientService;
+	/**
+    Metodo que te lleva a la vista de Alivio
+     */
+	@GetMapping("/withdraw")
 	public ModelAndView GetView() {
-		ModelAndView model = new ModelAndView("Alivio");
+		ModelAndView model = new ModelAndView("Withdraw");
 		return model;
 	}
 

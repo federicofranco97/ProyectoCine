@@ -10,7 +10,7 @@ public class PersonDTO {
 	private String Address;
 	private String PhoneNumber;
 	private String Email;
-	private Date DateOfBirth;
+	private String DateOfBirth;
 	
 	public PersonDTO() {}
 
@@ -22,8 +22,7 @@ public class PersonDTO {
 	 * @param email representa el email de la persona.
 	 * @param dateOfBirth representa la fecha de nacimiento de la persona.
 	 */
-	public PersonDTO(String fullName, String address, String phoneNumber, String email, 
-			Date dateOfBirth) {
+	public PersonDTO(String fullName, String address, String phoneNumber, String email, String dateOfBirth) {
 	
 		FullName = fullName;
 		Address = address;
@@ -37,7 +36,7 @@ public class PersonDTO {
 		return FullName;
 	}
 
-	private void setFullName(String fullName) {
+	public void setFullName(String fullName) {
 		FullName = fullName;
 	}
 
@@ -45,7 +44,7 @@ public class PersonDTO {
 		return Address;
 	}
 
-	private void setAddress(String address) {
+	public void setAddress(String address) {
 		Address = address;
 	}
 
@@ -53,7 +52,7 @@ public class PersonDTO {
 		return PhoneNumber;
 	}
 
-	private void setPhoneNumber(String phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		PhoneNumber = phoneNumber;
 	}
 
@@ -61,15 +60,15 @@ public class PersonDTO {
 		return Email;
 	}
 
-	private void setEmail(String email) {
+	public void setEmail(String email) {
 		Email = email;
 	}
 
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return DateOfBirth;
 	}
 
-	private void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		DateOfBirth = dateOfBirth;
 	}
 	
