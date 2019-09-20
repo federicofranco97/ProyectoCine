@@ -8,23 +8,38 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Clase para armar queries de tipo select con condicion y sin condicion
+ * @author Federico Franco
+ *
+ */
 public class CQuerySelect extends ConditionQueryBuilder {
 
     private static final String StatementConstant = "Select";
     private static String TableName;
     private static ArrayList<String> Parameters = new ArrayList<>();
 
-    public CQuerySelect(String TableName, List<String> Parameters) {
-        this.TableName = TableName;
+    /**
+	 *Constructor para query Select
+	 *@param tableName representa el nombre de la tabla de la base de datos.
+	 *@param parameters representa los parametros del select.
+	 */
+    public CQuerySelect(String tableName, List<String> parameters) {
+        this.TableName = tableName;
         this.Parameters.clear();
-        this.Parameters.addAll(Parameters);
+        this.Parameters.addAll(parameters);
         setStatementConditions(new ArrayList<>());
     }
 
-    public CQuerySelect(String TableName, String Parameter) {
-        this.TableName = TableName;
+    /**
+	 *Constructor para query Select
+	 *@param tableName representa el nombre de la tabla de la base de datos.
+	 *@param parameters representa los parametros del select.
+	 */
+    public CQuerySelect(String tableName, String parameter) {
+        this.TableName = tableName;
         this.Parameters.clear();
-        this.Parameters.add(Parameter);
+        this.Parameters.add(parameter);
         setStatementConditions(new ArrayList<>());
     }
 
@@ -48,6 +63,11 @@ public class CQuerySelect extends ConditionQueryBuilder {
         StatementConditions.addAll(Conditions);
     }
 
+    /**
+     * Metodo para construir las condiciones
+     *
+     * @return
+     */
     @Override
     public String buildConditionString() {
         String result=" where ";
@@ -63,6 +83,11 @@ public class CQuerySelect extends ConditionQueryBuilder {
         return result;
     }
 
+    /**
+     * Metodo que construye los parametros
+     *
+     * @return
+     */
     public String buildParametersString(){
         String result="";
         if(Parameters.size()==0){

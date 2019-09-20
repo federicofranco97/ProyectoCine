@@ -9,16 +9,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class RetiroEntradasController {
+public class RedeemTicketsController {
 
     @Autowired
     ClientService clientService;
-
+    /**
+    Metodo que te lleva a la vista para retirar entradas
+     */
     @GetMapping("/retiroentradas")
     public ModelAndView GetRedeemTickets(){
         ModelAndView model = new ModelAndView("RedeemTickets");
         return model;
     }
+    /**
+    Metodo que te lleva a la vista para byscar reservas
+     */
     @GetMapping("/buscar_reserva")
     public ModelAndView GetBuscarReserva(@RequestParam("bonumber")String BookingNumber){
         ModelAndView model = new ModelAndView("RedeemTickets");

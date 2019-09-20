@@ -28,24 +28,34 @@ public class LoginController {
 	Data data = new Data();
 	Connection connection = new Connection();
 	MappingTool map = new MappingTool();
-	
+	/**
+	Metodo que te lleva a la vista para logearte
+	 */
 	@GetMapping("/")
 	public ModelAndView GetLoginView() {
 		ModelAndView model = new ModelAndView("Login");
 		clientService.ClearCurrentUser();
 		return model;
 	}
-	
+	/**
+	Metodo que, en el caso de ingresar las credenciales correctas te lleva el menu
+	sino, te lleva a la página de Error
+	 */
 	@PostMapping("/login_sent")
 	public ModelAndView EmployeeLogin(@RequestParam("EmployeeId") String employeeId, @RequestParam("EmployeePass") String employeePass) {
 		RedirectView redirectView = new RedirectView("/menu");
 		redirectView.setExposePathVariables(false);
-		boolean aux = clientService.verifyEmployeeLogin(employeeId, employeePass);
-		if(aux) {
-			return new ModelAndView(redirectView);
+		try {
+			if(clientService.verifyEmployeeLogin(employeeId, employeePass)) {
+				return new ModelAndView(redirectView);
+			}
+		} catch (Exception e) {
+			ModelAndView modelError = new ModelAndView("ErrorPage");
+	 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no pudo ser logueado, redireccionando a login!","/"));
+			return modelError;
 		}
- 		ModelAndView modelError = new ModelAndView("ErrorPage");
- 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no pudo ser logueado, redireccionando a login!"));
+		ModelAndView modelError = new ModelAndView("ErrorPage");
+ 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no pudo ser logueado, redireccionando a login!","/"));
 		return modelError;
 	}
 }

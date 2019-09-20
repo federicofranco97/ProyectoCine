@@ -1,7 +1,7 @@
 // Se definio la variable asignandole el tag por ID del formulario
 var formEmployee = document.getElementById("formPass");
 // Se definieron variables de los campos pass y Id
-var pasword = document.getElementById("EmployeeId");
+var password = document.getElementById("EmployeeId");
 var id = document.getElementById("EmployeePass");
 // Regex para campos vacios
 var whiteSpace = /^\s+$/;
@@ -16,10 +16,8 @@ formEmployee.onsubmit = function(event){
 	   que no este vacio ni con espacios en blanco, previniendo la accion por default del formulario
 	   y mostrando el aviso apropiado
 	*/
-	for (var i = 0; i < formEmployee.length; i++) 
-	{
-		if(formEmployee.elements[i].value == "" || whiteSpace.test(formEmployee.elements[i].value))
-		{
+	for (var i = 0; i < formEmployee.length; i++) {
+		if(formEmployee.elements[i].value == "" || whiteSpace.test(formEmployee.elements[i].value)){
 			event.preventDefault();
 			swal("Aviso", "Verifique los campos!", "warning");
 		}
