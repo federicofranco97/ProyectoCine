@@ -444,7 +444,7 @@ public class ClientService {
      * @return boolean
      */
     public boolean CanDaysBeAdded(String date){
-        return Period.between(LocalDate.parse(date), AddDays(GetDateToday(),5)).getDays() == 0?false:true;
+    	return LocalDate.parse(date).getDayOfWeek().toString().equalsIgnoreCase("WEDNESDAY")?false:true;
     }
     
     /**
@@ -464,6 +464,6 @@ public class ClientService {
      * @return boolean
      */
     public boolean RedirectToBeginning(String date){
-        return Period.between(RemoveDays(date, 1), LocalDate.parse(GetDateToday())).getDays() == 0?true:false;
+        return Period.between(RemoveDays(date, 1), LocalDate.parse(GetDateToday())).getDays() == 0;
     }
 }

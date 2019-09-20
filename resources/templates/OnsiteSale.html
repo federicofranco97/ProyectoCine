@@ -7,7 +7,7 @@
 <body class="bg-secondary">
 	<!--Div que contiene la fecha y los botones correspodientes a pasar de feche hacia adelante o hacia atras-->
 	<div class="days">
-		<button onclick="addDays()" class="btn btn-secondary aOnsite">-</button>
+		<button onclick="removeDays()" class="btn btn-secondary aOnsite">-</button>
 		<label id="datePage" class="labelOnsite" th:text="${date}"></label>
 		<span id="idDate" th:class="${date}"></span>
 		<button onclick="addDays()" class="btn btn-secondary aOnsite">+</button>

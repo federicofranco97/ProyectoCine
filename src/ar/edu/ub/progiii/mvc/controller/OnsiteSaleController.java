@@ -1,8 +1,10 @@
 package ar.edu.ub.progiii.mvc.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.codehaus.groovy.runtime.metaclass.NewMetaMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,9 +58,41 @@ public class OnsiteSaleController {
 	        model.addObject("date",clientService.AddDays(datePage, 1));
 	        return model;
 		}
+		if(!clientService.CanDaysBeRemoved(datePage)) {
+			model.addObject("films",clientService.GetAllFilms());
+			model.addObject("shows" ,clientService.GetShowsByHour());
+			model.addObject("date",clientService.GetDateToday());
+			model.addObject("Content", Arrays.asList("Aviso","No hay mas fechas disponibles!","1"));
+			return model;
+		}
 		model.addObject("films",clientService.GetAllFilms());
 		model.addObject("shows" ,clientService.GetAllShows());
 		model.addObject("date",datePage);
+		model.addObject("Content", Arrays.asList("Aviso","No hay mas fechas disponibles!","1"));
+		return model;
+	}
+	
+	/**
+	 * Resta a la fecha de la pagina un dia, de no poderse activa un mensaje de aviso
+	 * @return
+	 */
+	@GetMapping("/restar_fecha")
+	public ModelAndView GetRemoveDate(@RequestParam("datePage") String datePage) {
+		ModelAndView model = new ModelAndView("OnsiteSale");
+		if(clientService.CanDaysBeRemoved(datePage) && !clientService.RedirectToBeginning(datePage)) {
+			model.addObject("films",clientService.GetAllFilms());
+			model.addObject("shows" ,clientService.GetAllShows());
+			model.addObject("date",clientService.RemoveDays(datePage, 1));
+			return model;
+		}
+		if(clientService.RedirectToBeginning(datePage)) {
+			model.addObject("films",clientService.GetAllFilms());
+			model.addObject("shows" ,clientService.GetShowsByHour());
+			model.addObject("date",clientService.RemoveDays(datePage, 1));
+		}
+		model.addObject("films",clientService.GetAllFilms());
+		model.addObject("shows" ,clientService.GetShowsByHour());
+		model.addObject("date",clientService.GetDateToday());
 		model.addObject("Content", Arrays.asList("Aviso","No hay mas fechas disponibles!","1"));
 		return model;
 	}

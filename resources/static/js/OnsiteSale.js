@@ -43,3 +43,11 @@ function addDays(){
 	date = $('#idDate').attr("class");
 	window.open("/sumar_fecha?datePage="+date,"_self");
 }
+
+/* 
+Redirecciona al controllerpara restar un dia
+*/
+function removeDays(){
+	date = $('#idDate').attr("class");
+	window.open("/restar_fecha?datePage="+date,"_self");
+}
