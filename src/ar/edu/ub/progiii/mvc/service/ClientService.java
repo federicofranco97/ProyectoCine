@@ -58,9 +58,9 @@ public class ClientService {
     
     /**
      * Verifica que la clave sea correcta , valida su clave, de lo contrario banea al empleado
-     * @param EmployeeId
-     * @param EmployeePass
-     * @param EmployeeNewPass
+     * @param employeeNewPass
+     * @param employeeId
+     * @param employeePass
      * @return boolean
      */
     @SuppressWarnings("static-access")
@@ -254,6 +254,7 @@ public class ClientService {
      */
     public void ClearCurrentUser(){
         currentEmployee = new EmployeeDTO();
+        currentEmployee.setEmployeeNumber(-1);
     }
 
     /**
@@ -429,6 +430,12 @@ public class ClientService {
         report.setEmployeeDayOnlineBookings(dataManager.EmployeeDayOnlineBookings(EmployeeNumber));
         report.setEmployeeDayWithdraw(dataManager.EmployeeDayWithdraw(EmployeeNumber));
         return report;
+    }
+
+    public void UpdateLoginStatus(){
+        if(currentEmployee.getEmployeeNumber()!=-1){
+            dataManager.UpdateLoginStatus(String.valueOf(currentEmployee.getEmployeeNumber()));
+        }
     }
 
     public int UpdateClient(int ClientId){
