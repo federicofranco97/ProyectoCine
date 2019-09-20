@@ -1098,4 +1098,20 @@ public class Data implements IData{
         }
         return result;
     }
+
+    /**
+     * Actualiza el campo Logeado en la base de datos.
+     *
+     * @param EmployeeNumber
+     */
+    @Override
+    public void UpdateLoginStatus(String EmployeeNumber) {
+        try {
+            CQueryUpdate cQueryUpdate = new CQueryUpdate("Empleado", "LoggedIn='0'");
+            cQueryUpdate.addStatementCondition("NroEmpleado="+EmployeeNumber);
+            cQueryUpdate.Run();
+        }catch(Exception ex) {
+            System.out.println("Ocurrio una excepcion al cambiar el estado del empleado "+EmployeeNumber+" "+ex.getMessage());
+        }
+    }
 }
