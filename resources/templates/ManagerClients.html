@@ -25,7 +25,7 @@
                 <td style="vertical-align: inherit;"  th:text="${client.getPhoneNumber()}"></td>
                 <td style="vertical-align: inherit;"  th:text="${client.getEmail()}" ></td>
                 <td style="vertical-align: inherit;"  th:text="${client.getClientNumber()}"></td>
-                <td title="Editar Empleado" class="pointer" ><i class="fas fa-user-edit"></i></td>
+                <td title="Editar Empleado" class="pointer" onclick="EditClient(this)"><i class="fas fa-user-edit"></i></td>
                 <td title="Banear Empleado" class="pointer" onclick="BanClient(this)"><i class="fas fa-user-lock"></i></td>
             </tr>
             </tbody>

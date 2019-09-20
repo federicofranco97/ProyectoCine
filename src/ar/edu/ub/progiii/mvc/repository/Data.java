@@ -1113,5 +1113,31 @@ public class Data implements IData{
         }catch(Exception ex) {
             System.out.println("Ocurrio una excepcion al cambiar el estado del empleado "+EmployeeNumber+" "+ex.getMessage());
         }
+      
+     * Actualizar un cliente en la base de datos.
+     *
+     * @param CliendId
+     * @return
+     */
+    @Override
+    public int UpdateClient(int CliendId, ClientDTO clientDTO) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                CQueryUpdate cQueryUpdate = new CQueryUpdate("Cliente",Arrays.asList("Telefono='"+clientDTO+"'",
+                        "Email='"+clientDTO.getEmail()+"","Direccion='"+clientDTO.getAddress()+"'"));
+                cQueryUpdate.addStatementCondition("NroCliente="+clientDTO.getClientNumber());
+                result = cQueryUpdate.Run();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("BanEmployee","Banear empleado id:"+clientDTO.getClientNumber());
+        return result;
     }
 }

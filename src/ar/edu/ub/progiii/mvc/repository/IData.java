@@ -254,8 +254,16 @@ public interface IData {
     public String EmployeeDayWithdraw(String EmployeeNumber);
 
     /**
+
      * Actualiza el campo Logeado en la base de datos.
      * @param EmployeeNumber
      */
     public void UpdateLoginStatus(String EmployeeNumber);
+
+     * Actualizar un cliente en la base de datos.
+     * @param CliendId
+     * @return
+     */
+    public int UpdateClient(int CliendId, ClientDTO clientDTO);
+
 }
