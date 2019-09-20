@@ -89,6 +89,7 @@ public class OnsiteSaleController {
 			model.addObject("films",clientService.GetAllFilms());
 			model.addObject("shows" ,clientService.GetShowsByHour());
 			model.addObject("date",clientService.RemoveDays(datePage, 1));
+			return model;
 		}
 		model.addObject("films",clientService.GetAllFilms());
 		model.addObject("shows" ,clientService.GetShowsByHour());
