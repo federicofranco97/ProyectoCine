@@ -32,11 +32,10 @@ public class Data implements IData{
      * @param Mensaje Mensaje que contiene el log
      */
     public void LogData(String Tipo,String Mensaje){
-        String SPsql = "EXEC GenerarLog '"+Tipo+"' , '"+Mensaje+"' ";
+    	QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("GenerarLog" ,Arrays.asList("'"+Tipo+"', '"+Mensaje+"'"));
         try {
-            PreparedStatement stm = connection.prepareStatement(SPsql);
-            boolean rst = stm.execute();
-        }catch (Exception ex){
+        	queryStoredProcedure.Run();
+        }catch (Exception ex) {
             System.out.println("Envio de log no realizado. "+ex.getMessage());
         }
     }
@@ -50,17 +49,17 @@ public class Data implements IData{
      */
     private String ParseResultSet(ResultSet resultSet,int ParameterAmount) throws SQLException {
         String result = "";
-        while(resultSet.next()){
+        while(resultSet.next()) {
             for (int i = 1; i < ParameterAmount; i++) {
                 result += resultSet.getString(i).trim();
-                if(i != ParameterAmount-1){
+                if(i != ParameterAmount-1) {
                     result += "_";
                 }
             }
             result += "/";
         }
         String [] aux = result.split("/");
-        if(aux.length == 1){
+        if(aux.length == 1) {
             result = result.replaceAll("/","");
         }
         return result;
@@ -75,18 +74,18 @@ public class Data implements IData{
      */
     private String ParseSpecificResultSet(ResultSet resultSet, List<String> SelectedColumnns) throws SQLException {
         String result = "";
-        while(resultSet.next()){
+        while(resultSet.next()) {
             for (int i = 0; i < SelectedColumnns.size(); i++) {
                 String ColumnName = SelectedColumnns.get(i);
                 result += resultSet.getString(ColumnName).trim();
-                if(i != SelectedColumnns.size()-1){
+                if(i != SelectedColumnns.size()-1) {
                     result += "_";
                 }
             }
             result += "/";
         }
         String [] aux = result.split("/");
-        if(aux.length == 1){
+        if(aux.length == 1) {
             result = result.replaceAll("/","");
         }
         return result;
@@ -104,7 +103,7 @@ public class Data implements IData{
         //Validacion para asegurar que solo pasa un entero como parametro
          try {
             Integer.parseInt(data);
-        }catch (NumberFormatException ex){
+        }catch (NumberFormatException ex) {
             System.out.println("El numero ingresado no es valido");
             return null;
         }
@@ -120,8 +119,8 @@ public class Data implements IData{
              else {
                  System.out.println("ConError No se pudo conectar con el sql server");
              }
-         }catch (Exception ex){
-             LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+         }catch (Exception ex) {
+             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
          }
          //Si no encontro nada devuelvo null.
          if((result.isEmpty())) {
@@ -145,7 +144,7 @@ public class Data implements IData{
        //Validacion para asegurar que solo pasa un entero como parametro
         try {
            Integer.parseInt(data);
-       }catch (NumberFormatException ex){
+       }catch (NumberFormatException ex) {
            System.out.println("El numero ingresado no es valido");
            return null;
        }
@@ -160,8 +159,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Si no encontro nada devuelvo null.
         if((result.isEmpty())) {
@@ -190,8 +189,9 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+
         }
         //Si no encontro nada devuelvo null.
         if((result.isEmpty())) {
@@ -221,8 +221,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Si no encontro nada devuelvo null.
         if((result.isEmpty())) {
@@ -252,8 +252,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("AddNewClient","Agregado nuevo cliente a la bd---"+result);
@@ -279,10 +279,10 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
-        if(result.isEmpty()){
+        if(result.isEmpty()) {
             LogData("NotFound","No se encontro la lista de clientes");
             return null;
         }
@@ -309,10 +309,10 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
-        if(result.isEmpty()){
+        if(result.isEmpty()) {
             LogData("NotFound","No se encontro el cliente con id "+EmployeeNumber);
             return null;
         }
@@ -340,8 +340,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Si no encontro nada devuelvo null.
         if((result.isEmpty())) {
@@ -370,11 +370,39 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("BanEmployee","Banear empleado id:"+EmployeeNumber);
+        return result;
+    }
+    
+    /**
+     * Cambiar la clave de un empleado
+     *
+     * @param EmployeeNumber
+     * @param newPass
+     * @return
+     */
+    @Override
+    public int ChangePassEmployee(int EmployeeNumber, String newPass) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	CQueryUpdate cQueryUpdate = new CQueryUpdate("empleado", "Clave='"+newPass+"'");
+            	cQueryUpdate.addStatementCondition("NroEmpleado="+EmployeeNumber);
+            	result = cQueryUpdate.Run();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("BanEmployee","Cambiar clave empleado id:"+EmployeeNumber);
         return result;
     }
 
@@ -397,8 +425,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("DeleteEmployee","Borrar empleado "+EmployeeNumber);
@@ -425,8 +453,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("UpdateEmployee","Actualizar empleado "+employeeDTO.getEmployeeNumber()+"\n"+employeeDTO.getAddress()+
@@ -452,8 +480,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Si no encontro nada devuelvo null.
         if((result.isEmpty())) {
@@ -477,8 +505,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Si no encontro nada devuelvo null.
         if((result.isEmpty())) {
@@ -505,8 +533,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("CreateTicket","crear ticket "+ticketDTO.getTicketTitle()+"\n"+ticketDTO.getTicketAuthor()+
@@ -533,8 +561,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("BanClient","Banear estaod de cliente "+ClientNumber);
@@ -560,8 +588,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         LogData("DeleteClient","Borrado de cliente "+ClientNumber);
@@ -587,8 +615,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         return result;
     }
@@ -611,8 +639,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         return result;
     }
@@ -636,8 +664,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         return result;
     }
@@ -661,8 +689,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         return result;
     }
@@ -685,8 +713,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         return result;
     }
@@ -709,8 +737,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         return result;
     }
@@ -856,8 +884,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         return result;
     }
@@ -880,8 +908,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
         return result;
     }
@@ -904,8 +932,8 @@ public class Data implements IData{
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
             }
-        }catch (Exception ex){
-            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
     }
 
@@ -921,7 +949,7 @@ public class Data implements IData{
             CQueryUpdate cQueryUpdate = new CQueryUpdate("tickets", "Estado='Cerrado'");
             cQueryUpdate.addStatementCondition("ID="+TicketNumber);
             result = cQueryUpdate.Run();
-        }catch(Exception ex){
+        }catch(Exception ex) {
             System.out.println("Ocurrio una excepcion al cerrar el ticket "+TicketNumber+" "+ex.getMessage());
         }
         LogData("TicketClose","Se cerro el ticket "+TicketNumber+" por empleado"+ ClientService.currentEmployee.getEmployeeNumber());

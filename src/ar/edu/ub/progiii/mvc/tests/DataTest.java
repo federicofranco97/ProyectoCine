@@ -238,4 +238,13 @@ class DataTest {
         assertNotEquals(result,"");
         assertNotEquals(result,null);
 	}
+	
+	@Test
+	void ChangePassEmployeetest() throws SQLException {
+		int result = dataManager.ChangePassEmployee(6, "d13g1");
+		int result2 = dataManager.ChangePassEmployee(6, "d13g5");
+		assertEquals(result, 1);
+		assertEquals(result2, 0);
+		assertNotNull(result);
+	}
 }

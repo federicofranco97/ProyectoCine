@@ -3,6 +3,11 @@ package ar.edu.ub.progiii.mvc.repository.querys;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase que contiene metodos abstractos para construir las condiciones
+ * @author Federico Franco
+ *
+ */
 public abstract class ConditionQueryBuilder implements IQueryBuilder{
 
     ArrayList<String> StatementConditions;

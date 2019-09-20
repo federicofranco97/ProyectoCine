@@ -54,7 +54,35 @@ public class ClientService {
     		return true;
     	}
     	return false;
-    	 
+    }
+    
+    /**
+     * Verifica que la clave sea correcta , valida su clave, de lo contrario banea al empleado
+     * @param EmployeeId
+     * @param EmployeePass
+     * @param EmployeeNewPass
+     * @return boolean
+     */
+    @SuppressWarnings("static-access")
+	public int changePass(String employeeId, String employeePass, String employeeNewPass) {
+    	String response = dataManager.GetEmployeeByID(employeeId);
+    	Employee Employee = mappingTool.MapEmployeeSQL(response);
+    	//Retorna true o false si se cumple la condicion dentro del return
+    	if(Employee.getHashedPassword().equals(employeePass)) {
+    		currentEmployee.setFailed(0);
+    		dataManager.ChangePassEmployee(Employee.getEmployeeNumber(), employeeNewPass);
+    		return 1;
+    	}
+    	else {
+    		if(currentEmployee .getFailed() == 2) {
+        		dataManager.BanEmployee(Employee.getEmployeeNumber());
+        		return 3;
+        	}
+        	else {
+        		currentEmployee.setFailed(currentEmployee.getFailed()+1);
+        		return 2;
+        	}
+    	}
     }
 
     /**
@@ -108,8 +136,7 @@ public class ClientService {
      * @return string dataManager
      */
     public boolean CreateNewClient(ClientDTO clientDTO){
-        boolean response = dataManager.PostNewClient(clientDTO);
-        return response;
+        return dataManager.PostNewClient(clientDTO);
     }
 
     /**
@@ -174,7 +201,9 @@ public class ClientService {
     public EmployeeDTO GetEmployee(int EmployeeNumber){
         ArrayList<EmployeeDTO> list = GetAllEmployees();
         for (EmployeeDTO item : list) {
-            if(item.getEmployeeNumber() == EmployeeNumber)return item;
+            if(item.getEmployeeNumber() == EmployeeNumber){
+            	return item;
+            }
         }
         return null;
     }
@@ -269,40 +298,77 @@ public class ClientService {
         return result;
     }
 
+    /**
+     * Retorna las ventas del dia de un empleado
+     * @param EmployeeNumber
+     * @return
+     */
     public String EmployeeDailySales(int EmployeeNumber){
         return dataManager.GetEmployeeDailySales(EmployeeNumber);
     }
 
+    /**
+     * Retorna las ventas totales del dia
+     * @return
+     */
     public String DailySales(){
         return dataManager.GetGeneralDailySales();
     }
 
+    /**
+     * Retorna los empelados activos
+     * @return
+     */
     public String ActiveEmployees(){
         return dataManager.GetEployeesActive();
     }
 
+    /**
+     * Retorna la cantidad de tickets online
+     * @return
+     */
     public String AmountOnlineTickets(){
         return dataManager.GetOnlineBooQuantity();
     }
 
+    /**
+     * Retorna la pelicula mas vista
+     * @return
+     */
     public FilmDTO DayFilmMostWatched(){
         FilmDTO filmDTO = mappingTool.MapDTOFilmSQL(dataManager.GetDayMostViewed());
         return filmDTO;
     }
 
+    /**
+     * Retorna la pelicula mas vista del mes
+     * @return
+     */
     public FilmDTO MonthFilmMostWatched(){
         FilmDTO filmDTO = mappingTool.MapDTOFilmSQL(dataManager.GetMonthMostViewed());
         return filmDTO;
     }
 
+    /**
+     * Retorna la categoria del dia
+     * @return
+     */
     public String[] CategoryDay(){
         return dataManager.GetCategoryDay().split("_");
     }
 
+    /**
+     * Retorna los supervisores activos del dia
+     * @return
+     */
     public String SupervisorsActiveDay(){
         return dataManager.GetSupervisorsActive();
     }
 
+    /**
+     * Cierra un ticket si el empleado esta autorizado
+     * @return
+     */
     public boolean CloseTicket(int TicketNumber){
         int CurrentEmployeeCategory=0;
         try {

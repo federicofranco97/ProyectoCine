@@ -12,11 +12,11 @@ public class Client extends Person{
 	 * @param phoneNumber representa el numero de telefono del cliente.
 	 * @param email representa el email del cliente.
 	 * @param dateOfBirth representa la fecha de nacimiento del cliente.
-	 * @param ClientNumber representa el numero de cliente.
+	 * @param clientNumber representa el numero de cliente.
 	 */
-	public Client(String fullName, String address, String phoneNumber, String email, String dateOfBirth,int ClientNumber) {
+	public Client(String fullName, String address, String phoneNumber, String email, String dateOfBirth, int clientNumber) {
 		super(fullName, address, phoneNumber, email, dateOfBirth);
-		this.ClientNumber = ClientNumber;
+		this.ClientNumber = clientNumber;
 	}
 
 	//Getters y Setters

@@ -210,4 +210,16 @@ class ClientServiceTest {
 		}
 		assertTrue(result);
 	}
+	
+	@Test
+	void ChangePasstest() {
+		int result = clientService.changePass("6", "d13g1", "d13g2");
+		int resultTwo = clientService.changePass("6", "d13g3", "d13g2");
+		int resultThree = clientService.changePass("6", "d13g3", "d13g2");
+		int resultFour = clientService.changePass("6", "d13g3", "d13g2");
+		assertEquals(result, 1);
+		assertEquals(resultTwo, 2);
+		assertEquals(resultThree, 2);
+		assertEquals(resultFour, 3);
+	}
 }
