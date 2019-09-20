@@ -7,62 +7,20 @@
 </head>
 <body class="bg-secondary">
     <div th:replace="layout :: menu"></div>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-        <a class="navbar-brand" href="/admin_main">Administrador</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/menu" title="Volver al menu">Menu Principal</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Tickets
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/tickets" >Activos</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/tickets_all">Todos</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Reportes
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/ventas_dia" >Total ventas dia</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/ventas_mes">Total ventas mes</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Administrar
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/manage_employees">Empleados</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/manage_clients">Clientes</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div style="max-height:80vh;overflow-y:auto">
-        <table class="table table-dark table-style" >
+    <div th:replace="AdminNavBar :: AdminNav"></div>
+    <div style="max-height:65vh;margin-top: 18vh;margin-bottom:auto;overflow-y:auto">
+        <table class="table table-dark table-style">
             <thead class="center-text">
-            <th>Nombre</th>
-            <th>Direccion</th>
-            <th>Telefono</th>
-            <th>Email</th>
-            <th>ID Empleado</th>
-            <th>Categoria</th>
-            <th>Editar</th>
-            <th>Banear</th>
-            <th>Reporte</th>
-            <th>Eliminar</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Email</th>
+                <th>ID</th>
+                <th>Categoria</th>
+                <th>Editar</th>
+                <th>Banear</th>
+                <th>Reporte</th>
+                <th>Eliminar</th>
             </thead>
             <tbody  id="tablaPrincipal">
             <tr th:each="empleado : ${EmployeeList}" style="text-align:center" th:class="${empleado.getEmployeeNumber()}">
