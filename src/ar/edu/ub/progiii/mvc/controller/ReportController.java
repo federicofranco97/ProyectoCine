@@ -18,7 +18,7 @@ public class ReportController {
     /**
     Metodo que te lleva a la vista de reportes de ventas del dia
      */
-    @GetMapping("/ventas_dia")
+    @GetMapping("/reporte_dia")
     public ModelAndView GetReport(){
         ModelAndView model = new ModelAndView("ReportTemplate");
         if(clientService.ActiveEmployees().equals("0") || clientService.ActiveEmployees()==null
