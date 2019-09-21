@@ -8,14 +8,13 @@
 <body class="bg-secondary">
 <div th:replace="layout :: menu"></div>
 <div th:replace="AdminNavBar :: AdminNav"></div>
-<div id="CardsContainer" class="CardContainer" style="margin-left:auto;margin-right:auto;margin-top:7%;width:80%;height:70vh;overflow-y: auto;">
+<div id="CardsContainer" class="cardContainer" style="margin-left:auto;margin-right:auto;margin-top:15vh;width:80%;height:65vh;overflow-y: auto;">
     <div  th:each="ticket : ${Tickets}" class="card text-white bg-dark mb-3" style="width:100%;">
         <!-- CARD FORMAT -->
         <div class="card-header" style="font-size:30px">
             <label th:text="${ticket.getTicketTitle()}"></label>
             <div  style="width:100%">
-                <h6 class="card-title" th:text="${ticket.getTicketStatus()}"></h6>
-                <h6 class="card-title" th:text="${ticket.getTicketDate()}"></h6>
+                <h6 class="card-title card-status" th:text="${ticket.getTicketStatus()}"></h6><h6 class="card-title card-date" th:text="${ticket.getTicketDate()}" ></h6>-
             </div>
         </div>
         <div class="card-body">
