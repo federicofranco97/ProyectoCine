@@ -43,7 +43,7 @@ class MappingToolTest {
 		connection = ar.edu.ub.progiii.mvc.repository.Connection.getConnection();
 	}
 	
-	/*@Test
+	@Test
 	void MapDTOEmployeetest() {
 		employee = new Employee("diego Moran", "11 de septiembre", "153004777", "diego@hotmail.com", "2000-10-2", 5, "ert5", "2");
 		assertEquals(mapping.MapDTOEmployee(employee).getFullName(),employee.getFullName());
@@ -114,7 +114,7 @@ class MappingToolTest {
 		String SQLData = dataManager.GetEmployeeByID("2");
 		assertEquals(mapping.MapEmployeeSQL(SQLData).getEmployeeNumber(),2);
 		assertTrue(mapping.MapEmployeeSQL(SQLData) instanceof Employee);
-	}*/
+	}
 	
 	@Test
 	void MapDTOBranchSQLtest() throws SQLException {

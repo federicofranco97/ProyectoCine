@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 import ar.edu.ub.progiii.mvc.dto.BookingDTO;
+import ar.edu.ub.progiii.mvc.dto.CinemaShowDTO;
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
@@ -37,7 +38,7 @@ class ClientServiceTest {
 		clientService = new ClientService();
 	}
 	
-	@Test
+	/*@Test
 	void IsEmployeeAlowedtest() {
 		assertTrue(clientService.IsEmployeeAlowed(2));
 		assertFalse(clientService.IsEmployeeAlowed(6));
@@ -221,5 +222,28 @@ class ClientServiceTest {
 		assertEquals(resultTwo, 2);
 		assertEquals(resultThree, 2);
 		assertEquals(resultFour, 3);
+	}*/
+	
+	@Test
+	void GetServerDatestest() {
+		assertEquals(clientService.GetServerDate(), "2019-09-21");
+	}
+	
+	/*@Test
+	void GetHourTodaytest() {
+		assertEquals(clientService.GetHourToday() , "20");
+	}*/
+	
+	@Test
+	void GetAllShowstest() {
+		String numbers = "";
+		assertEquals(clientService.GetAllShows().size(),5);
+		assertNotEquals(clientService.GetAllShows().size(),3);
+		for (CinemaShowDTO shows : clientService.GetAllShows()) {
+			numbers += shows.getCodeShow();
+		}
+		assertEquals(numbers,"12345");
+		assertNotNull(clientService.GetAllShows());
+		assertTrue(clientService.GetAllShows() instanceof ArrayList);
 	}
 }
