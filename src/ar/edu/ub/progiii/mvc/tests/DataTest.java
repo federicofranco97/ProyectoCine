@@ -297,4 +297,11 @@ class DataTest {
 		assertEquals(dataManager.GetAllShows(), result);
 		assertNotNull(dataManager.GetAllShows());
 	}
+	
+	@Test
+	void EmployeeDayBookingstest() throws SQLException {;
+		assertEquals(dataManager.EmployeeDayBookings("2"), "3");
+		assertNotNull(dataManager.EmployeeDayBookings("2"));
+	}
+	
 }
