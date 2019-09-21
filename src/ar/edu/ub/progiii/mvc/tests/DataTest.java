@@ -31,7 +31,7 @@ class DataTest {
 		dataManager = new Data();
 		mapping = new MappingTool();
 	}
-	/*@Test
+	@Test
 	void GetEmployeeByIDtest() throws SQLException {
 		String SPsql ="Juan Perez_1161507889_jperez@test.com.ar_Calle Falsa 3399         _1997-11-04 00:00:00.0_2_p3p3_2";
         assertEquals(dataManager.GetEmployeeByID("2"),SPsql);
@@ -246,7 +246,7 @@ class DataTest {
 		assertEquals(result, 1);
 		assertEquals(result2, 0);
 		assertNotNull(result);
-	}*/
+	}
 	
 	@Test
 	void GetServerDatetest() throws SQLException {
@@ -254,11 +254,11 @@ class DataTest {
 		assertNotNull(dataManager.GetServerDate());
 	}
 	
-	/*@Test
+	@Test
 	void GetHourNowtest() throws SQLException {
 		assertEquals(dataManager.GetHourNow(), "15");
 		assertNotNull(dataManager.GetHourNow());
-	}*/
+	}
 	
 	@Test
 	void GetAllBranchestest() throws SQLException {
@@ -337,4 +337,19 @@ class DataTest {
 		assertEquals(result2, "0");
 	}
 	
+	/*@Test
+	void UpdateClienttest() throws SQLException {
+		clientDto = new ClientDTO("Diego Moran","11 de septiembre", "1530042275","die_777@hotmail.com","1997-11-08",10005);
+		assertEquals(dataManager.UpdateClient(10005, clientDto),1);
+		String result = "";
+		Statement stm = connection.createStatement();
+        String query="select * from cliente where NroCliente = 10005";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("Email"));
+        }
+        assertEquals(result,"die_777@hotmail.com");
+        assertNotEquals(result,"");
+        assertNotEquals(result,null);
+	}*/
 }
