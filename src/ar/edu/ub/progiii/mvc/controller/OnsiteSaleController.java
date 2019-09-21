@@ -37,7 +37,7 @@ public class OnsiteSaleController {
 			ModelAndView model = new ModelAndView("OnsiteSale");
 			model.addObject("films",clientService.GetAllFilms());
 			model.addObject("shows" ,clientService.GetShowsByHour());
-			model.addObject("date",clientService.GetDateToday());
+			model.addObject("date",clientService.GetServerDate());
 			return model;
 		}
 		ModelAndView modelError = new ModelAndView("ErrorPage");
@@ -61,7 +61,7 @@ public class OnsiteSaleController {
 		if(!clientService.CanDaysBeRemoved(datePage)) {
 			model.addObject("films",clientService.GetAllFilms());
 			model.addObject("shows" ,clientService.GetShowsByHour());
-			model.addObject("date",clientService.GetDateToday());
+			model.addObject("date",clientService.GetServerDate());
 			model.addObject("Content", Arrays.asList("Aviso","No hay mas fechas disponibles!","1"));
 			return model;
 		}
@@ -93,7 +93,7 @@ public class OnsiteSaleController {
 		}
 		model.addObject("films",clientService.GetAllFilms());
 		model.addObject("shows" ,clientService.GetShowsByHour());
-		model.addObject("date",clientService.GetDateToday());
+		model.addObject("date",clientService.GetServerDate());
 		model.addObject("Content", Arrays.asList("Aviso","No hay mas fechas disponibles!","1"));
 		return model;
 	}

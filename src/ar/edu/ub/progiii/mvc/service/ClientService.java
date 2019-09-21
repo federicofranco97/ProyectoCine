@@ -4,19 +4,29 @@ import ar.edu.ub.progiii.mvc.dto.*;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.model.Employee;
 import ar.edu.ub.progiii.mvc.repository.Data;
+import org.codehaus.groovy.runtime.ConvertedClosure;
 import org.springframework.stereotype.Service;
 import sun.security.krb5.internal.Ticket;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 public class ClientService {
 
-    Data dataManager = new Data();
+    public Data dataManager = new Data();
     MappingTool mappingTool = new MappingTool();
     public static EmployeeDTO currentEmployee = new EmployeeDTO();  
+    public ArrayList<BranchDTO> branchDTOArrayList = new ArrayList<>();
+
+    public ClientService(){
+        FillAllBranches();
+    }
 
     /**
      * Metodo booleano que checkea si el empleado que este logeado en la sesion de trabajo
@@ -50,9 +60,9 @@ public class ClientService {
     
     /**
      * Verifica que la clave sea correcta , valida su clave, de lo contrario banea al empleado
-     * @param EmployeeId
-     * @param EmployeePass
-     * @param EmployeeNewPass
+     * @param employeeNewPass
+     * @param employeeId
+     * @param employeePass
      * @return boolean
      */
     @SuppressWarnings("static-access")
@@ -246,6 +256,7 @@ public class ClientService {
      */
     public void ClearCurrentUser(){
         currentEmployee = new EmployeeDTO();
+        currentEmployee.setEmployeeNumber(-1);
     }
 
     /**
@@ -380,7 +391,7 @@ public class ClientService {
      * @return
      */
     public String GetDateToday(){
-        return dataManager.GetDateToday();
+        return dataManager.GetServerDate();
     }
     
     /**
@@ -466,4 +477,70 @@ public class ClientService {
     public boolean RedirectToBeginning(String date){
         return Period.between(RemoveDays(date, 1), LocalDate.parse(GetDateToday())).getDays() == 0;
     }
+
+    public String GetMonthlySales(){
+        return dataManager.GetGeneralMonthlySales();
+    }
+
+    public String GetEmployeesActiveMonth(){
+        return dataManager.GetEployeesActiveMonth();
+    }
+
+    public String GetOnlineBookingsMonth(){
+        if(dataManager.GetOnlineBooQuantityMonth()!=null || dataManager.GetOnlineBooQuantityMonth()!="")return dataManager.GetOnlineBooQuantityMonth();
+        return "0";
+    }
+
+    public String[] CategoryMonth(){
+        return dataManager.GetCategoryMonth().split("_");
+    }
+
+    public String GetSupervisorsOnlineMonth(){
+        return dataManager.GetSupervisorsActiveMonth();
+    }
+
+    public String GetServerDate(){
+        return dataManager.GetServerDate();
+    }
+
+    public String GetServerMonth() throws ParseException {
+        String currentDate = dataManager.GetServerDate();
+        Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(currentDate);
+        DateFormat out = new SimpleDateFormat("MMMMM yyyy");
+        return out.format(date1);
+    }
+
+    public void FillAllBranches(){
+        String [] sqlResponse = dataManager.GetAllBranches().split("/");
+        for (String item:sqlResponse) {
+            branchDTOArrayList.add(mappingTool.MapDTOBranchSQL(item));
+        }
+    }
+
+    public EmployeeReportDTO GetEmployeeReport(String EmployeeNumber){
+        EmployeeReportDTO report = new EmployeeReportDTO();
+        report.setEmployeeDaySales(dataManager.EmployeeDaySales(EmployeeNumber));
+        report.setEmployeeDayBookings(dataManager.EmployeeDayBookings(EmployeeNumber));
+        report.setEmployeeDayOnlineBookings(dataManager.EmployeeDayOnlineBookings(EmployeeNumber));
+        report.setEmployeeDayWithdraw(dataManager.EmployeeDayWithdraw(EmployeeNumber));
+        return report;
+    }
+
+    public void UpdateLoginStatus(){
+        if(currentEmployee.getEmployeeNumber()!=-1){
+            dataManager.UpdateLoginStatus(String.valueOf(currentEmployee.getEmployeeNumber()));
+        }
+    }
+
+    public int UpdateClient(int ClientId){
+        ArrayList<ClientDTO> list = GetAllClients();
+        int result =0;
+        for (ClientDTO client:list) {
+            if(client.getClientNumber() == ClientId){
+
+            }
+        }
+        return result;
+    }
+
 }

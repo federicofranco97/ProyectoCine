@@ -109,4 +109,11 @@ public interface IMapping {
      * @return
      */
     public CinemaShowDTO MapDTOShowsSQL(String SQLData);
+
+    /**
+     * Convierte el input string que viene de sql a un dto de branch
+     * @param SQLData
+     * @return
+     */
+    public BranchDTO MapDTOBranchSQL(String SQLData);
 }

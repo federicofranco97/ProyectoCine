@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="static/css/Login.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/RedeemTickets.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/OnsiteSale.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/EmployeeReport.css"/>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>   <link rel="stylesheet" href="static/css/Menu.css"/>   <link rel="stylesheet" type="text/css" href="../static/css/ManagerEmp.css" />
 	<title>Proyecto Cine</title>
 </head>
@@ -16,7 +17,7 @@
 	<div th:fragment="menu">
             <div id="NavBar">
             <nav class="navbar navbar-dark fixed-bottom bg-dark" >
-                <a class="navbar-brand" href="#" style="margin-left:45% ">Menu Rapido
+                <a class="navbar-brand" style="margin-left:45%;color:white ">Menu Rapido
                    <button class="navbar-toggler" type="button" style="margin-right: 50%" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
@@ -27,10 +28,10 @@
                       <a class="nav-link" href="/menu">Volver al menu</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/withdraw">Alivio de Caja</a>
+                      <a class="nav-link" href="#" onclick="ReturnPage()">Pagina Anterior</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/">Ir a Descanso</a>
+                      <a class="nav-link" href="/">Cerrar Sesion</a>
                     </li>
                   </ul> 
                 </div>

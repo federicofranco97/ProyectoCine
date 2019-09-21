@@ -6,49 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body class="bg-secondary">
-    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-      <a class="navbar-brand" href="/admin_main">Administrador</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/menu" title="Volver al menu">Menu Principal</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Tickets
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/tickets" >Activos</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/tickets_all">Todos</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Reportes
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/ventas_dia" >Total ventas dia</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/ventas_mes">Total ventas mes</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Administrar
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/manage_employees">Empleados</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/manage_clients">Clientes</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <div th:replace="AdminNavBar :: AdminNav"></div>
     <div style="margin-top:20vh">
           <!-- Content Row  1-->
           <div class="row" style="width: 90vw;margin-left: auto;margin-right: auto;margin-top:5%">
@@ -59,7 +17,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Cantidad Empleados</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Activos hoy: <label th:text="${employeeAmount}"></label></div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Activos : <label th:text="${employeeAmount}"></label></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-user-tie fa-2x"></i>
@@ -93,7 +51,7 @@
                       <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Quejas</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Hoy</div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
                         </div>
                         <div class="col">
                           <div class="progress progress-sm mr-2">
@@ -169,8 +127,8 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1"
-                             title="Supervisores Activos Hoy">Supervisores</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Activos hoy: <label th:text="${supervisorsActive}"/> </div>
+                             title="Supervisores Activos ">Supervisores</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Activos : <label th:text="${supervisorsActive}"/> </div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-user-secret fa-2x"></i>
@@ -186,7 +144,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Fecha</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">2019-08-27</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><label th:text="${serverDate}"/></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar-alt fa-2x"></i>
