@@ -2,6 +2,7 @@ package ar.edu.ub.progiii.mvc.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -247,7 +248,7 @@ class ClientServiceTest {
 		assertTrue(clientService.GetAllShows() instanceof ArrayList);
 	}
 	
-	@Test
+	/*@Test
 	void GetShowsByHourtest() {
 		String numbers = "";
 		assertEquals(clientService.GetShowsByHour().size(),1);
@@ -258,5 +259,10 @@ class ClientServiceTest {
 		assertEquals(numbers,"5");
 		assertNotNull(clientService.GetShowsByHour());
 		assertTrue(clientService.GetShowsByHour() instanceof ArrayList);
+	}*/
+	
+	@Test
+	void AddDaystest() {
+		assertEquals(clientService.AddDays("2019-09-21", 1), LocalDate.parse("2019-09-22"));
 	}
 }
