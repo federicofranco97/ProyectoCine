@@ -216,7 +216,19 @@ public interface IData {
      * @param TicketNumber
      */
     public void CloseTicket(int TicketNumber);
-
+	
+	/**
+     * Metodo para traer la hora actual
+     * @return
+     */
+	public String GetHourNow();
+	
+	/**
+     * Metodo para traer todas las funciones
+     * @return
+     */
+	public String GetAllShows();
+     
     /**
      * Pregunta la fecha del sql server
      * @return
@@ -260,6 +272,7 @@ public interface IData {
      */
     public void UpdateLoginStatus(String EmployeeNumber);
 
+    /**
      * Actualizar un cliente en la base de datos.
      * @param CliendId
      * @return
