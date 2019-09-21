@@ -282,9 +282,19 @@ class DataTest {
 		assertNotNull(dataManager.EmployeeDaySales("2"));
 	}
 	
-	/*@Test
-	void EmployeeDaySalestest() throws SQLException {
-		assertEquals(dataManager.EmployeeDaySales("2"), "1000.55");
-		assertNotNull(dataManager.EmployeeDaySales("2"));
-	}*/
+	@Test
+	void GetAllShowstest() throws SQLException {
+		String result = "";
+		Statement stm = connection.createStatement();
+        String query="select * from funcion ";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("CodFuncion").trim())+"_";
+            result += (rst.getString("HoraComienzo").trim())+"_";
+            result += (rst.getString("HoraFinalizacion").trim())+"_";
+            result += (rst.getString("ComentariosAdicionales").trim())+"/";
+        }
+		assertEquals(dataManager.GetAllShows(), result);
+		assertNotNull(dataManager.GetAllShows());
+	}
 }
