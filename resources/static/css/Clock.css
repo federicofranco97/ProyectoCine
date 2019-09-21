@@ -1,0 +1,25 @@
+
+.fast-menu
+{
+    margin-left: 45%;
+    color: white !important;
+}
+
+.clock-gadget
+{
+    float: right;
+    margin-right: 30%;
+}
+
+
+@media screen and (max-width: 454px) {
+    .clock-gadget
+    {
+        display: none;
+    }
+    .fast-menu
+    {
+        margin-left: 20%;
+    }
+}
+
