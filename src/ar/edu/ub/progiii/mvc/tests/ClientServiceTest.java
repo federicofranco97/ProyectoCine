@@ -270,4 +270,10 @@ class ClientServiceTest {
 	void RemoveDaystest() {
 		assertEquals(clientService.RemoveDays("2019-09-21", 1), LocalDate.parse("2019-09-20"));
 	}
+	
+	@Test
+	void CanDaysBeAddedtest() {
+		assertEquals(clientService.CanDaysBeAdded("2019-09-21"), true);
+		assertEquals(clientService.CanDaysBeAdded("2019-09-25"), false);
+	}
 }
