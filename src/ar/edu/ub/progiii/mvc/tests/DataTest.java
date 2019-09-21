@@ -253,4 +253,38 @@ class DataTest {
 		assertEquals(dataManager.GetServerDate(), "2019-09-21");
 		assertNotNull(dataManager.GetServerDate());
 	}
+	
+	/*@Test
+	void GetHourNowtest() throws SQLException {
+		assertEquals(dataManager.GetHourNow(), "15");
+		assertNotNull(dataManager.GetHourNow());
+	}*/
+	
+	@Test
+	void GetAllBranchestest() throws SQLException {
+		String result = "";
+		Statement stm = connection.createStatement();
+        String query="select * from sucursal ";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("CodSucursal").trim())+"_";
+            result += (rst.getString("Nombre").trim())+"_";
+            result += (rst.getString("Direccion").trim())+"_";
+            result += (rst.getString("Telefono").trim())+"/";
+        }
+        assertEquals(dataManager.GetAllBranches(), result);
+        assertNotNull(dataManager.GetAllBranches());
+	}
+	
+	@Test
+	void EmployeeDaySalestest() throws SQLException {
+		assertEquals(dataManager.EmployeeDaySales("2"), "1000.55");
+		assertNotNull(dataManager.EmployeeDaySales("2"));
+	}
+	
+	/*@Test
+	void EmployeeDaySalestest() throws SQLException {
+		assertEquals(dataManager.EmployeeDaySales("2"), "1000.55");
+		assertNotNull(dataManager.EmployeeDaySales("2"));
+	}*/
 }
