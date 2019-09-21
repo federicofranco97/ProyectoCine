@@ -246,4 +246,17 @@ class ClientServiceTest {
 		assertNotNull(clientService.GetAllShows());
 		assertTrue(clientService.GetAllShows() instanceof ArrayList);
 	}
+	
+	@Test
+	void GetShowsByHourtest() {
+		String numbers = "";
+		assertEquals(clientService.GetShowsByHour().size(),1);
+		assertNotEquals(clientService.GetShowsByHour().size(),3);
+		for (CinemaShowDTO shows : clientService.GetShowsByHour()) {
+			numbers += shows.getCodeShow();
+		}
+		assertEquals(numbers,"5");
+		assertNotNull(clientService.GetShowsByHour());
+		assertTrue(clientService.GetShowsByHour() instanceof ArrayList);
+	}
 }
