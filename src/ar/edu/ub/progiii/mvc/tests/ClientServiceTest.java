@@ -457,9 +457,22 @@ class ClientServiceTest {
 	
 	@Test
 	void CategoryMonthtest() throws SQLException {
-		System.out.println(dataManager.GetCategoryMonth());
 		assertEquals(clientService.CategoryMonth()[0], "Jubilado");
 		assertEquals(clientService.CategoryMonth()[1], "150.00");
 		assertEquals(clientService.CategoryMonth().length, 2);
+	}
+	
+	@Test
+	void GetSupervisorsOnlineMonthtest() throws SQLException {
+		String result="";
+		Statement stm = connection.getConnection().createStatement();
+        String query="exec SupervisoresOnlinemes";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("Online").trim());
+        }
+        assertEquals(clientService.GetSupervisorsOnlineMonth(), result);
+		assertEquals(clientService.GetSupervisorsOnlineMonth(), "3");
+		assertNotNull(clientService.GetSupervisorsOnlineMonth());
 	}
 }
