@@ -45,7 +45,7 @@ class ClientServiceTest {
 		clientService = new ClientService();
 	}
 	
-	/*@Test
+	@Test
 	void IsEmployeeAlowedtest() {
 		assertTrue(clientService.IsEmployeeAlowed(2));
 		assertFalse(clientService.IsEmployeeAlowed(6));
@@ -229,17 +229,17 @@ class ClientServiceTest {
 		assertEquals(resultTwo, 2);
 		assertEquals(resultThree, 2);
 		assertEquals(resultFour, 3);
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	void GetServerDatestest() {
 		assertEquals(clientService.GetServerDate(), "2019-09-21");
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	void GetHourTodaytest() {
 		assertEquals(clientService.GetHourToday() , "20");
-	}*/
+	}
 	
 	@Test
 	void GetAllShowstest() {
@@ -254,7 +254,7 @@ class ClientServiceTest {
 		assertTrue(clientService.GetAllShows() instanceof ArrayList);
 	}
 	
-	/*@Test
+	@Test
 	void GetShowsByHourtest() {
 		String numbers = "";
 		assertEquals(clientService.GetShowsByHour().size(),1);
@@ -265,7 +265,7 @@ class ClientServiceTest {
 		assertEquals(numbers,"5");
 		assertNotNull(clientService.GetShowsByHour());
 		assertTrue(clientService.GetShowsByHour() instanceof ArrayList);
-	}*/
+	}
 	
 	@Test
 	void AddDaystest() {
@@ -305,7 +305,7 @@ class ClientServiceTest {
 		assertEquals(clientService.currentEmployee.getEmployeeNumber(), -1);
 	}
 	
-	/*@Test
+	@Test
 	void BanClienttest() throws SQLException {
 		String result="";
 		Statement stm = connection.getConnection().createStatement();
@@ -345,7 +345,7 @@ class ClientServiceTest {
             result2 += (rst2.getString("CodRol").trim());
         }
 		assertEquals(result2, "1006");
-	}*/
+	}
 	
 	@Test
 	void EmployeeDailySalestest() {
@@ -412,13 +412,13 @@ class ClientServiceTest {
 		assertNotNull(clientService.SupervisorsActiveDay());
 	}
 	
-	/*@Test
+	@Test
 	void CloseTickettest() {
 		clientService.currentEmployee.setEmployeeNumber(4);
 		assertEquals(clientService.CloseTicket(4), true);
 		clientService.currentEmployee.setEmployeeNumber(1);
 		assertEquals(clientService.CloseTicket(1), false);
-	}*/
+	}
 	
 	@Test
 	void GetMonthlySalestest() throws SQLException {
@@ -506,7 +506,7 @@ class ClientServiceTest {
 		assertEquals(clientService.GetEmployeeReport("3").getEmployeeDayBookings(),"0" );
 	}
 	
-	/*@Test
+	@Test
 	void UpdateLoginStatustest() throws SQLException {
 		clientService.currentEmployee.setEmployeeNumber(4);
 		String result="";
@@ -526,7 +526,5 @@ class ClientServiceTest {
             result2 += (rst2.getString("LoggedIn").trim());
         }
         assertEquals(result2, "0");
-	}*/
-	
-	
+	}
 }
