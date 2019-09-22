@@ -321,5 +321,26 @@ class ClientServiceTest {
             result2 += (rst2.getString("CodRol").trim());
         }
 		assertEquals(result2, "1005");
+	}
+	
+	@Test
+	void DeleteClienttest() throws SQLException {
+		String result="";
+		Statement stm = connection.getConnection().createStatement();
+        String query="select * from clientStatus where id=1";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("CodRol").trim());
+        }
+        assertEquals(result, "1004");
+		assertEquals(clientService.DeleteClient(2), 1);
+		String result2="";
+		Statement stm2 = connection.getConnection().createStatement();
+        String query2="select * from clientStatus where id=1";
+        ResultSet rst2 = stm2.executeQuery(query);
+        while(rst2.next()) {
+            result2 += (rst2.getString("CodRol").trim());
+        }
+		assertEquals(result2, "1006");
 	}*/
 }
