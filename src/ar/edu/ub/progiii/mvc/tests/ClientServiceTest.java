@@ -343,4 +343,29 @@ class ClientServiceTest {
         }
 		assertEquals(result2, "1006");
 	}*/
+	
+	@Test
+	void EmployeeDailySalestest() {
+		assertEquals(clientService.EmployeeDailySales(2), "");
+		assertNotNull(clientService.EmployeeDailySales(2));
+	}
+	
+	@Test
+	void DailySalestest() {
+		assertEquals(clientService.EmployeeDailySales(2), "");
+		assertNotNull(clientService.EmployeeDailySales(2));
+	}
+	
+	@Test
+	void ActiveEmployeestest() throws SQLException {
+		String result="";
+		Statement stm = connection.getConnection().createStatement();
+        String query="select count(e.nroempleado) as CantidadEmpleados from Empleado e inner join VentaPresencial v on e.NroEmpleado=v.NroEmpleado inner join Reserva r on v.CodReserva=r.CodReserva where datediff(day,getdate(),r.fecha)=0";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("CantidadEmpleados").trim());
+        }
+		assertEquals(clientService.ActiveEmployees(), result);
+		assertNotNull(clientService.ActiveEmployees());
+	}
 }
