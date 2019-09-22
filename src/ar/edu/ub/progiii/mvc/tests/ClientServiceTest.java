@@ -475,4 +475,10 @@ class ClientServiceTest {
 		assertEquals(clientService.GetSupervisorsOnlineMonth(), "3");
 		assertNotNull(clientService.GetSupervisorsOnlineMonth());
 	}
+	
+	@Test
+	void GetServerDatetest() throws SQLException {
+		assertEquals(clientService.GetServerDate(), "2019-09-22");
+		assertNotNull(clientService.GetServerDate());
+	}
 }
