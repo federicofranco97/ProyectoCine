@@ -2,6 +2,9 @@ package ar.edu.ub.progiii.mvc.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -298,4 +301,25 @@ class ClientServiceTest {
 		clientService.ClearCurrentUser();
 		assertEquals(clientService.currentEmployee.getEmployeeNumber(), -1);
 	}
+	
+	/*@Test
+	void BanClienttest() throws SQLException {
+		String result="";
+		Statement stm = connection.getConnection().createStatement();
+        String query="select * from clientStatus where id=1";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("CodRol").trim());
+        }
+        assertEquals(result, "1004");
+		assertEquals(clientService.BanClient(2), 1);
+		String result2="";
+		Statement stm2 = connection.getConnection().createStatement();
+        String query2="select * from clientStatus where id=1";
+        ResultSet rst2 = stm2.executeQuery(query);
+        while(rst2.next()) {
+            result2 += (rst2.getString("CodRol").trim());
+        }
+		assertEquals(result2, "1005");
+	}*/
 }
