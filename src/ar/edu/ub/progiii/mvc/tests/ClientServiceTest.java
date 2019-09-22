@@ -18,6 +18,7 @@ import ar.edu.ub.progiii.mvc.dto.BranchDTO;
 import ar.edu.ub.progiii.mvc.dto.CinemaShowDTO;
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
+import ar.edu.ub.progiii.mvc.dto.EmployeeReportDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
 import ar.edu.ub.progiii.mvc.dto.TicketDTO;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
@@ -497,5 +498,11 @@ class ClientServiceTest {
 		clientService.FillAllBranches();
 		ArrayList<BranchDTO> list2 =  clientService.branchDTOArrayList;
 		assertTrue(list2.size()>2);
+	}
+	
+	@Test
+	void GetEmployeeReporttest() throws SQLException {
+		assertTrue(clientService.GetEmployeeReport("3") instanceof EmployeeReportDTO);
+		assertEquals(clientService.GetEmployeeReport("3").getEmployeeDayBookings(),"0" );
 	}
 }
