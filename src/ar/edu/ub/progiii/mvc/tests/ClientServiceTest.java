@@ -453,6 +453,13 @@ class ClientServiceTest {
         else {
         	assertEquals(clientService.GetOnlineBookingsMonth(), dataManager.GetOnlineBooQuantityMonth());
         }
-        
+	}
+	
+	@Test
+	void CategoryMonthtest() throws SQLException {
+		System.out.println(dataManager.GetCategoryMonth());
+		assertEquals(clientService.CategoryMonth()[0], "Jubilado");
+		assertEquals(clientService.CategoryMonth()[1], "150.00");
+		assertEquals(clientService.CategoryMonth().length, 2);
 	}
 }
