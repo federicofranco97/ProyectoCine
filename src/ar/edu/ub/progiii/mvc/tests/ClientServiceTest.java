@@ -444,4 +444,22 @@ class ClientServiceTest {
 		assertEquals(clientService.GetEmployeesActiveMonth(), "4");
 		assertNotNull(clientService.GetEmployeesActiveMonth());
 	}
+	
+	@Test
+	void GetOnlineBookingsMonthtest() throws SQLException {
+		String result="";
+		Statement stm = connection.getConnection().createStatement();
+        String query="exec VentasOnlineMes";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("VentasOnlineMes").trim());
+        }
+        if (result == "" || result == null) {
+			assertEquals(clientService.GetOnlineBookingsMonth(), "0");
+		}
+        else {
+        	assertEquals(clientService.GetOnlineBookingsMonth(), result);
+        }
+        
+	}
 }
