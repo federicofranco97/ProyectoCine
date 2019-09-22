@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 import ar.edu.ub.progiii.mvc.dto.BookingDTO;
+import ar.edu.ub.progiii.mvc.dto.BranchDTO;
 import ar.edu.ub.progiii.mvc.dto.CinemaShowDTO;
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
@@ -487,5 +488,14 @@ class ClientServiceTest {
 	void GetServerMonthtest() throws SQLException, ParseException {
 		assertEquals(clientService.GetServerMonth(), "September 2019");
 		assertNotNull(clientService.GetServerMonth());
+	}
+	
+	@Test
+	void FillAllBranchestest() throws SQLException {
+		ArrayList<BranchDTO> list =  clientService.branchDTOArrayList;
+		assertEquals(list.size(),2);
+		clientService.FillAllBranches();
+		ArrayList<BranchDTO> list2 =  clientService.branchDTOArrayList;
+		assertTrue(list2.size()>2);
 	}
 }
