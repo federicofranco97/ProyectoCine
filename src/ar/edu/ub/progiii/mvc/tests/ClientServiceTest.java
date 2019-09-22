@@ -402,4 +402,24 @@ class ClientServiceTest {
 		assertEquals(clientService.CategoryDay()[0], "");
 		assertEquals(clientService.CategoryDay().length, 1);
 	}
+	
+	@Test
+	void SupervisorsActiveDaytest() {
+		assertEquals(clientService.SupervisorsActiveDay(), "0");
+		assertNotNull(clientService.SupervisorsActiveDay());
+	}
+	
+	/*@Test
+	void CloseTickettest() {
+		clientService.currentEmployee.setEmployeeNumber(4);
+		assertEquals(clientService.CloseTicket(4), true);
+		clientService.currentEmployee.setEmployeeNumber(1);
+		assertEquals(clientService.CloseTicket(1), false);
+	}*/
+	
+	@Test
+	void GetMonthlySalestest() {
+		assertEquals(clientService.GetMonthlySales(), "5562.19");
+		assertNotNull(clientService.GetMonthlySales());
+	}
 }
