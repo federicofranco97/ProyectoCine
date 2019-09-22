@@ -368,4 +368,17 @@ class ClientServiceTest {
 		assertEquals(clientService.ActiveEmployees(), result);
 		assertNotNull(clientService.ActiveEmployees());
 	}
+	
+	@Test
+	void AmountOnlineTicketstest() throws SQLException {
+		String result="";
+		Statement stm = connection.getConnection().createStatement();
+        String query="select count(codreserva)  as ReservasOnline from reserva where codcanal=2 and CodEstadoReserva=3";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("ReservasOnline").trim());
+        }
+		assertEquals(clientService.AmountOnlineTickets(), result);
+		assertNotNull(clientService.AmountOnlineTickets());
+	}
 }
