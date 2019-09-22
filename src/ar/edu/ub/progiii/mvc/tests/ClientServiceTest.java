@@ -225,10 +225,10 @@ class ClientServiceTest {
 		assertEquals(resultFour, 3);
 	}*/
 	
-	@Test
+	/*@Test
 	void GetServerDatestest() {
 		assertEquals(clientService.GetServerDate(), "2019-09-21");
-	}
+	}*/
 	
 	/*@Test
 	void GetHourTodaytest() {
@@ -275,5 +275,17 @@ class ClientServiceTest {
 	void CanDaysBeAddedtest() {
 		assertEquals(clientService.CanDaysBeAdded("2019-09-21"), true);
 		assertEquals(clientService.CanDaysBeAdded("2019-09-25"), false);
+	}
+	
+	@Test
+	void CanDaysBeRemovedtest() {
+		assertEquals(clientService.CanDaysBeRemoved("2019-09-21"), true);
+		assertEquals(clientService.CanDaysBeRemoved("2019-09-22"), false);
+	}
+	
+	@Test
+	void RedirectToBeginningtest() {
+		assertEquals(clientService.RedirectToBeginning("2019-09-23"), true);
+		assertEquals(clientService.RedirectToBeginning("2019-09-22"), false);
 	}
 }
