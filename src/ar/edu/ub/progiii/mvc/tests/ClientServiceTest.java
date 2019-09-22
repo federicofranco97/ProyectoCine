@@ -288,4 +288,14 @@ class ClientServiceTest {
 		assertEquals(clientService.RedirectToBeginning("2019-09-23"), true);
 		assertEquals(clientService.RedirectToBeginning("2019-09-22"), false);
 	}
+	
+	@Test
+	void ClearCurrentUsertest() {
+		clientService.currentEmployee.setEmployeeNumber(1);
+		clientService.currentEmployee.setFullName("diego moran");
+		assertEquals(clientService.currentEmployee.getEmployeeNumber(), 1);
+		assertEquals(clientService.currentEmployee.getFullName(), "diego moran");
+		clientService.ClearCurrentUser();
+		assertEquals(clientService.currentEmployee.getEmployeeNumber(), -1);
+	}
 }
