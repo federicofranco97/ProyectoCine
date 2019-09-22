@@ -505,4 +505,28 @@ class ClientServiceTest {
 		assertTrue(clientService.GetEmployeeReport("3") instanceof EmployeeReportDTO);
 		assertEquals(clientService.GetEmployeeReport("3").getEmployeeDayBookings(),"0" );
 	}
+	
+	/*@Test
+	void UpdateLoginStatustest() throws SQLException {
+		clientService.currentEmployee.setEmployeeNumber(4);
+		String result="";
+		Statement stm = connection.getConnection().createStatement();
+        String query="select * from empleado where NroEmpleado=4";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("LoggedIn").trim());
+        }
+        assertEquals(result, "1");
+        clientService.UpdateLoginStatus();
+        String result2="";
+		Statement stm2 = connection.getConnection().createStatement();
+        String query2="select * from empleado where NroEmpleado=4";
+        ResultSet rst2 = stm2.executeQuery(query2);
+        while(rst2.next()) {
+            result2 += (rst2.getString("LoggedIn").trim());
+        }
+        assertEquals(result2, "0");
+	}*/
+	
+	
 }
