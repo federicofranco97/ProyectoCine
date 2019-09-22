@@ -381,4 +381,20 @@ class ClientServiceTest {
 		assertEquals(clientService.AmountOnlineTickets(), result);
 		assertNotNull(clientService.AmountOnlineTickets());
 	}
+	
+	/**
+	@Test
+	void DayFilmMostWatchedtest() {
+		if(dataManager.GetDayMostViewed() == "") {
+			assertEquals(mapping.MapDTOFilmSQL(dataManager.GetDayMostViewed()), null);
+		}
+		//assertEquals(clientService.EmployeeDailySales(2), "");
+		//assertNotNull(clientService.EmployeeDailySales(2));
+	}**/
+	
+	@Test
+	void MonthFilmMostWatchedtest() {
+		assertEquals(clientService.MonthFilmMostWatched().getFilmName(), "Avengers Endgame");
+		assertNotNull(clientService.MonthFilmMostWatched().getFilmName());
+	}
 }
