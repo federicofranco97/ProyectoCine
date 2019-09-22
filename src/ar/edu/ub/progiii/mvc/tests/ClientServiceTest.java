@@ -418,8 +418,30 @@ class ClientServiceTest {
 	}*/
 	
 	@Test
-	void GetMonthlySalestest() {
+	void GetMonthlySalestest() throws SQLException {
+		String result="";
+		Statement stm = connection.getConnection().createStatement();
+        String query="exec ventasmes";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("VentasDelMes").trim());
+        }
 		assertEquals(clientService.GetMonthlySales(), "5562.19");
+		assertEquals(clientService.GetMonthlySales(), result);
 		assertNotNull(clientService.GetMonthlySales());
+	}
+	
+	@Test
+	void getEmployeesActiveMonthtest() throws SQLException {
+		String result="";
+		Statement stm = connection.getConnection().createStatement();
+        String query="exec EmpleadosActivosMes";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("CantidadEmpleados").trim());
+        }
+		assertEquals(clientService.GetEmployeesActiveMonth(), result);
+		assertEquals(clientService.GetEmployeesActiveMonth(), "4");
+		assertNotNull(clientService.GetEmployeesActiveMonth());
 	}
 }
