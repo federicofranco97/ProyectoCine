@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -480,5 +481,11 @@ class ClientServiceTest {
 	void GetServerDatetest() throws SQLException {
 		assertEquals(clientService.GetServerDate(), "2019-09-22");
 		assertNotNull(clientService.GetServerDate());
+	}
+	
+	@Test
+	void GetServerMonthtest() throws SQLException, ParseException {
+		assertEquals(clientService.GetServerMonth(), "September 2019");
+		assertNotNull(clientService.GetServerMonth());
 	}
 }
