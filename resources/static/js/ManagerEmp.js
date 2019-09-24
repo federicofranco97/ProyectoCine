@@ -6,6 +6,7 @@ function EditEmployee(Component){
 }
 
 function GetReport(Component){
+    var idEmployee = Component.parentNode.className;
     window.open("/get_report?employeeid="+idEmployee,"_self");
 }
 
@@ -66,4 +67,8 @@ function MoveToDelete(){
 function ReturnToMenu(){
     document.getElementById('btnLimpiar').click();
     window.open("/manage_employees","_self");
+}
+
+function ReturnPage(){
+    window.history.back();
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: header">
+    <meta charset="UTF-8"/>
+    <style>
+        @page{ size: auto;  margin: 0mm; }
+    </style>
+</head>
+    <body style="background-color: black">
+        <div th:replace="layout :: menu"></div>
+        <div id="ReportContainer" style="margin-left: 20%;margin-right: 20%;background-color: white;padding: 25px;height: 840px;margin-bottom:6%;   ">
+
+            <h2>Reporte Diario de Empleado</h2>
+            <hr/>
+            <h4>Autor: <span th:text="${authorName}"></span></h4>
+            <h4>Fecha creacion: <span th:text="${reportDate}"></span></h4>
+            <hr/>
+            <div id="EmployeeData">
+                <h4>Datos del Empleado:</h4>
+                <h6><i class="fas fa-caret-right spacing"></i>Nombre Completo: <span th:text="${employee.getFullName()}"></span></h6>
+                <h6><i class="fas fa-caret-right spacing"></i>Email: <span th:text="${employee.getEmail()}"></span></h6>
+                <h6><i class="fas fa-caret-right spacing"></i>Direccion: <span th:text="${employee.getAddress()}"></span></h6>
+                <h6><i class="fas fa-caret-right spacing"></i>Fecha nacimiento: <span th:text="${employee.getDateOfBirth()}"></span></h6>
+                <h6><i class="fas fa-caret-right spacing"></i>Telefono: <span th:text="${employee.getPhoneNumber()}"></span></h6>
+            </div>
+            <hr/>
+            <div id="EmployeeSales">
+                <h4>Informacion de ventas:</h4>
+                <h6><i class="fas fa-angle-double-right spacingLow"></i>Total ventas dia: AR$ <span th:text="${employeeReport.getEmployeeDaySales()}"></span></h6>
+                <h6><i class="fas fa-angle-double-right spacingLow"></i>Cantidad transacciones realizadas: <span th:text="${employeeReport.getEmployeeDayBookings()}"></span></h6>
+                <h6><i class="fas fa-angle-double-right spacingLow"></i>Cantidad entradas online retiradas: <span th:text="${employeeReport.getEmployeeDayOnlineBookings()}"></span></h6>
+                <h6><i class="fas fa-angle-double-right spacingLow"></i>Monto descontado por alivios: <span th:text="${employeeReport.getEmployeeDayWithdraw()}"></span></h6>
+            </div>
+            <hr/>
+            <div>
+                <h4>Informacion de la sucursal:</h4>
+                <h6><i class="fas fa-align-justify spacingLow"></i>Numero Sucursal: <span th:text="${branch.getBranchNumber()}"></span></h6>
+                <h6><i class="fas fa-align-justify spacingLow"></i>Ubicacion: <span th:text="${branch.getBranchName()}"></span></h6>
+                <h6><i class="fas fa-align-justify spacingLow"></i>Direccion: <span th:text="${branch.getBranchAddress()}"></span></h6>
+                <h6><i class="fas fa-align-justify spacingLow"></i>Telefono: <span th:text="${branch.getBranchPhonenumber()}"></span></h6>
+            </div>
+            <hr/>
+            <img src="../static/img/logo.png" style="height: 60px;width: 150px;"/>
+        </div>
+        <div th:replace="layout :: footer"></div>
+    </body>
+</html>

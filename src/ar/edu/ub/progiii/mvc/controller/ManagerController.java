@@ -126,4 +126,11 @@ public class ManagerController {
             return model;
         }
     }
+
+    @GetMapping("/edit_client")
+    public ModelAndView EditClient(@RequestParam("clientid")int ClientNumber){
+        ModelAndView model = null;
+
+        return model;
+    }
 }
