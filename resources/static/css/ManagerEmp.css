@@ -4,8 +4,7 @@
 }
 
 .table-style
-{
-    margin-top: 10%;
+{-
     width: 90%;
     margin-left: auto;
     margin-right: auto;
@@ -24,4 +23,23 @@
     margin-right: auto;
     height: 70%;
     padding-bottom: 25px;
+}
+
+.manager-carrousel
+{
+    margin-top: 10vh;
+    width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 454px) {
+    .manager-carrousel
+    {
+        margin-top: 30vh;
+        width: 60vw;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90vw;
+    }
 }

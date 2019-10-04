@@ -8,6 +8,8 @@ import org.codehaus.groovy.runtime.ConvertedClosure;
 import org.springframework.stereotype.Service;
 import sun.security.krb5.internal.Ticket;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,8 +60,8 @@ public class ClientService {
     
     /**
      * Verifica que la clave sea correcta , valida su clave, de lo contrario banea al empleado
-     * @param employeeId
      * @param employeeNewPass
+     * @param employeeId
      * @param employeePass
      * @return boolean
      */
@@ -254,6 +256,7 @@ public class ClientService {
      */
     public void ClearCurrentUser(){
         currentEmployee = new EmployeeDTO();
+        currentEmployee.setEmployeeNumber(-1);
     }
 
     /**
@@ -382,6 +385,98 @@ public class ClientService {
         }
         return false;
     }
+    
+    /**
+     * Retorna la fecha del dia actual
+     * @return
+     */
+    public String GetDateToday(){
+        return dataManager.GetServerDate();
+    }
+    
+    /**
+     * Retorna la actual actual
+     * @return
+     */
+    public String GetHourToday(){
+        return dataManager.GetHourNow();
+    }
+    
+    /**
+     * Busqueda de todas las funciones
+     */
+    public ArrayList<CinemaShowDTO> GetAllShows(){
+        String response = dataManager.GetAllShows();
+        String [] aux = response.split("/");
+        ArrayList<CinemaShowDTO> showList = new ArrayList<>();
+        for (String item:aux) {
+            showList.add(mappingTool.MapDTOShowsSQL(item));
+        }
+        return showList;
+    }
+    
+    /**
+     * Busqueda de las funciones por hora de comienzo
+     */
+    public ArrayList<CinemaShowDTO> GetShowsByHour(){
+    	ArrayList<CinemaShowDTO> showsList = new ArrayList<>();
+    	for (CinemaShowDTO show:GetAllShows()) {
+    		if(Integer.parseInt(show.getStartTime()) >= Integer.parseInt(GetHourToday())) {
+    			showsList.add(show);
+    		}
+    	}
+    	return showsList;
+    }
+    
+    /**
+     * Agrega dias a una fecha
+     * @param date
+     * @param days
+     * @return LocalDate
+     */
+    public LocalDate AddDays(String date, int days){
+       return LocalDate.parse(date).plusDays(days); 
+    }
+    
+    /**
+     * Saca dias a una fecha
+     * @param date
+     * @param days
+     * @return LocalDate
+     */
+    public LocalDate RemoveDays(String date, int days){
+       return LocalDate.parse(date).minusDays(days); 
+    }
+    
+    /**
+     * Devuelve true si puede seguir agregado dias dado que la fecha por parametro
+     * no es igual a la fecha actual pasado 5 dias
+     * @param date
+     * @return boolean
+     */
+    public boolean CanDaysBeAdded(String date){
+    	return LocalDate.parse(date).getDayOfWeek().toString().equalsIgnoreCase("WEDNESDAY")?false:true;
+    }
+    
+    /**
+     * Devuelve true si puede seguir sacando dias dado que la fecha por 
+     * parametro es igual a la fecha actual
+     * @param date
+     * @return boolean
+     */
+    public boolean CanDaysBeRemoved(String date){
+        return Period.between(LocalDate.parse(date), LocalDate.parse(GetDateToday())).getDays() == 0?false:true;
+    }
+    
+    /**
+     * Si la fecha por parametro menos un dia es igual a la actual
+     * actual devuelve true
+     * @param date
+     * @return boolean
+     */
+    public boolean RedirectToBeginning(String date){
+        return Period.between(RemoveDays(date, 1), LocalDate.parse(GetDateToday())).getDays() == 0;
+    }
 
     public String GetMonthlySales(){
         return dataManager.GetGeneralMonthlySales();
@@ -429,6 +524,12 @@ public class ClientService {
         report.setEmployeeDayOnlineBookings(dataManager.EmployeeDayOnlineBookings(EmployeeNumber));
         report.setEmployeeDayWithdraw(dataManager.EmployeeDayWithdraw(EmployeeNumber));
         return report;
+    }
+
+    public void UpdateLoginStatus(){
+        if(currentEmployee.getEmployeeNumber()!=-1){
+            dataManager.UpdateLoginStatus(String.valueOf(currentEmployee.getEmployeeNumber()));
+        }
     }
 
     public int UpdateClient(int ClientId){

@@ -980,6 +980,29 @@ public class Data implements IData{
     }
 
     /**
+     * Trae la hora actual
+     *
+     * @return
+     */
+	@Override
+	public String GetHourNow() {
+		String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("TraerHoraServidor");
+                ResultSet rst = queryStoredProcedureWResponse.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("hora"));}
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }
+        return result;
+	}
+    
+    /**
      * Trae la lista de todas las sucursales.
      *
      * @return
@@ -998,11 +1021,6 @@ public class Data implements IData{
             }
         }catch (Exception ex){
             LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
-        }
-        //Si no encontro nada devuelvo null.
-        if((result.isEmpty())) {
-            LogData("ErrorNotFound", "No se pudo encontrar el cliente");
-            return null;
         }
         return result;
     }
@@ -1026,6 +1044,34 @@ public class Data implements IData{
             }
         }catch (Exception ex){
             LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }
+        return result;
+	}
+	
+	/**
+     * Metodo para traer todas las peliculas
+     * @return
+     */
+    @Override
+    public String GetAllShows() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	CQuerySelect querySelect = new CQuerySelect("funcion", "*");
+            	ResultSet rst = querySelect.Run();
+            	result = ParseSpecificResultSet(rst,Arrays.asList("CodFuncion","HoraComienzo","HoraFinalizacion","ComentariosAdicionales"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Si no encontro nada devuelvo null.
+        if((result.isEmpty())) {
+            LogData("ErrorNotFound","No se pudo encontrar la tabla");
+            return null;
         }
         return result;
     }
@@ -1100,6 +1146,22 @@ public class Data implements IData{
     }
 
     /**
+     * Actualiza el campo Logeado en la base de datos.
+     *
+     * @param EmployeeNumber
+     */
+    @Override
+    public void UpdateLoginStatus(String EmployeeNumber) {
+        try {
+            CQueryUpdate cQueryUpdate = new CQueryUpdate("Empleado", "LoggedIn='0'");
+            cQueryUpdate.addStatementCondition("NroEmpleado="+EmployeeNumber);
+            cQueryUpdate.Run();
+        }catch(Exception ex) {
+            System.out.println("Ocurrio una excepcion al cambiar el estado del empleado "+EmployeeNumber+" "+ex.getMessage());
+        }
+	}
+
+    /*
      * Actualizar un cliente en la base de datos.
      *
      * @param CliendId
