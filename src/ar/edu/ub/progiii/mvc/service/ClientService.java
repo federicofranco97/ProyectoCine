@@ -58,9 +58,9 @@ public class ClientService {
     
     /**
      * Verifica que la clave sea correcta , valida su clave, de lo contrario banea al empleado
-     * @param EmployeeId
-     * @param EmployeePass
-     * @param EmployeeNewPass
+     * @param employeeId
+     * @param employeeNewPass
+     * @param employeePass
      * @return boolean
      */
     @SuppressWarnings("static-access")
@@ -440,6 +440,11 @@ public class ClientService {
             }
         }
         return result;
+    }
+
+    public ClientDTO FindClient(ClientDTO clientDTO){
+        ClientDTO clientDTOFinal = new ClientDTO();
+        return clientDTOFinal;
     }
 
 }
