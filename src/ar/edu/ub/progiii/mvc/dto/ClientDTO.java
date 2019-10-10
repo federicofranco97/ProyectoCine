@@ -5,6 +5,7 @@ import java.sql.Date;
 public class ClientDTO extends PersonDTO{
 	private int ClientNumber;
 	private String ClientStatus;
+	private String DocumentNumber;
 
 	/**
 	 * Constructor
@@ -41,5 +42,13 @@ public class ClientDTO extends PersonDTO{
 
 	public void setClientStatus(String clientStatus) {
 		ClientStatus = clientStatus;
+	}
+
+	public String getDocumentNumber() {
+		return DocumentNumber;
+	}
+
+	public void setDocumentNumber(String documentNumber) {
+		DocumentNumber = documentNumber;
 	}
 }
