@@ -218,6 +218,23 @@ public class MappingTool implements IMapping{
     }
 
     /**
+     * Convierte el input string que viene de sql a un dto de branch
+     *
+     * @param SQLData
+     * @return
+     */
+    @Override
+    public BranchDTO MapDTOBranchSQL(String SQLData) {
+        String [] aux = SQLData.split("_");
+        BranchDTO branchDTO = new BranchDTO();
+        branchDTO.setBranchNumber(Integer.parseInt(aux[0]));
+        branchDTO.setBranchName(aux[1]);
+        branchDTO.setBranchAddress(aux[2]);
+        branchDTO.setBranchPhonenumber(aux[3]);
+        return branchDTO;
+    }
+
+    /**
      * Mapea data proveniente del sql como Employee
      *
      * @param SQLData
@@ -245,5 +262,29 @@ public class MappingTool implements IMapping{
         }
         return Employee;
 	}
+  
+  /**
+   * Mapeo de string de sql a film dto
+   *
+   * @param SQLData
+   * @return
+   */
+  @Override
+  public CinemaShowDTO MapDTOShowsSQL(String SQLData) {
+  	String [] aux = SQLData.split("_");
+  	CinemaShowDTO cinemaShowDTO;
+  	//si ocurre un error en el mapeo vuelve el cliente null
+  	try {
+  		cinemaShowDTO = new CinemaShowDTO();
+  		cinemaShowDTO.setCodeShow(aux[0]);
+  		cinemaShowDTO.setComments(aux[3]);
+  		cinemaShowDTO.setFinishTime(aux[2]);
+  		cinemaShowDTO.setStartTime(aux[1]);
+      }catch (Exception ex){
+    	  cinemaShowDTO=null;
+          System.out.println("Ocurrio un error en el mapeo");
+      }
+  	return cinemaShowDTO;
+  }
 
 }

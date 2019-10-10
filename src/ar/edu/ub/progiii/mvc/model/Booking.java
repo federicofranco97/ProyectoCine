@@ -30,7 +30,7 @@ public class Booking {
 	 *@param totalValue representa el importe total de la reserva.
 	 */
 	public Booking(String bookingCode, String bookingDate, String movieName, String show, String location,
-			int theatreNumber, int ticketAmount, int clientNumber, int bookingStatus, int channelCode,double totalValue) {
+			int theatreNumber, int ticketAmount, int clientNumber, int bookingStatus, int channelCode, double totalValue) {
 		
 		BookingCode = bookingCode;
 		BookingDate = bookingDate;

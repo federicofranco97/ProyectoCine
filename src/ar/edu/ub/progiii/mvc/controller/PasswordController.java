@@ -16,20 +16,23 @@ import ar.edu.ub.progiii.mvc.repository.Data;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 
 @Controller
-public class ClaveController {
-	
+public class PasswordController {
+
 	@Autowired
 	ClientService clientService;
 	Data data = new Data();
 	Connection connection = new Connection();
 	MappingTool map = new MappingTool();
-	
-	@SuppressWarnings("static-access")
+
+	/**
+	 * Llama a la vista cambio de clave
+	 * @return
+	 */
 	@GetMapping("/cambio_clave")
 	public ModelAndView GetPassView() {
 		int employeeNumber = clientService.currentEmployee.getEmployeeNumber();
 		if(clientService.IsEmployeeAlowed(employeeNumber)) {
-			ModelAndView model = new ModelAndView("clave");
+			ModelAndView model = new ModelAndView("Password");
 			model.addObject("currentID",employeeNumber);
 			return model;
 		}
@@ -38,18 +41,27 @@ public class ClaveController {
 		return modelError;
 		
 	}
-	
+
+	/**
+	 * Metodo que te permite modificar la clave
+	 *O en caso de ingresar mal la clave actual, no te permite cambiarla
+	 * y te notifica que fuiste bloqueado
+	 * @param employeeId
+	 * @param oldPass
+	 * @param newPass
+	 * @return
+	 */
 	@PostMapping("/pass_sent")
 	public ModelAndView changePass(@RequestParam("EmployeeId") String employeeId, @RequestParam("oldPass") String oldPass, @RequestParam("newPass") String newPass) {
 		int aux = clientService.changePass(employeeId, oldPass, newPass);
 		if(aux == 1) {
-			ModelAndView modelSucces = new ModelAndView("clave");
-			modelSucces.addObject("Contenido", Arrays.asList("Exito","La clave ha sido cambiada con exito!","1"));
+			ModelAndView modelSucces = new ModelAndView("Password");
+			modelSucces.addObject("Content", Arrays.asList("Exito","La clave ha sido cambiada con exito!","1"));
 			return modelSucces;
 		}
 		if(aux == 2) {
 			ModelAndView modelError = new ModelAndView("ErrorPage");
-	 		modelError.addObject("Contenido", Arrays.asList("Error","Clave incorrecta!","/clave"));
+	 		modelError.addObject("Contenido", Arrays.asList("Error","Clave incorrecta!","/cambio_clave"));
 			return modelError;
 		}
 			ModelAndView modelError = new ModelAndView("ErrorPage");

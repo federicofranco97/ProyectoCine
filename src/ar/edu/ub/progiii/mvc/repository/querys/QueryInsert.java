@@ -10,6 +10,11 @@ import java.util.List;
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.repository.Data;
 
+/**
+ * Clase que arma las queries insert
+ * @author Diego Moran
+ *
+ */
 public class QueryInsert implements IQueryBuilder<Boolean> {
 	
 	private static final String StatementConstant = "INSERT INTO";
@@ -17,20 +22,32 @@ public class QueryInsert implements IQueryBuilder<Boolean> {
 	private static ArrayList<String> Columns = new ArrayList<>();
 	private static ArrayList<String> Values = new ArrayList<>();
 	
-	public QueryInsert(String TableName, List<String> columns, List<String> values) {
-		this.TableName = TableName;
+	/**
+	 *Constructor para query insert
+	 *@param tableName representa el nombre de la tabla de la base de datos.
+	 *@param columns representa las columnas de la base de datos
+	 *@param values representa los valores.
+	 */
+	public QueryInsert(String tableName, List<String> columns, List<String> values) {
+		this.TableName = tableName;
 		Columns.clear();
 		Values.clear();
         this.Columns.addAll(columns);
         this.Values.addAll(values); 
 	}
 	
-	public QueryInsert(String TableName, String Column, String Value) {
-		this.TableName = TableName;
+	/**
+	 *Constructor para query insert
+	 *@param tableName representa el nombre de la tabla de la base de datos.
+	 *@param columns representa las columnas de la base de datos
+	 *@param values representa los valores.
+	 */
+	public QueryInsert(String tableName, String column, String value) {
+		this.TableName = tableName;
         Columns.clear();
         Values.clear();
-		this.Columns.add(Column);
-		this.Values.add(Value);
+		this.Columns.add(column);
+		this.Values.add(value);
 	}
 	
 	public static ArrayList<String> getColumns() {

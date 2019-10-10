@@ -5,6 +5,7 @@ import java.sql.Date;
 public class ClientDTO extends PersonDTO{
 	private int ClientNumber;
 	private String ClientStatus;
+	private String DocumentNumber;
 
 	/**
 	 * Constructor
@@ -13,11 +14,11 @@ public class ClientDTO extends PersonDTO{
 	 * @param phoneNumber representa el numero de telefono del cliente.
 	 * @param email representa el email del cliente.
 	 * @param dateOfBirth representa la fecha de nacimiento del cliente.
-	 * @param ClientNumber representa el numero de cliente.
+	 * @param clientNumber representa el numero de cliente.
 	 */
-	public ClientDTO(String fullName, String address, String phoneNumber, String email, String dateOfBirth,int ClientNumber) {
+	public ClientDTO(String fullName, String address, String phoneNumber, String email, String dateOfBirth,int clientNumber) {
 		super(fullName, address, phoneNumber, email, dateOfBirth);
-		this.ClientNumber = ClientNumber;
+		this.ClientNumber = clientNumber;
 	}
 
 	public ClientDTO(String fullName, String address, String phoneNumber, String email, String dateOfBirth) {
@@ -41,5 +42,13 @@ public class ClientDTO extends PersonDTO{
 
 	public void setClientStatus(String clientStatus) {
 		ClientStatus = clientStatus;
+	}
+
+	public String getDocumentNumber() {
+		return DocumentNumber;
+	}
+
+	public void setDocumentNumber(String documentNumber) {
+		DocumentNumber = documentNumber;
 	}
 }

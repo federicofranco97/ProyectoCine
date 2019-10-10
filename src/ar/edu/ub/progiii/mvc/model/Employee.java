@@ -14,16 +14,16 @@ public class Employee extends Person{
 	 * @param phoneNumber representa el numero de telefono del empleado.
 	 * @param email representa el email del empleado.
 	 * @param dateOfBirth representa la fecha de nacimiento del empleado.
-	 * @param EmployeeNumber representa el numero de empleado.
-	 * @param Rank representa la categoria del empleado.
+	 * @param employeeNumber representa el numero de empleado.
+	 * @param rank representa la categoria del empleado.
 	 */
-	public Employee(String fullName, String address, String phoneNumber, String email, String dateOfBirth,int EmployeeNumber,
-			String HashedPassword,String Rank) {
+	public Employee(String fullName, String address, String phoneNumber, String email, String dateOfBirth, int employeeNumber,
+			String hashedPassword, String rank) {
 		
 		super(fullName, address, phoneNumber, email, dateOfBirth);
-		this.EmployeeNumber = EmployeeNumber;
-		this.HashedPassword = HashedPassword;
-		this.Rank = Rank;
+		this.EmployeeNumber = employeeNumber;
+		this.HashedPassword = hashedPassword;
+		this.Rank = rank;
 	}
 
 	public Employee(){}

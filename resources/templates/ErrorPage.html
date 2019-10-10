@@ -7,12 +7,22 @@
 <body class="bg-secondary">
     <div th:replace="layout :: footer"></div>
     <script th:inline="javascript">
-         /*<![CDATA[*/
+    	var finalPath="";     
+    /*<![CDATA[*/
         var listaContenido = /*[[${Contenido}]]*/ 'default';
-        var p1=(listaContenido[0]);
-        var p2=(listaContenido[1]);
-        var p3=(listaContenido[2]);
+         if(listaContenido.length == 2){
+        	 var p1=(listaContenido[0]);
+        	 var p2=(listaContenido[1]);
+        	 finalPath="/";
+         }
+         else if(listaContenido.length == 3){
+        	 var p1=(listaContenido[0]);
+        	 var p2=(listaContenido[1]);
+        	 var p3=(listaContenido[2]);
+        	 finalPath=p3;
+         }
          /*]]>*/
+         
          swal({
               title: p1,
               text: p2,
@@ -24,9 +34,10 @@
             setTimeout("RedirectPage()", 500);
 
          });
+         
          function RedirectPage(){
-        	 window.open(p3,"_self"); 
-        	 }
+         	 window.open(finalPath,"_self"); 
+      	}
 </script>
 
 </body>
