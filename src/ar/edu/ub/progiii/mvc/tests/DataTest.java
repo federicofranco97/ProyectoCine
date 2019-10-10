@@ -31,7 +31,7 @@ class DataTest {
 		dataManager = new Data();
 		mapping = new MappingTool();
 	}
-	@Test
+	/*@Test
 	void GetEmployeeByIDtest() throws SQLException {
 		String SPsql ="Juan Perez_1161507889_jperez@test.com.ar_Calle Falsa 3399         _1997-11-04 00:00:00.0_2_p3p3_2";
         assertEquals(dataManager.GetEmployeeByID("2"),SPsql);
@@ -246,5 +246,11 @@ class DataTest {
 		assertEquals(result, 1);
 		assertEquals(result2, 0);
 		assertNotNull(result);
+	}*/
+	
+	@Test
+	void GetServerDatetest() throws SQLException {
+		assertEquals(dataManager.GetServerDate(), "2019-09-21");
+		assertNotNull(dataManager.GetServerDate());
 	}
 }

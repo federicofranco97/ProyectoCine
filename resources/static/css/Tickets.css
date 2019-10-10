@@ -1,9 +1,9 @@
 .cardContainer
 {
-     margin-left:auto;
-     margin-right:auto;
-     margin-top:5%;
-     width:80%;
-     height:700px;
+     margin-left: auto;
+     margin-right: auto;
+     margin-top: 5%;
+     width: 80%;
+     height: 700px;
      overflow-y: auto;
 }

@@ -18,24 +18,31 @@ public class ManagerController {
 
     @Autowired
     ClientService clientService;
-
+    /**
+    Metodo que te lleva a la vista del gerente principal
+     */
     @GetMapping("/admin_main")
     public ModelAndView GetMain(){
         ModelAndView model = new ModelAndView("ManagerPage");
         return model;
     }
-
+    /**
+    Metodo que te permite administrar los empleados
+     */
     @GetMapping("/manage_employees")
     public ModelAndView GetEmployeesView(){
         ModelAndView model = new ModelAndView("ManagerEmployees");
         model.addObject("EmployeeList",clientService.GetAllEmployees());
         return model;
     }
-
+    /**
+    Metodo que te permite banear empleado
+    luego te redirige o a la vista de gerente principal
+    o a la vista para administrar empleados
+     */
     @GetMapping("/ban_employee")
     public ModelAndView BanEmployee(@RequestParam("employeeid")int EmployeeNumber){
-        int result = clientService.BanEmployee(EmployeeNumber);
-        if(result == 1 ){
+        if(clientService.BanEmployee(EmployeeNumber) == 1 ){
             RedirectView redirectView = new RedirectView("/manage_employees");
             redirectView.setExposePathVariables(false);
             return new ModelAndView(redirectView);
@@ -45,11 +52,12 @@ public class ManagerController {
             return new ModelAndView(redirectView);
         }
     }
-
+    /**
+    Metodo que te lleva a la vista para eliminar empleados
+     */
     @GetMapping("/delete_employee")
     public ModelAndView DeleteEmployee(@RequestParam("employeeid")int EmployeeNumber){
-        int result = clientService.DeleteEmployee(EmployeeNumber);
-        if(result == 1 ){
+        if(clientService.DeleteEmployee(EmployeeNumber) == 1 ){
             RedirectView redirectView = new RedirectView("/manage_employees");
             redirectView.setExposePathVariables(false);
             return new ModelAndView(redirectView);
@@ -59,7 +67,9 @@ public class ManagerController {
             return new ModelAndView(redirectView);
         }
     }
-
+    /**
+    Metodo que te lleva a la vista para editar empleados
+     */
     @GetMapping("/edit_employee")
     public ModelAndView GetEditPage(@RequestParam("employeeid")int EmployeeNumber){
         ModelAndView model = new ModelAndView("EditEmployee");
@@ -67,7 +77,9 @@ public class ManagerController {
         model.addObject("empleado",employeeDTO);
         return model;
     }
-
+    /**
+    Metodo que te lleva a la vista para actualizar empleados
+     */
     @PostMapping("/update_employee")
     public ModelAndView UpdateEmployee(EmployeeDTO employee){
         clientService.UpdateEmployee(employee);
@@ -75,18 +87,21 @@ public class ManagerController {
         redirectView.setExposePathVariables(false);
         return new ModelAndView(redirectView);
     }
-
+    /**
+    Metodo que te lleva a la vista para administrar clientes
+     */
      @GetMapping("/manage_clients")
     public ModelAndView GetClients(){
         ModelAndView model = new ModelAndView("ManagerClients");
         model.addObject("ClientList",clientService.GetAllClients());
         return model;
     }
-
+    /**
+    Metodo que te lleva a la vista para banear clientes
+     */
     @GetMapping("/ban_client")
     public ModelAndView BanClient(@RequestParam("clientid")int ClientNumber){
-        int result = clientService.BanClient(ClientNumber);
-        if(result == 1 ){
+        if(clientService.BanClient(ClientNumber) == 1 ){
             RedirectView redirectView = new RedirectView("/manage_clients");
             redirectView.setExposePathVariables(false);
             return new ModelAndView(redirectView);
@@ -96,11 +111,12 @@ public class ManagerController {
             return model;
         }
     }
-
+    /**
+    Metodo que te lleva a la vista para eliminar clientes
+     */
     @GetMapping("/delete_client")
     public ModelAndView DeleteClient(@RequestParam("clientid")int ClientNumber){
-        int result = clientService.DeleteClient(ClientNumber);
-        if(result == 1 ){
+        if(clientService.DeleteClient(ClientNumber) == 1 ){
             RedirectView redirectView = new RedirectView("/manage_clients");
             redirectView.setExposePathVariables(false);
             return new ModelAndView(redirectView);
@@ -109,5 +125,12 @@ public class ManagerController {
             model.addObject("Content", Arrays.asList("Error","Ocurrio un error al borrar el cliente"));
             return model;
         }
+    }
+
+    @GetMapping("/edit_client")
+    public ModelAndView EditClient(@RequestParam("clientid")int ClientNumber){
+        ModelAndView model = null;
+
+        return model;
     }
 }

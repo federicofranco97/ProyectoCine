@@ -8,8 +8,9 @@ import java.util.Arrays;
 
 @Controller
 public class ErrorController {
-
-
+    /**
+    Metodo que te lleva a la pagina de error
+     */
     @GetMapping("/errorpage")
     public ModelAndView GetError(String s){
          ModelAndView model = new ModelAndView("ErrorPage");

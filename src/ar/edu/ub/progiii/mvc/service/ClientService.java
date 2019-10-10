@@ -4,17 +4,29 @@ import ar.edu.ub.progiii.mvc.dto.*;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.model.Employee;
 import ar.edu.ub.progiii.mvc.repository.Data;
+import org.codehaus.groovy.runtime.ConvertedClosure;
 import org.springframework.stereotype.Service;
 import sun.security.krb5.internal.Ticket;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 public class ClientService {
 
-    Data dataManager = new Data();
+    public Data dataManager = new Data();
     MappingTool mappingTool = new MappingTool();
     public static EmployeeDTO currentEmployee = new EmployeeDTO();  
+    public ArrayList<BranchDTO> branchDTOArrayList = new ArrayList<>();
+
+    public ClientService(){
+        FillAllBranches();
+    }
 
     /**
      * Metodo booleano que checkea si el empleado que este logeado en la sesion de trabajo
@@ -44,14 +56,13 @@ public class ClientService {
     		return true;
     	}
     	return false;
-    	 
     }
     
     /**
      * Verifica que la clave sea correcta , valida su clave, de lo contrario banea al empleado
-     * @param EmployeeId
-     * @param EmployeePass
-     * @param EmployeeNewPass
+     * @param employeeNewPass
+     * @param employeeId
+     * @param employeePass
      * @return boolean
      */
     @SuppressWarnings("static-access")
@@ -127,8 +138,7 @@ public class ClientService {
      * @return string dataManager
      */
     public boolean CreateNewClient(ClientDTO clientDTO){
-        boolean response = dataManager.PostNewClient(clientDTO);
-        return response;
+        return dataManager.PostNewClient(clientDTO);
     }
 
     /**
@@ -193,7 +203,9 @@ public class ClientService {
     public EmployeeDTO GetEmployee(int EmployeeNumber){
         ArrayList<EmployeeDTO> list = GetAllEmployees();
         for (EmployeeDTO item : list) {
-            if(item.getEmployeeNumber() == EmployeeNumber)return item;
+            if(item.getEmployeeNumber() == EmployeeNumber){
+            	return item;
+            }
         }
         return null;
     }
@@ -244,6 +256,7 @@ public class ClientService {
      */
     public void ClearCurrentUser(){
         currentEmployee = new EmployeeDTO();
+        currentEmployee.setEmployeeNumber(-1);
     }
 
     /**
@@ -288,40 +301,77 @@ public class ClientService {
         return result;
     }
 
+    /**
+     * Retorna las ventas del dia de un empleado
+     * @param EmployeeNumber
+     * @return
+     */
     public String EmployeeDailySales(int EmployeeNumber){
         return dataManager.GetEmployeeDailySales(EmployeeNumber);
     }
 
+    /**
+     * Retorna las ventas totales del dia
+     * @return
+     */
     public String DailySales(){
         return dataManager.GetGeneralDailySales();
     }
 
+    /**
+     * Retorna los empelados activos
+     * @return
+     */
     public String ActiveEmployees(){
         return dataManager.GetEployeesActive();
     }
 
+    /**
+     * Retorna la cantidad de tickets online
+     * @return
+     */
     public String AmountOnlineTickets(){
         return dataManager.GetOnlineBooQuantity();
     }
 
+    /**
+     * Retorna la pelicula mas vista
+     * @return
+     */
     public FilmDTO DayFilmMostWatched(){
         FilmDTO filmDTO = mappingTool.MapDTOFilmSQL(dataManager.GetDayMostViewed());
         return filmDTO;
     }
 
+    /**
+     * Retorna la pelicula mas vista del mes
+     * @return
+     */
     public FilmDTO MonthFilmMostWatched(){
         FilmDTO filmDTO = mappingTool.MapDTOFilmSQL(dataManager.GetMonthMostViewed());
         return filmDTO;
     }
 
+    /**
+     * Retorna la categoria del dia
+     * @return
+     */
     public String[] CategoryDay(){
         return dataManager.GetCategoryDay().split("_");
     }
 
+    /**
+     * Retorna los supervisores activos del dia
+     * @return
+     */
     public String SupervisorsActiveDay(){
         return dataManager.GetSupervisorsActive();
     }
 
+    /**
+     * Cierra un ticket si el empleado esta autorizado
+     * @return
+     */
     public boolean CloseTicket(int TicketNumber){
         int CurrentEmployeeCategory=0;
         try {
@@ -335,4 +385,162 @@ public class ClientService {
         }
         return false;
     }
+    
+    /**
+     * Retorna la fecha del dia actual
+     * @return
+     */
+    public String GetDateToday(){
+        return dataManager.GetServerDate();
+    }
+    
+    /**
+     * Retorna la actual actual
+     * @return
+     */
+    public String GetHourToday(){
+        return dataManager.GetHourNow();
+    }
+    
+    /**
+     * Busqueda de todas las funciones
+     */
+    public ArrayList<CinemaShowDTO> GetAllShows(){
+        String response = dataManager.GetAllShows();
+        String [] aux = response.split("/");
+        ArrayList<CinemaShowDTO> showList = new ArrayList<>();
+        for (String item:aux) {
+            showList.add(mappingTool.MapDTOShowsSQL(item));
+        }
+        return showList;
+    }
+    
+    /**
+     * Busqueda de las funciones por hora de comienzo
+     */
+    public ArrayList<CinemaShowDTO> GetShowsByHour(){
+    	ArrayList<CinemaShowDTO> showsList = new ArrayList<>();
+    	for (CinemaShowDTO show:GetAllShows()) {
+    		if(Integer.parseInt(show.getStartTime()) >= Integer.parseInt(GetHourToday())) {
+    			showsList.add(show);
+    		}
+    	}
+    	return showsList;
+    }
+    
+    /**
+     * Agrega dias a una fecha
+     * @param date
+     * @param days
+     * @return LocalDate
+     */
+    public LocalDate AddDays(String date, int days){
+       return LocalDate.parse(date).plusDays(days); 
+    }
+    
+    /**
+     * Saca dias a una fecha
+     * @param date
+     * @param days
+     * @return LocalDate
+     */
+    public LocalDate RemoveDays(String date, int days){
+       return LocalDate.parse(date).minusDays(days); 
+    }
+    
+    /**
+     * Devuelve true si puede seguir agregado dias dado que la fecha por parametro
+     * no es igual a la fecha actual pasado 5 dias
+     * @param date
+     * @return boolean
+     */
+    public boolean CanDaysBeAdded(String date){
+    	return LocalDate.parse(date).getDayOfWeek().toString().equalsIgnoreCase("WEDNESDAY")?false:true;
+    }
+    
+    /**
+     * Devuelve true si puede seguir sacando dias dado que la fecha por 
+     * parametro es igual a la fecha actual
+     * @param date
+     * @return boolean
+     */
+    public boolean CanDaysBeRemoved(String date){
+        return Period.between(LocalDate.parse(date), LocalDate.parse(GetDateToday())).getDays() == 0?false:true;
+    }
+    
+    /**
+     * Si la fecha por parametro menos un dia es igual a la actual
+     * actual devuelve true
+     * @param date
+     * @return boolean
+     */
+    public boolean RedirectToBeginning(String date){
+        return Period.between(RemoveDays(date, 1), LocalDate.parse(GetDateToday())).getDays() == 0;
+    }
+
+    public String GetMonthlySales(){
+        return dataManager.GetGeneralMonthlySales();
+    }
+
+    public String GetEmployeesActiveMonth(){
+        return dataManager.GetEployeesActiveMonth();
+    }
+
+    public String GetOnlineBookingsMonth(){
+        if(dataManager.GetOnlineBooQuantityMonth()!=null || dataManager.GetOnlineBooQuantityMonth()!="")return dataManager.GetOnlineBooQuantityMonth();
+        return "0";
+    }
+
+    public String[] CategoryMonth(){
+        return dataManager.GetCategoryMonth().split("_");
+    }
+
+    public String GetSupervisorsOnlineMonth(){
+        return dataManager.GetSupervisorsActiveMonth();
+    }
+
+    public String GetServerDate(){
+        return dataManager.GetServerDate();
+    }
+
+    public String GetServerMonth() throws ParseException {
+        String currentDate = dataManager.GetServerDate();
+        Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(currentDate);
+        DateFormat out = new SimpleDateFormat("MMMMM yyyy");
+        return out.format(date1);
+    }
+
+    public void FillAllBranches(){
+        String [] sqlResponse = dataManager.GetAllBranches().split("/");
+        for (String item:sqlResponse) {
+            branchDTOArrayList.add(mappingTool.MapDTOBranchSQL(item));
+        }
+    }
+
+    public EmployeeReportDTO GetEmployeeReport(String EmployeeNumber){
+        EmployeeReportDTO report = new EmployeeReportDTO();
+        report.setEmployeeDaySales(dataManager.EmployeeDaySales(EmployeeNumber));
+        report.setEmployeeDayBookings(dataManager.EmployeeDayBookings(EmployeeNumber));
+        report.setEmployeeDayOnlineBookings(dataManager.EmployeeDayOnlineBookings(EmployeeNumber));
+        report.setEmployeeDayWithdraw(dataManager.EmployeeDayWithdraw(EmployeeNumber));
+        return report;
+    }
+
+    public void UpdateLoginStatus(){
+        if(currentEmployee.getEmployeeNumber()!=-1){
+            dataManager.UpdateLoginStatus(String.valueOf(currentEmployee.getEmployeeNumber()));
+        }
+    }
+
+    public int UpdateClient(int ClientId){
+        ArrayList<ClientDTO> list = GetAllClients();
+        int result =0;
+        for (ClientDTO client:list) {
+            if(client.getClientNumber() == ClientId){
+
+            }
+        }
+        return result;
+    }
+
 }

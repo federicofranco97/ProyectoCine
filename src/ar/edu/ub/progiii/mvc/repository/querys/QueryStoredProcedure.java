@@ -7,11 +7,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueryStoredProcedure implements IQueryBuilder<Integer>  {
+/**
+ * Clase que contruye los stored procedure de la base de datos
+ * @author Federico Franco
+ *
+ */
+public class QueryStoredProcedure implements IQueryBuilder<Integer> {
     private static final String StatementContant = "EXEC";
     private String Command;
     private static ArrayList<String> Parameters = new ArrayList<>();
 
+    /**
+	 *Constructor para stored procedure
+	 *@param command representa el nombre del stored procedure
+	 */
     public QueryStoredProcedure(String command) {
         Command = command;
         Parameters.clear();
@@ -25,6 +34,11 @@ public class QueryStoredProcedure implements IQueryBuilder<Integer>  {
         Parameters.add(parameter);
     }
 
+    /**
+	 *Constructor para query insert
+	 *@param command representa el nombre del stored procedure
+	 *@param parameters representa los parametros que recibe el stored procedure
+	 */
     public QueryStoredProcedure(String command, List<String> parameters) {
         Command = command;
         Parameters.clear();
@@ -51,8 +65,12 @@ public class QueryStoredProcedure implements IQueryBuilder<Integer>  {
         Parameters = parameters;
     }
 
-    public String BuildParameters(){
-
+    /**
+     * Metodo para construir los parametros de la query
+     *
+     * @return
+     */
+    public String BuildParameters() {
         String result = "";
         if(Parameters.size()==0){
             return "";
