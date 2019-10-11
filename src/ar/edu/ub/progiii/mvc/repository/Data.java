@@ -154,7 +154,7 @@ public class Data implements IData{
             	CQuerySelect querySelect = new CQuerySelect("cliente", "*");
             	querySelect.addStatementCondition(Arrays.asList("nrocliente="+data));
             	ResultSet rst = querySelect.Run();
-            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","NroCliente","Telefono","Email","Direccion","FechaNac"));
+            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","NroCliente","Telefono","Email","Direccion","FechaNac","NroDocumento"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -271,10 +271,11 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-            	CQuerySelect querySelect = new CQuerySelect("cliente c inner join clientstatus cs on c.NroCliente=cs.Nrocliente", "c.Nrocliente,c.NombreCompleto,c.Telefono,c.Email,c.Direccion,c.FechaNac");
+            	CQuerySelect querySelect = new CQuerySelect("cliente c inner join clientstatus " +
+                        "cs on c.NroCliente=cs.Nrocliente", "c.Nrocliente,c.NombreCompleto,c.Telefono,c.Email,c.Direccion,c.FechaNac,c.NroDocumento");
             	querySelect.addStatementCondition(Arrays.asList("cs.CodRol=1004 or cs.CodRol=1005"));
             	ResultSet rst = querySelect.Run();
-            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto", "Nrocliente", "Telefono", "Email", "Direccion", "FechaNac"));
+            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto", "Nrocliente", "Telefono", "Email", "Direccion", "FechaNac","NroDocumento"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -1173,8 +1174,8 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                CQueryUpdate cQueryUpdate = new CQueryUpdate("Cliente",Arrays.asList("Telefono='"+clientDTO+"'",
-                        "Email='"+clientDTO.getEmail()+"","Direccion='"+clientDTO.getAddress()+"'"));
+                CQueryUpdate cQueryUpdate = new CQueryUpdate("Cliente",Arrays.asList("Telefono='"+clientDTO.getPhoneNumber()+"'",
+                        "Email='"+clientDTO.getEmail()+"'","Direccion='"+clientDTO.getAddress()+"'"));
                 cQueryUpdate.addStatementCondition("NroCliente="+clientDTO.getClientNumber());
                 result = cQueryUpdate.Run();
             }
@@ -1185,7 +1186,7 @@ public class Data implements IData{
             LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
-        LogData("BanEmployee","Banear empleado id:"+clientDTO.getClientNumber());
+        LogData("UpdateCilent","Banear empleado id:"+clientDTO.getClientNumber());
         return result;
     }
 }
