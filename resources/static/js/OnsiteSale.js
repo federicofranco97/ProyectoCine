@@ -32,7 +32,8 @@ function saveBooking(element){
 	}
 	else{
 		idFunction = $(element).attr("class");
-		window.open("/presencial_cantidadEntradas?ids="+idFunction+"_"+idMovie,"_self");
+		date = $('#idDate').attr("class");
+		window.open("/presencial_cantidadEntradas?ids="+idFunction+"_"+idMovie+"&dateMovie="+date,"_self");
 	}
 }
 

@@ -18,7 +18,4 @@ public class OnSiteBookingDTO extends BookingDTO{
 	public OnSiteBookingDTO() {
 		
 	}
-	
-	
-
 }
