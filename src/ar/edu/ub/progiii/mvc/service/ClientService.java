@@ -532,15 +532,23 @@ public class ClientService {
         }
     }
 
-    public int UpdateClient(int ClientId){
+    public int UpdateClient(int ClientId,ClientDTO clientDTO){
         ArrayList<ClientDTO> list = GetAllClients();
         int result =0;
         for (ClientDTO client:list) {
             if(client.getClientNumber() == ClientId){
-
+                client.setAddress(clientDTO.getAddress());
+                client.setPhoneNumber(clientDTO.getPhoneNumber());
+                client.setEmail(clientDTO.getEmail());
+                dataManager.UpdateClient(ClientId, client);
             }
         }
         return result;
+    }
+
+    public ClientDTO FindClient(ClientDTO clientDTO){
+        ClientDTO clientDTOFinal = new ClientDTO();
+        return clientDTOFinal;
     }
 
 }

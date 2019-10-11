@@ -66,7 +66,7 @@ function MoveToDelete(){
 //Funcion que te devuelve al menu
 function ReturnToMenu(){
     document.getElementById('btnLimpiar').click();
-    window.open("/manage_employees","_self");
+    window.open("/admin_main","_self");
 }
 
 function ReturnPage(){
