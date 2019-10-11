@@ -137,16 +137,14 @@ public class ManagerController {
 
     @PostMapping("/update_client")
     public ModelAndView UpdateClient(ClientDTO clientDTO){
-        ModelAndView model = null;
-
-        if(clientService.UpdateClient(clientDTO.getClientNumber()) == 1 ){
+        if(clientService.UpdateClient(clientDTO.getClientNumber(),clientDTO) != -1 ){
             RedirectView redirectView = new RedirectView("/manage_clients");
             redirectView.setExposePathVariables(false);
             return new ModelAndView(redirectView);
-        }else{
-            model = new ModelAndView("ErrorPage");
-            model.addObject("Content", Arrays.asList("Error","Ocurrio un error al borrar el cliente"));
         }
+        ModelAndView model = new ModelAndView("ErrorPage");
+        model.addObject("Content", Arrays.asList("Error","Ocurrio un error al borrar el cliente"));
         return model;
+
     }
 }
