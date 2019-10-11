@@ -33,7 +33,7 @@ function saveBooking(element){
 	else{
 		idFunction = $(element).attr("class");
 		date = $('#idDate').attr("class");
-		window.open("/presencial_cantidadEntradas?ids="+idFunction+"_"+idMovie+"&dateMovie="+date,"_self");
+		window.open("/presencial_cantidadEntradas?functionId="+idFunction+"&movieId="+idMovie+"&dateMovie="+date,"_self");
 	}
 }
 
