@@ -2,7 +2,7 @@ var idMovie = -1;
 var idFunction;
 
 /*   
-    Borra todos los colores de fonde de los tag td
+    Borra todos los colores de fondo de los tag td
 */
 $('td').on('click', function(){
    $('td').css("background-color" , "");
@@ -38,7 +38,7 @@ function saveBooking(element){
 }
 
 /* 
-   Redirecciona al controllerpara sumar un dia
+   Redirecciona al controller para sumar un dia
 */
 function addDays(){
 	date = $('#idDate').attr("class");
@@ -46,7 +46,7 @@ function addDays(){
 }
 
 /* 
-Redirecciona al controllerpara restar un dia
+Redirecciona al controller para restar un dia
 */
 function removeDays(){
 	date = $('#idDate').attr("class");
