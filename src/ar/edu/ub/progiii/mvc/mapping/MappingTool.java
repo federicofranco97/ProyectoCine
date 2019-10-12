@@ -146,6 +146,7 @@ public class MappingTool implements IMapping{
         try {
             String [] splitDate = aux[5].split(" ");
             clientDTO = new ClientDTO(aux[0],aux[4],aux[2], aux[3],(splitDate[0]),Integer.parseInt(aux[1]));
+            clientDTO.setDocumentNumber(aux[6]);
         }catch (Exception ex){
             clientDTO=null;
             System.out.println("Ocurrio un error en el mapeo");
@@ -262,5 +263,29 @@ public class MappingTool implements IMapping{
         }
         return Employee;
 	}
+  
+  /**
+   * Mapeo de string de sql a film dto
+   *
+   * @param SQLData
+   * @return
+   */
+  @Override
+  public CinemaShowDTO MapDTOShowsSQL(String SQLData) {
+  	String [] aux = SQLData.split("_");
+  	CinemaShowDTO cinemaShowDTO;
+  	//si ocurre un error en el mapeo vuelve el cliente null
+  	try {
+  		cinemaShowDTO = new CinemaShowDTO();
+  		cinemaShowDTO.setCodeShow(aux[0]);
+  		cinemaShowDTO.setComments(aux[3]);
+  		cinemaShowDTO.setFinishTime(aux[2]);
+  		cinemaShowDTO.setStartTime(aux[1]);
+      }catch (Exception ex){
+    	  cinemaShowDTO=null;
+          System.out.println("Ocurrio un error en el mapeo");
+      }
+  	return cinemaShowDTO;
+  }
 
 }

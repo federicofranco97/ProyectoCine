@@ -57,4 +57,8 @@ public class FilmDTO {
     public void setSummary(String summary) {
         Summary = summary;
     }
+    
+    public String getDurationWithString() {
+        return Duration + " " +"min";
+    }
 }

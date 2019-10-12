@@ -18,7 +18,7 @@ public  class Connection {
     public static java.sql.Connection getConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection("jdbc:sqlserver://181.231.30.180;databaseName=CINEDB","sa","f3d3fr4nc0");
+            connection = DriverManager.getConnection("jdbc:sqlserver://181.239.145.84;databaseName=CINEDB","sa","f3d3fr4nc0");
         } catch (Exception e) {
             connection = null;
         }
