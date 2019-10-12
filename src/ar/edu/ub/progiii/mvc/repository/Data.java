@@ -1113,7 +1113,9 @@ public class Data implements IData{
         }catch(Exception ex) {
             System.out.println("Ocurrio una excepcion al cambiar el estado del empleado "+EmployeeNumber+" "+ex.getMessage());
         }
-      
+    }
+        
+     /** 
      * Actualizar un cliente en la base de datos.
      *
      * @param CliendId

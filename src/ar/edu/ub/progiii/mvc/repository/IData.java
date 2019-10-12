@@ -259,7 +259,8 @@ public interface IData {
      * @param EmployeeNumber
      */
     public void UpdateLoginStatus(String EmployeeNumber);
-
+    
+    /**
      * Actualizar un cliente en la base de datos.
      * @param CliendId
      * @return
