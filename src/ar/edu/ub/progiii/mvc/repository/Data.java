@@ -1189,4 +1189,33 @@ public class Data implements IData{
         LogData("UpdateCilent","Banear empleado id:"+clientDTO.getClientNumber());
         return result;
     }
+    
+    /**
+     * Insertar reserva inicial
+     * @param movieID, showId, theatreNumber, tempEmployee, dateShow
+     * @return int
+     */
+    @Override
+    public int InsertInitialBooking(String movieId, String showId, int theatreNumber, String tempEmployee, String dateShow) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("InsertarReservaInicial");
+                queryStoredProcedure.addParameter(Arrays.asList("'"+Integer.parseInt(movieId)+"'","'"+Integer.parseInt(showId)+"'",
+                        "'"+theatreNumber+"'","'"+tempEmployee+"'","'"+dateShow+"'"));
+                queryStoredProcedure.BuildParameters();
+                queryStoredProcedure.Build();
+                result = queryStoredProcedure.Run();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda
+        LogData("InsertarReservaInicial","Insertar reserva inicial");
+        return result;
+    }
 }

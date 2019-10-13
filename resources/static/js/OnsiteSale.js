@@ -24,7 +24,7 @@ function saveValue(element){
 }
 
 /* 
-   Guarda el valor del id de la funcion en una variable y redirecciona a la ruta del controller correspondiente
+   Guarda el valor del id de la funcion, peicula y fecha en una variables y redirecciona a la ruta del controller correspondiente
 */
 function saveBooking(element){
 	if (idMovie == -1){
@@ -33,7 +33,7 @@ function saveBooking(element){
 	else{
 		idFunction = $(element).attr("class");
 		date = $('#idDate').attr("class");
-		window.open("/presencial_cantidadEntradas?functionId="+idFunction+"&movieId="+idMovie+"&dateMovie="+date,"_self");
+		window.open("/presencial_cantidadEntradas?functionId="+idFunction+"&movieId="+idMovie+"&dateShow="+date,"_self");
 	}
 }
 

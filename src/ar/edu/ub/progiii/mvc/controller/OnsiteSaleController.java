@@ -97,4 +97,19 @@ public class OnsiteSaleController {
 		model.addObject("Content", Arrays.asList("Aviso","No hay mas fechas disponibles!","1"));
 		return model;
 	}
+	
+	/**
+	 * Llama a la vista venta presencial, sus peliculas y funciones
+	 * @return
+	 */
+	@GetMapping("/presencial_cantidadEntradas")
+	public ModelAndView GetOnsiteAmountTicketsView(@RequestParam("functionId") String showId, @RequestParam("movieId") String movieId, @RequestParam("dateShow") String dateShow) {
+		if (clientService.InsertInitialBooking(movieId, showId, dateShow)) {
+			ModelAndView model = new ModelAndView("OnsiteSale");
+			return model;
+		}
+		ModelAndView modelError = new ModelAndView("OnsiteSale");
+ 		modelError.addObject("Contenido", Arrays.asList("Error","Se ha producido un error!","1"));
+		return modelError;
+	}
 }

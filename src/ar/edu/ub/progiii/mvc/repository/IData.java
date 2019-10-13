@@ -279,4 +279,11 @@ public interface IData {
      */
     public int UpdateClient(int CliendId, ClientDTO clientDTO);
 
+    /**
+     * Inserta una reserva inicial
+     * @param movieID, showId, theatreNumber, tempEmployee, dateShow
+     * @return
+     */
+	public int InsertInitialBooking(String movieId, String showId, int theatreNumber, String tempEmployee, String dateShow);
+
 }

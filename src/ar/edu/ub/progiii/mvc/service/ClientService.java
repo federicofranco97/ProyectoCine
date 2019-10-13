@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Spliterator;
 
 @Service
 public class ClientService {
@@ -404,6 +405,7 @@ public class ClientService {
     
     /**
      * Busqueda de todas las funciones
+     * @return array
      */
     public ArrayList<CinemaShowDTO> GetAllShows(){
         String response = dataManager.GetAllShows();
@@ -417,6 +419,7 @@ public class ClientService {
     
     /**
      * Busqueda de las funciones por hora de comienzo
+     * @return array
      */
     public ArrayList<CinemaShowDTO> GetShowsByHour(){
     	ArrayList<CinemaShowDTO> showsList = new ArrayList<>();
@@ -550,5 +553,15 @@ public class ClientService {
         ClientDTO clientDTOFinal = new ClientDTO();
         return clientDTOFinal;
     }
-
+    
+    /**
+     * Retorna un booleano sea sirealizo la reserva o no
+     * @return boolean
+     */
+    public boolean InsertInitialBooking(String movieId, String showId, String dateShow){
+    	String [] aux = dateShow.split("-");
+    	String date = aux[0]+aux[1]+aux[2];
+    	int theatreNumber = (int) Math.floor(Math.random()*(12-1+1)+1);
+    	return dataManager.InsertInitialBooking(movieId, showId, theatreNumber, String.valueOf(currentEmployee.getEmployeeNumber()), date) == 1?true:false;
+    }
 }
