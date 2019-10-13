@@ -70,7 +70,7 @@ function add(element){
 		retiredIncrement ++;
 		total = total + parseInt(inputRetired.value);
 		totalPay.innerHTML = "$" + total;
-		retired.innerHTML = RetiredIncrement;
+		retired.innerHTML = retiredIncrement;
 	}
 	if (element == 'Adulto') {
 		adultIncrement ++;

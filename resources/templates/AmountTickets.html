@@ -29,15 +29,15 @@
         <tr th:each="category : ${categories}">
           <input th:id="${'input' + category.getRateName()}" th:value="${category.getValue()}"></input>
           <td th:text="${category.getRateName()}"></td>
-          <td th:text="${category.getValue()}"></td>
+          <td th:text="${'$' + category.getValue()}"></td>
           <td id="center">
-            <button th:onclick="${'add(' + category.getRateName() + ');'}" class="btn btn-secondary">-</button>
+            <button th:onclick="${' minus(''' + category.getRateName() + ''');'}" class="btn btn-secondary">-</button>
           </td>
           <td id="center">
             <label th:id="${category.getRateName()}" text="">0</label>
           </td>
           <td id="center"> 
-            <button th:onclick="${' minus(' + category.getRateName() + ');'}" class="btn btn-secondary">+</button>
+            <button th:onclick="${'add(''' + category.getRateName() + ''');'}" class="btn btn-secondary">+</button>
           </td>
         </tr>
         <td id="total">TOTAL</td>

@@ -8,7 +8,8 @@
     float: left;
     position: relative;
     left: 15%;
-    opacity: ;
+    overflow-y:auto;
+    opacity: 1;
     pointer-events: auto;
 }
 .form{
@@ -20,7 +21,7 @@
     left: 17%;
     margin-top: 1%;
     box-shadow: 9px 3px 9px 2px #474e54;
-    opacity: ;
+    opacity: 1;
     pointer-events: auto;
 }
 .labelIdClient{

@@ -9,7 +9,7 @@ $('td').on('click', function(){
 });
 
 /* 
-   Llena de un determinado color el fondo de los tag td y guarda su valor en una variable
+   Llena de un determinado color el fondo de los tag td 
 */
 $('td').on('click', function(){
    $(this).css("background-color" , "rgb(4, 124, 179)");
