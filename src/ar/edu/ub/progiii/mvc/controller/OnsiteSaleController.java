@@ -99,13 +99,14 @@ public class OnsiteSaleController {
 	}
 	
 	/**
-	 * Llama a la vista venta presencial, sus peliculas y funciones
+	 * Realiza una reserva inicial con los valores de los parametros 
+	 * y devuelve la pagna cantidad de enetradas, cargandole los datos
 	 * @return
 	 */
 	@GetMapping("/presencial_cantidadEntradas")
 	public ModelAndView GetOnsiteAmountTicketsView(@RequestParam("functionId") String showId, @RequestParam("movieId") String movieId, @RequestParam("dateShow") String dateShow) {
 		if (clientService.InsertInitialBooking(movieId, showId, dateShow)) {
-			ModelAndView model = new ModelAndView("OnsiteSale");
+			ModelAndView model = new ModelAndView("AmountTickets");
 			return model;
 		}
 		ModelAndView modelError = new ModelAndView("OnsiteSale");
