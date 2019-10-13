@@ -1,4 +1,4 @@
-.container_tables{
+.container_rate{
 	margin: auto;
     margin-top: 1%;
     width: 54%;
@@ -81,19 +81,19 @@ label{
 .btnBack{
 	position: absolute;
     left: 16%;
-    top: 8%;
+    top: 6%;
 }
 .btnPay{
 	position: absolute;
     left: 80%;
-    top: 8%;
+    top: 6%;
 }
 input{
 	display: none;
 }
 .btnRegisterClient{
 	position: relative;
-	top: 20%;
+	top: 5%;
 	left: 43%;
 }
 .formRegisteredClient{

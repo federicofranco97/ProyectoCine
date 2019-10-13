@@ -13,7 +13,7 @@
     <button onclick="pay()" class="btn btn-secondary btn-sm btnPay">Pagar</button>
   </div>
   <!--Contenedor de la tabla de categorias-->
-  <div id="container_tables" class="container_tables">
+  <div id="container_tables" class="container_rate">
   	<!--Tabla de categorias donde se pueden modificar la cantidad de entradas y percibir el total-->
     <table class="table table-striped table-dark table-bordered table">
       <thead>
@@ -50,10 +50,10 @@
   <label class= "badge badge-dark labelIdClientFirst" for="ClientId">Id cliente</label><br/>
   <input id="inputIdClient" class="form-control form-control-sm col-md-6 inputIdClient" type="text" name="ClientId" placeholder="Id cliente" value=""/><br/>
   <input class="btn btn-secondary btn-sm btnSend" type="submit" name="send" value="Ingresar"/><br/>
-  <label class= "badge badge-dark labelIdClient" for="" th:text="">Id</label><br/>
-  <label class= "badge badge-dark labelIdClient" for="" th:text="">Nombre</label><br/>
-  <label class= "badge badge-dark labelIdClient" for="" th:text="">Mail</label><br/>
-  <label class= "badge badge-dark labelIdClient" for="" th:text="">DNI</label>
+  <label class= "badge badge-dark labelIdClient" for="" th:if="${mensaje != null}" th:text="${mensaje}">Id</label><br/>
+  <label class= "badge badge-dark labelIdClient" for="" th:if="${mensaje != null}" th:text="${mensaje}">Nombre</label><br/>
+  <label class= "badge badge-dark labelIdClient" for="" th:if="${mensaje != null}" th:text="${mensaje}">Mail</label><br/>
+  <label class= "badge badge-dark labelIdClient" for="" th:if="${mensaje != null}" th:text="${mensaje}">DNI</label>
 </form>
   <!--Formulario para que se registre un cliente-->
   <!--Es modal y contiene un css con animacion-->
