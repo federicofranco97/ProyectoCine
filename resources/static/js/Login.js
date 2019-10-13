@@ -32,7 +32,7 @@ formEmployee.onsubmit = function(event){
  * Busca si se encuentra guardad la variable de sesion de empleado y de ser asi la borra.
  */
 body.onload = function(){
-	if(sessionStorage.getItem("EmployeeKey")){
+	if(sessionStorage.getItem("EmployeeKey") != null){
 		sessionStorage.removeItem("EmployeeKey");
 	}
 }
