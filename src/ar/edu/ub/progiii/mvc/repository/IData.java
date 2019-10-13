@@ -286,4 +286,10 @@ public interface IData {
      */
 	public int InsertInitialBooking(String movieId, String showId, int theatreNumber, String tempEmployee, String dateShow);
 
+	/**
+     * Trae todas las categorias de tarifa
+     * @return
+     */
+	public String GetAllRateCategories();
+
 }

@@ -107,6 +107,7 @@ public class OnsiteSaleController {
 	public ModelAndView GetOnsiteAmountTicketsView(@RequestParam("functionId") String showId, @RequestParam("movieId") String movieId, @RequestParam("dateShow") String dateShow) {
 		if (clientService.InsertInitialBooking(movieId, showId, dateShow)) {
 			ModelAndView model = new ModelAndView("AmountTickets");
+			model.addObject("categories", clientService.GetAllRateCategories());
 			return model;
 		}
 		ModelAndView modelError = new ModelAndView("OnsiteSale");

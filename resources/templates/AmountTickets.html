@@ -26,18 +26,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="categoria : ${categorias}">
-          <input th:id="${'input' + categoria.name()}" th:value="${categoria.price()}"></input>
-          <td th:text="${categoria.getName()}"></td>
-          <td th:text="${categoria.getPrice()}"></td>
+        <tr th:each="category : ${categories}">
+          <input th:id="${'input' + category.getRateName()}" th:value="${category.getValue()}"></input>
+          <td th:text="${category.getRateName()}"></td>
+          <td th:text="${category.getValue()}"></td>
           <td id="center">
-            <button th:onclick="${'add(' + categoria.name() + ');'}" class="btn btn-secondary">-</button>
+            <button th:onclick="${'add(' + category.getRateName() + ');'}" class="btn btn-secondary">-</button>
           </td>
           <td id="center">
-            <label th:id="${categoria.getName()}" text="">0</label>
+            <label th:id="${category.getRateName()}" text="">0</label>
           </td>
           <td id="center"> 
-            <button th:onclick="'javascript:minus('\' + ${categoria.name()} + '\')'" class="btn btn-secondary">+</button>
+            <button th:onclick="${' minus(' + category.getRateName() + ');'}" class="btn btn-secondary">+</button>
           </td>
         </tr>
         <td id="total">TOTAL</td>
@@ -50,10 +50,10 @@
   <label class= "badge badge-dark labelIdClientFirst" for="ClientId">Id cliente</label><br/>
   <input id="inputIdClient" class="form-control form-control-sm col-md-6 inputIdClient" type="text" name="ClientId" placeholder="Id cliente" value=""/><br/>
   <input class="btn btn-secondary btn-sm btnSend" type="submit" name="send" value="Ingresar"/><br/>
-  <label class= "badge badge-dark labelIdClient" for="" th:if="${mensaje != null}" th:text="${mensaje}">Id</label><br/>
-  <label class= "badge badge-dark labelIdClient" for="" th:if="${mensaje != null}" th:text="${mensaje}">Nombre</label><br/>
-  <label class= "badge badge-dark labelIdClient" for="" th:if="${mensaje != null}" th:text="${mensaje}">Mail</label><br/>
-  <label class= "badge badge-dark labelIdClient" for="" th:if="${mensaje != null}" th:text="${mensaje}">DNI</label>
+  <label class= "badge badge-dark labelIdClient" th:if="${mensaje != null}" th:text="${mensaje}">Id</label><br/>
+  <label class= "badge badge-dark labelIdClient" th:if="${mensaje != null}" th:text="${mensaje}">Nombre</label><br/>
+  <label class= "badge badge-dark labelIdClient" th:if="${mensaje != null}" th:text="${mensaje}">Mail</label><br/>
+  <label class= "badge badge-dark labelIdClient" th:if="${mensaje != null}" th:text="${mensaje}">DNI</label>
 </form>
   <!--Formulario para que se registre un cliente-->
   <!--Es modal y contiene un css con animacion-->

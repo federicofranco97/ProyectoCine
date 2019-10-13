@@ -287,5 +287,28 @@ public class MappingTool implements IMapping{
       }
   	return cinemaShowDTO;
   }
+  
+  /**
+   * Mapeo de string de sql a categoria de tarifa dto
+   *
+   * @param SQLData
+   * @return
+   */
+  @Override
+  public RateCategoryDTO MapDTORateCategoriesSQL(String SQLData) {
+  	String [] aux = SQLData.split("_");
+  	RateCategoryDTO rateDTO;
+  	//si ocurre un error en el mapeo vuelve el cliente null
+  	try {
+  		rateDTO = new RateCategoryDTO();
+  		rateDTO.setRateCode(aux[0]);
+  		rateDTO.setRateName(aux[1]);
+  		rateDTO.setValue(aux[2]);
+      }catch (Exception ex){
+    	  rateDTO=null;
+          System.out.println("Ocurrio un error en el mapeo");
+      }
+  	return rateDTO;
+  }
 
 }

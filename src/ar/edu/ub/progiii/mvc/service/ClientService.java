@@ -564,4 +564,20 @@ public class ClientService {
     	int theatreNumber = (int) Math.floor(Math.random()*(12-1+1)+1);
     	return dataManager.InsertInitialBooking(movieId, showId, theatreNumber, String.valueOf(currentEmployee.getEmployeeNumber()), date) == 1?true:false;
     }
+    
+    /**
+     * Busqueda de todas las categorias de tarifa
+     * menos la categoria 5 que es online
+     */
+    public ArrayList<RateCategoryDTO> GetAllRateCategories(){
+        String response = dataManager.GetAllRateCategories();
+        String [] aux = response.split("/");
+        ArrayList<RateCategoryDTO> rateList = new ArrayList<>();
+        for (String item:aux) {
+        	if(!mappingTool.MapDTORateCategoriesSQL(item).getRateCode().equals("5")) {
+        		rateList.add(mappingTool.MapDTORateCategoriesSQL(item));
+        	}
+        }
+        return rateList;
+    }
 }

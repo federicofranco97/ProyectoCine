@@ -116,4 +116,11 @@ public interface IMapping {
      * @return
      */
     public BranchDTO MapDTOBranchSQL(String SQLData);
+
+    /**
+     * Convierte el input string que viene de sql a un dto de categorias de tarifa
+     * @param SQLData
+     * @return
+     */
+	public RateCategoryDTO MapDTORateCategoriesSQL(String SQLData);
 }

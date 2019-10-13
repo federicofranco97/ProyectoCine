@@ -1218,4 +1218,33 @@ public class Data implements IData{
         LogData("InsertarReservaInicial","Insertar reserva inicial");
         return result;
     }
+    
+    /**
+     * Metodo para traer todas las categorias de tarifa
+     * @return
+     */
+    @Override
+    public String GetAllRateCategories() {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	CQuerySelect querySelect = new CQuerySelect("Tarifa", "*");
+            	ResultSet rst = querySelect.Run();
+            	result = ParseSpecificResultSet(rst,Arrays.asList("CodTarifa","NombreTarifa","Precio"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+
+        }
+        //Si no encontro nada devuelvo null.
+        if((result.isEmpty())) {
+            LogData("ErrorNotFound","No se pudo encontrar la tabla");
+            return null;
+        }
+        return result;
+    }
 }
