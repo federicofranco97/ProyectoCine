@@ -580,4 +580,20 @@ public class ClientService {
         }
         return rateList;
     }
+    
+    /**
+     * Busqueda de cliente por dni 
+     * @param dni
+     * @return 
+     */
+    public ClientDTO GetClientByDNI(String DNI){
+            String response = dataManager.GetClientByDNI(DNI);
+            if(response==null){
+                //No se encontro el usuario
+                System.out.println("No se encontro el usuario");
+                return null;
+            }
+            ClientDTO clientDTO = mappingTool.MapDTOClientSQL(response);
+            return clientDTO;
+    }
 }

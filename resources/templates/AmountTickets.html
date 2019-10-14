@@ -46,14 +46,18 @@
   </table>
 </div>
 <!--Permite ingresar el id del cliente para traer su informacion y guardar el id en la reserva-->
-<form id="formClient" class="form" method="post" action="/lookingForAClient">
-  <label class= "badge badge-dark labelIdClientFirst" for="ClientId">Id cliente</label><br/>
-  <input id="inputIdClient" class="form-control form-control-sm col-md-6 inputIdClient" type="text" name="ClientId" placeholder="Id cliente" value=""/><br/>
+<form id="formClient" class="form" method="post" action="/buscarCliente_traerInfo">
+  <label class= "badge badge-dark labelIdClientFirst" for="ClientDNI">DNI cliente</label><br/>
+  <input id="inputIdClient" class="form-control form-control-sm col-md-6 inputIdClient" type="text" name="clientDNI" placeholder="DNI cliente" value=""/><br/>
   <input class="btn btn-secondary btn-sm btnSend" type="submit" name="send" value="Ingresar"/><br/>
-  <label class= "badge badge-dark labelIdClient" th:if="${mensaje != null}" th:text="${mensaje}">Id</label><br/>
-  <label class= "badge badge-dark labelIdClient" th:if="${mensaje != null}" th:text="${mensaje}">Nombre</label><br/>
-  <label class= "badge badge-dark labelIdClient" th:if="${mensaje != null}" th:text="${mensaje}">Mail</label><br/>
-  <label class= "badge badge-dark labelIdClient" th:if="${mensaje != null}" th:text="${mensaje}">DNI</label>
+  <label class= "badge badge-info labelIdClient" th:if="${msj != null}">ID:</label><br/>
+  <label class= "labelClient" th:if="${msj != null}" th:text="${clientInfo.getClientNumber()}"></label><br/>
+  <label class= "badge badge-info labelIdClient" th:if="${msj != null}">NOMBRE:</label><br/>
+  <label class= "labelClient" th:if="${msj != null}" th:text="${clientInfo.getFullName()}"></label><br/>
+  <label class= "badge badge-info labelIdClient" th:if="${msj != null}">MAIL:</label><br/>
+  <label class= "labelClient" th:if="${msj != null}" th:text="${clientInfo.getEmail()}"></label><br/>
+  <label class= "badge badge-info labelIdClient" th:if="${msj != null}">DNI:</label><br/>
+  <label class= "labelClient" th:if="${msj != null}" th:text="${clientInfo.getDocumentNumber()}"></label>
 </form>
   <!--Formulario para que se registre un cliente-->
   <!--Es modal y contiene un css con animacion-->

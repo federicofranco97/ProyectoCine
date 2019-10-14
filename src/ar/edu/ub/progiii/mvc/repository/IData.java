@@ -292,4 +292,23 @@ public interface IData {
      */
 	public String GetAllRateCategories();
 
+	/**
+     * Trae un cliente por dni
+     * @return
+     */
+	public String GetClientByDNI(String DNI);
+
+	/**
+     * Trae un id de reserva del ultimo empleado que la realizo
+     * @return
+     */
+	public String GetLastBookingByEmployeeId(int employeeId);
+
+	/**
+     * Actualizar los campos de la ultima reserva
+     * @param column, value, bookingNumber
+     * @return
+     */
+	public int UpdateLastBooking(String column, int value, String bookingNumber);
+
 }

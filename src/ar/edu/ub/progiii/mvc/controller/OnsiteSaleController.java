@@ -8,6 +8,7 @@ import org.codehaus.groovy.runtime.metaclass.NewMetaMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -112,6 +113,27 @@ public class OnsiteSaleController {
 		}
 		ModelAndView modelError = new ModelAndView("OnsiteSale");
  		modelError.addObject("Contenido", Arrays.asList("Error","Se ha producido un error!","1"));
+		return modelError;
+	}
+	
+	/**
+	 * Realiza una reserva inicial con los valores de los parametros 
+	 * y devuelve la pagna cantidad de enetradas, cargandole los datos
+	 * @return
+	 */
+	@PostMapping("/buscarCliente_traerInfo")
+	public ModelAndView GetClientDataById(@RequestParam("clientDNI") String clientDNI) {
+		if (clientService.GetClientByDNI(clientDNI) != null) {
+			ModelAndView model = new ModelAndView("AmountTickets");
+			data.UpdateLastBooking("NroCliente", Integer.parseInt(clientDNI), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
+			model.addObject("categories", clientService.GetAllRateCategories());
+			model.addObject("msj","yes");
+			model.addObject("clientInfo", clientService.GetClientByDNI(clientDNI));
+			return model;
+		}
+		ModelAndView modelError = new ModelAndView("AmountTickets");
+ 		modelError.addObject("Content", Arrays.asList("Error","No se ha encontrado el cliente!","1"));
+ 		modelError.addObject("categories", clientService.GetAllRateCategories());
 		return modelError;
 	}
 }

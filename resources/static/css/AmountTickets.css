@@ -26,7 +26,12 @@
 .labelIdClient{
 	position: relative;
     left: 21%;
-    margin-top: 12%;
+    margin-bottom: 0%;
+}
+.labelClient{
+	font-size: 70%;
+    position: relative;
+    left: 22%;
 }
 .labelIdClientFirst{
 	position: relative;

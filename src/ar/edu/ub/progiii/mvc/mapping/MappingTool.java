@@ -145,7 +145,13 @@ public class MappingTool implements IMapping{
         //si ocurre un error en el mapeo vuelve el cliente null
         try {
             String [] splitDate = aux[5].split(" ");
-            clientDTO = new ClientDTO(aux[0],aux[4],aux[2], aux[3],(splitDate[0]),Integer.parseInt(aux[1]));
+            clientDTO = new ClientDTO();
+            clientDTO.setFullName(aux[0]);
+            clientDTO.setClientNumber(Integer.parseInt(aux[1]));
+            clientDTO.setPhoneNumber(aux[2]);
+            clientDTO.setEmail(aux[3]);
+            clientDTO.setAddress(aux[4]);
+            clientDTO.setDateOfBirth(splitDate[0]);
             clientDTO.setDocumentNumber(aux[6]);
         }catch (Exception ex){
             clientDTO=null;
