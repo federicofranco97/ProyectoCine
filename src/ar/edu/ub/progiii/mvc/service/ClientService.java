@@ -551,4 +551,11 @@ public class ClientService {
         return clientDTOFinal;
     }
 
+    public FilmDTO GetFilmById(int idFilm){
+        for(FilmDTO Film: GetAllFilms()){
+            if(Film.getCode() == idFilm){
+                return Film;
+            }
+        }
+    }
 }

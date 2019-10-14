@@ -1,5 +1,6 @@
 package ar.edu.ub.progiii.mvc.controller;
 
+import ar.edu.ub.progiii.mvc.repository.Data;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,11 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Arrays;
+
 @Controller
 public class RedeemTicketsController {
 
     @Autowired
     ClientService clientService;
+    Data data = new Data();
+
     /**
     Metodo que te lleva a la vista para retirar entradas
      */
@@ -25,10 +30,16 @@ public class RedeemTicketsController {
     Metodo que te lleva a la vista para byscar reservas
      */
     @GetMapping("/buscar_reserva")
-    public ModelAndView GetBuscarReserva(@RequestParam("bonumber")String BookingNumber){
-        ModelAndView model = new ModelAndView("RedeemTickets");
-        clientService.GetBookingById(BookingNumber);
-        return model;
+    public ModelAndView GetBuscarReserva(@RequestParam("bookingId")String BookingNumber){
+        if(clientService.GetBookingById(BookingNumber) == null){
+            ModelAndView modelError = new ModelAndView("RedeemTickets");
+            modelError.addObject("Content", Arrays.asList("Error","No se ha ingresado la reserva","1"));
+            return modelError;
+        }
+        ModelAndView modelOk = new ModelAndView("RedeemTickets");
+        modelOk.addObject("Booking",clientService.GetBookingById(BookingNumber));
+        modelOk.addObject("pelicula",clientService.GetFilmById(Integer.parseInt(clientService.GetBookingById(BookingNumber).getBookingCode())));
+
     }
 
 }

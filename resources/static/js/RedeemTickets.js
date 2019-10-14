@@ -30,6 +30,8 @@ document.getElementById("idCode").addEventListener("keydown", function(event) {
 
 //funcion que trae el codigo de reserva
 function BringBooking(){
-    var id = inputCode.value;
+    window.open("/buscar_reserva?bookingId="+idCode,"_self");
 }
+
+
 

@@ -23,7 +23,7 @@
                 <th scope="col">Entrada</th>
                 <th scope="col">Pelicula</th>
                 <th scope="col">Función</th>
-                <th scope="col">Complejo</th>
+                <th scope="col">Sala</th>
             </tr>
             </thead>
             <tbody>
@@ -51,5 +51,20 @@
 
     </div>
     <div th:replace="layout :: footer"></div>
+    <script th:inline="javascript">
+         /*<![CDATA[*/
+        var contentList = /*[[${Content}]]*/ 'default';
+        var p1=(contentList[0]);
+        var p2=(contentList[1]);
+        var p3=(contentList[2]);
+         /*]]>*/
+         if(p3== "1"){
+        	 swal({
+                 title: p1,
+                 text: p2,
+                 icon: "warning"
+               })
+         }
+    </script>
 </body>
 </html>
