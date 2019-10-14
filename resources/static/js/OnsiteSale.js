@@ -4,16 +4,18 @@ var idFunction;
 /*   
     Borra todos los colores de fondo de los tag td
 */
-$('td').on('click', function(){
-   $('td').css("background-color" , "");
-});
-
-/* 
-   Llena de un determinado color el fondo de los tag td 
-*/
-$('td').on('click', function(){
-   $(this).css("background-color" , "rgb(4, 124, 179)");
-});
+document.getElementById("body").onload = function(){
+	$('td').on('click', function(){
+		$('td').css("background-color" , "");
+		});
+	
+	/* 
+	 * Llena de un determinado color el fondo de los tag td 
+	 */
+	$('td').on('click', function(){
+		$(this).css("background-color" , "rgb(4, 124, 179)");
+		});
+	}
 
 /* 
    Guarda el valor del id de la pelicula en una variable

@@ -9,7 +9,7 @@ var registeredOlderIncrement = 0;
 //Variable que guarda el total del valor de entradas
 var total = 0;
 //Variable que guarda las cantidades de entradas por categoria para enviar al backend
-var sent = String(underAgeIncrement)+"_"+String(retiredIncrement)+"_"+String(adultIncrement)+"_"+String(promoIncrement)+"_"+String(registeredAdultIncrement)+"_"+String(registeredUnderAgeIncrement)+"_"+String(registeredOlderIncrement);
+var sent = "";
 //Variables que traen el elemento correspondiente a su id para utilizar sus valores
 var totalPay = document.getElementById("pesos");
 var underAge = document.getElementById("Menor");
@@ -149,7 +149,7 @@ function minus(element){
 		totalPay.innerHTML = "$" + total;
 		registeredUnderAge.innerHTML = registeredUnderAgeIncrement;
 	}
-	if (element == 'RegistradoMayor' && registeredOlder != 0) {
+	if (element == 'RegistradoMayor' && registeredOlderIncrement != 0) {
 		registeredOlderIncrement --;
 		total = total - parseInt(inputRegisteredOlder.value);
 		totalPay.innerHTML = "$" + total;
@@ -164,11 +164,12 @@ function minus(element){
  * no deja continuar dando un aviso.
  */
 function pay(){
-	if (underAgeIncrement == 0 && retiredIncrement == 0 && adultIncrement == 0 && promoIncrement == 0 && registeredAdultIncrement == 0 && registeredUnderAge == 0 && registeredOlder == 0) {
+	if (total == 0) {
 		swal("Aviso", "No hay entradas seleccionadas!", "warning");
 	}
 	else {
-		window.open("/presencial_pagar","_self");
+		sent = String(underAgeIncrement)+"_"+String(retiredIncrement)+"_"+String(adultIncrement)+"_"+String(promoIncrement)+"_"+String(registeredAdultIncrement)+"_"+String(registeredUnderAgeIncrement)+"_"+String(registeredOlderIncrement);
+		window.open("/presencial_pagar?underAge="+underAgeIncrement+"&retired="+retiredIncrement+"&adult="+adultIncrement+"&promo="+promoIncrement+"&registeredAdult="+registeredAdultIncrement+"&registeredUnderAge="+registeredUnderAgeIncrement+"&registeredOlder="+registeredOlderIncrement+"&total="+total,"_self");
 	}
 }
 

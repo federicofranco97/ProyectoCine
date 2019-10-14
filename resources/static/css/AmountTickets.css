@@ -2,13 +2,12 @@
 	margin: auto;
     margin-top: 1%;
     width: 54%;
-    height: 51vh;
+    height: 68vh;
     background-color: #576067;
     box-shadow: 9px 3px 9px 2px #474e54;
     float: left;
     position: relative;
     left: 15%;
-    overflow-y:auto;
     opacity: 1;
     pointer-events: auto;
 }
@@ -45,7 +44,7 @@
 strong{
 	margin-left: 3%;
 	position: relative;
-	top: 8%;
+	top: 2%;
 }
 .panel{
 	margin: auto;
@@ -108,6 +107,7 @@ input{
     position: absolute;
     left: 35%;
     top: 4%;
+    height: 77vh;
 }
 .buttonClose{
 	display: block;
@@ -130,6 +130,8 @@ input{
 .align{
 	width: 72%;
     margin: auto;
+    position: relative;
+    left: 14%;
 }
 .alignLabel{
 	position: relative;
