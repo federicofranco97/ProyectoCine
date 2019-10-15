@@ -115,6 +115,7 @@ public class OnsiteSaleController {
 		ModelAndView modelError = new ModelAndView("OnsiteSale");
  		modelError.addObject("Contenido", Arrays.asList("Error","Se ha producido un error!","1"));
 		return modelError;
+		
 	}
 	
 	/**
@@ -145,7 +146,6 @@ public class OnsiteSaleController {
 	 */
 	@PostMapping("/registrar_cliente")
 	public ModelAndView RegisterClient(@RequestParam("Name") String fullName, @RequestParam("Tel") String phone, @RequestParam("Email") String email, @RequestParam("Adress") String adress, @RequestParam("Date") String birthDate, @RequestParam("DNI") String dni) {
-		int withResponse = 0;
 		if (clientService.GetClientByDNI(dni) == null) {
 			ClientDTO clientRegisteredtDTO = clientService.RegisterClient(fullName, email, birthDate, dni, phone, adress);
 			if(clientRegisteredtDTO != null && clientService.isTheSameDay(clientRegisteredtDTO.getCreationDate())) {
@@ -153,8 +153,7 @@ public class OnsiteSaleController {
 				ModelAndView model = new ModelAndView("AmountTickets");
 				model.addObject("categories", clientService.GetAllRateCategories());
 				model.addObject("msj",clientRegisteredtDTO);
-				model.addObject("clientInfo", clientRegisteredtDTO);
-				withResponse = 1;
+				model.addObject("clientInfo", clientRegisteredtDTO); 
 				return model;
 			}
 			ModelAndView modelError = new ModelAndView("AmountTickets");
@@ -162,19 +161,9 @@ public class OnsiteSaleController {
 	 		modelError.addObject("categories", clientService.GetAllRateCategories());
 			return modelError;
 		}
-		else {
-			/*if(withResponse == 1) {
-			ModelAndView modelError = new ModelAndView("AmountTickets");
-	 		modelError.addObject("Content", Arrays.asList("Error","El cliente ya existe1!","1"));
-	 		modelError.addObject("categories", clientService.GetAllRateCategories());
-	 		modelError.addObject("msj",clientService.GetClientByDNI(dni));
-			modelError.addObject("clientInfo", clientService.GetClientByDNI(dni));
-			return modelError;
-		}*/
 		ModelAndView modelError = new ModelAndView("AmountTickets");
- 		modelError.addObject("Content", Arrays.asList("Error","El cliente ya existe2!","1"));
- 		modelError.addObject("categories", clientService.GetAllRateCategories());
+		modelError.addObject("Content", Arrays.asList("Error","El cliente ya existe1!","1"));
+	 	modelError.addObject("categories", clientService.GetAllRateCategories());
 		return modelError;
-		}
 	}
 }
