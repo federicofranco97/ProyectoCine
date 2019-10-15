@@ -145,6 +145,7 @@ public class MappingTool implements IMapping{
         //si ocurre un error en el mapeo vuelve el cliente null
         try {
             String [] splitDate = aux[5].split(" ");
+            String [] splitCreationDate = aux[7].split(" ");
             clientDTO = new ClientDTO();
             clientDTO.setFullName(aux[0]);
             clientDTO.setClientNumber(Integer.parseInt(aux[1]));
@@ -153,6 +154,7 @@ public class MappingTool implements IMapping{
             clientDTO.setAddress(aux[4]);
             clientDTO.setDateOfBirth(splitDate[0]);
             clientDTO.setDocumentNumber(aux[6]);
+            clientDTO.setCreationDate(splitCreationDate[0]);
         }catch (Exception ex){
             clientDTO=null;
             System.out.println("Ocurrio un error en el mapeo");

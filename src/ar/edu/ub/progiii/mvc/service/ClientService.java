@@ -612,4 +612,13 @@ public class ClientService {
             ClientDTO clientDTO = mappingTool.MapDTOClientSQL(response);
             return clientDTO;
     }
+    
+    /**
+     * Devuelve true o false si la cantidad de dias entre uno y otro es 0
+     * @param date
+     * @return boolean
+     */
+    public boolean isTheSameDay(String date){
+        return Period.between(LocalDate.parse(date), LocalDate.parse(GetDateToday())).getDays() == 0;
+    }
 }

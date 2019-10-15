@@ -128,7 +128,7 @@ public class OnsiteSaleController {
 			ModelAndView model = new ModelAndView("AmountTickets");
 			data.UpdateLastBooking("NroCliente", clientService.GetClientByDNI(clientDNI).getClientNumber(), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
 			model.addObject("categories", clientService.GetAllRateCategories());
-			model.addObject("msj","yes");
+			model.addObject("msj",clientService.GetClientByDNI(clientDNI));
 			model.addObject("clientInfo", clientService.GetClientByDNI(clientDNI));
 			return model;
 		}
@@ -145,18 +145,36 @@ public class OnsiteSaleController {
 	 */
 	@PostMapping("/registrar_cliente")
 	public ModelAndView RegisterClient(@RequestParam("Name") String fullName, @RequestParam("Tel") String phone, @RequestParam("Email") String email, @RequestParam("Adress") String adress, @RequestParam("Date") String birthDate, @RequestParam("DNI") String dni) {
+		int withResponse = 0;
 		if (clientService.GetClientByDNI(dni) == null) {
-			ModelAndView model = new ModelAndView("AmountTickets");
 			ClientDTO clientRegisteredtDTO = clientService.RegisterClient(fullName, email, birthDate, dni, phone, adress);
-			data.UpdateLastBooking("NroCliente", clientRegisteredtDTO.getClientNumber(), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
-			model.addObject("categories", clientService.GetAllRateCategories());
-			model.addObject("msj","yes");
-			model.addObject("clientInfo", clientRegisteredtDTO);
-			return model;
+			if(clientRegisteredtDTO != null && clientService.isTheSameDay(clientRegisteredtDTO.getCreationDate())) {
+				data.UpdateLastBooking("NroCliente", clientRegisteredtDTO.getClientNumber(), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
+				ModelAndView model = new ModelAndView("AmountTickets");
+				model.addObject("categories", clientService.GetAllRateCategories());
+				model.addObject("msj",clientRegisteredtDTO);
+				model.addObject("clientInfo", clientRegisteredtDTO);
+				withResponse = 1;
+				return model;
+			}
+			ModelAndView modelError = new ModelAndView("AmountTickets");
+	 		modelError.addObject("Content", Arrays.asList("Error","Ocurrio un error!","1"));
+	 		modelError.addObject("categories", clientService.GetAllRateCategories());
+			return modelError;
 		}
+		else {
+			/*if(withResponse == 1) {
+			ModelAndView modelError = new ModelAndView("AmountTickets");
+	 		modelError.addObject("Content", Arrays.asList("Error","El cliente ya existe1!","1"));
+	 		modelError.addObject("categories", clientService.GetAllRateCategories());
+	 		modelError.addObject("msj",clientService.GetClientByDNI(dni));
+			modelError.addObject("clientInfo", clientService.GetClientByDNI(dni));
+			return modelError;
+		}*/
 		ModelAndView modelError = new ModelAndView("AmountTickets");
- 		modelError.addObject("Content", Arrays.asList("Error","El cliente ya existe!","1"));
+ 		modelError.addObject("Content", Arrays.asList("Error","El cliente ya existe2!","1"));
  		modelError.addObject("categories", clientService.GetAllRateCategories());
 		return modelError;
+		}
 	}
 }

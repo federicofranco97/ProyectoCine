@@ -38,8 +38,6 @@ public class LoginController {
 	 */
 	@GetMapping("/")
 	public ModelAndView GetLoginView() throws SQLException {
-		String result = "";
-		System.out.println(data.RegisterClient("zafiro", "z@ho", "20191012", "12345677889", "445", "lavalle 4121"));
 		ModelAndView model = new ModelAndView("Login");
 		clientService.UpdateLoginStatus();
 		clientService.ClearCurrentUser();

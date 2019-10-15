@@ -1355,8 +1355,6 @@ public class Data implements IData{
                 ,phoneNumber,"'"+adress+"'"));
                queryStoredProcedure.Run();
                result = GetClientByDNI(documentNumber);
-               //FIJATE QUE AHORA TRAE LA FECHA DE CREACION DEL CLIENTE, PARA VER SI SE CREO O NO BIEN
-                // TENES QUE VALIDAR QUE LA FECHACREACION SEA IGUAL A HOY, PODES USAR EL METODO DE GETSERVERDATE
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
