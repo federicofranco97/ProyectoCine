@@ -1263,7 +1263,7 @@ public class Data implements IData{
             	CQuerySelect querySelect = new CQuerySelect("cliente", "*");
             	querySelect.addStatementCondition(Arrays.asList("NroDocumento="+DNI));
             	ResultSet rst = querySelect.Run();
-            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","NroCliente","Telefono","Email","Direccion","FechaNac","NroDocumento"));
+            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","NroCliente","Telefono","Email","Direccion","FechaNac","NroDocumento","FechaCreacion"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -1350,11 +1350,13 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-            	QueryStoredProcedureWResponse queryStoredProcedure= new QueryStoredProcedureWResponse("InsertIfVacant");
+            	QueryStoredProcedure queryStoredProcedure= new QueryStoredProcedure("InsertIfVacant");
                 queryStoredProcedure.addParameter(Arrays.asList("'"+fullName+"'","'"+email+"'","'"+birthDate+"'","'"+documentNumber+"'"
                 ,phoneNumber,"'"+adress+"'"));
-               ResultSet rst = queryStoredProcedure.Run();
-               result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","Email","FechaNac","NroDocumento","Telefono","Direccion"));
+               queryStoredProcedure.Run();
+               result = GetClientByDNI(documentNumber);
+               //FIJATE QUE AHORA TRAE LA FECHA DE CREACION DEL CLIENTE, PARA VER SI SE CREO O NO BIEN
+                // TENES QUE VALIDAR QUE LA FECHACREACION SEA IGUAL A HOY, PODES USAR EL METODO DE GETSERVERDATE
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
