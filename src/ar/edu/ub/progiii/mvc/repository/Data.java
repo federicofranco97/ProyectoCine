@@ -1192,7 +1192,7 @@ public class Data implements IData{
     
     /**
      * Insertar reserva inicial
-     * @param movieID, showId, theatreNumber, tempEmployee, dateShow
+     * @param dateShow, showId, theatreNumber, tempEmployee, dateShow
      * @return int
      */
     @Override
@@ -1251,7 +1251,7 @@ public class Data implements IData{
     /**
      * Metodo para traer un cliente x dni
      *
-     * @param data
+     * @param DNI
      * @return
      */
     @Override
@@ -1283,7 +1283,7 @@ public class Data implements IData{
     
     /**
      * Metodo para traer el id de la ultima reserva cargada de un empleado determinado
-     * @param int employeeId
+     * @param employeeId employeeId
      * @return
      */
     @Override
@@ -1350,10 +1350,11 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-            	QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("InsertIfVacant");
-            	queryStoredProcedureWResponse.addParameter(fullName+","+  email+","+ "'"+birthDate+"'"+","+ documentNumber+","+ phoneNumber+","+ "'"+adress+"'");
-            	ResultSet rst = queryStoredProcedureWResponse.Run();
-              	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto , NroCliente , Telefono , Email , Direccion , FechaNac , NroDocumento"));
+            	QueryStoredProcedureWResponse queryStoredProcedure= new QueryStoredProcedureWResponse("InsertIfVacant");
+                queryStoredProcedure.addParameter(Arrays.asList("'"+fullName+"'","'"+email+"'","'"+birthDate+"'","'"+documentNumber+"'"
+                ,phoneNumber,"'"+adress+"'"));
+               ResultSet rst = queryStoredProcedure.Run();
+               result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","Email","FechaNac","NroDocumento","Telefono","Direccion"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
