@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.repository.Connection;
@@ -125,7 +126,7 @@ public class OnsiteSaleController {
 	public ModelAndView GetClientDataById(@RequestParam("clientDNI") String clientDNI) {
 		if (clientService.GetClientByDNI(clientDNI) != null) {
 			ModelAndView model = new ModelAndView("AmountTickets");
-			data.UpdateLastBooking("NroCliente", Integer.parseInt(clientDNI), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
+			data.UpdateLastBooking("NroCliente", clientService.GetClientByDNI(clientDNI).getClientNumber(), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
 			model.addObject("categories", clientService.GetAllRateCategories());
 			model.addObject("msj","yes");
 			model.addObject("clientInfo", clientService.GetClientByDNI(clientDNI));
@@ -133,6 +134,28 @@ public class OnsiteSaleController {
 		}
 		ModelAndView modelError = new ModelAndView("AmountTickets");
  		modelError.addObject("Content", Arrays.asList("Error","No se ha encontrado el cliente!","1"));
+ 		modelError.addObject("categories", clientService.GetAllRateCategories());
+		return modelError;
+	}
+	
+	/**
+	 * Registra a un cliente 
+	 * @param clientDTO
+	 * @return
+	 */
+	@PostMapping("/registrar_cliente")
+	public ModelAndView RegisterClient(@RequestParam("Name") String fullName, @RequestParam("Tel") String phone, @RequestParam("Email") String email, @RequestParam("Adress") String adress, @RequestParam("Date") String birthDate, @RequestParam("DNI") String dni) {
+		if (clientService.GetClientByDNI(dni) == null) {
+			ModelAndView model = new ModelAndView("AmountTickets");
+			ClientDTO clientRegisteredtDTO = clientService.RegisterClient(fullName, email, birthDate, dni, phone, adress);
+			data.UpdateLastBooking("NroCliente", clientRegisteredtDTO.getClientNumber(), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
+			model.addObject("categories", clientService.GetAllRateCategories());
+			model.addObject("msj","yes");
+			model.addObject("clientInfo", clientRegisteredtDTO);
+			return model;
+		}
+		ModelAndView modelError = new ModelAndView("AmountTickets");
+ 		modelError.addObject("Content", Arrays.asList("Error","El cliente ya existe!","1"));
  		modelError.addObject("categories", clientService.GetAllRateCategories());
 		return modelError;
 	}

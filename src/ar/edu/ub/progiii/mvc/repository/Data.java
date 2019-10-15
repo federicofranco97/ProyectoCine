@@ -1338,4 +1338,29 @@ public class Data implements IData{
         LogData("UpdateLastBooking","Actualizar campos ultima reserva");
         return result;
     }
+    
+    /**
+     * Inserta un cliente si no existe
+     * @param 
+     * @return int
+     */
+    @Override
+    public String RegisterClient(String fullName, String email, String birthDate, String documentNumber, String phoneNumber, String adress) {
+        String result= "";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("InsertIfVacant");
+            	queryStoredProcedureWResponse.addParameter(fullName+","+  email+","+ "'"+birthDate+"'"+","+ documentNumber+","+ phoneNumber+","+ "'"+adress+"'");
+            	ResultSet rst = queryStoredProcedureWResponse.Run();
+              	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto , NroCliente , Telefono , Email , Direccion , FechaNac , NroDocumento"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex){
+            LogData("DataException","Ocurrio una exception al procesar el pedido EX: "+ex);
+        }
+        return result;
+    }
 }

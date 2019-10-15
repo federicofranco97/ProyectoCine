@@ -311,4 +311,12 @@ public interface IData {
      */
 	public int UpdateLastBooking(String column, int value, String bookingNumber);
 
+	/**
+     * Insertar cliente si no existe
+     * @param fullName, email, birthDate, documentNumber, phoneNumber, adress
+     * @return
+     */
+	public String RegisterClient(String fullName, String email, String birthDate, String documentNumber, String phoneNumber,
+			String adress);
+
 }

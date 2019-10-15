@@ -596,4 +596,20 @@ public class ClientService {
             ClientDTO clientDTO = mappingTool.MapDTOClientSQL(response);
             return clientDTO;
     }
+    
+    /**
+     * Registro de cliente, devuelve a la vez el cliente 
+     * @param 
+     * @return 
+     */
+    public ClientDTO RegisterClient(String fullName, String email, String birthDate, String documentNumber, String phoneNumber, String adress){
+            String response = dataManager.RegisterClient(fullName, email, birthDate, documentNumber, phoneNumber, adress);
+            if(response==null){
+                //No se encontro el usuario
+                System.out.println("No se encontro el usuario");
+                return null;
+            }
+            ClientDTO clientDTO = mappingTool.MapDTOClientSQL(response);
+            return clientDTO;
+    }
 }
