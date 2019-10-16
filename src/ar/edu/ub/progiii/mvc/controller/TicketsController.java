@@ -2,6 +2,7 @@ package ar.edu.ub.progiii.mvc.controller;
 
 import ar.edu.ub.progiii.mvc.dto.TicketDTO;
 import ar.edu.ub.progiii.mvc.service.ClientService;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,9 +67,9 @@ public class TicketsController {
     Metodo que te lleva a la vista de cerrar Tickets
      */
     @GetMapping("/close_ticket")
-    public ModelAndView CloseTicket(@RequestParam("ticket")int TicketNumber){
+    public ModelAndView CloseTicket(@RequestParam("ticket")int TicketNumber, HttpServletRequest request){
         RedirectView redirectView = new RedirectView("/tickets");
-        if(clientService.CloseTicket(TicketNumber)){
+        if(clientService.CloseTicket(TicketNumber,(int)request.getSession().getAttribute("EmployeeId"))){
             return new ModelAndView(redirectView);
         }else{
             ModelAndView errorModel = new ModelAndView("ErrorPage");

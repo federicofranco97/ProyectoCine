@@ -952,7 +952,7 @@ public class Data implements IData{
      * @param TicketNumber
      */
     @Override
-    public void CloseTicket(int TicketNumber) {
+    public void CloseTicket(int TicketNumber,int EmployeeNumber) {
         int result;
         try {
             CQueryUpdate cQueryUpdate = new CQueryUpdate("tickets", "Estado='Cerrado'");
@@ -961,7 +961,7 @@ public class Data implements IData{
         }catch(Exception ex) {
             System.out.println("Ocurrio una excepcion al cerrar el ticket "+TicketNumber+" "+ex.getMessage());
         }
-        LogData("TicketClose","Se cerro el ticket "+TicketNumber+" por empleado"+ ClientService.currentEmployee.getEmployeeNumber());
+        LogData("TicketClose","Se cerro el ticket "+TicketNumber+" por empleado"+ EmployeeNumber);
     }
 
     /**
