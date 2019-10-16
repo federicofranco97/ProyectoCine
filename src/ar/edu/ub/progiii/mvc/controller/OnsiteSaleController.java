@@ -141,7 +141,7 @@ public class OnsiteSaleController {
 	
 	/**
 	 * Registra a un cliente 
-	 * @param clientDTO
+	 * @param fullName, phone, email, adress, birthDate, dni
 	 * @return
 	 */
 	@PostMapping("/registrar_cliente")
@@ -165,5 +165,24 @@ public class OnsiteSaleController {
 		modelError.addObject("Content", Arrays.asList("Error","El cliente ya existe1!","1"));
 	 	modelError.addObject("categories", clientService.GetAllRateCategories());
 		return modelError;
+	}
+	
+	/**
+	 * Realiza el registro de entradas y envia el el precio total a la proxima vista
+	 * @param underAge
+	 * @param retired
+	 * @param adult
+	 * @param promo
+	 * @param registeredAdult
+	 * @param registeredUnderAge
+	 * @param registeredOlder
+     * @param total
+	 * @return
+	 */
+	@GetMapping("/presencial_pagar")
+	public ModelAndView GetPayView(@RequestParam("underAge") String underAge, @RequestParam("retired") String retired, @RequestParam("adult") String adult, @RequestParam("promo") String promo, @RequestParam("registeredAdult") String registeredAdult, @RequestParam("registeredUnderAge") String registeredUnderAge, @RequestParam("registeredOlder") String registeredOlder, @RequestParam("total") String total) {
+		int amountTickets = Integer.parseInt(underAge) + Integer.parseInt(retired) + Integer.parseInt(adult) + Integer.parseInt(promo) + Integer.parseInt(registeredAdult) + Integer.parseInt(registeredUnderAge) + Integer.parseInt(registeredOlder); 
+		data.UpdateLastBooking("PrecioTotal", Integer.parseInt(total), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
+		data.UpdateLastBooking("CantEntradas", amountTickets, data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
 	}
 }

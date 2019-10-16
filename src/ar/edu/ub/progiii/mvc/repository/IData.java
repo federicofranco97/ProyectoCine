@@ -319,4 +319,14 @@ public interface IData {
 	public String RegisterClient(String fullName, String email, String birthDate, String documentNumber, String phoneNumber,
 			String adress);
 
+	/**
+     * Ejecuta el store procedure para registrar las entradas en la base de datos 
+     * @param employeeId
+     * @param rateCode
+     * @param price
+     * @param amountTickets
+     * @return int
+     */
+	public int RegisterTickets(int employeeId, String rateCode, String price, String amountTickets);
+
 }

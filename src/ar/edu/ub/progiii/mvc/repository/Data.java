@@ -1364,4 +1364,36 @@ public class Data implements IData{
         }
         return result;
     }
+    
+    /**
+     * Ejecuta el store procedure para registrar las entradas en la base de datos 
+     * @param employeeId
+     * @param rateCode
+     * @param price
+     * @param amountTickets
+     * @return int
+     */
+    @Override
+    public int RegisterTickets(int employeeId, String rateCode, String price, String amountTickets) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("RegistrarEntradas");
+                queryStoredProcedure.addParameter(Arrays.asList(""+employeeId, rateCode,
+                        price, amountTickets+""));
+                queryStoredProcedure.BuildParameters();
+                queryStoredProcedure.Build();
+                result = queryStoredProcedure.Run();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda
+        LogData("InsertarReservaInicial","Insertar reserva inicial");
+        return result;
+    }
 }
