@@ -1,6 +1,7 @@
 package ar.edu.ub.progiii.mvc.controller;
 
 import ar.edu.ub.progiii.mvc.service.ClientService;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,10 +60,11 @@ public class ReportController {
     }
 
     @GetMapping("/get_report")
-    public ModelAndView GetEmpReport(@RequestParam("employeeid")int EmployeeId){
+    public ModelAndView GetEmpReport(@RequestParam("employeeid")int EmployeeId,  HttpServletRequest request){
         clientService.dataManager.LogData("INFO","Reporte de empleado pedido "+EmployeeId);
         ModelAndView model = new ModelAndView("EmployeeReport");
-        model.addObject("authorName",clientService.currentEmployee.getFullName());
+        model.addObject("authorName",clientService.GetEmployee((int)request.getSession()
+                .getAttribute("EmployeeId")).getFullName());
         model.addObject("reportDate",clientService.GetServerDate());
         model.addObject("employee",clientService.GetEmployee(EmployeeId));
         model.addObject("branch",clientService.branchDTOArrayList.get(0));

@@ -215,7 +215,7 @@ public interface IData {
      * Metodo para marcar un ticket como cerrado
      * @param TicketNumber
      */
-    public void CloseTicket(int TicketNumber);
+    public void CloseTicket(int TicketNumber,int EmployeeNumber);
 	
 	/**
      * Metodo para traer la hora actual
