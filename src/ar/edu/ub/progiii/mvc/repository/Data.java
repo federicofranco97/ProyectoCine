@@ -24,7 +24,15 @@ import java.util.List;
 @Repository
 public class Data implements IData{
 
-    public static Connection connection = ar.edu.ub.progiii.mvc.repository.Connection.getConnection();
+    public static Connection connection;
+
+    static {
+        try {
+            connection = ar.edu.ub.progiii.mvc.repository.Connection.getConnection();
+        } catch (SQLException e) {
+            System.out.println("Error retrieving connection from database");
+        }
+    }
 
     /**
      * Metodo que logea informacion a la base de datos.
@@ -1160,9 +1168,9 @@ public class Data implements IData{
         }catch(Exception ex) {
             System.out.println("Ocurrio una excepcion al cambiar el estado del empleado "+EmployeeNumber+" "+ex.getMessage());
         }
-	}
+    }
 
-    /*
+    /**
      * Actualizar un cliente en la base de datos.
      *
      * @param CliendId

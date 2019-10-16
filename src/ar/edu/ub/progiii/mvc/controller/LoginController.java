@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Arrays;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +33,11 @@ public class LoginController {
 	Metodo que te lleva a la vista para logearte
 	 */
 	@GetMapping("/")
-	public ModelAndView GetLoginView() {
+	public ModelAndView GetLoginView(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("Login");
+		if(request.getSession().getAttribute("EmployeeId") != null){
+			request.getSession().removeAttribute("EmployeeId");
+		}
 		clientService.UpdateLoginStatus();
 		clientService.ClearCurrentUser();
 		return model;
@@ -43,11 +47,12 @@ public class LoginController {
 	sino, te lleva a la página de Error
 	 */
 	@PostMapping("/login_sent")
-	public ModelAndView EmployeeLogin(@RequestParam("EmployeeId") String employeeId, @RequestParam("EmployeePass") String employeePass) {
+	public ModelAndView EmployeeLogin(@RequestParam("EmployeeId") String employeeId, @RequestParam("EmployeePass") String employeePass, HttpServletRequest request) {
 		RedirectView redirectView = new RedirectView("/menu");
 		redirectView.setExposePathVariables(false);
 		try {
 			if(clientService.verifyEmployeeLogin(employeeId, employeePass)) {
+				request.getSession().setAttribute("EmployeeId",employeeId);
 				return new ModelAndView(redirectView);
 			}
 		} catch (Exception e) {
