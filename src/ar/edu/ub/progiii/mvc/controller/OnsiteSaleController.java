@@ -8,10 +8,12 @@ import org.codehaus.groovy.runtime.metaclass.NewMetaMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.repository.Connection;
@@ -96,5 +98,101 @@ public class OnsiteSaleController {
 		model.addObject("date",clientService.GetServerDate());
 		model.addObject("Content", Arrays.asList("Aviso","No hay mas fechas disponibles!","1"));
 		return model;
+	}
+	
+	/**
+	 * Realiza una reserva inicial con los valores de los parametros 
+	 * y devuelve la pagna cantidad de enetradas, cargandole los datos
+	 * @return
+	 */
+	@GetMapping("/presencial_cantidadEntradas")
+	public ModelAndView GetOnsiteAmountTicketsView(@RequestParam("functionId") String showId, @RequestParam("movieId") String movieId, @RequestParam("dateShow") String dateShow) {
+		if (clientService.InsertInitialBooking(movieId, showId, dateShow)) {
+			ModelAndView model = new ModelAndView("AmountTickets");
+			model.addObject("categories", clientService.GetAllRateCategories());
+			return model;
+		}
+		ModelAndView modelError = new ModelAndView("OnsiteSale");
+ 		modelError.addObject("Contenido", Arrays.asList("Error","Se ha producido un error!","1"));
+		return modelError;
+		
+	}
+	
+	/**
+	 * Realiza una reserva inicial con los valores de los parametros 
+	 * y devuelve la pagna cantidad de enetradas, cargandole los datos
+	 * @return
+	 */
+	@PostMapping("/buscarCliente_traerInfo")
+	public ModelAndView GetClientDataById(@RequestParam("clientDNI") String clientDNI) {
+		if (clientService.GetClientByDNI(clientDNI) != null) {
+			ModelAndView model = new ModelAndView("AmountTickets");
+			data.UpdateLastBooking("NroCliente", clientService.GetClientByDNI(clientDNI).getClientNumber(), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
+			model.addObject("categories", clientService.GetAllRateCategories());
+			model.addObject("msj",clientService.GetClientByDNI(clientDNI));
+			model.addObject("clientInfo", clientService.GetClientByDNI(clientDNI));
+			return model;
+		}
+		ModelAndView modelError = new ModelAndView("AmountTickets");
+ 		modelError.addObject("Content", Arrays.asList("Error","No se ha encontrado el cliente!","1"));
+ 		modelError.addObject("categories", clientService.GetAllRateCategories());
+		return modelError;
+	}
+	
+	/**
+	 * Registra a un cliente 
+	 * @param fullName, phone, email, adress, birthDate, dni
+	 * @return
+	 */
+	@PostMapping("/registrar_cliente")
+	public ModelAndView RegisterClient(@RequestParam("Name") String fullName, @RequestParam("Tel") String phone, @RequestParam("Email") String email, @RequestParam("Adress") String adress, @RequestParam("Date") String birthDate, @RequestParam("DNI") String dni) {
+		if (clientService.GetClientByDNI(dni) == null) {
+			ClientDTO clientRegisteredtDTO = clientService.RegisterClient(fullName, email, birthDate, dni, phone, adress);
+			if(clientRegisteredtDTO != null && clientService.IsTheSameDay(clientRegisteredtDTO.getCreationDate())) {
+				data.UpdateLastBooking("NroCliente", clientRegisteredtDTO.getClientNumber(), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
+				ModelAndView model = new ModelAndView("AmountTickets");
+				model.addObject("categories", clientService.GetAllRateCategories());
+				model.addObject("msj",clientRegisteredtDTO);
+				model.addObject("clientInfo", clientRegisteredtDTO); 
+				return model;
+			}
+			ModelAndView modelError = new ModelAndView("AmountTickets");
+	 		modelError.addObject("Content", Arrays.asList("Error","Ocurrio un error!","1"));
+	 		modelError.addObject("categories", clientService.GetAllRateCategories());
+			return modelError;
+		}
+		ModelAndView modelError = new ModelAndView("AmountTickets");
+		modelError.addObject("Content", Arrays.asList("Error","El cliente ya existe1!","1"));
+	 	modelError.addObject("categories", clientService.GetAllRateCategories());
+		return modelError;
+	}
+	
+	/**
+	 * Realiza el registro de entradas y envia el el precio total a la proxima vista
+	 * @param underAge
+	 * @param retired
+	 * @param adult
+	 * @param promo
+	 * @param registeredAdult
+	 * @param registeredUnderAge
+	 * @param registeredOlder
+     * @param total
+	 * @return
+	 */
+	@GetMapping("/presencial_pagar")
+	public ModelAndView GetPayView(@RequestParam("underAge") String underAge, @RequestParam("retired") String retired, @RequestParam("adult") String adult, @RequestParam("promo") String promo, @RequestParam("registeredAdult") String registeredAdult, @RequestParam("registeredUnderAge") String registeredUnderAge, @RequestParam("registeredOlder") String registeredOlder, @RequestParam("total") String total) {
+		int amountTickets = Integer.parseInt(underAge) + Integer.parseInt(retired) + Integer.parseInt(adult) + Integer.parseInt(promo) + Integer.parseInt(registeredAdult) + Integer.parseInt(registeredUnderAge) + Integer.parseInt(registeredOlder); 
+		data.UpdateLastBooking("PrecioTotal", Integer.parseInt(total), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
+		data.UpdateLastBooking("CantEntradas", amountTickets, data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
+		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "1", clientService.GetRateById("1").getValue(), underAge);
+		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "2", clientService.GetRateById("2").getValue(), retired);
+		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "3", clientService.GetRateById("3").getValue(), adult);
+		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "4", clientService.GetRateById("4").getValue(), promo);
+		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "6", clientService.GetRateById("6").getValue(), registeredAdult);
+		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "7", clientService.GetRateById("7").getValue(), registeredUnderAge);
+		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "8", clientService.GetRateById("8").getValue(), registeredOlder);
+		ModelAndView modelPay = new ModelAndView("pagina_de_pago");
+		modelPay.addObject("total", amountTickets);
+		return modelPay;
 	}
 }

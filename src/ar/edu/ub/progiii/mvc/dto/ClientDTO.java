@@ -6,6 +6,7 @@ public class ClientDTO extends PersonDTO{
 	private int ClientNumber;
 	private String ClientStatus;
 	private String DocumentNumber;
+	private String CreationDate; 
 
 	/**
 	 * Constructor
@@ -30,6 +31,14 @@ public class ClientDTO extends PersonDTO{
 	//Getters y Setters
 	public int getClientNumber() {
 		return ClientNumber;
+	}
+
+	public String getCreationDate() {
+		return CreationDate;
+	}
+
+	public void setCreationDate(String creationDate) {
+		CreationDate = creationDate;
 	}
 
 	public void setClientNumber(int clientNumber) {

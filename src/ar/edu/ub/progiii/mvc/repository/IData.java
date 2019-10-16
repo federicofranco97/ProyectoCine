@@ -279,4 +279,54 @@ public interface IData {
      */
     public int UpdateClient(int CliendId, ClientDTO clientDTO);
 
+    /**
+     * Inserta una reserva inicial
+     * @param movieID, showId, theatreNumber, tempEmployee, dateShow
+     * @return
+     */
+	public int InsertInitialBooking(String movieId, String showId, int theatreNumber, String tempEmployee, String dateShow);
+
+	/**
+     * Trae todas las categorias de tarifa
+     * @return
+     */
+	public String GetAllRateCategories();
+
+	/**
+     * Trae un cliente por dni
+     * @return
+     */
+	public String GetClientByDNI(String DNI);
+
+	/**
+     * Trae un id de reserva del ultimo empleado que la realizo
+     * @return
+     */
+	public String GetLastBookingByEmployeeId(int employeeId);
+
+	/**
+     * Actualizar los campos de la ultima reserva
+     * @param column, value, bookingNumber
+     * @return
+     */
+	public int UpdateLastBooking(String column, int value, String bookingNumber);
+
+	/**
+     * Insertar cliente si no existe
+     * @param fullName, email, birthDate, documentNumber, phoneNumber, adress
+     * @return
+     */
+	public String RegisterClient(String fullName, String email, String birthDate, String documentNumber, String phoneNumber,
+			String adress);
+
+	/**
+     * Ejecuta el store procedure para registrar las entradas en la base de datos 
+     * @param employeeId
+     * @param rateCode
+     * @param price
+     * @param amountTickets
+     * @return int
+     */
+	public int RegisterTickets(int employeeId, String rateCode, String price, String amountTickets);
+
 }

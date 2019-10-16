@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ar.edu.ub.progiii.mvc.dto.BookingDTO;
+import ar.edu.ub.progiii.mvc.dto.BranchDTO;
+import ar.edu.ub.progiii.mvc.dto.CinemaShowDTO;
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
@@ -112,5 +114,41 @@ class MappingToolTest {
 		String SQLData = dataManager.GetEmployeeByID("2");
 		assertEquals(mapping.MapEmployeeSQL(SQLData).getEmployeeNumber(),2);
 		assertTrue(mapping.MapEmployeeSQL(SQLData) instanceof Employee);
+	}
+	
+	@Test
+	void MapDTOBranchSQLtest() throws SQLException {
+		String result = "";
+		if(connection != null) {
+            Statement stm = connection.createStatement();
+            String query="select * from sucursal where CodSucursal=1";
+            ResultSet rst = stm.executeQuery(query);
+            while(rst.next()) {
+                result += (rst.getString("CodSucursal"))+"_";
+                result += (rst.getString("Nombre"))+"_";
+                result += (rst.getString("Direccion"))+"_";
+                result += (rst.getString("Telefono"))+"/";
+            }
+       }
+		assertEquals(mapping.MapDTOBranchSQL(result).getBranchNumber(),1);
+		assertTrue(mapping.MapDTOBranchSQL(result) instanceof BranchDTO);
+	}
+	
+	@Test
+	void MapDTOShowsSQLtest() throws SQLException {
+		String result = "";
+		if(connection != null) {
+            Statement stm = connection.createStatement();
+            String query="select * from funcion where CodFuncion=1";
+            ResultSet rst = stm.executeQuery(query);
+            while(rst.next()) {
+                result += (rst.getString("CodFuncion"))+"_";
+                result += (rst.getString("HoraComienzo"))+"_";
+                result += (rst.getString("HoraFinalizacion"))+"_";
+                result += (rst.getString("ComentariosAdicionales"))+"/";
+            }
+       }
+		assertEquals(mapping.MapDTOShowsSQL(result).getCodeShow(),"1");
+		assertTrue(mapping.MapDTOShowsSQL(result) instanceof CinemaShowDTO);
 	}
 }

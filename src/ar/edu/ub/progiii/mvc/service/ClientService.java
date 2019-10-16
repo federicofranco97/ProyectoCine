@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Spliterator;
 
 @Service
 public class ClientService {
@@ -404,6 +405,7 @@ public class ClientService {
     
     /**
      * Busqueda de todas las funciones
+     * @return array
      */
     public ArrayList<CinemaShowDTO> GetAllShows(){
         String response = dataManager.GetAllShows();
@@ -417,6 +419,7 @@ public class ClientService {
     
     /**
      * Busqueda de las funciones por hora de comienzo
+     * @return array
      */
     public ArrayList<CinemaShowDTO> GetShowsByHour(){
     	ArrayList<CinemaShowDTO> showsList = new ArrayList<>();
@@ -550,5 +553,86 @@ public class ClientService {
         ClientDTO clientDTOFinal = new ClientDTO();
         return clientDTOFinal;
     }
-
+    
+    /**
+     * Retorna un booleano sea sirealizo la reserva o no
+     * @return boolean
+     */
+    public boolean InsertInitialBooking(String movieId, String showId, String dateShow){
+    	String [] aux = dateShow.split("-");
+    	String date = aux[0]+aux[1]+aux[2];
+    	int theatreNumber = (int) Math.floor(Math.random()*(12-1+1)+1);
+    	return dataManager.InsertInitialBooking(movieId, showId, theatreNumber, String.valueOf(currentEmployee.getEmployeeNumber()), date) == 1?true:false;
+    }
+    
+    /**
+     * Busqueda de todas las categorias de tarifa
+     * menos la categoria 5 que es online
+     */
+    public ArrayList<RateCategoryDTO> GetAllRateCategories(){
+        String response = dataManager.GetAllRateCategories();
+        String [] aux = response.split("/");
+        ArrayList<RateCategoryDTO> rateList = new ArrayList<>();
+        for (String item:aux) {
+        	if(!mappingTool.MapDTORateCategoriesSQL(item).getRateCode().equals("5")) {
+        		rateList.add(mappingTool.MapDTORateCategoriesSQL(item));
+        	}
+        }
+        return rateList;
+    }
+    
+    /**
+     * Busqueda de cliente por dni 
+     * @param dni
+     * @return 
+     */
+    public ClientDTO GetClientByDNI(String DNI){
+            String response = dataManager.GetClientByDNI(DNI);
+            if(response==null){
+                //No se encontro el usuario
+                System.out.println("No se encontro el usuario");
+                return null;
+            }
+            ClientDTO clientDTO = mappingTool.MapDTOClientSQL(response);
+            return clientDTO;
+    }
+    
+    /**
+     * Registro de cliente, devuelve a la vez el cliente 
+     * @param 
+     * @return 
+     */
+    public ClientDTO RegisterClient(String fullName, String email, String birthDate, String documentNumber, String phoneNumber, String adress){
+            String response = dataManager.RegisterClient(fullName, email, birthDate, documentNumber, phoneNumber, adress);
+            if(response==null){
+                //No se encontro el usuario
+                System.out.println("No se encontro el usuario");
+                return null;
+            }
+            ClientDTO clientDTO = mappingTool.MapDTOClientSQL(response);
+            return clientDTO;
+    }
+    
+    /**
+     * Devuelve true o false si la cantidad de dias entre uno y otro es 0
+     * @param date
+     * @return boolean
+     */
+    public boolean IsTheSameDay(String date){
+        return Period.between(LocalDate.parse(date), LocalDate.parse(GetDateToday())).getDays() == 0;
+    }
+    
+    /**
+     * Trae una reserva por id
+     * @param id 
+     * @return 
+     */
+    public RateCategoryDTO GetRateById(String id){
+    	for(RateCategoryDTO rate: GetAllRateCategories()) {
+    		if(rate.getRateCode().equals(id)) {
+    			return rate;
+    		}
+    	}
+		return null; 
+    }
 }
