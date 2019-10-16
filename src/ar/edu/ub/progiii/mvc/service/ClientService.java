@@ -618,13 +618,13 @@ public class ClientService {
      * @param date
      * @return boolean
      */
-    public boolean isTheSameDay(String date){
+    public boolean IsTheSameDay(String date){
         return Period.between(LocalDate.parse(date), LocalDate.parse(GetDateToday())).getDays() == 0;
     }
     
     /**
      * Trae una reserva por id
-     * @param id reserva
+     * @param id 
      * @return 
      */
     public RateCategoryDTO GetRateById(String id){

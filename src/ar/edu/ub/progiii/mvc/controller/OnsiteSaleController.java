@@ -148,7 +148,7 @@ public class OnsiteSaleController {
 	public ModelAndView RegisterClient(@RequestParam("Name") String fullName, @RequestParam("Tel") String phone, @RequestParam("Email") String email, @RequestParam("Adress") String adress, @RequestParam("Date") String birthDate, @RequestParam("DNI") String dni) {
 		if (clientService.GetClientByDNI(dni) == null) {
 			ClientDTO clientRegisteredtDTO = clientService.RegisterClient(fullName, email, birthDate, dni, phone, adress);
-			if(clientRegisteredtDTO != null && clientService.isTheSameDay(clientRegisteredtDTO.getCreationDate())) {
+			if(clientRegisteredtDTO != null && clientService.IsTheSameDay(clientRegisteredtDTO.getCreationDate())) {
 				data.UpdateLastBooking("NroCliente", clientRegisteredtDTO.getClientNumber(), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
 				ModelAndView model = new ModelAndView("AmountTickets");
 				model.addObject("categories", clientService.GetAllRateCategories());
@@ -184,5 +184,15 @@ public class OnsiteSaleController {
 		int amountTickets = Integer.parseInt(underAge) + Integer.parseInt(retired) + Integer.parseInt(adult) + Integer.parseInt(promo) + Integer.parseInt(registeredAdult) + Integer.parseInt(registeredUnderAge) + Integer.parseInt(registeredOlder); 
 		data.UpdateLastBooking("PrecioTotal", Integer.parseInt(total), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
 		data.UpdateLastBooking("CantEntradas", amountTickets, data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
+		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "1", clientService.GetRateById("1").getValue(), underAge);
+		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "2", clientService.GetRateById("2").getValue(), retired);
+		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "3", clientService.GetRateById("3").getValue(), adult);
+		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "4", clientService.GetRateById("4").getValue(), promo);
+		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "6", clientService.GetRateById("6").getValue(), registeredAdult);
+		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "7", clientService.GetRateById("7").getValue(), registeredUnderAge);
+		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "8", clientService.GetRateById("8").getValue(), registeredOlder);
+		ModelAndView modelPay = new ModelAndView("pagina_de_pago");
+		modelPay.addObject("total", amountTickets);
+		return modelPay;
 	}
 }
