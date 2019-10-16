@@ -550,12 +550,22 @@ public class ClientService {
         ClientDTO clientDTOFinal = new ClientDTO();
         return clientDTOFinal;
     }
-
+//1
     public FilmDTO GetFilmById(int idFilm){
         for(FilmDTO Film: GetAllFilms()){
             if(Film.getCode() == idFilm){
                 return Film;
             }
         }
+        return null;
+        //2
+    }
+    public CinemaShowDTO GetCinemaShow(String idCinemaShow){
+        for(CinemaShowDTO CinemaShow: GetAllShows()){
+            if(CinemaShow.getCodeShow().equals(idCinemaShow)){
+                return CinemaShow;
+            }
+        }
+        return null;
     }
 }

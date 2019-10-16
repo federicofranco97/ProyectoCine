@@ -38,7 +38,10 @@ public class RedeemTicketsController {
         }
         ModelAndView modelOk = new ModelAndView("RedeemTickets");
         modelOk.addObject("Booking",clientService.GetBookingById(BookingNumber));
-        modelOk.addObject("pelicula",clientService.GetFilmById(Integer.parseInt(clientService.GetBookingById(BookingNumber).getBookingCode())));
+        modelOk.addObject("pelicula",clientService.GetFilmById(Integer.parseInt(clientService.GetBookingById(BookingNumber).getBookingCode())).getFilmName());
+        modelOk.addObject("funcion",clientService.GetCinemaShow(clientService.GetBookingById(BookingNumber).getShow()).getStartTime());
+        modelOk.addObject("msj", "yes");
+        return modelOk;
 
     }
 

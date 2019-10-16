@@ -20,7 +20,7 @@
         <table id="tableDesign" class="table table-striped table-dark">
             <thead id="thDesign">
             <tr>
-                <th scope="col">Entrada</th>
+                <th scope="col">Cantidad de entradas</th>
                 <th scope="col">Pelicula</th>
                 <th scope="col">Función</th>
                 <th scope="col">Sala</th>
@@ -29,10 +29,10 @@
             <tbody>
             <tr>
 
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td th:if="${msj != null}" th:text="${Booking.getTicketAmount()}"></td>
+                <td th:if="${msj != null}" th:text="${pelicula}"></td>
+                <td th:if="${msj != null}" th:text="${funcion}"></td>
+                <td th:if="${msj != null}" th:text="${Booking.getTheatreNumber()}"></td>
 
             </tr>
             <tr>
