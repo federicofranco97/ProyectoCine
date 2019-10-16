@@ -49,6 +49,7 @@ public class OnsiteSaleController {
 	
 	/**
 	 * Suma a la fecha de la pagina un dia, de no poderse activa un mensaje de aviso
+	 * @param datePage
 	 * @return
 	 */
 	@GetMapping("/sumar_fecha")
@@ -76,6 +77,7 @@ public class OnsiteSaleController {
 	
 	/**
 	 * Resta a la fecha de la pagina un dia, de no poderse activa un mensaje de aviso
+	 * @param datePage
 	 * @return
 	 */
 	@GetMapping("/restar_fecha")
@@ -103,6 +105,9 @@ public class OnsiteSaleController {
 	/**
 	 * Realiza una reserva inicial con los valores de los parametros 
 	 * y devuelve la pagna cantidad de enetradas, cargandole los datos
+	 * @param showId
+	 * @param movieId
+	 * @param dateShow
 	 * @return
 	 */
 	@GetMapping("/presencial_cantidadEntradas")
@@ -121,6 +126,7 @@ public class OnsiteSaleController {
 	/**
 	 * Realiza una reserva inicial con los valores de los parametros 
 	 * y devuelve la pagna cantidad de enetradas, cargandole los datos
+	 * @param clientDNI 
 	 * @return
 	 */
 	@PostMapping("/buscarCliente_traerInfo")
@@ -141,7 +147,12 @@ public class OnsiteSaleController {
 	
 	/**
 	 * Registra a un cliente 
-	 * @param fullName, phone, email, adress, birthDate, dni
+	 * @param fullName
+	 * @param phone
+	 * @param email
+	 * @param adress
+	 * @param birthDate
+	 * @param dni
 	 * @return
 	 */
 	@PostMapping("/registrar_cliente")

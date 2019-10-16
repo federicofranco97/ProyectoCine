@@ -20,6 +20,7 @@ import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeReportDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
+import ar.edu.ub.progiii.mvc.dto.RateCategoryDTO;
 import ar.edu.ub.progiii.mvc.dto.TicketDTO;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.repository.Connection;
@@ -526,5 +527,39 @@ class ClientServiceTest {
             result2 += (rst2.getString("LoggedIn").trim());
         }
         assertEquals(result2, "0");
+	}
+	
+	@Test
+	void InsertInitialBookingtest() throws SQLException {
+		assertTrue(clientService.InsertInitialBooking("1", "2", "20190101"));
+	}
+	
+	@Test
+	void GetAllRateCategoriestest() {
+		String numbers = "";
+		assertEquals(clientService.GetAllRateCategories().size(),7);
+		assertNotEquals(clientService.GetAllRateCategories().size(),3);
+		for (RateCategoryDTO rate : clientService.GetAllRateCategories()) {
+			numbers += rate.getRateCode();
+		}
+		assertEquals(numbers,"1234678");
+		assertNotNull(clientService.GetAllRateCategories());
+		assertTrue(clientService.GetAllRateCategories() instanceof ArrayList);
+	}
+	
+	@Test
+	void GetRateByIdtest() {
+	    RateCategoryDTO rate = new RateCategoryDTO("1", "Menor", "150");
+		assertNotNull(clientService.GetRateById("1"));
+		assertNull(clientService.GetRateById("0"));
+		assertTrue(clientService.GetRateById("2") instanceof RateCategoryDTO);
+		assertEquals(clientService.GetRateById("2").getRateCode(),rate.getRateCode());
+	}
+	
+	@Test
+	void IsTheSameDaytest() throws SQLException {
+		assertTrue(clientService.IsTheSameDay(clientService.GetServerDate()));
+		assertNotEquals(clientService.IsTheSameDay("20191011"), clientService.GetServerDate());
+		assertNotNull(clientService.IsTheSameDay(clientService.GetServerDate()));
 	}
 }
