@@ -372,15 +372,15 @@ public class ClientService {
      * Cierra un ticket si el empleado esta autorizado
      * @return
      */
-    public boolean CloseTicket(int TicketNumber){
+    public boolean CloseTicket(int TicketNumber,int EmployeeNumber){
         int CurrentEmployeeCategory=0;
         try {
-            CurrentEmployeeCategory = GetEmployeeCategory(currentEmployee.getEmployeeNumber());
+            CurrentEmployeeCategory = GetEmployeeCategory(EmployeeNumber);
         }catch(Exception e){
             System.out.println("Empleado no autorizado");
         }
         if(CurrentEmployeeCategory ==1){
-            dataManager.CloseTicket(TicketNumber);
+            dataManager.CloseTicket(TicketNumber,EmployeeNumber);
             return true;
         }
         return false;
