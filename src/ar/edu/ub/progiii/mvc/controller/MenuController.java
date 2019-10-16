@@ -25,4 +25,9 @@ public class MenuController {
 
         return model;
     }
+
+    @GetMapping("/faq")
+    public ModelAndView GetFAQ(){
+        return new ModelAndView("Faq");
+    }
 }
