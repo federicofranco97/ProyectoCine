@@ -24,7 +24,15 @@ import java.util.List;
 @Repository
 public class Data implements IData{
 
-    public static Connection connection = ar.edu.ub.progiii.mvc.repository.Connection.getConnection();
+    public static Connection connection;
+
+    static {
+        try {
+            connection = ar.edu.ub.progiii.mvc.repository.Connection.getConnection();
+        } catch (SQLException e) {
+            System.out.println("Error retrieving connection from database");
+        }
+    }
 
     /**
      * Metodo que logea informacion a la base de datos.
