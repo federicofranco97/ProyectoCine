@@ -38,7 +38,7 @@ public class LoginController {
 	 * @throws SQLException 
 	 */
 	@GetMapping("/")
-	public ModelAndView GetLoginView() throws SQLException {
+	public ModelAndView GetLoginView(HttpServletRequest request) throws SQLException {
 		ModelAndView model = new ModelAndView("Login");
 		if(request.getSession().getAttribute("EmployeeId") != null){
 			request.getSession().removeAttribute("EmployeeId");

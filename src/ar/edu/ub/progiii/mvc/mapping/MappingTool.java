@@ -274,7 +274,6 @@ public class MappingTool implements IMapping{
   
   /**
    * Mapeo de string de sql a film dto
-   *
    * @param SQLData
    * @return
    */
@@ -298,7 +297,6 @@ public class MappingTool implements IMapping{
   
   /**
    * Mapeo de string de sql a categoria de tarifa dto
-   *
    * @param SQLData
    * @return
    */

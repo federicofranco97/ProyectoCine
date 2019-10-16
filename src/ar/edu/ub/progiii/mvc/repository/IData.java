@@ -274,15 +274,20 @@ public interface IData {
 
     /**
      * Actualizar un cliente en la base de datos.
-     * @param CliendId
+     * @param cliendId
+     * @param clientDTO
      * @return
      */
-    public int UpdateClient(int CliendId, ClientDTO clientDTO);
+    public int UpdateClient(int cliendId, ClientDTO clientDTO);
 
     /**
-     * Inserta una reserva inicial
-     * @param movieID, showId, theatreNumber, tempEmployee, dateShow
-     * @return
+     * Insertar reserva inicial
+     * @param dateShow
+     * @param showId
+     * @param theatreNumber
+     * @param tempEmployee
+     * @param dateShow
+     * @return 
      */
 	public int InsertInitialBooking(String movieId, String showId, int theatreNumber, String tempEmployee, String dateShow);
 
@@ -294,27 +299,36 @@ public interface IData {
 
 	/**
      * Trae un cliente por dni
+     * @param DNI
      * @return
      */
 	public String GetClientByDNI(String DNI);
 
 	/**
-     * Trae un id de reserva del ultimo empleado que la realizo
+     * Metodo para traer el id de la ultima reserva cargada de un empleado determinado
+     * @param employeeId
      * @return
      */
 	public String GetLastBookingByEmployeeId(int employeeId);
 
 	/**
-     * Actualizar los campos de la ultima reserva
-     * @param column, value, bookingNumber
+     * Actualizar campos de la ultima reserva
+     * @param column
+     * @param value
+     * @param bookingNumber 
      * @return
      */
 	public int UpdateLastBooking(String column, int value, String bookingNumber);
 
 	/**
-     * Insertar cliente si no existe
-     * @param fullName, email, birthDate, documentNumber, phoneNumber, adress
-     * @return
+     * Inserta un cliente si no existe
+     * @param fullName
+     * @param email
+     * @param birthDate
+     * @param documentNumber
+     * @param phoneNumber
+     * @param adress
+     * @return 
      */
 	public String RegisterClient(String fullName, String email, String birthDate, String documentNumber, String phoneNumber,
 			String adress);
@@ -325,7 +339,7 @@ public interface IData {
      * @param rateCode
      * @param price
      * @param amountTickets
-     * @return int
+     * @return 
      */
 	public int RegisterTickets(int employeeId, String rateCode, String price, String amountTickets);
 
