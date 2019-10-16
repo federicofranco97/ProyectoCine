@@ -145,8 +145,16 @@ public class MappingTool implements IMapping{
         //si ocurre un error en el mapeo vuelve el cliente null
         try {
             String [] splitDate = aux[5].split(" ");
-            clientDTO = new ClientDTO(aux[0],aux[4],aux[2], aux[3],(splitDate[0]),Integer.parseInt(aux[1]));
+            String [] splitCreationDate = aux[7].split(" ");
+            clientDTO = new ClientDTO();
+            clientDTO.setFullName(aux[0]);
+            clientDTO.setClientNumber(Integer.parseInt(aux[1]));
+            clientDTO.setPhoneNumber(aux[2]);
+            clientDTO.setEmail(aux[3]);
+            clientDTO.setAddress(aux[4]);
+            clientDTO.setDateOfBirth(splitDate[0]);
             clientDTO.setDocumentNumber(aux[6]);
+            clientDTO.setCreationDate(splitCreationDate[0]);
         }catch (Exception ex){
             clientDTO=null;
             System.out.println("Ocurrio un error en el mapeo");
@@ -286,6 +294,29 @@ public class MappingTool implements IMapping{
           System.out.println("Ocurrio un error en el mapeo");
       }
   	return cinemaShowDTO;
+  }
+  
+  /**
+   * Mapeo de string de sql a categoria de tarifa dto
+   *
+   * @param SQLData
+   * @return
+   */
+  @Override
+  public RateCategoryDTO MapDTORateCategoriesSQL(String SQLData) {
+  	String [] aux = SQLData.split("_");
+  	RateCategoryDTO rateDTO;
+  	//si ocurre un error en el mapeo vuelve el cliente null
+  	try {
+  		rateDTO = new RateCategoryDTO();
+  		rateDTO.setRateCode(aux[0]);
+  		rateDTO.setRateName(aux[1]);
+  		rateDTO.setValue(aux[2]);
+      }catch (Exception ex){
+    	  rateDTO=null;
+          System.out.println("Ocurrio un error en el mapeo");
+      }
+  	return rateDTO;
   }
 
 }

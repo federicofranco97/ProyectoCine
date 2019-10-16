@@ -2,18 +2,20 @@ var idMovie = -1;
 var idFunction;
 
 /*   
-    Borra todos los colores de fonde de los tag td
+    Borra todos los colores de fondo de los tag td
 */
-$('td').on('click', function(){
-   $('td').css("background-color" , "");
-});
-
-/* 
-   Llena de un determinado color el fondo de los tag td y guarda su valor en una variable
-*/
-$('td').on('click', function(){
-   $(this).css("background-color" , "rgb(4, 124, 179)");
-});
+document.getElementById("body").onload = function(){
+	$('td').on('click', function(){
+		$('td').css("background-color" , "");
+		});
+	
+	/* 
+	 * Llena de un determinado color el fondo de los tag td 
+	 */
+	$('td').on('click', function(){
+		$(this).css("background-color" , "rgb(4, 124, 179)");
+		});
+	}
 
 /* 
    Guarda el valor del id de la pelicula en una variable
@@ -24,7 +26,7 @@ function saveValue(element){
 }
 
 /* 
-   Guarda el valor del id de la funcion en una variable y redirecciona a la ruta del controller correspondiente
+   Guarda el valor del id de la funcion, peicula y fecha en una variables y redirecciona a la ruta del controller correspondiente
 */
 function saveBooking(element){
 	if (idMovie == -1){
@@ -32,12 +34,13 @@ function saveBooking(element){
 	}
 	else{
 		idFunction = $(element).attr("class");
-		window.open("/presencial_cantidadEntradas?ids="+idFunction+"_"+idMovie,"_self");
+		date = $('#idDate').attr("class");
+		window.open("/presencial_cantidadEntradas?functionId="+idFunction+"&movieId="+idMovie+"&dateShow="+date,"_self");
 	}
 }
 
 /* 
-   Redirecciona al controllerpara sumar un dia
+   Redirecciona al controller para sumar un dia
 */
 function addDays(){
 	date = $('#idDate').attr("class");
@@ -45,7 +48,7 @@ function addDays(){
 }
 
 /* 
-Redirecciona al controllerpara restar un dia
+Redirecciona al controller para restar un dia
 */
 function removeDays(){
 	date = $('#idDate').attr("class");

@@ -1,6 +1,7 @@
 package ar.edu.ub.progiii.mvc.controller;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 
@@ -12,10 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
+import ar.edu.ub.progiii.mvc.dto.RateCategoryDTO;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.repository.Connection;
 import ar.edu.ub.progiii.mvc.repository.Data;
+import ar.edu.ub.progiii.mvc.repository.querys.QueryStoredProcedureWResponse;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -31,9 +35,10 @@ public class LoginController {
 	MappingTool map = new MappingTool();
 	/**
 	Metodo que te lleva a la vista para logearte
+	 * @throws SQLException 
 	 */
 	@GetMapping("/")
-	public ModelAndView GetLoginView(HttpServletRequest request) {
+	public ModelAndView GetLoginView() throws SQLException {
 		ModelAndView model = new ModelAndView("Login");
 		if(request.getSession().getAttribute("EmployeeId") != null){
 			request.getSession().removeAttribute("EmployeeId");
