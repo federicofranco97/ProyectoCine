@@ -2,7 +2,9 @@
 var formEmployee = document.getElementById("formPass");
 // Se definieron variables de los campos pass y Id
 var password = document.getElementById("EmployeeId");
-var id = document.getElementById("EmployeePass");
+var idEmployee = document.getElementById("EmployeePass");
+// Variable que va a guardar el body por id
+var body = document.getElementById("body");
 // Regex para campos vacios
 var whiteSpace = /^\s+$/;
 /**
@@ -16,13 +18,23 @@ formEmployee.onsubmit = function(event){
 	   que no este vacio ni con espacios en blanco, previniendo la accion por default del formulario
 	   y mostrando el aviso apropiado
 	*/
-	for (var i = 0; i < formEmployee.length; i++) {
+	for (var i = 0; i < formEmployee.length; i++){
 		if(formEmployee.elements[i].value == "" || whiteSpace.test(formEmployee.elements[i].value)){
 			event.preventDefault();
 			swal("Aviso", "Verifique los campos!", "warning");
 		}
 	}
-	
+	sessionStorage.setItem("Employeekey", idEmployee);
+}
+
+/**
+ * @descriptor Esta funcion va a ser ejecutada cuando cargue la pagina.
+ * Busca si se encuentra guardad la variable de sesion de empleado y de ser asi la borra.
+ */
+body.onload = function(){
+	if(sessionStorage.getItem("EmployeeKey") != null){
+		sessionStorage.removeItem("EmployeeKey");
+	}
 }
 // Funcion que produce una tooltip en cada campo, recibiendo el id del tag y el mensaje que queremos mostrar
 tippy("#EmployeeId", {content: "Campo requerido"});
