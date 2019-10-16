@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: header">
+	<meta charset="UTF-8"/>
+</head>
+<body class="bg-secondary">
+    <div th:replace="layout :: menu"></div>
+    <h1 class="bg-dark" style="color:white;text-align:center;margin-left:auto;margin-right:auto;margin-top:2%;padding:10px;width:90%;" >FAQ</h1>
+    <table class="table table-dark tableStyle" style="width:90%;margin-left:auto;margin-right:auto;margin-top:5%;margin-bottom:10%">
+           <thead>
+              <th scope="col">Pregunta</th>
+              <th scope="col">Respuesta</th>
+            </thead>
+          <tbody style="overflow-y:auto;height:40vh">
+            <tr>
+             <td>¿Cómo ingresar al panel administrativo?</td>
+                <td>Desde la pantalla principal del menú debe ingresar presionando en “Panel administrativo”
+                </td>
+            </tr>
+            <tr>
+                <td>¿Cómo volver al menú principal?
+                </td>
+                <td>En el margen superior, encontrará una barra que le aporta un acceso al “Menú principal”</td>
+            </tr>
+            <tr>
+                <td>¿Cómo visualizar los Tickets?
+                </td>
+                <td>En el margen superior, encontrará una barra que le aporta un acceso a Tickets.
+                    Allí podrá elegir visualizar todos los tickets, los activos y además puede agregar un ticket.
+                </td>
+            </tr>
+            <tr>
+                <td>¿Cómo cargar un ticket?</td>
+                <td>En el margen superior, encontrará una barra que le aporta un acceso a Tickets.
+                    Allí tiene la opción de “agregar ticket”.
+                </td>
+            </tr>
+            <tr>
+                <td>¿Cómo cerrar un ticket?</td>
+                <td>Al ingresar a la pantalla de tickets, sea desde tickets activos o a todos los tickets, en el margen superior y a la derecha de cada ticket tiene el botón para cerrar ticket.
+                </td>
+            </tr>
+            <tr>
+                <td>¿Qué pasa cuando cierro un ticket?
+                </td>
+                <td>El ticket pasará a estar en la pantalla de “todos” dentro de tickets.
+                </td>
+            </tr>
+            <tr>
+                <td>¿Puedo volver a abrir un ticket que fue cerrado?
+                </td>
+                <td>No. Si el issue por el cual el ticket fue abierto se ha vuelto a presentar, el ticket debe ser creado otra vez.
+                </td>
+            </tr>
+            <tr>
+                <td>¿Quienes pueden agregar un ticket?
+                </td>
+                <td>Supervisores o administradores de las bases de datos
+                </td>
+            </tr>
+            <tr>
+                <td>¿Cómo acceder a los reportes?
+                </td>
+                <td>En el margen superior, encontrará una barra que le aporta un acceso a los reportes
+                </td>
+            </tr>
+            <tr>
+                <td>¿Qué tipo de reportes hay?
+                </td>
+                <td>Existen dos tipos. Reportes del día y reportes del mes.</td>
+            </tr>
+            <tr>
+                <td>¿Qué información se presenta en los reportes del día?
+                </td>
+                <td>Cantidad de empleados logueados, pelicula mas vendida, importe total de ventas presenciales, nivel de quejas, cuántas reservas online se imprimieron, el valor de la tarifa promedio, cantidad de supervisores activos, fecha del reporte
+                </td>
+            </tr>
+            <tr>
+                <td>¿Qué información se presenta en los reportes del mes?
+                </td>
+                <td>Cantidad de empleados logueados, pelicula mas vendida, importe total de ventas presenciales, nivel de quejas, cuántas reservas online se imprimieron, el valor de la tarifa promedio, cantidad de supervisores activos, fecha del reporte.
+                </td>
+            </tr>
+            <tr>
+                <td>¿Cómo puedo editar, banear, eliminar o ver el reporte de un empleado?
+                </td>
+                <td>En el margen superior, encontrará una barra que le aporta un acceso a la pantalla de “Administrar”. Debe seleccionar la opción “empleado”.
+                </td>
+            </tr>
+            <tr>
+                <td>¿Cómo puedo editar o banear un cliente?
+                </td>
+                <td>En el margen superior, encontrará una barra que le aporta un acceso a la pantalla de “Administrar”. Debe seleccionar la opción “cliente”
+                </td>
+            </tr>
+            <tr>
+                <td>¿Qué pasa si elimino un empleado?
+                </td>
+                <td>Un empleado eliminado pasará a estado inactivo en la base de datos y solo puede volver a activarlo un administrador de la base datos.
+                </td>
+            </tr>
+            <tr>
+                <td>¿Qué pasa si baneo un empleado?
+            </td>
+            <td>Un empleado baneado no podrá ingresar al sistema ya que sus credenciales han sido inhabilitadas.
+        </td>
+        </tr>
+        <tr>
+            <td>¿Qué pasa si baneo un cliente?
+            </td>
+            <td>Un cliente baneado no podrá efectuar compras.
+        </td>
+        </tr>
+
+          </tbody>
+    </table>
+    <div th:replace="layout :: footer"></div>
+</body>
+</html>
