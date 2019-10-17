@@ -1,5 +1,8 @@
 package ar.edu.ub.progiii.mvc.controller;
 
+import ar.edu.ub.progiii.mvc.dto.BookingDTO;
+import ar.edu.ub.progiii.mvc.dto.FilmDTO;
+import ar.edu.ub.progiii.mvc.dto.OnlineBookingDTO;
 import ar.edu.ub.progiii.mvc.repository.Data;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +34,18 @@ public class RedeemTicketsController {
      */
     @GetMapping("/buscar_reserva")
     public ModelAndView GetBuscarReserva(@RequestParam("bookingId")String BookingNumber){
+
         if(clientService.GetBookingById(BookingNumber) == null){
             ModelAndView modelError = new ModelAndView("RedeemTickets");
             modelError.addObject("Content", Arrays.asList("Error","No se ha ingresado la reserva","1"));
             return modelError;
         }
         ModelAndView modelOk = new ModelAndView("RedeemTickets");
-        modelOk.addObject("Booking",clientService.GetBookingById(BookingNumber));
-        modelOk.addObject("pelicula",clientService.GetFilmById(Integer.parseInt(clientService.GetBookingById(BookingNumber).getBookingCode())).getFilmName());
-        modelOk.addObject("funcion",clientService.GetCinemaShow(clientService.GetBookingById(BookingNumber).getShow()).getStartTime());
+        BookingDTO booking = clientService.GetBookingById(BookingNumber);
+        FilmDTO film = clientService.GetFilmById(Integer.parseInt(booking.getMovieName()));
+        modelOk.addObject("Booking",booking);
+        modelOk.addObject("pelicula",film.getFilmName());
+        modelOk.addObject("funcion",clientService.GetCinemaShow(booking.getShow()).getStartTime());
         modelOk.addObject("msj", "yes");
         return modelOk;
 

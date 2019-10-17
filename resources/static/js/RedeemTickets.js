@@ -18,10 +18,10 @@ function Validate(){
                   buttons: true
 
                 })
+                BringBooking();
     }
 
 }
-var idCode = document.getElementById("idCode").value;
 document.getElementById("idCode").addEventListener("keydown", function(event) {
   if (event.keyCode === 13) {
    document.getElementById("searchCode").click();
@@ -30,6 +30,7 @@ document.getElementById("idCode").addEventListener("keydown", function(event) {
 
 //funcion que trae el codigo de reserva
 function BringBooking(){
+    var idCode = document.getElementById("idCode").value;
     window.open("/buscar_reserva?bookingId="+idCode,"_self");
     console.log(idCode);
 }
