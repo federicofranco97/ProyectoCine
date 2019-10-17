@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.codehaus.groovy.runtime.metaclass.NewMetaMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,9 +34,8 @@ public class OnsiteSaleController {
 	 * @return
 	 */
 	@GetMapping("/venta_presencial")
-	public ModelAndView GetOnsiteSaleView() {
-		int employeeNumber = clientService.currentEmployee.getEmployeeNumber();
-		if(clientService.IsEmployeeAlowed(employeeNumber)) {
+	public ModelAndView GetOnsiteSaleView(HttpServletRequest request) {
+		if(clientService.IsEmployeeAlowed((int)request.getSession().getAttribute("Employee"))) {
 			ModelAndView model = new ModelAndView("OnsiteSale");
 			model.addObject("films",clientService.GetAllFilms());
 			model.addObject("shows" ,clientService.GetShowsByHour());
@@ -111,8 +111,8 @@ public class OnsiteSaleController {
 	 * @return
 	 */
 	@GetMapping("/presencial_cantidadEntradas")
-	public ModelAndView GetOnsiteAmountTicketsView(@RequestParam("functionId") String showId, @RequestParam("movieId") String movieId, @RequestParam("dateShow") String dateShow) {
-		if (clientService.InsertInitialBooking(movieId, showId, dateShow)) {
+	public ModelAndView GetOnsiteAmountTicketsView(@RequestParam("functionId") String showId, @RequestParam("movieId") String movieId, @RequestParam("dateShow") String dateShow,  HttpServletRequest request) {
+		if (clientService.InsertInitialBooking(movieId, showId, dateShow, (int) request.getSession().getAttribute("EmployeeId"))) {
 			ModelAndView model = new ModelAndView("AmountTickets");
 			model.addObject("categories", clientService.GetAllRateCategories());
 			return model;
@@ -130,10 +130,10 @@ public class OnsiteSaleController {
 	 * @return
 	 */
 	@PostMapping("/buscarCliente_traerInfo")
-	public ModelAndView GetClientDataById(@RequestParam("clientDNI") String clientDNI) {
+	public ModelAndView GetClientDataById(@RequestParam("clientDNI") String clientDNI, HttpServletRequest request) {
 		if (clientService.GetClientByDNI(clientDNI) != null) {
 			ModelAndView model = new ModelAndView("AmountTickets");
-			data.UpdateLastBooking("NroCliente", clientService.GetClientByDNI(clientDNI).getClientNumber(), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
+			data.UpdateLastBooking("NroCliente", clientService.GetClientByDNI(clientDNI).getClientNumber(), data.GetLastBookingByEmployeeId((int)request.getSession().getAttribute("EmployeeId")));
 			model.addObject("categories", clientService.GetAllRateCategories());
 			model.addObject("msj",clientService.GetClientByDNI(clientDNI));
 			model.addObject("clientInfo", clientService.GetClientByDNI(clientDNI));

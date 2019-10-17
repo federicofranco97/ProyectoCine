@@ -4,6 +4,8 @@ import ar.edu.ub.progiii.mvc.dto.*;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.model.Employee;
 import ar.edu.ub.progiii.mvc.repository.Data;
+
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.codehaus.groovy.runtime.ConvertedClosure;
 import org.springframework.stereotype.Service;
 import sun.security.krb5.internal.Ticket;
@@ -67,22 +69,22 @@ public class ClientService {
      * @return boolean
      */
     @SuppressWarnings("static-access")
-	public int changePass(String employeeId, String employeePass, String employeeNewPass) {
+	public int changePass(String employeeId, String employeePass, String employeeNewPass, HttpServletRequest request) {
     	String response = dataManager.GetEmployeeByID(employeeId);
     	Employee Employee = mappingTool.MapEmployeeSQL(response);
     	//Retorna true o false si se cumple la condicion dentro del return
     	if(Employee.getHashedPassword().equals(employeePass)) {
-    		currentEmployee.setFailed(0);
+    		request.getSession().setAttribute("Failed", 0);
     		dataManager.ChangePassEmployee(Employee.getEmployeeNumber(), employeeNewPass);
     		return 1;
     	}
     	else {
-    		if(currentEmployee .getFailed() == 2) {
+    		if((int) request.getSession().getAttribute("Failed") == 2) {
         		dataManager.BanEmployee(Employee.getEmployeeNumber());
         		return 3;
         	}
         	else {
-        		currentEmployee.setFailed(currentEmployee.getFailed()+1);
+        		request.getSession().setAttribute("Failed",(int)request.getSession().getAttribute("Failed") +1);
         		return 2;
         	}
     	}
@@ -250,14 +252,6 @@ public class ClientService {
             list.add(mappingTool.MapDTOTicketSQL(item));
         }
         return list;
-    }
-
-    /**
-     * Limpio el usuario que esta en la sesion.
-     */
-    public void ClearCurrentUser(){
-        currentEmployee = new EmployeeDTO();
-        currentEmployee.setEmployeeNumber(-1);
     }
 
     /**
@@ -569,9 +563,9 @@ public class ClientService {
      * Actualiza el status de logueo de un empleado
      * @return 
      */
-    public void UpdateLoginStatus(){
-        if(currentEmployee.getEmployeeNumber()!=-1){
-            dataManager.UpdateLoginStatus(String.valueOf(currentEmployee.getEmployeeNumber()));
+    public void UpdateLoginStatus(int employeeId){
+        if(employeeId!=-1){
+            dataManager.UpdateLoginStatus(String.valueOf(employeeId));
         }
     }
 
@@ -612,11 +606,11 @@ public class ClientService {
      * @param dateShow
      * @return 
      */
-    public boolean InsertInitialBooking(String movieId, String showId, String dateShow){
+    public boolean InsertInitialBooking(String movieId, String showId, String dateShow, int employeeId){
     	String [] aux = dateShow.split("-");
     	String date = aux[0]+aux[1]+aux[2];
     	int theatreNumber = (int) Math.floor(Math.random()*(12-1+1)+1);
-    	return dataManager.InsertInitialBooking(movieId, showId, theatreNumber, String.valueOf(currentEmployee.getEmployeeNumber()), date) == 1?true:false;
+    	return dataManager.InsertInitialBooking(movieId, showId, theatreNumber, String.valueOf(employeeId), date) == 1?true:false;
     }
     
     /**

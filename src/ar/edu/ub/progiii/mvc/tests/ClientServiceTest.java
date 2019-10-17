@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -222,10 +223,11 @@ class ClientServiceTest {
 	
 	@Test
 	void ChangePasstest() {
-		int result = clientService.changePass("6", "d13g1", "d13g2");
-		int resultTwo = clientService.changePass("6", "d13g3", "d13g2");
-		int resultThree = clientService.changePass("6", "d13g3", "d13g2");
-		int resultFour = clientService.changePass("6", "d13g3", "d13g2");
+		HttpServletRequest request = null;
+		int result = clientService.changePass("6", "d13g1", "d13g2", request);
+		int resultTwo = clientService.changePass("6", "d13g3", "d13g2", request);
+		int resultThree = clientService.changePass("6", "d13g3", "d13g2", request);
+		int resultFour = clientService.changePass("6", "d13g3", "d13g2", request);
 		assertEquals(result, 1);
 		assertEquals(resultTwo, 2);
 		assertEquals(resultThree, 2);
@@ -294,16 +296,6 @@ class ClientServiceTest {
 	void RedirectToBeginningtest() {
 		assertEquals(clientService.RedirectToBeginning("2019-09-23"), true);
 		assertEquals(clientService.RedirectToBeginning("2019-09-22"), false);
-	}
-	
-	@Test
-	void ClearCurrentUsertest() {
-		clientService.currentEmployee.setEmployeeNumber(1);
-		clientService.currentEmployee.setFullName("diego moran");
-		assertEquals(clientService.currentEmployee.getEmployeeNumber(), 1);
-		assertEquals(clientService.currentEmployee.getFullName(), "diego moran");
-		clientService.ClearCurrentUser();
-		assertEquals(clientService.currentEmployee.getEmployeeNumber(), -1);
 	}
 	
 	@Test
@@ -416,9 +408,9 @@ class ClientServiceTest {
 	@Test
 	void CloseTickettest() {
 		clientService.currentEmployee.setEmployeeNumber(4);
-		assertEquals(clientService.CloseTicket(4), true);
+		assertEquals(clientService.CloseTicket(4,4), true);
 		clientService.currentEmployee.setEmployeeNumber(1);
-		assertEquals(clientService.CloseTicket(1), false);
+		assertEquals(clientService.CloseTicket(1,4), false);
 	}
 	
 	@Test
@@ -508,8 +500,8 @@ class ClientServiceTest {
 	}
 	
 	@Test
-	void UpdateLoginStatustest() throws SQLException {
-		clientService.currentEmployee.setEmployeeNumber(4);
+	void UpdateLoginStatustest(HttpServletRequest request) throws SQLException {
+		request.setAttribute("EmployeeId", 4);
 		String result="";
 		Statement stm = connection.getConnection().createStatement();
         String query="select * from empleado where NroEmpleado=4";
@@ -518,7 +510,7 @@ class ClientServiceTest {
             result += (rst.getString("LoggedIn").trim());
         }
         assertEquals(result, "1");
-        clientService.UpdateLoginStatus();
+        clientService.UpdateLoginStatus((int)request.getSession().getAttribute("EmployeeId"));
         String result2="";
 		Statement stm2 = connection.getConnection().createStatement();
         String query2="select * from empleado where NroEmpleado=4";
