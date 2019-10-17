@@ -2,7 +2,7 @@
 	margin: auto;
 	margin-top: 1%;
 	width: 70%;
-	height: 78vh;
+	height: 71vh;
 	background-color: #576067;
 	box-shadow: 9px 3px 9px 2px #474e54;
 }
@@ -12,14 +12,14 @@
 	margin-right: 1%;
 	margin-left: 1%;
 	overflow-y:auto;
-	height: 70vh;
+	height: 63vh;
 	background-color: #474e54;<
 }
 .tableTime{
 	float: left;
 	width: 38%;
 	overflow-y:auto;
-	height: 70vh;
+	height: 63vh;
 	background-color: #474e54;
 }
 #tdOnsite:hover {
@@ -47,7 +47,6 @@
 	height: 5vh;
 }
 .strongOnsite{
-	margin-left: 3%;
 	position: relative;
 	top: 8%;
 }

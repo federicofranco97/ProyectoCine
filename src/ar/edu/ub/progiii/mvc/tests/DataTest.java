@@ -31,7 +31,7 @@ class DataTest {
 		dataManager = new Data();
 		mapping = new MappingTool();
 	}
-	/*@Test
+	@Test
 	void GetEmployeeByIDtest() throws SQLException {
 		String SPsql ="Juan Perez_1161507889_jperez@test.com.ar_Calle Falsa 3399         _1997-11-04 00:00:00.0_2_p3p3_2";
         assertEquals(dataManager.GetEmployeeByID("2"),SPsql);
@@ -246,11 +246,110 @@ class DataTest {
 		assertEquals(result, 1);
 		assertEquals(result2, 0);
 		assertNotNull(result);
-	}*/
+	}
 	
 	@Test
 	void GetServerDatetest() throws SQLException {
 		assertEquals(dataManager.GetServerDate(), "2019-09-21");
 		assertNotNull(dataManager.GetServerDate());
 	}
+	
+	@Test
+	void GetHourNowtest() throws SQLException {
+		assertEquals(dataManager.GetHourNow(), "15");
+		assertNotNull(dataManager.GetHourNow());
+	}
+	
+	@Test
+	void GetAllBranchestest() throws SQLException {
+		String result = "";
+		Statement stm = connection.createStatement();
+        String query="select * from sucursal ";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("CodSucursal").trim())+"_";
+            result += (rst.getString("Nombre").trim())+"_";
+            result += (rst.getString("Direccion").trim())+"_";
+            result += (rst.getString("Telefono").trim())+"/";
+        }
+        assertEquals(dataManager.GetAllBranches(), result);
+        assertNotNull(dataManager.GetAllBranches());
+	}
+	
+	@Test
+	void EmployeeDaySalestest() throws SQLException {
+		assertEquals(dataManager.EmployeeDaySales("2"), "1000.55");
+		assertNotNull(dataManager.EmployeeDaySales("2"));
+	}
+	
+	@Test
+	void GetAllShowstest() throws SQLException {
+		String result = "";
+		Statement stm = connection.createStatement();
+        String query="select * from funcion ";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("CodFuncion").trim())+"_";
+            result += (rst.getString("HoraComienzo").trim())+"_";
+            result += (rst.getString("HoraFinalizacion").trim())+"_";
+            result += (rst.getString("ComentariosAdicionales").trim())+"/";
+        }
+		assertEquals(dataManager.GetAllShows(), result);
+		assertNotNull(dataManager.GetAllShows());
+	}
+	
+	@Test
+	void EmployeeDayBookingstest() throws SQLException {;
+		assertEquals(dataManager.EmployeeDayBookings("2"), "3");
+		assertNotNull(dataManager.EmployeeDayBookings("2"));
+	}
+	
+	@Test
+	void EmployeeDayOnlineBookingstest() throws SQLException {
+		assertEquals(dataManager.EmployeeDayOnlineBookings("2"), "0");
+		assertNotNull(dataManager.EmployeeDayOnlineBookings("2"));
+	}
+	
+	@Test
+	void EmployeeDayWithdrawtest() throws SQLException {
+		assertEquals(dataManager.EmployeeDayWithdraw("2"), "");
+		assertNotNull(dataManager.EmployeeDayWithdraw("2"));
+	}
+	
+	@Test
+	void UpdateLoginStatustest() throws SQLException {
+		String result = "";
+		Statement stm = connection.createStatement();
+        String query="select * from empleado where NroEmpleado=6";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("LoggedIn").trim());
+        }
+		assertEquals(result, "1");
+		dataManager.UpdateLoginStatus("6");
+		String result2 = "";
+		Statement stm2 = connection.createStatement();
+        String query2="select * from empleado where NroEmpleado=2";
+        ResultSet rst2 = stm2.executeQuery(query2);
+        while(rst2.next()) {
+            result += (rst2.getString("LoggedIn").trim());
+        }
+		assertEquals(result2, "0");
+	}
+	
+	/*@Test
+	void UpdateClienttest() throws SQLException {
+		clientDto = new ClientDTO("Diego Moran","11 de septiembre", "1530042275","die_777@hotmail.com","1997-11-08",10005);
+		assertEquals(dataManager.UpdateClient(10005, clientDto),1);
+		String result = "";
+		Statement stm = connection.createStatement();
+        String query="select * from cliente where NroCliente = 10005";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("Email"));
+        }
+        assertEquals(result,"die_777@hotmail.com");
+        assertNotEquals(result,"");
+        assertNotEquals(result,null);
+	}*/
 }
