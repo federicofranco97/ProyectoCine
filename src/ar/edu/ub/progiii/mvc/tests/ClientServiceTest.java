@@ -522,8 +522,8 @@ class ClientServiceTest {
 	}
 	
 	@Test
-	void InsertInitialBookingtest() throws SQLException {
-		assertTrue(clientService.InsertInitialBooking("1", "2", "20190101"));
+	void InsertInitialBookingtest(HttpServletRequest request) throws SQLException {
+		assertTrue(clientService.InsertInitialBooking("1", "2", "20190101", (int) request.getSession().getAttribute("EmployeeId")));
 	}
 	
 	@Test
