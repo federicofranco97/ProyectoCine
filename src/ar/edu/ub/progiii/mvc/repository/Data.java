@@ -1172,12 +1172,12 @@ public class Data implements IData{
 
     /**
      * Actualizar un cliente en la base de datos.
-     *
-     * @param CliendId
+     * @param cliendId
+     * @param clientDTO
      * @return
      */
     @Override
-    public int UpdateClient(int CliendId, ClientDTO clientDTO) {
+    public int UpdateClient(int cliendId, ClientDTO clientDTO) {
         int result= -1;
         //empiezo la conexion y recibo el resultado de la query
         try {
@@ -1200,8 +1200,12 @@ public class Data implements IData{
     
     /**
      * Insertar reserva inicial
-     * @param dateShow, showId, theatreNumber, tempEmployee, dateShow
-     * @return int
+     * @param dateShow
+     * @param showId
+     * @param theatreNumber
+     * @param tempEmployee
+     * @param dateShow
+     * @return 
      */
     @Override
     public int InsertInitialBooking(String movieId, String showId, int theatreNumber, String tempEmployee, String dateShow) {
@@ -1258,7 +1262,6 @@ public class Data implements IData{
     
     /**
      * Metodo para traer un cliente x dni
-     *
      * @param DNI
      * @return
      */
@@ -1291,7 +1294,7 @@ public class Data implements IData{
     
     /**
      * Metodo para traer el id de la ultima reserva cargada de un empleado determinado
-     * @param employeeId employeeId
+     * @param employeeId
      * @return
      */
     @Override
@@ -1322,8 +1325,9 @@ public class Data implements IData{
     
     /**
      * Actualizar campos de la ultima reserva
-     *
-     * @param column, value, bookingNumber 
+     * @param column
+     * @param value
+     * @param bookingNumber 
      * @return
      */
     @Override
@@ -1349,8 +1353,13 @@ public class Data implements IData{
     
     /**
      * Inserta un cliente si no existe
-     * @param 
-     * @return int
+     * @param fullName
+     * @param email
+     * @param birthDate
+     * @param documentNumber
+     * @param phoneNumber
+     * @param adress
+     * @return 
      */
     @Override
     public String RegisterClient(String fullName, String email, String birthDate, String documentNumber, String phoneNumber, String adress) {
@@ -1379,7 +1388,7 @@ public class Data implements IData{
      * @param rateCode
      * @param price
      * @param amountTickets
-     * @return int
+     * @return 
      */
     @Override
     public int RegisterTickets(int employeeId, String rateCode, String price, String amountTickets) {

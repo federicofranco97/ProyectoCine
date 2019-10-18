@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.codehaus.groovy.runtime.metaclass.NewMetaMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,9 +34,8 @@ public class OnsiteSaleController {
 	 * @return
 	 */
 	@GetMapping("/venta_presencial")
-	public ModelAndView GetOnsiteSaleView() {
-		int employeeNumber = clientService.currentEmployee.getEmployeeNumber();
-		if(clientService.IsEmployeeAlowed(employeeNumber)) {
+	public ModelAndView GetOnsiteSaleView(HttpServletRequest request) {
+		if(clientService.IsEmployeeAlowed((int)request.getSession().getAttribute("Employee"))) {
 			ModelAndView model = new ModelAndView("OnsiteSale");
 			model.addObject("films",clientService.GetAllFilms());
 			model.addObject("shows" ,clientService.GetShowsByHour());
@@ -49,6 +49,7 @@ public class OnsiteSaleController {
 	
 	/**
 	 * Suma a la fecha de la pagina un dia, de no poderse activa un mensaje de aviso
+	 * @param datePage
 	 * @return
 	 */
 	@GetMapping("/sumar_fecha")
@@ -76,6 +77,7 @@ public class OnsiteSaleController {
 	
 	/**
 	 * Resta a la fecha de la pagina un dia, de no poderse activa un mensaje de aviso
+	 * @param datePage
 	 * @return
 	 */
 	@GetMapping("/restar_fecha")
@@ -103,11 +105,14 @@ public class OnsiteSaleController {
 	/**
 	 * Realiza una reserva inicial con los valores de los parametros 
 	 * y devuelve la pagna cantidad de enetradas, cargandole los datos
+	 * @param showId
+	 * @param movieId
+	 * @param dateShow
 	 * @return
 	 */
 	@GetMapping("/presencial_cantidadEntradas")
-	public ModelAndView GetOnsiteAmountTicketsView(@RequestParam("functionId") String showId, @RequestParam("movieId") String movieId, @RequestParam("dateShow") String dateShow) {
-		if (clientService.InsertInitialBooking(movieId, showId, dateShow)) {
+	public ModelAndView GetOnsiteAmountTicketsView(@RequestParam("functionId") String showId, @RequestParam("movieId") String movieId, @RequestParam("dateShow") String dateShow,  HttpServletRequest request) {
+		if (clientService.InsertInitialBooking(movieId, showId, dateShow, (int) request.getSession().getAttribute("EmployeeId"))) {
 			ModelAndView model = new ModelAndView("AmountTickets");
 			model.addObject("categories", clientService.GetAllRateCategories());
 			return model;
@@ -121,13 +126,14 @@ public class OnsiteSaleController {
 	/**
 	 * Realiza una reserva inicial con los valores de los parametros 
 	 * y devuelve la pagna cantidad de enetradas, cargandole los datos
+	 * @param clientDNI 
 	 * @return
 	 */
 	@PostMapping("/buscarCliente_traerInfo")
-	public ModelAndView GetClientDataById(@RequestParam("clientDNI") String clientDNI) {
+	public ModelAndView GetClientDataById(@RequestParam("clientDNI") String clientDNI, HttpServletRequest request) {
 		if (clientService.GetClientByDNI(clientDNI) != null) {
 			ModelAndView model = new ModelAndView("AmountTickets");
-			data.UpdateLastBooking("NroCliente", clientService.GetClientByDNI(clientDNI).getClientNumber(), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
+			data.UpdateLastBooking("NroCliente", clientService.GetClientByDNI(clientDNI).getClientNumber(), data.GetLastBookingByEmployeeId((int)request.getSession().getAttribute("EmployeeId")));
 			model.addObject("categories", clientService.GetAllRateCategories());
 			model.addObject("msj",clientService.GetClientByDNI(clientDNI));
 			model.addObject("clientInfo", clientService.GetClientByDNI(clientDNI));
@@ -141,15 +147,20 @@ public class OnsiteSaleController {
 	
 	/**
 	 * Registra a un cliente 
-	 * @param fullName, phone, email, adress, birthDate, dni
+	 * @param fullName
+	 * @param phone
+	 * @param email
+	 * @param adress
+	 * @param birthDate
+	 * @param dni
 	 * @return
 	 */
 	@PostMapping("/registrar_cliente")
-	public ModelAndView RegisterClient(@RequestParam("Name") String fullName, @RequestParam("Tel") String phone, @RequestParam("Email") String email, @RequestParam("Adress") String adress, @RequestParam("Date") String birthDate, @RequestParam("DNI") String dni) {
+	public ModelAndView RegisterClient(@RequestParam("Name") String fullName, @RequestParam("Tel") String phone, @RequestParam("Email") String email, @RequestParam("Adress") String adress, @RequestParam("Date") String birthDate, @RequestParam("DNI") String dni, HttpServletRequest request) {
 		if (clientService.GetClientByDNI(dni) == null) {
 			ClientDTO clientRegisteredtDTO = clientService.RegisterClient(fullName, email, birthDate, dni, phone, adress);
 			if(clientRegisteredtDTO != null && clientService.IsTheSameDay(clientRegisteredtDTO.getCreationDate())) {
-				data.UpdateLastBooking("NroCliente", clientRegisteredtDTO.getClientNumber(), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
+				data.UpdateLastBooking("NroCliente", clientRegisteredtDTO.getClientNumber(), data.GetLastBookingByEmployeeId((int)request.getSession().getAttribute("EmployeeId")));
 				ModelAndView model = new ModelAndView("AmountTickets");
 				model.addObject("categories", clientService.GetAllRateCategories());
 				model.addObject("msj",clientRegisteredtDTO);
@@ -168,7 +179,7 @@ public class OnsiteSaleController {
 	}
 	
 	/**
-	 * Realiza el registro de entradas y envia el el precio total a la proxima vista
+	 * Realiza el registro de entradas y envia el precio total a la proxima vista
 	 * @param underAge
 	 * @param retired
 	 * @param adult
@@ -180,17 +191,18 @@ public class OnsiteSaleController {
 	 * @return
 	 */
 	@GetMapping("/presencial_pagar")
-	public ModelAndView GetPayView(@RequestParam("underAge") String underAge, @RequestParam("retired") String retired, @RequestParam("adult") String adult, @RequestParam("promo") String promo, @RequestParam("registeredAdult") String registeredAdult, @RequestParam("registeredUnderAge") String registeredUnderAge, @RequestParam("registeredOlder") String registeredOlder, @RequestParam("total") String total) {
+	public ModelAndView GetPayView(@RequestParam("underAge") String underAge, @RequestParam("retired") String retired, @RequestParam("adult") String adult, @RequestParam("promo") String promo, @RequestParam("registeredAdult") String registeredAdult, @RequestParam("registeredUnderAge") String registeredUnderAge, @RequestParam("registeredOlder") String registeredOlder, @RequestParam("total") String total, HttpServletRequest request) {
+		int employeeId = (int)request.getSession().getAttribute("EmployeeId");
 		int amountTickets = Integer.parseInt(underAge) + Integer.parseInt(retired) + Integer.parseInt(adult) + Integer.parseInt(promo) + Integer.parseInt(registeredAdult) + Integer.parseInt(registeredUnderAge) + Integer.parseInt(registeredOlder); 
-		data.UpdateLastBooking("PrecioTotal", Integer.parseInt(total), data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
-		data.UpdateLastBooking("CantEntradas", amountTickets, data.GetLastBookingByEmployeeId(clientService.currentEmployee.getEmployeeNumber()));
-		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "1", clientService.GetRateById("1").getValue(), underAge);
-		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "2", clientService.GetRateById("2").getValue(), retired);
-		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "3", clientService.GetRateById("3").getValue(), adult);
-		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "4", clientService.GetRateById("4").getValue(), promo);
-		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "6", clientService.GetRateById("6").getValue(), registeredAdult);
-		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "7", clientService.GetRateById("7").getValue(), registeredUnderAge);
-		data.RegisterTickets(clientService.currentEmployee.getEmployeeNumber(), "8", clientService.GetRateById("8").getValue(), registeredOlder);
+		data.UpdateLastBooking("PrecioTotal", Integer.parseInt(total), data.GetLastBookingByEmployeeId(employeeId));
+		data.UpdateLastBooking("CantEntradas", amountTickets, data.GetLastBookingByEmployeeId(employeeId));
+		data.RegisterTickets(employeeId, "1", clientService.GetRateById("1").getValue(), underAge);
+		data.RegisterTickets(employeeId, "2", clientService.GetRateById("2").getValue(), retired);
+		data.RegisterTickets(employeeId, "3", clientService.GetRateById("3").getValue(), adult);
+		data.RegisterTickets(employeeId, "4", clientService.GetRateById("4").getValue(), promo);
+		data.RegisterTickets(employeeId, "6", clientService.GetRateById("6").getValue(), registeredAdult);
+		data.RegisterTickets(employeeId, "7", clientService.GetRateById("7").getValue(), registeredUnderAge);
+		data.RegisterTickets(employeeId, "8", clientService.GetRateById("8").getValue(), registeredOlder);
 		ModelAndView modelPay = new ModelAndView("pagina_de_pago");
 		modelPay.addObject("total", amountTickets);
 		return modelPay;
