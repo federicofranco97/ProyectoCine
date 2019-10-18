@@ -31,7 +31,7 @@ class DataTest {
 		dataManager = new Data();
 		mapping = new MappingTool();
 	}
-	/*@Test
+	@Test
 	void GetEmployeeByIDtest() throws SQLException {
 		String SPsql ="Juan Perez_1161507889_jperez@test.com.ar_Calle Falsa 3399         _1997-11-04 00:00:00.0_2_p3p3_2";
         assertEquals(dataManager.GetEmployeeByID("2"),SPsql);
@@ -246,11 +246,168 @@ class DataTest {
 		assertEquals(result, 1);
 		assertEquals(result2, 0);
 		assertNotNull(result);
-	}*/
+	}
 	
 	@Test
 	void GetServerDatetest() throws SQLException {
 		assertEquals(dataManager.GetServerDate(), "2019-09-21");
 		assertNotNull(dataManager.GetServerDate());
+	}
+	
+	@Test
+	void GetHourNowtest() throws SQLException {
+		assertEquals(dataManager.GetHourNow(), "15");
+		assertNotNull(dataManager.GetHourNow());
+	}
+	
+	@Test
+	void GetAllBranchestest() throws SQLException {
+		String result = "";
+		Statement stm = connection.createStatement();
+        String query="select * from sucursal ";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("CodSucursal").trim())+"_";
+            result += (rst.getString("Nombre").trim())+"_";
+            result += (rst.getString("Direccion").trim())+"_";
+            result += (rst.getString("Telefono").trim())+"/";
+        }
+        assertEquals(dataManager.GetAllBranches(), result);
+        assertNotNull(dataManager.GetAllBranches());
+	}
+	
+	@Test
+	void EmployeeDaySalestest() throws SQLException {
+		assertEquals(dataManager.EmployeeDaySales("2"), "1000.55");
+		assertNotNull(dataManager.EmployeeDaySales("2"));
+	}
+	
+	@Test
+	void GetAllShowstest() throws SQLException {
+		String result = "";
+		Statement stm = connection.createStatement();
+        String query="select * from funcion ";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("CodFuncion").trim())+"_";
+            result += (rst.getString("HoraComienzo").trim())+"_";
+            result += (rst.getString("HoraFinalizacion").trim())+"_";
+            result += (rst.getString("ComentariosAdicionales").trim())+"/";
+        }
+		assertEquals(dataManager.GetAllShows(), result);
+		assertNotNull(dataManager.GetAllShows());
+	}
+	
+	@Test
+	void EmployeeDayBookingstest() throws SQLException {;
+		assertEquals(dataManager.EmployeeDayBookings("2"), "3");
+		assertNotNull(dataManager.EmployeeDayBookings("2"));
+	}
+	
+	@Test
+	void EmployeeDayOnlineBookingstest() throws SQLException {
+		assertEquals(dataManager.EmployeeDayOnlineBookings("2"), "0");
+		assertNotNull(dataManager.EmployeeDayOnlineBookings("2"));
+	}
+	
+	@Test
+	void EmployeeDayWithdrawtest() throws SQLException {
+		assertEquals(dataManager.EmployeeDayWithdraw("2"), "");
+		assertNotNull(dataManager.EmployeeDayWithdraw("2"));
+	}
+	
+	@Test
+	void UpdateLoginStatustest() throws SQLException {
+		String result = "";
+		Statement stm = connection.createStatement();
+        String query="select * from empleado where NroEmpleado=6";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("LoggedIn").trim());
+        }
+		assertEquals(result, "1");
+		dataManager.UpdateLoginStatus("6");
+		String result2 = "";
+		Statement stm2 = connection.createStatement();
+        String query2="select * from empleado where NroEmpleado=2";
+        ResultSet rst2 = stm2.executeQuery(query2);
+        while(rst2.next()) {
+            result += (rst2.getString("LoggedIn").trim());
+        }
+		assertEquals(result2, "0");
+	}
+	
+	@Test
+	void UpdateClienttest() throws SQLException {
+		clientDto = new ClientDTO("Diego Moran","11 de septiembre", "1530042275","die_777@hotmail.com","1997-11-08",10005);
+		assertEquals(dataManager.UpdateClient(10005, clientDto),1);
+		String result = "";
+		Statement stm = connection.createStatement();
+        String query="select * from cliente where NroCliente = 10005";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("Email"));
+        }
+        assertEquals(result,"die_777@hotmail.com");
+        assertNotEquals(result,"");
+        assertNotEquals(result,null);
+	}
+	
+	@Test
+	void InsertInitialBookingtest() throws SQLException {
+		int result = dataManager.InsertInitialBooking("1", "2", 3, "6", "20191010");
+		assertEquals(result, 1);
+		assertNotNull(result);
+	}
+	
+	@Test
+	void GetAllRateCategoriestest() throws SQLException {
+		String result = "";
+		Statement stm = connection.createStatement();
+        String query="select * from tarifa ";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("CodTarifa").trim())+"_";
+            result += (rst.getString("NombreTarifa").trim())+"_";
+            result += (rst.getString("Precio").trim())+"/";
+        }
+		assertEquals(dataManager.GetAllRateCategories(), result);
+		assertNotNull(dataManager.GetAllRateCategories());
+	}
+	
+	@Test
+	void GetGetLastBookingByEmployeeIdtest() throws SQLException {
+		String result = "";
+		Statement stm = connection.createStatement();
+        String query="select top 1 * from reserva where TempEmpleado=6 order by Fecha desc";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("CodReserva"));
+        }
+		assertEquals(dataManager.GetLastBookingByEmployeeId(6), result);
+		assertNotNull(dataManager.GetLastBookingByEmployeeId(6));
+	}
+	
+	@Test
+	void UpdateLastBookingtest() throws SQLException {
+		assertEquals(dataManager.UpdateLastBooking("NroSala", 1, "146"), 1);
+	}
+	
+	@Test
+	void RegisterClienttest() throws SQLException {
+		dataManager.RegisterClient("diego moran", "deg@mora.com", "20191010", "3131456", "1344567", "lavalle 4121");
+		String result = "";
+		Statement stm = connection.createStatement();
+        String query="select * from cliente where NroDocumento=3131456";
+        ResultSet rst = stm.executeQuery(query);
+        while(rst.next()) {
+            result += (rst.getString("NroDocumento"));
+        }
+        assertEquals(result, "3131456");
+	}
+	
+	@Test
+	void RegisterTicketstest() throws SQLException {
+		assertEquals(dataManager.RegisterTickets(6, "1", "150", "2"), 1);
 	}
 }

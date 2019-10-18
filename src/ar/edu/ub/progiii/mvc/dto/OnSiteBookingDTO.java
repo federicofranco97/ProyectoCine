@@ -14,5 +14,8 @@ public class OnSiteBookingDTO extends BookingDTO{
 		super(bookingCode, bookingDate, movieName, show, location, theatreNumber, ticketAmount, clientNumber, bookingStatus,
 				channelCode, totalValue);
 	}
-
+	
+	public OnSiteBookingDTO() {
+		
+	}
 }

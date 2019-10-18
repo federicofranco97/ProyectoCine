@@ -2,6 +2,7 @@ package ar.edu.ub.progiii.mvc.controller;
 
 import java.util.Arrays;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,14 +27,14 @@ public class PasswordController {
 
 	/**
 	 * Llama a la vista cambio de clave
+	 * @param request
 	 * @return
 	 */
 	@GetMapping("/cambio_clave")
-	public ModelAndView GetPassView() {
-		int employeeNumber = clientService.currentEmployee.getEmployeeNumber();
-		if(clientService.IsEmployeeAlowed(employeeNumber)) {
+	public ModelAndView GetPassView(HttpServletRequest request) {
+		if(clientService.IsEmployeeAlowed((int)request.getSession().getAttribute("EmployeeId"))) {
 			ModelAndView model = new ModelAndView("Password");
-			model.addObject("currentID",employeeNumber);
+			model.addObject("currentID",(int)request.getSession().getAttribute("EmployeeId"));
 			return model;
 		}
 		ModelAndView modelError = new ModelAndView("ErrorPage");
@@ -52,8 +53,8 @@ public class PasswordController {
 	 * @return
 	 */
 	@PostMapping("/pass_sent")
-	public ModelAndView changePass(@RequestParam("EmployeeId") String employeeId, @RequestParam("oldPass") String oldPass, @RequestParam("newPass") String newPass) {
-		int aux = clientService.changePass(employeeId, oldPass, newPass);
+	public ModelAndView changePass(@RequestParam("EmployeeId") String employeeId, @RequestParam("oldPass") String oldPass, @RequestParam("newPass") String newPass, HttpServletRequest request) {
+		int aux = clientService.changePass(employeeId, oldPass, newPass, request);
 		if(aux == 1) {
 			ModelAndView modelSucces = new ModelAndView("Password");
 			modelSucces.addObject("Content", Arrays.asList("Exito","La clave ha sido cambiada con exito!","1"));
