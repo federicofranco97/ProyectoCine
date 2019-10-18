@@ -38,13 +38,12 @@ public class LoginController {
 	 * @throws SQLException 
 	 */
 	@GetMapping("/")
-	public ModelAndView GetLoginView() throws SQLException {
+	public ModelAndView GetLoginView(HttpServletRequest request) throws SQLException {
 		ModelAndView model = new ModelAndView("Login");
 		if(request.getSession().getAttribute("EmployeeId") != null){
+			clientService.UpdateLoginStatus((int)request.getSession().getAttribute("EmployeeId"));
 			request.getSession().removeAttribute("EmployeeId");
 		}
-		clientService.UpdateLoginStatus();
-		clientService.ClearCurrentUser();
 		return model;
 	}
 	/**
@@ -57,7 +56,8 @@ public class LoginController {
 		redirectView.setExposePathVariables(false);
 		try {
 			if(clientService.verifyEmployeeLogin(employeeId, employeePass)) {
-				request.getSession().setAttribute("EmployeeId",employeeId);
+				request.getSession().setAttribute("EmployeeId",Integer.parseInt(employeeId));
+				request.getSession().setAttribute("Failed",0);
 				return new ModelAndView(redirectView);
 			}
 		} catch (Exception e) {
