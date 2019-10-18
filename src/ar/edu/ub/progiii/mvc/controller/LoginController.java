@@ -56,7 +56,7 @@ public class LoginController {
 		redirectView.setExposePathVariables(false);
 		try {
 			if(clientService.verifyEmployeeLogin(employeeId, employeePass)) {
-				request.getSession().setAttribute("EmployeeId",employeeId);
+				request.getSession().setAttribute("EmployeeId",Integer.parseInt(employeeId));
 				request.getSession().setAttribute("Failed",0);
 				return new ModelAndView(redirectView);
 			}
