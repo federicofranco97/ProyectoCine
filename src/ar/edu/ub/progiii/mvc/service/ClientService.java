@@ -24,8 +24,9 @@ public class ClientService {
 
     public Data dataManager = new Data();
     MappingTool mappingTool = new MappingTool();
-    public static EmployeeDTO currentEmployee = new EmployeeDTO();  
+    public static EmployeeDTO currentEmployee = new EmployeeDTO();
     public ArrayList<BranchDTO> branchDTOArrayList = new ArrayList<>();
+    public static ArrayList<Integer> activeUsers = new ArrayList<>();
 
     public ClientService(){
         FillAllBranches();
@@ -54,6 +55,7 @@ public class ClientService {
     	Employee Employee = mappingTool.MapEmployeeSQL(response);
     	//Retorna true o false si se cumple la condicion dentro del return
     	if((IsEmployeeAlowed(Integer.parseInt(EmployeeId)) && (Employee.getHashedPassword().equals(EmployeePass)))) {
+    	    if(!InsertIfNotActive(Integer.parseInt(EmployeeId))) return false;
     		currentEmployee = mappingTool.MapDTOEmployee(Employee);
     		dataManager.RegistrarLog(EmployeeId,Employee.getRank());
     		return true;
@@ -566,6 +568,7 @@ public class ClientService {
     public void UpdateLoginStatus(int employeeId){
         if(employeeId!=-1){
             dataManager.UpdateLoginStatus(String.valueOf(employeeId));
+            activeUsers.remove(activeUsers.indexOf(employeeId));
         }
     }
 
@@ -681,12 +684,43 @@ public class ClientService {
      * @param id 
      * @return 
      */
-    public RateCategoryDTO GetRateById(String id){
-    	for(RateCategoryDTO rate: GetAllRateCategories()) {
-    		if(rate.getRateCode().equals(id)) {
-    			return rate;
-    		}
-    	}
-		return null; 
+    public RateCategoryDTO GetRateById(String id) {
+        for (RateCategoryDTO rate : GetAllRateCategories()) {
+            if (rate.getRateCode().equals(id)) {
+                return rate;
+            }
+        }
+        return null;
+    }
+
+    public FilmDTO GetFilmById(int idFilm){
+        for(FilmDTO Film: GetAllFilms()){
+            if(Film.getCode() == idFilm){
+                return Film;
+            }
+        }
+        return null;
+    }
+
+    public CinemaShowDTO GetCinemaShow(String idCinemaShow){
+        for(CinemaShowDTO CinemaShow: GetAllShows()){
+            if(CinemaShow.getCodeShow().equals(idCinemaShow)){
+                return CinemaShow;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Recive un numero de empleado, y lo agrega a la lista de usuarios activos, si no esta activo ya.
+     * @param EmployeeId
+     * @return
+     */
+    public Boolean InsertIfNotActive(int EmployeeId){
+        if( activeUsers.indexOf(EmployeeId)== -1){
+            activeUsers.add(EmployeeId);
+            return true;
+        }
+        return false;
     }
 }
