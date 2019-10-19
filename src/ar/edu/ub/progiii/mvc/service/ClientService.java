@@ -693,6 +693,11 @@ public class ClientService {
         return null;
     }
 
+    /**
+     * Método que trae una película
+     * @param idFilm
+     * @return
+     */
     public FilmDTO GetFilmById(int idFilm){
         for(FilmDTO Film: GetAllFilms()){
             if(Film.getCode() == idFilm){
@@ -702,6 +707,11 @@ public class ClientService {
         return null;
     }
 
+    /**
+     * Método que trae una función
+     * @param idCinemaShow
+     * @return
+     */
     public CinemaShowDTO GetCinemaShow(String idCinemaShow){
         for(CinemaShowDTO CinemaShow: GetAllShows()){
             if(CinemaShow.getCodeShow().equals(idCinemaShow)){

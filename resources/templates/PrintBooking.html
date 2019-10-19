@@ -4,20 +4,20 @@
     <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
-<body class="bg-secondary">
-<div th:replace="layout :: menu"></div>
-<div th:replace="layout :: footer"></div>
-<script>
-        swal({
-                     title: "Exito",
-                     text: "Entradas impresas exitosamente",
-                     icon: "success"
-                   })
-                   setTimeout(MoveToMenu,1500);
+    <body class="bg-secondary">
+        <div th:replace="layout :: menu"></div>
+        <div th:replace="layout :: footer"></div>
+        <script>
+            swal({
+                   title: "Exito",
+                   text: "Entradas impresas exitosamente",
+                   icon: "success"
+                 })
+                  setTimeout(MoveToMenu,1500);
 
-                   function MoveToMenu(){
-                      window.open("/menu","_self");
-                   }
-    </script>
-</body>
+                  function MoveToMenu(){
+                  window.open("/menu","_self");
+                 }
+        </script>
+    </body>
 </html>
