@@ -6,8 +6,18 @@
 </head>
 <body class="bg-secondary">
 <div th:replace="layout :: menu"></div>
-<div>Insert code here</div>
-<p>lalala</p>
 <div th:replace="layout :: footer"></div>
+<script>
+        swal({
+                     title: "Exito",
+                     text: "Entradas impresas exitosamente",
+                     icon: "success"
+                   })
+                   setTimeout(MoveToMenu,1500);
+
+                   function MoveToMenu(){
+                      window.open("/menu","_self");
+                   }
+    </script>
 </body>
 </html>
