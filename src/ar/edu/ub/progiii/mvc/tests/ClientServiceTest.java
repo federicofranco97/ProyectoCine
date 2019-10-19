@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -20,6 +21,7 @@ import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeReportDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
+import ar.edu.ub.progiii.mvc.dto.RateCategoryDTO;
 import ar.edu.ub.progiii.mvc.dto.TicketDTO;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.repository.Connection;
@@ -221,10 +223,11 @@ class ClientServiceTest {
 	
 	@Test
 	void ChangePasstest() {
-		int result = clientService.changePass("6", "d13g1", "d13g2");
-		int resultTwo = clientService.changePass("6", "d13g3", "d13g2");
-		int resultThree = clientService.changePass("6", "d13g3", "d13g2");
-		int resultFour = clientService.changePass("6", "d13g3", "d13g2");
+		HttpServletRequest request = null;
+		int result = clientService.changePass("6", "d13g1", "d13g2", request);
+		int resultTwo = clientService.changePass("6", "d13g3", "d13g2", request);
+		int resultThree = clientService.changePass("6", "d13g3", "d13g2", request);
+		int resultFour = clientService.changePass("6", "d13g3", "d13g2", request);
 		assertEquals(result, 1);
 		assertEquals(resultTwo, 2);
 		assertEquals(resultThree, 2);
@@ -293,16 +296,6 @@ class ClientServiceTest {
 	void RedirectToBeginningtest() {
 		assertEquals(clientService.RedirectToBeginning("2019-09-23"), true);
 		assertEquals(clientService.RedirectToBeginning("2019-09-22"), false);
-	}
-	
-	@Test
-	void ClearCurrentUsertest() {
-		clientService.currentEmployee.setEmployeeNumber(1);
-		clientService.currentEmployee.setFullName("diego moran");
-		assertEquals(clientService.currentEmployee.getEmployeeNumber(), 1);
-		assertEquals(clientService.currentEmployee.getFullName(), "diego moran");
-		clientService.ClearCurrentUser();
-		assertEquals(clientService.currentEmployee.getEmployeeNumber(), -1);
 	}
 	
 	@Test
@@ -415,9 +408,9 @@ class ClientServiceTest {
 	@Test
 	void CloseTickettest() {
 		clientService.currentEmployee.setEmployeeNumber(4);
-		assertEquals(clientService.CloseTicket(4), true);
+		assertEquals(clientService.CloseTicket(4,4), true);
 		clientService.currentEmployee.setEmployeeNumber(1);
-		assertEquals(clientService.CloseTicket(1), false);
+		assertEquals(clientService.CloseTicket(1,4), false);
 	}
 	
 	@Test
@@ -507,8 +500,8 @@ class ClientServiceTest {
 	}
 	
 	@Test
-	void UpdateLoginStatustest() throws SQLException {
-		clientService.currentEmployee.setEmployeeNumber(4);
+	void UpdateLoginStatustest(HttpServletRequest request) throws SQLException {
+		request.setAttribute("EmployeeId", 4);
 		String result="";
 		Statement stm = connection.getConnection().createStatement();
         String query="select * from empleado where NroEmpleado=4";
@@ -517,7 +510,7 @@ class ClientServiceTest {
             result += (rst.getString("LoggedIn").trim());
         }
         assertEquals(result, "1");
-        clientService.UpdateLoginStatus();
+        clientService.UpdateLoginStatus((int)request.getSession().getAttribute("EmployeeId"));
         String result2="";
 		Statement stm2 = connection.getConnection().createStatement();
         String query2="select * from empleado where NroEmpleado=4";
@@ -526,5 +519,39 @@ class ClientServiceTest {
             result2 += (rst2.getString("LoggedIn").trim());
         }
         assertEquals(result2, "0");
+	}
+	
+	@Test
+	void InsertInitialBookingtest(HttpServletRequest request) throws SQLException {
+		assertTrue(clientService.InsertInitialBooking("1", "2", "20190101", (int) request.getSession().getAttribute("EmployeeId")));
+	}
+	
+	@Test
+	void GetAllRateCategoriestest() {
+		String numbers = "";
+		assertEquals(clientService.GetAllRateCategories().size(),7);
+		assertNotEquals(clientService.GetAllRateCategories().size(),3);
+		for (RateCategoryDTO rate : clientService.GetAllRateCategories()) {
+			numbers += rate.getRateCode();
+		}
+		assertEquals(numbers,"1234678");
+		assertNotNull(clientService.GetAllRateCategories());
+		assertTrue(clientService.GetAllRateCategories() instanceof ArrayList);
+	}
+	
+	@Test
+	void GetRateByIdtest() {
+	    RateCategoryDTO rate = new RateCategoryDTO("1", "Menor", "150");
+		assertNotNull(clientService.GetRateById("1"));
+		assertNull(clientService.GetRateById("0"));
+		assertTrue(clientService.GetRateById("2") instanceof RateCategoryDTO);
+		assertEquals(clientService.GetRateById("2").getRateCode(),rate.getRateCode());
+	}
+	
+	@Test
+	void IsTheSameDaytest() throws SQLException {
+		assertTrue(clientService.IsTheSameDay(clientService.GetServerDate()));
+		assertNotEquals(clientService.IsTheSameDay("20191011"), clientService.GetServerDate());
+		assertNotNull(clientService.IsTheSameDay(clientService.GetServerDate()));
 	}
 }

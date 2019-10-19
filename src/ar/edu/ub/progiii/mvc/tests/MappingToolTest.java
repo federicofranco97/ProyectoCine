@@ -15,6 +15,7 @@ import ar.edu.ub.progiii.mvc.dto.CinemaShowDTO;
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
+import ar.edu.ub.progiii.mvc.dto.RateCategoryDTO;
 import ar.edu.ub.progiii.mvc.dto.TicketDTO;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.model.Employee;
@@ -150,5 +151,22 @@ class MappingToolTest {
        }
 		assertEquals(mapping.MapDTOShowsSQL(result).getCodeShow(),"1");
 		assertTrue(mapping.MapDTOShowsSQL(result) instanceof CinemaShowDTO);
+	}
+	
+	@Test
+	void MapDTORateCategoriesSQLtest() throws SQLException {
+		String result = "";
+		if(connection != null) {
+            Statement stm = connection.createStatement();
+            String query="select * from tarifa where CodTarifa=1";
+            ResultSet rst = stm.executeQuery(query);
+            while(rst.next()) {
+                result += (rst.getString("CodTarifa"))+"_";
+                result += (rst.getString("NombreTarifa"))+"_";
+                result += (rst.getString("Precio"));
+            }
+       }
+		assertEquals(mapping.MapDTORateCategoriesSQL(result).getRateCode(),"1");
+		assertTrue(mapping.MapDTORateCategoriesSQL(result) instanceof RateCategoryDTO);
 	}
 }

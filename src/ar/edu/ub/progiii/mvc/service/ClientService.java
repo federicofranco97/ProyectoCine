@@ -4,6 +4,8 @@ import ar.edu.ub.progiii.mvc.dto.*;
 import ar.edu.ub.progiii.mvc.mapping.MappingTool;
 import ar.edu.ub.progiii.mvc.model.Employee;
 import ar.edu.ub.progiii.mvc.repository.Data;
+
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.codehaus.groovy.runtime.ConvertedClosure;
 import org.springframework.stereotype.Service;
 import sun.security.krb5.internal.Ticket;
@@ -22,8 +24,9 @@ public class ClientService {
 
     public Data dataManager = new Data();
     MappingTool mappingTool = new MappingTool();
-    public static EmployeeDTO currentEmployee = new EmployeeDTO();  
+    public static EmployeeDTO currentEmployee = new EmployeeDTO();
     public ArrayList<BranchDTO> branchDTOArrayList = new ArrayList<>();
+    public static ArrayList<Integer> activeUsers = new ArrayList<>();
 
     public ClientService(){
         FillAllBranches();
@@ -52,6 +55,7 @@ public class ClientService {
     	Employee Employee = mappingTool.MapEmployeeSQL(response);
     	//Retorna true o false si se cumple la condicion dentro del return
     	if((IsEmployeeAlowed(Integer.parseInt(EmployeeId)) && (Employee.getHashedPassword().equals(EmployeePass)))) {
+    	    if(!InsertIfNotActive(Integer.parseInt(EmployeeId))) return false;
     		currentEmployee = mappingTool.MapDTOEmployee(Employee);
     		dataManager.RegistrarLog(EmployeeId,Employee.getRank());
     		return true;
@@ -67,22 +71,22 @@ public class ClientService {
      * @return boolean
      */
     @SuppressWarnings("static-access")
-	public int changePass(String employeeId, String employeePass, String employeeNewPass) {
+	public int changePass(String employeeId, String employeePass, String employeeNewPass, HttpServletRequest request) {
     	String response = dataManager.GetEmployeeByID(employeeId);
     	Employee Employee = mappingTool.MapEmployeeSQL(response);
     	//Retorna true o false si se cumple la condicion dentro del return
     	if(Employee.getHashedPassword().equals(employeePass)) {
-    		currentEmployee.setFailed(0);
+    		request.getSession().setAttribute("Failed", 0);
     		dataManager.ChangePassEmployee(Employee.getEmployeeNumber(), employeeNewPass);
     		return 1;
     	}
     	else {
-    		if(currentEmployee .getFailed() == 2) {
+    		if((int) request.getSession().getAttribute("Failed") == 2) {
         		dataManager.BanEmployee(Employee.getEmployeeNumber());
         		return 3;
         	}
         	else {
-        		currentEmployee.setFailed(currentEmployee.getFailed()+1);
+        		request.getSession().setAttribute("Failed",(int)request.getSession().getAttribute("Failed") +1);
         		return 2;
         	}
     	}
@@ -250,14 +254,6 @@ public class ClientService {
             list.add(mappingTool.MapDTOTicketSQL(item));
         }
         return list;
-    }
-
-    /**
-     * Limpio el usuario que esta en la sesion.
-     */
-    public void ClearCurrentUser(){
-        currentEmployee = new EmployeeDTO();
-        currentEmployee.setEmployeeNumber(-1);
     }
 
     /**
@@ -481,31 +477,59 @@ public class ClientService {
         return Period.between(RemoveDays(date, 1), LocalDate.parse(GetDateToday())).getDays() == 0;
     }
 
+    /**
+     * Trae las ventas del mes
+     * @return 
+     */
     public String GetMonthlySales(){
         return dataManager.GetGeneralMonthlySales();
     }
 
+    /**
+     * Trae los empleados activos del mes
+     * @return 
+     */
     public String GetEmployeesActiveMonth(){
         return dataManager.GetEployeesActiveMonth();
     }
 
+    /**
+     * Retorna la cantidad de reservas online del mes
+     * @return 
+     */
     public String GetOnlineBookingsMonth(){
         if(dataManager.GetOnlineBooQuantityMonth()!=null || dataManager.GetOnlineBooQuantityMonth()!="")return dataManager.GetOnlineBooQuantityMonth();
         return "0";
     }
 
+    /**
+     * La categoria del mes
+     * @return 
+     */
     public String[] CategoryMonth(){
         return dataManager.GetCategoryMonth().split("_");
     }
 
+    /**
+     * Trae los supervisores que estuvieron en linea en el mes
+     * @return 
+     */
     public String GetSupervisorsOnlineMonth(){
         return dataManager.GetSupervisorsActiveMonth();
     }
-
+    
+    /**
+     * Trae la fecha del dia desde el servidor
+     * @return 
+     */
     public String GetServerDate(){
         return dataManager.GetServerDate();
     }
 
+    /**
+     * Trae el mes actual desde el servidor
+     * @return 
+     */
     public String GetServerMonth() throws ParseException {
         String currentDate = dataManager.GetServerDate();
         Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(currentDate);
@@ -513,6 +537,10 @@ public class ClientService {
         return out.format(date1);
     }
 
+    /**
+     * 
+     * @return 
+     */
     public void FillAllBranches(){
         String [] sqlResponse = dataManager.GetAllBranches().split("/");
         for (String item:sqlResponse) {
@@ -520,6 +548,10 @@ public class ClientService {
         }
     }
 
+    /**
+     * Trae el reporte del empleado
+     * @return 
+     */
     public EmployeeReportDTO GetEmployeeReport(String EmployeeNumber){
         EmployeeReportDTO report = new EmployeeReportDTO();
         report.setEmployeeDaySales(dataManager.EmployeeDaySales(EmployeeNumber));
@@ -529,12 +561,23 @@ public class ClientService {
         return report;
     }
 
-    public void UpdateLoginStatus(){
-        if(currentEmployee.getEmployeeNumber()!=-1){
-            dataManager.UpdateLoginStatus(String.valueOf(currentEmployee.getEmployeeNumber()));
+    /**
+     * Actualiza el status de logueo de un empleado
+     * @return 
+     */
+    public void UpdateLoginStatus(int employeeId){
+        if(employeeId!=-1){
+            dataManager.UpdateLoginStatus(String.valueOf(employeeId));
+            activeUsers.remove(activeUsers.indexOf(employeeId));
         }
     }
 
+    /**
+     * Actualiza un cliente
+     * @param clientDTO
+     * @param ClientId
+     * @return 
+     */
     public int UpdateClient(int ClientId,ClientDTO clientDTO){
         ArrayList<ClientDTO> list = GetAllClients();
         int result =0;
@@ -549,25 +592,34 @@ public class ClientService {
         return result;
     }
 
+    /**
+     * Encuentra un cliente, realiza una nueva instancia
+     * @param clientDTO
+     * @return 
+     */
     public ClientDTO FindClient(ClientDTO clientDTO){
         ClientDTO clientDTOFinal = new ClientDTO();
         return clientDTOFinal;
     }
     
     /**
-     * Retorna un booleano sea sirealizo la reserva o no
-     * @return boolean
+     * Retorna un booleano sea si realizo la reserva o no
+     * @param movieId
+     * @param showId
+     * @param dateShow
+     * @return 
      */
-    public boolean InsertInitialBooking(String movieId, String showId, String dateShow){
+    public boolean InsertInitialBooking(String movieId, String showId, String dateShow, int employeeId){
     	String [] aux = dateShow.split("-");
     	String date = aux[0]+aux[1]+aux[2];
     	int theatreNumber = (int) Math.floor(Math.random()*(12-1+1)+1);
-    	return dataManager.InsertInitialBooking(movieId, showId, theatreNumber, String.valueOf(currentEmployee.getEmployeeNumber()), date) == 1?true:false;
+    	return dataManager.InsertInitialBooking(movieId, showId, theatreNumber, String.valueOf(employeeId), date) == 1?true:false;
     }
     
     /**
      * Busqueda de todas las categorias de tarifa
      * menos la categoria 5 que es online
+     * @return
      */
     public ArrayList<RateCategoryDTO> GetAllRateCategories(){
         String response = dataManager.GetAllRateCategories();
@@ -583,7 +635,7 @@ public class ClientService {
     
     /**
      * Busqueda de cliente por dni 
-     * @param dni
+     * @param DNI
      * @return 
      */
     public ClientDTO GetClientByDNI(String DNI){
@@ -599,7 +651,12 @@ public class ClientService {
     
     /**
      * Registro de cliente, devuelve a la vez el cliente 
-     * @param 
+     * @param fullName 
+     * @param email
+     * @param birthDate
+     * @param documentNumber
+     * @param phoneNumber
+     * @param adress
      * @return 
      */
     public ClientDTO RegisterClient(String fullName, String email, String birthDate, String documentNumber, String phoneNumber, String adress){
@@ -616,7 +673,7 @@ public class ClientService {
     /**
      * Devuelve true o false si la cantidad de dias entre uno y otro es 0
      * @param date
-     * @return boolean
+     * @return 
      */
     public boolean IsTheSameDay(String date){
         return Period.between(LocalDate.parse(date), LocalDate.parse(GetDateToday())).getDays() == 0;
@@ -635,7 +692,7 @@ public class ClientService {
         }
         return null;
     }
-//1
+
     public FilmDTO GetFilmById(int idFilm){
         for(FilmDTO Film: GetAllFilms()){
             if(Film.getCode() == idFilm){
@@ -643,8 +700,8 @@ public class ClientService {
             }
         }
         return null;
-        //2
     }
+
     public CinemaShowDTO GetCinemaShow(String idCinemaShow){
         for(CinemaShowDTO CinemaShow: GetAllShows()){
             if(CinemaShow.getCodeShow().equals(idCinemaShow)){
@@ -652,7 +709,19 @@ public class ClientService {
             }
         }
         return null;
+    }
 
+    /**
+     * Recive un numero de empleado, y lo agrega a la lista de usuarios activos, si no esta activo ya.
+     * @param EmployeeId
+     * @return
+     */
+    public Boolean InsertIfNotActive(int EmployeeId){
+        if( activeUsers.indexOf(EmployeeId)== -1){
+            activeUsers.add(EmployeeId);
+            return true;
+        }
+        return false;
     }
 
     public void RedeemBooking(String bookingNumber) {
