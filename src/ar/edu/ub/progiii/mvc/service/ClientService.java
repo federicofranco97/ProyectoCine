@@ -627,14 +627,14 @@ public class ClientService {
      * @param id 
      * @return 
      */
-    public RateCategoryDTO GetRateById(String id){
-    	for(RateCategoryDTO rate: GetAllRateCategories()) {
-    		if(rate.getRateCode().equals(id)) {
-    			return rate;
-    		}
-    	}
-		return null; 
-
+    public RateCategoryDTO GetRateById(String id) {
+        for (RateCategoryDTO rate : GetAllRateCategories()) {
+            if (rate.getRateCode().equals(id)) {
+                return rate;
+            }
+        }
+        return null;
+    }
 //1
     public FilmDTO GetFilmById(int idFilm){
         for(FilmDTO Film: GetAllFilms()){
@@ -653,5 +653,9 @@ public class ClientService {
         }
         return null;
 
+    }
+
+    public void RedeemBooking(String bookingNumber) {
+        dataManager.RedeemBooking(bookingNumber);
     }
 }

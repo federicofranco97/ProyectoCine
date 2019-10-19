@@ -30,7 +30,7 @@
             <tr>
 
                 <td th:if="${msj != null}" th:text="${Booking.getTicketAmount()}"></td>
-                <td th:if="${msj != null}" th:text="${pelicula}"></td>
+                <td th:if="${msj != null}" th:text="${pelicula.getFilmName()}"></td>
                 <td th:if="${msj != null}" th:text="${funcion}"></td>
                 <td th:if="${msj != null}" th:text="${Booking.getTheatreNumber()}"></td>
 
@@ -46,25 +46,29 @@
     </table>
     </div>
     <div class="center">
-        <button type="button" onclick="" class="btn btn-secondary btn-dark"><i class="fas fa-print"></i> Validar</button>
-        <button type="button" class="btn btn-secondary btn-dark"><i class="fas fa-door-open"></i>  Salir</button>
+        <button type="button" onclick="ReedemBooking()" class="btn btn-secondary btn-dark"><i class="fas fa-print"></i> Retirar</button>
+        <button type="button" class="btn btn-secondary btn-dark"><a href="/menu"><i class="fas fa-door-open"></i>  Salir</a></button>
 
     </div>
     <div th:replace="layout :: footer"></div>
     <script th:inline="javascript">
          /*<![CDATA[*/
         var contentList = /*[[${Content}]]*/ 'default';
-        var p1=(contentList[0]);
-        var p2=(contentList[1]);
-        var p3=(contentList[2]);
-         /*]]>*/
-         if(p3== "1"){
-        	 swal({
-                 title: p1,
-                 text: p2,
-                 icon: "warning"
-               })
-         }
+        if(contentList!=null){
+            var p1=(contentList[0]);
+            var p2=(contentList[1]);
+            var p3=(contentList[2]);
+
+             if(p3== "1"){
+                 swal({
+                     title: p1,
+                     text: p2,
+                     icon: "warning"
+                   })
+             }
+        }
+        /*]]>*/
+
     </script>
 </body>
 </html>
