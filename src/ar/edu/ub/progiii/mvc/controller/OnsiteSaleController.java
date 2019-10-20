@@ -35,7 +35,7 @@ public class OnsiteSaleController {
 	 */
 	@GetMapping("/venta_presencial")
 	public ModelAndView GetOnsiteSaleView(HttpServletRequest request) {
-		if(clientService.IsEmployeeAlowed((int)request.getSession().getAttribute("Employee"))) {
+		if(clientService.IsEmployeeAlowed((int)request.getSession().getAttribute("EmployeeId"))) {
 			ModelAndView model = new ModelAndView("OnsiteSale");
 			model.addObject("films",clientService.GetAllFilms());
 			model.addObject("shows" ,clientService.GetShowsByHour());
