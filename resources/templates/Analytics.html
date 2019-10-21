@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: header">
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body class="bg-secondary">
+    <div th:replace="layout :: menu"></div>
+    <div th:replace="AdminNavBar :: AdminNav"></div>
+    <h1 style="text-align: center;margin-top: 5%;margin-bottom: 3%;font-size: 5vh">Panel de Buissness Analitics </h1>
+    <div class="dropdown" style="width:100px;margin:auto;">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown button
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
+    <!-- GRAFICOS -->
+    <div style="height: 100%;width: 60vw;margin-left:auto;margin-right: auto;margin-bottom: 5%" >
+        <h3 style="text-align: center;margin-top: 5%;margin-bottom: 5%;font-size: 3vh">Entradas vendidas de forma presencial</h3>
+        <canvas class="" id="myChart" style="height: 65vh;width: 70vw;color:white"></canvas>
+        <h3 style="text-align: center;margin-top: 5%;margin-bottom: 5%;font-size: 3vh">Entradas vendidas de forma online</h3>
+        <canvas id="myChart2" style="height: 65vh;width: 70vw;color:white"></canvas>
+        <h3 style="text-align: center;margin-top: 5%;margin-bottom: 5%;font-size: 3vh">Registro de Actividad del mes</h3>
+        <canvas id="myChart3" style="height: 65vh;width: 70vw;color:white"></canvas>
+    </div>
+    <div th:replace="layout :: footer"></div>
+</body>
+</html>
