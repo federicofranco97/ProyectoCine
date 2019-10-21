@@ -343,4 +343,11 @@ public interface IData {
      */
 	public int RegisterTickets(int employeeId, String rateCode, String price, String amountTickets);
 
+	/**
+     * Metodo para traer todas las reservas desde la fecha actual en adelante de un cliente
+     * @param clientId
+     * @return
+     */
+	public String GetAllBookingsByClientId(String clientId);
+
 }

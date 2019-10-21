@@ -22,20 +22,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr th:if="${msj != nul}">
                     <td th:if="${msj != null}" th:text="${booking.getBookingCode()}"></td>
                     <td th:if="${msj != null}" th:text="${movie}"></td>
                     <td th:if="${msj != null}" th:text="${show + ' hs'}"></td>
                     <td th:if="${msj != null}" th:text="${booking.getTheatreNumber()}"></td>
                     <td th:if="${msj != null}" th:text="${booking.getTotalValue()}"></td>
                     <td th:if="${msj != null}" th:text="${booking.getBookingDate()}"></td>
-
-                    <!--<td th:if="${valor != null}" th:text=""></td>
-                    <td th:if="${valor != null}" th:text=""></td>
-                    <td th:if="${valor != null}" th:text=""></td>
-                    <td th:if="${valor != null}" th:text=""></td>
-                    <td th:if="${valor != null}" th:text=""></td>
-                    <td th:if="${valor != null}" th:text=""></td>-->
+                </tr>
+                <tr th:if="${msj2 != nul}" th:each="bookings : ${bookings}">
+                    <td th:if="${msj2 != null}" th:text="${bookings.getBookingCode()}"></td>
+                    <td th:if="${msj2 != null}" th:text="${bookings.getMovieName()}"></td>
+                    <td th:if="${msj2 != null}" th:text="${bookings.getShow()}"></td>
+                    <td th:if="${msj2 != null}" th:text="${bookings.getTheatreNumber()}"></td>
+                    <td th:if="${msj2 != null}" th:text="${bookings.getTotalValue()}"></td>
+                    <td th:if="${msj2 != null}" th:text="${bookings.getBookingDate()}"></td>
                 </tr>
             </tbody>
         </table>
@@ -51,7 +52,7 @@
         <input type="submit" value="Buscar" class="btn btn-secondary btn-sm btnFormBookings"/>
     </form>
     <!--Formulario que muestra todaslas reservas de un cliente-->
-    <form id="formAllBookings" class="formAllBookings stretchRight" action="" method="post">
+    <form id="formAllBookings" class="formAllBookings stretchRight" action="mostrar_reservas_idCliente" method="post">
         <button id="closeFormAllBookings" class="buttonCloseFormAllBookings">x</button>
         <label class= "badge badge-dark labelAllBooking" for="idClientCode">Codigo de cliente</label>  
         <input id="idClientCode" class="form-control form-control-sm" type="text" name="idClientCode" placeholder="Codigo" autofocus=""/>

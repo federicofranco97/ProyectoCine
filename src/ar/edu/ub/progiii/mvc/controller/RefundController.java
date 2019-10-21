@@ -44,14 +44,15 @@ public class RefundController {
 	
 	/**
 	Metodo que devuelve a la vista, una reserva por id
-	 *@return 
-	 */
+	*@param bookingID
+	*@return 
+	*/
 	@PostMapping("/mostrar_Idreserva")
-	public ModelAndView GetBookingView(@RequestParam("reservationCode") String bookingID) throws SQLException {
+	public ModelAndView GetBookingByIdView(@RequestParam("reservationCode") String bookingID) throws SQLException {
 		if(clientService.GetBookingById(bookingID) != null) {
 			LocalDate bookingDate = LocalDate.parse(clientService.GetBookingById(bookingID).getBookingDate());
 			LocalDate today = LocalDate.parse(clientService.GetDateToday());
-			if(bookingDate.isBefore(today) || bookingDate.isEqual(today)) {
+			if(bookingDate.isAfter(today) || bookingDate.isEqual(today)) {
 				BookingDTO booking = clientService.GetBookingById(bookingID);
 				ModelAndView model = new ModelAndView("Refund");
 				model.addObject("msj", "yes");
@@ -66,6 +67,29 @@ public class RefundController {
 		}
 		ModelAndView modelError = new ModelAndView("Refund");
  		modelError.addObject("Content", Arrays.asList("Error","La reserva no existe!","1"));
+		return modelError;
+	}
+	
+	/**
+	*Metodo que devuelve a la vista, todas las reservas de un cliente
+	*@param idClient
+	*@return 
+	*/
+	@PostMapping("/mostrar_reservas_idCliente")
+	public ModelAndView GetBookingsByClientIdView(@RequestParam("idClientCode") String clientID) throws SQLException {
+		if(clientService.GetClientByUID(clientID) != null) {
+			if(clientService.GetAllBookingsByIdClient(clientID) != null) {
+				ModelAndView model = new ModelAndView("Refund");
+				model.addObject("msj2", "yes");
+				model.addObject("bookings", clientService.GetAllBookingsByIdClient(clientID));
+				return model;
+			}
+			ModelAndView modelError = new ModelAndView("Refund");
+	 		modelError.addObject("Content", Arrays.asList("Error","No hay reservas de este cliente!","1"));
+			return modelError;
+		}
+		ModelAndView modelError = new ModelAndView("Refund");
+ 		modelError.addObject("Content", Arrays.asList("Error","El cliente no existe!","1"));
 		return modelError;
 	}
 }
