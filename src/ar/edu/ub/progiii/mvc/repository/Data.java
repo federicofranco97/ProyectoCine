@@ -326,7 +326,6 @@ public class Data implements IData{
             return null;
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
-        LogData("GetRolByEID","Pedido de estado de empleado");
         return result;
     }
 
