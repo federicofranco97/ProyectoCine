@@ -14,6 +14,10 @@ li{
 #title{
 	margin:auto;
 }
+.tableRefund{
+	position: relative;
+	top: 0%;
+}
 .formAdmin{
 	margin: auto;
     margin-top: 1%;
@@ -140,7 +144,7 @@ li{
     top: 10.6%;
     width: 4%;
     box-shadow: 9px 3px 9px 2px #474e54;
-    display: none;
+    display: block;
     height: 15vh;
 }
 .btnShowUpFormAllBookings{
@@ -207,6 +211,7 @@ li{
 .labelBooking{
     position: absolute;
     left: 4%;
+    top: 2%;
 }
 .labelAllBooking{
     position: absolute;

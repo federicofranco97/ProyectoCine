@@ -10,7 +10,7 @@
     </div>
     <!--Div y tabla contenedora de reservas-->  
     <div id="container_bookings" class="container_bookings">
-        <table class="table table-sm table-striped table-dark table-bordered table">
+        <table class="table table-sm table-striped table-dark table-bordered tableRefund">
             <thead>
                 <tr>
                     <th scope="col">Nro Reserva</th>
@@ -22,13 +22,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="">
-                    <td th:if="${valor != null}" th:text=""></td>
-                    <td th:if="${valor != null}" th:text=""></td>
-                    <td th:if="${valor != null}" th:text=""></td>
-                    <td th:if="${valor != null}" th:text=""></td>
-                    <td th:if="${valor != null}" th:text=""></td>
-                    <td th:if="${valor != null}" th:text=""></td>
+                <tr>
+                    <td th:if="${msj != null}" th:text="${booking.getBookingCode()}"></td>
+                    <td th:if="${msj != null}" th:text="${movie}"></td>
+                    <td th:if="${msj != null}" th:text="${show + ' hs'}"></td>
+                    <td th:if="${msj != null}" th:text="${booking.getTheatreNumber()}"></td>
+                    <td th:if="${msj != null}" th:text="${booking.getTotalValue()}"></td>
+                    <td th:if="${msj != null}" th:text="${booking.getBookingDate()}"></td>
 
                     <!--<td th:if="${valor != null}" th:text=""></td>
                     <td th:if="${valor != null}" th:text=""></td>
@@ -39,12 +39,12 @@
                 </tr>
             </tbody>
         </table>
-    </div><br>
+    </div><br/>
     <!--Botones para los formularios de reservas-->
     <button id="btnShowUpFormBookings" class="btn btn-dark btn-sm btnShowUpFormBookings stretchRight"><i class="fas fa-list-alt fa-2x"></i></button>
     <button id="btnShowUpFormAllBookings" class="btn btn-dark btn-sm btnShowUpFormAllBookings stretchRight"><i class="fas fa-id-card fa-2x"></i></button>
     <!--Formulario que recibe el codigo de reserva para muestra de una reserva en particular-->
-    <form id="formBookings" class="formBookings stretchRight" action="" method="post">
+    <form id="formBookings" class="formBookings stretchRight" action="mostrar_Idreserva" method="post">
         <button id="closeFormBookings" class="buttonClose">x</button>
         <label class= "badge badge-dark labelBooking" for="reservationCode">Codigo de reserva</label>  
         <input id="reservationCode" class="form-control form-control-sm" type="text" name="reservationCode" placeholder="Codigo" autofocus=""/>
@@ -63,11 +63,11 @@
     <!--Formulario de reembolso con credenciales de supervisor-->
     <form id="formPass" class="formAdmin fadeIn" action="" method="post">
         <button id="closeFormx" class="buttonCloseFormPass">x</button>
-        <label class= "badge badge-dark labelAdmin" for="adminId">ID administrador</label><br>
+        <label class= "badge badge-dark labelAdmin" for="adminId">ID administrador</label><br/>
         <input id="adminId" class="form-control form-control-sm inputAdmin" type="text" name="adminId" placeholder="Id" autofocus=""/>
-        <label class= "badge badge-dark labelAdminTwo" for="passAdmin">Pass</label><br>  
+        <label class= "badge badge-dark labelAdminTwo" for="passAdmin">Pass</label><br/>  
         <input id="passAdmin" class="form-control form-control-sm inputAdmin" type="password" name="passAdmin" placeholder="Pass" autofocus=""/>
-        <input id="bookingIdSent" class="bookingIdSent" type="text" name="bookingIdSent" th:value=""/>
+        <input id="bookingIdSent" class="bookingIdSent" type="text" name="bookingIdSent" th:if="${msj != null}" th:value="${booking.getBookingCode()}"/>
         <input type="submit" value="Reembolsar" class="btn btn-secondary btn-sm btnRe"/>
         <button id="exit" class="btn btn-secondary btn-sm btnExit" onclick="">Salir</button>
     </form>
@@ -77,15 +77,30 @@
         <label class= "badge badge-dark labelIdClientFirstModal" for="ClientDNI">DNI cliente</label><br/>
         <input id="inputIdClientModal" class="form-control form-control-sm col-md-6 inputIdClientModal" type="text" name="clientDNI" placeholder="DNI cliente" value=""/><br/>
         <input class="btn btn-secondary btn-sm btnSendModal" type="submit" name="send" value="Ingresar"/><br/>
-        <label class= "badge badge-info labelIdClientModal" th:if="${msj != null}">ID:</label><br/>
-        <label class= "labelClient" th:if="${msj != null}" th:text="${clientInfo.getClientNumber()}"></label><br/>
-        <label class= "badge badge-info labelIdClientModal" th:if="${msj != null}">NOMBRE:</label><br/>
-        <label class= "labelClient" th:if="${msj != null}" th:text="${clientInfo.getFullName()}"></label><br/>
-        <label class= "badge badge-info labelIdClientModal" th:if="${msj != null}">MAIL:</label><br/>
-        <label class= "labelClient" th:if="${msj != null}" th:text="${clientInfo.getEmail()}"></label><br/>
-        <label class= "badge badge-info labelIdClientModal" th:if="${msj != null}">DNI:</label><br/>
-        <label class= "labelClient" th:if="${msj != null}" th:text="${clientInfo.getDocumentNumber()}"></label>
+        <label class= "badge badge-info labelIdClientModal" th:if="${msjClient != null}">ID:</label><br/>
+        <label class= "labelClient" th:if="${msjClient != null}" th:text="${clientInfo.getClientNumber()}"></label><br/>
+        <label class= "badge badge-info labelIdClientModal" th:if="${msjClient != null}">NOMBRE:</label><br/>
+        <label class= "labelClient" th:if="${msjClient != null}" th:text="${clientInfo.getFullName()}"></label><br/>
+        <label class= "badge badge-info labelIdClientModal" th:if="${msjClient != null}">MAIL:</label><br/>
+        <label class= "labelClient" th:if="${msjClient != null}" th:text="${clientInfo.getEmail()}"></label><br/>
+        <label class= "badge badge-info labelIdClientModal" th:if="${msjClient != null}">DNI:</label><br/>
+        <label class= "labelClient" th:if="${msjClient != null}" th:text="${clientInfo.getDocumentNumber()}"></label>
     </form>    
     <div th:replace="layout :: footer"></div>
+    <script th:inline="javascript">
+         /*<![CDATA[*/
+        var contentList = /*[[${Content}]]*/ 'default';
+        var p1=(contentList[0]);
+        var p2=(contentList[1]);
+        var p3=(contentList[2]);
+         /*]]>*/
+         if(p3== "1"){
+        	 swal({
+                 title: p1,
+                 text: p2,
+                 icon: "warning"
+               })
+         }
+    </script>
 </body>
 </html>

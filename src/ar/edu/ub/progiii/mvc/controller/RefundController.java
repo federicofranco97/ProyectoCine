@@ -1,0 +1,71 @@
+package ar.edu.ub.progiii.mvc.controller;
+
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Arrays;
+
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import ar.edu.ub.progiii.mvc.dto.BookingDTO;
+import ar.edu.ub.progiii.mvc.mapping.MappingTool;
+import ar.edu.ub.progiii.mvc.repository.Connection;
+import ar.edu.ub.progiii.mvc.repository.Data;
+import ar.edu.ub.progiii.mvc.service.ClientService;
+
+@Controller
+public class RefundController {
+	
+	@Autowired
+	ClientService clientService;
+	Data data = new Data();
+	Connection connection = new Connection();
+	MappingTool map = new MappingTool();
+	
+	/**
+	Metodo que te lleva a la vista de reembolso
+	 *@return 
+	 */
+	@GetMapping("/reembolso")
+	public ModelAndView GetRefundView(HttpServletRequest request) throws SQLException {
+		if(clientService.IsEmployeeAlowed((int)request.getSession().getAttribute("EmployeeId"))) {
+			ModelAndView model = new ModelAndView("Refund");
+			return model;
+		}
+		ModelAndView modelError = new ModelAndView("ErrorPage");
+ 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no tiene acceso a esta pagina, redireccionando a login!","/"));
+		return modelError;
+	}
+	
+	/**
+	Metodo que devuelve a la vista, una reserva por id
+	 *@return 
+	 */
+	@PostMapping("/mostrar_Idreserva")
+	public ModelAndView GetBookingView(@RequestParam("reservationCode") String bookingID) throws SQLException {
+		if(clientService.GetBookingById(bookingID) != null) {
+			LocalDate bookingDate = LocalDate.parse(clientService.GetBookingById(bookingID).getBookingDate());
+			LocalDate today = LocalDate.parse(clientService.GetDateToday());
+			if(bookingDate.isBefore(today) || bookingDate.isEqual(today)) {
+				BookingDTO booking = clientService.GetBookingById(bookingID);
+				ModelAndView model = new ModelAndView("Refund");
+				model.addObject("msj", "yes");
+				model.addObject("booking", booking);
+				model.addObject("movie", clientService.GetFilmById(Integer.parseInt(booking.getMovieName())).getFilmName());
+				model.addObject("show", clientService.GetCinemaShow(booking.getShow()).getStartTime());
+				return model;
+			}
+			ModelAndView modelError = new ModelAndView("Refund");
+	 		modelError.addObject("Content", Arrays.asList("Error","La reserva esta vencida!","1"));
+			return modelError;
+		}
+		ModelAndView modelError = new ModelAndView("Refund");
+ 		modelError.addObject("Content", Arrays.asList("Error","La reserva no existe!","1"));
+		return modelError;
+	}
+}
