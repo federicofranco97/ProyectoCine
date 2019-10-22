@@ -343,4 +343,11 @@ public interface IData {
      */
 	public int RegisterTickets(int employeeId, String rateCode, String price, String amountTickets);
 
+    /**
+     * Devuelve la lista de registros de ventas del año que se envia por parametro
+     * @param Year
+     * @return
+     */
+	public String YearSalesInformation(String Year);
+
 }

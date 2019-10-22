@@ -317,4 +317,37 @@ public class MappingTool implements IMapping{
   	return rateDTO;
   }
 
+    /**
+     * Mapea un string proveniente de sql a objeto dto manipulable
+     *
+     * @param SQLData
+     * @return
+     */
+    @Override
+    public SaleInformationDTO MapDTOSalesInformationSQL(String SQLData) {
+
+        SaleInformationDTO saleInformationDTO = new SaleInformationDTO();
+        String [] unFormattedInfo = SQLData.split("_");
+        try {
+            saleInformationDTO.setMonth(unFormattedInfo[0]);
+            saleInformationDTO.setYear(unFormattedInfo[1]);
+            saleInformationDTO.setAverageRate(Double.parseDouble(unFormattedInfo[2]));
+            saleInformationDTO.setExpectedRate(Double.parseDouble(unFormattedInfo[3]));
+            saleInformationDTO.setTicketsSold(Long.parseLong(unFormattedInfo[4]));
+            saleInformationDTO.setOnlineSales(Double.parseDouble(unFormattedInfo[5]));
+            saleInformationDTO.setOnsiteSales(Double.parseDouble(unFormattedInfo[6]));
+            saleInformationDTO.setOnlinePercentage(unFormattedInfo[7]);
+            saleInformationDTO.setExpectedOnlinePercentage(unFormattedInfo[8]);
+            saleInformationDTO.setOnsitePercetnage(unFormattedInfo[9]);
+            saleInformationDTO.setExpectedOnsitePercetnage(unFormattedInfo[10]);
+            saleInformationDTO.setSeasonCode(Integer.parseInt(unFormattedInfo[11]));
+            saleInformationDTO.setBranchNumber(Integer.parseInt(unFormattedInfo[12]));
+            saleInformationDTO.setCalculatedDate(unFormattedInfo[13]);
+            saleInformationDTO.setMonthNumber(Integer.parseInt(unFormattedInfo[14]));
+        }catch(Exception ex){
+            saleInformationDTO = null;
+        }
+        return saleInformationDTO;
+    }
+
 }

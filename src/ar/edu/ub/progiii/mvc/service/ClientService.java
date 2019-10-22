@@ -723,4 +723,18 @@ public class ClientService {
         }
         return false;
     }
+
+    /**
+     * Recive el año del cual se quiere saber los valores de la tabla analytics
+     * @param Year
+     * @return
+     */
+    public ArrayList<SaleInformationDTO> YearSalesInformation(String Year) {
+        String [] resultSQL = dataManager.YearSalesInformation(Year).split("/");
+        ArrayList<SaleInformationDTO> yearSales = new ArrayList<>();
+        for (String info : resultSQL) {
+            yearSales.add(mappingTool.MapDTOSalesInformationSQL(info));
+        }
+        return yearSales;
+    }
 }
