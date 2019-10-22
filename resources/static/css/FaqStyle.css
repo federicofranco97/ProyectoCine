@@ -1,4 +1,3 @@
-
 body
 {
 	width: 100%;
@@ -13,6 +12,7 @@ body
 	margin-top: 2%;
 	height: 40vh;
 }
+
 #titleStyle
 {
 	margin: auto;
@@ -21,6 +21,7 @@ body
 	font-size: 50px;
 	color: white;
 }
+
 td
 {
 	text-align: left;

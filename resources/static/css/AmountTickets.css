@@ -1,4 +1,5 @@
-.container_rate{
+.containerRate
+{
 	margin: auto;
     margin-top: 1%;
     width: 54%;
@@ -11,10 +12,12 @@
     opacity: 1;
     pointer-events: auto;
 }
-.form{
+
+.form
+{
 	width: 14%;
     background-color: #3e444a;
-    height: 51vh;
+    height: 54vh;
     float: left;
     position: relative;
     left: 17%;
@@ -23,35 +26,39 @@
     opacity: 1;
     pointer-events: auto;
 }
-.labelIdClient{
-	position: relative;
-    left: 21%;
+
+.labelIdClient
+{
     margin-bottom: 0%;
 }
-.labelClient{
+
+.labelClient
+{
 	font-size: 70%;
-    position: relative;
-    left: 22%;
 }
-.labelIdClientFirst{
-	position: relative;
-    left: 22%;
+
+.location
+{
+    position: relative !important;
+    left: 22% !important;
 }
-.inputIdClient{
-	position: relative;
-    left: 22%;
-}
-.btnSend{
+
+.btnSend
+{
 	position: absolute;
     left: 22%;
-    top: 20%;
+    top: 10%;
 }
-strong{
+
+strong
+{
 	margin-left: 3%;
 	position: relative;
 	top: 2%;
 }
-.panel{
+
+.panel
+{
 	margin: auto;
 	margin-top: 3%;
 	width: 70%;
@@ -61,47 +68,64 @@ strong{
 	opacity: ;
 	pointer-events: auto;
 }
-label{
+
+.standardLabel
+{
 	color: white;
 	font-weight: bold; 
 }
-#total{
+
+#total
+{
 	font-size: 100%;
 	font-weight: bold;
 }
-#pesos{
+
+#pesos
+{
 	border:none; 
 	font-weight: bold;
 }
-#center{
+
+.center
+{
 	text-align: center;
 }
-.center{
-	text-align: center;
-}
-.table{
+
+.table
+{
 	position: relative;
     top: 6%;
 }
-.btnBack{
+
+.btnBack
+{
 	position: absolute;
     left: 16%;
-    top: 6%;
+    top: 7.5%;
 }
-.btnPay{
+
+.btnPay
+{
 	position: absolute;
     left: 80%;
-    top: 6%;
+    top: 7.5%;
 }
-input{
+
+.hideInput
+{
 	display: none;
 }
-.btnRegisterClient{
+
+.btnRegisterClient
+{
 	position: relative;
-	top: 5%;
+	top: 6%;
 	left: 43%;
 }
-.formRegisteredClient{
+
+.formRegisteredClient
+{
 	margin: auto;
     width: 32%;
     background-color: #343a40;
@@ -114,7 +138,9 @@ input{
     top: 4%;
     height: 77vh;
 }
-.buttonClose{
+
+.buttonClose
+{
 	display: block;
     position: relative;
     left: 95%;
@@ -122,27 +148,37 @@ input{
     border:none;
     color: white;
 }
-.buttonClose:hover{
+
+.buttonClose:hover
+{
 	color: white;
 	background-color: red;
 }
-.btnSubmit{
+
+.btnSubmit
+{
 	position: relative;
     left: 28%;
     margin-top: 3%;
     margin-bottom: 7%;
 }
-.align{
+
+.align
+{
 	width: 72%;
     margin: auto;
     position: relative;
     left: 14%;
 }
-.alignLabel{
+
+.alignLabel
+{
 	position: relative;
     left: 27%;
 }
-strong{
+
+strong
+{
     color: white;
     background-color: #343a40;
     text-align: center;
@@ -150,7 +186,9 @@ strong{
     margin:0;
     height: 6vh; 
 }
-.fadeIn{
+
+.fadeIn
+{
 	animation-name: fadeIn;
 	-webkit-animation-name: fadeIn;	
 	animation-duration: 1.5s;	
@@ -159,36 +197,48 @@ strong{
 	-webkit-animation-timing-function: ease-in-out;		
 	visibility: visible !important;	
 }
-@keyframes fadeIn {
-	0% {
+
+@keyframes fadeIn
+{
+	0%
+	{
 		transform: scale(0);
 		opacity: 0.0;		
 	}
-	60% {
+	60%
+	{
 		transform: scale(1.1);	
 	}
-	80% {
+	80%
+	{
 		transform: scale(0.9);
 		opacity: 1;	
 	}	
-	100% {
+	100%
+	{
 		transform: scale(1);
 		opacity: 1;	
 	}		
 }
-@-webkit-keyframes fadeIn {
-	0% {
+
+@-webkit-keyframes fadeIn
+{
+	0%
+	{
 		-webkit-transform: scale(0);
 		opacity: 0.0;		
 	}
-	60% {
+	60%
+	{
 		-webkit-transform: scale(1.1);
 	}
-	80% {
+	80%
+	{
 		-webkit-transform: scale(0.9);
 		opacity: 1;	
 	}	
-	100% {
+	100%
+	{
 		-webkit-transform: scale(1);
 		opacity: 1;	
 	}		
