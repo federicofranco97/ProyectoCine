@@ -45,14 +45,14 @@
     <button id="btnShowUpFormBookings" class="btn btn-dark btn-sm btnShowUpFormBookings stretchRight"><i class="fas fa-list-alt fa-2x"></i></button>
     <button id="btnShowUpFormAllBookings" class="btn btn-dark btn-sm btnShowUpFormAllBookings stretchRight"><i class="fas fa-id-card fa-2x"></i></button>
     <!--Formulario que recibe el codigo de reserva para muestra de una reserva en particular-->
-    <form id="formBookings" class="formBookings stretchRight" action="mostrar_Idreserva" method="post">
+    <form id="formBookings" class="formBookings stretchRight" action="mostrar_idreserva" method="post">
         <button id="closeFormBookings" class="buttonClose">x</button>
         <label class= "badge badge-dark labelBooking" for="reservationCode">Codigo de reserva</label>  
         <input id="reservationCode" class="form-control form-control-sm" type="text" name="reservationCode" placeholder="Codigo" autofocus=""/>
         <input type="submit" value="Buscar" class="btn btn-secondary btn-sm btnFormBookings"/>
     </form>
     <!--Formulario que muestra todaslas reservas de un cliente-->
-    <form id="formAllBookings" class="formAllBookings stretchRight" action="mostrar_reservas_idCliente" method="post">
+    <form id="formAllBookings" class="formAllBookings stretchRight" action="mostrar_reservas" method="post">
         <button id="closeFormAllBookings" class="buttonCloseFormAllBookings">x</button>
         <label class= "badge badge-dark labelAllBooking" for="idClientCode">Codigo de cliente</label>  
         <input id="idClientCode" class="form-control form-control-sm" type="text" name="idClientCode" placeholder="Codigo" autofocus=""/>
@@ -62,9 +62,9 @@
     <button id="showUpForm" class="btn btn-dark btn-sm btnRefund" onclick="showUp()"><i class="fas fa-dollar-sign fa-2x"></i></button>
     <button id="btnConsultClient" class="btn btn-dark btn-sm btnConsultClient"><i class="fas fa-user fa-2x"></i></button>
     <!--Formulario de reembolso con credenciales de supervisor-->
-    <form id="formPass" class="formAdmin fadeIn" action="" method="post">
+    <form id="formPass" class="formAdmin fadeIn" action="reembolsar" method="post">
         <button id="closeFormx" class="buttonCloseFormPass">x</button>
-        <label class= "badge badge-dark labelAdmin" for="adminId">ID administrador</label><br/>
+        <label class= "badge badge-dark labelAdmin" for="adminId">ID supervisor</label><br/>
         <input id="adminId" class="form-control form-control-sm inputAdmin" type="text" name="adminId" placeholder="Id" autofocus=""/>
         <label class= "badge badge-dark labelAdminTwo" for="passAdmin">Pass</label><br/>  
         <input id="passAdmin" class="form-control form-control-sm inputAdmin" type="password" name="passAdmin" placeholder="Pass" autofocus=""/>

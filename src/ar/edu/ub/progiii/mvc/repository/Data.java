@@ -222,7 +222,7 @@ public class Data implements IData{
         try {
             if(connection != null) {
             	CQuerySelect querySelect = new CQuerySelect("reserva", "*");
-            	querySelect.addStatementCondition(Arrays.asList("codreserva="+data));
+            	querySelect.addStatementCondition(Arrays.asList("codreserva="+data,"CodEstadoReserva=1"));
             	ResultSet rst = querySelect.Run();
             	result = ParseSpecificResultSet(rst,Arrays.asList("CodReserva", "codpelicula", "codfuncion", "fecha", "nrosala", "cantentradas", "nrocliente", "codestadoreserva", "codcanal", "codsucursal", "PrecioTotal"));
             }
@@ -1441,6 +1441,37 @@ public class Data implements IData{
             LogData("ErrorNotFound","No se pudo encontrar la tabla");
             return null;
         }
+        return result;
+    }
+    
+    /**
+     * Ejecuta el store procedure para registrar reembolsos y actualizar la reserva
+     * @param bookingId
+     * @param employeeNumber
+     * @param clientNumber
+     * @param amountRefund
+     * @return 
+     */
+    @Override
+    public int RegisterRefund(int bookingId, String employeeNumber, String clientNumber, String amountRefund) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("DevolverReserva");
+                queryStoredProcedure.addParameter(Arrays.asList(""+bookingId, employeeNumber,clientNumber, amountRefund+""));
+                queryStoredProcedure.BuildParameters();
+                queryStoredProcedure.Build();
+                result = queryStoredProcedure.Run();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda
+        LogData("InsertarReservaInicial","Insertar reserva inicial");
         return result;
     }
 }

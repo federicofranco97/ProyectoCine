@@ -47,7 +47,7 @@ public class RefundController {
 	*@param bookingID
 	*@return 
 	*/
-	@PostMapping("/mostrar_Idreserva")
+	@PostMapping("/mostrar_idreserva")
 	public ModelAndView GetBookingByIdView(@RequestParam("reservationCode") String bookingID) throws SQLException {
 		if(clientService.GetBookingById(bookingID) != null) {
 			LocalDate bookingDate = LocalDate.parse(clientService.GetBookingById(bookingID).getBookingDate());
@@ -75,7 +75,7 @@ public class RefundController {
 	*@param idClient
 	*@return 
 	*/
-	@PostMapping("/mostrar_reservas_idCliente")
+	@PostMapping("/mostrar_reservas")
 	public ModelAndView GetBookingsByClientIdView(@RequestParam("idClientCode") String clientID) throws SQLException {
 		if(clientService.GetClientByUID(clientID) != null) {
 			if(clientService.GetAllBookingsByIdClient(clientID) != null) {
@@ -87,6 +87,28 @@ public class RefundController {
 			ModelAndView modelError = new ModelAndView("Refund");
 	 		modelError.addObject("Content", Arrays.asList("Error","No hay reservas de este cliente!","1"));
 			return modelError;
+		}
+		ModelAndView modelError = new ModelAndView("Refund");
+ 		modelError.addObject("Content", Arrays.asList("Error","El cliente no existe!","1"));
+		return modelError;
+	}
+	
+	/**
+	*Metodo que devuelve a la vista, todas las reservas de un cliente
+	*@param adminId
+	*@param passAdmin
+	*@param bookingId
+	*@param request
+	*@return 
+	*/
+	@PostMapping("/reembolsar")
+	public ModelAndView Refund(@RequestParam("adminId") String adminId,@RequestParam("passAdmin") String passAdmin, @RequestParam("bookingIdSent") String bookingId, HttpServletRequest request) throws SQLException {
+		if(clientService.GetEmployeeCategory(Integer.parseInt(adminId)) == 3 && clientService.verifyEmployeeLogin(adminId, passAdmin)) {
+			BookingDTO booking =  clientService.GetBookingById(bookingId);
+			data.RegisterRefund(Integer.parseInt(bookingId), String.valueOf((int)request.getSession().getAttribute("EmployeeId")), String.valueOf(booking.getClientNumber()), String.valueOf(booking.getTotalValue()));
+			ModelAndView model = new ModelAndView("Refund");
+			model.addObject("Content", Arrays.asList("success","La reserva fue reembolsada!","1"));
+			return model;
 		}
 		ModelAndView modelError = new ModelAndView("Refund");
  		modelError.addObject("Content", Arrays.asList("Error","El cliente no existe!","1"));
