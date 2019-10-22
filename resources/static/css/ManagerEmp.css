@@ -33,8 +33,9 @@
     margin-right: auto;
 }
 
-@media screen and (max-width: 454px) {
-    .manager-carrousel
+@media screen and (max-width: 454px)
+{
+    .managerCarrousel
     {
         margin-top: 30vh;
         width: 60vw;

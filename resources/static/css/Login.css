@@ -5,7 +5,7 @@
 	width: 30%;
 }
 
-.form-group
+.formGroup
 {
 	margin: auto;
 	margin-top: 4%;
@@ -14,7 +14,7 @@
 
 @media screen and (max-width: 740px)
 {
-  .form-group
+  .formGroup
   {
     width:50%;
   } 
@@ -22,10 +22,11 @@
 
 @media screen and (max-width: 454px)
 {
-  .form-group
+  .formGroup
   {
 	width:74%;
   }
+
   #titleLogScreen
   {
     width: 50%;

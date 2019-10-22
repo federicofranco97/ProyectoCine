@@ -1,4 +1,4 @@
-body
+.bodyFaq
 {
 	width: 100%;
 	height: 100%;
@@ -22,13 +22,19 @@ body
 	color: white;
 }
 
-td
+#tableFaq td
 {
 	text-align: left;
 }
 
-tbody
+.tbodyFaq
 {
-	margin-left: 2px;
 	overflow-y: auto;
+	height:40vh;
+	width:90%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:5%;
+	margin-bottom:10%;
 }
+

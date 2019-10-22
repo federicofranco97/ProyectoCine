@@ -454,8 +454,6 @@ public class Data implements IData{
                 QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("ActualizarEmpleado");
                 queryStoredProcedure.addParameter(Arrays.asList("'"+employeeDTO.getAddress()+"'","'"+employeeDTO.getEmail()+"'",
                         "'"+employeeDTO.getPhoneNumber()+"'",String.valueOf(employeeDTO.getEmployeeNumber())));
-                queryStoredProcedure.BuildParameters();
-                queryStoredProcedure.Build();
                 result = queryStoredProcedure.Run();
             }
             else {
@@ -1215,8 +1213,6 @@ public class Data implements IData{
                 QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("InsertarReservaInicial");
                 queryStoredProcedure.addParameter(Arrays.asList("'"+Integer.parseInt(movieId)+"'","'"+Integer.parseInt(showId)+"'",
                         "'"+theatreNumber+"'","'"+tempEmployee+"'","'"+dateShow+"'"));
-                queryStoredProcedure.BuildParameters();
-                queryStoredProcedure.Build();
                 result = queryStoredProcedure.Run();
             }
             else {
@@ -1398,8 +1394,6 @@ public class Data implements IData{
                 QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("RegistrarEntradas");
                 queryStoredProcedure.addParameter(Arrays.asList(""+employeeId, rateCode,
                         price, amountTickets+""));
-                queryStoredProcedure.BuildParameters();
-                queryStoredProcedure.Build();
                 result = queryStoredProcedure.Run();
             }
             else {
