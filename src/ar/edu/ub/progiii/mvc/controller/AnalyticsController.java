@@ -18,6 +18,7 @@ public class AnalyticsController {
     public ModelAndView GetMainAnalytics(){
         ModelAndView model = new ModelAndView("Analytics");
         model.addObject("YearSales",clientService.YearSalesInformation("2019"));
+        model.addObject("YearMovements",clientService.YearUserMovements("2019"));
         return model;
     }
 
@@ -25,6 +26,7 @@ public class AnalyticsController {
     public ModelAndView GetSpecificAnalytics(@RequestParam("year") String Year){
         ModelAndView model = new ModelAndView("Analytics");
         model.addObject("YearSales",clientService.YearSalesInformation(Year));
+        model.addObject("YearMovements",clientService.YearUserMovements(Year));
         return model;
     }
 }

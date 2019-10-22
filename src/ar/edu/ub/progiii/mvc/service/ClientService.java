@@ -15,9 +15,7 @@ import java.time.Period;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Spliterator;
+import java.util.*;
 
 @Service
 public class ClientService {
@@ -736,5 +734,14 @@ public class ClientService {
             yearSales.add(mappingTool.MapDTOSalesInformationSQL(info));
         }
         return yearSales;
+    }
+
+    public List<Integer> YearUserMovements(String Year){
+        if (dataManager.YearUserMovements(Year) != null){
+            String [] aux = dataManager.YearUserMovements(Year).split("/");
+            return Arrays.asList(Integer.parseInt(aux[0]),Integer.parseInt(aux[1]),Integer.parseInt(aux[2]));
+
+        }
+        return null;
     }
 }

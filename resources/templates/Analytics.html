@@ -20,19 +20,20 @@
     </div>
     <!-- GRAFICOS -->
     <div style="height: 100%;width: 60vw;margin-left:auto;margin-right: auto;margin-bottom: 5%" >
-        <h3 style="text-align: center;margin-top: 5%;margin-bottom: 5%;font-size: 3vh">Entradas vendidas de forma presencial</h3>
+        <h3 style="text-align: center;margin-top: 5%;margin-bottom: 5%;font-size: 3vh">Ganancias venta presencial</h3>
         <canvas class="" id="myChart" style="height: 65vh;width: 70vw;color:white"></canvas>
-        <h3 style="text-align: center;margin-top: 5%;margin-bottom: 5%;font-size: 3vh">Entradas vendidas de forma online</h3>
+        <h3 style="text-align: center;margin-top: 5%;margin-bottom: 5%;font-size: 3vh">Ganancias venta  online</h3>
         <canvas id="myChart2" style="height: 65vh;width: 70vw;color:white"></canvas>
-        <h3 style="text-align: center;margin-top: 5%;margin-bottom: 5%;font-size: 3vh">Registro de Actividad </h3>
+        <h3 style="text-align: center;margin-top: 5%;margin-bottom: 5%;font-size: 3vh">Registro de Actividad Anual </h3>
         <canvas id="myChart3" style="height: 65vh;width: 70vw;color:white"></canvas>
     </div>
     <div th:replace="layout :: footer"></div>
     <script th:inline="javascript">
             document.getElementById("AnalyticsBody").onload= function(){
-            listaContenido = [[${YearSales}]];
+            ContentList = [[${YearSales}]];
+            ContentMovements = [[${YearMovements}]];
             LoadGraphics();
         }
     </script>
 </body>
-</html>
+</html>-

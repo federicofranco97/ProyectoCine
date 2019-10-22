@@ -1437,4 +1437,36 @@ public class Data implements IData{
         }
         return result;
     }
+
+    /**
+     * Devuelve la cantidad de todos los usuarios que hubo logeados a lo largo del año
+     * seleccionado
+     *
+     * @param Year
+     * @return
+     */
+    @Override
+    public String YearUserMovements(String Year) {
+        String result = "";
+        QueryStoredProcedureWResponse query = new QueryStoredProcedureWResponse("administradoresactivosyear");
+        query.addParameter(Year);
+        try {
+            ResultSet rst = query.Run();
+            result = ParseSpecificResultSet(rst,Arrays.asList("Online"));
+            query.setCommand("supervisoresactivosyear");
+            rst = query.Run();
+            result += "/"+ParseSpecificResultSet(rst,Arrays.asList("Online"));
+            query.setCommand("empleadosactivosyear");
+            rst = query.Run();
+            result += "/"+ParseSpecificResultSet(rst,Arrays.asList("Online"));
+        } catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+            return null;
+        }
+        return result;
+    }
+
+
+
+
 }

@@ -1,4 +1,5 @@
-        var listaContenido;
+        var ContentList;
+        var ContentMovements;
 
         function LoadGraphics(){
             var ctx = document.getElementById('myChart').getContext('2d');
@@ -9,10 +10,10 @@
                             ,'Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
                             datasets: [{
                                 label: 'Importe de ventas de manera presencial',
-                               data: [listaContenido[0].onsiteSales, listaContenido[1].onsiteSales, listaContenido[2].onsiteSales,
-                                    listaContenido[3].onsiteSales, listaContenido[4].onsiteSales, listaContenido[5].onsiteSales,
-                                    listaContenido[6].onsiteSales, listaContenido[7].onsiteSales, listaContenido[8].onsiteSales,
-                                    listaContenido[9].onsiteSales, listaContenido[10].onsiteSales, listaContenido[11].onsiteSales],
+                               data: [ContentList[0].onsiteSales, ContentList[1].onsiteSales, ContentList[2].onsiteSales,
+                                    ContentList[3].onsiteSales, ContentList[4].onsiteSales, ContentList[5].onsiteSales,
+                                    ContentList[6].onsiteSales, ContentList[7].onsiteSales, ContentList[8].onsiteSales,
+                                    ContentList[9].onsiteSales, ContentList[10].onsiteSales, ContentList[11].onsiteSales],
                                 backgroundColor: [
                                     'rgba(255, 0, 0, 0.2)'
                                 ],
@@ -41,10 +42,10 @@
                             ,'Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
                             datasets: [{
                                 label: 'Importe de ventas de manera online',
-                                 data: [listaContenido[0].onlineSales, listaContenido[1].onlineSales, listaContenido[2].onlineSales,
-                                      listaContenido[3].onlineSales, listaContenido[4].onlineSales, listaContenido[5].onlineSales,
-                                      listaContenido[6].onlineSales, listaContenido[7].onlineSales, listaContenido[8].onlineSales,
-                                      listaContenido[9].onlineSales, listaContenido[10].onlineSales, listaContenido[11].onlineSales],
+                                 data: [ContentList[0].onlineSales, ContentList[1].onlineSales, ContentList[2].onlineSales,
+                                      ContentList[3].onlineSales, ContentList[4].onlineSales, ContentList[5].onlineSales,
+                                      ContentList[6].onlineSales, ContentList[7].onlineSales, ContentList[8].onlineSales,
+                                      ContentList[9].onlineSales, ContentList[10].onlineSales, ContentList[11].onlineSales],
                                 backgroundColor: [
                                     'rgba(255, 0, 0, 0.2)'
                                 ],
@@ -69,9 +70,9 @@
                     var myChart = new Chart(ctx, {
                         type: 'doughnut',
                         data: {
-                            labels: ['Empelados Activos', 'Supervisores Activos', 'Administradores Activos'],
+                            labels: ['Administradores Activos', 'Supervisores Activos', 'Empleados Activos'],
                             datasets: [{
-                                data: [21, 9, 3],
+                                data: [ContentMovements[0], ContentMovements[1], ContentMovements[2]],
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 0.2)',
                                     'rgba(54, 162, 235, 0.2)',

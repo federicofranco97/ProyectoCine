@@ -350,4 +350,12 @@ public interface IData {
      */
 	public String YearSalesInformation(String Year);
 
+    /**
+     * Devuelve la cantidad de todos los usuarios que hubo logeados a lo largo del año
+     * seleccionado
+     * @param Year
+     * @return
+     */
+	public String YearUserMovements(String Year);
+
 }
