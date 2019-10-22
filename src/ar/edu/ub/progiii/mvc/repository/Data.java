@@ -159,8 +159,8 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-            	CQuerySelect querySelect = new CQuerySelect("cliente", "*");
-            	querySelect.addStatementCondition(Arrays.asList("nrocliente="+data));
+            	CQuerySelect querySelect = new CQuerySelect("Cliente c join ClientStatus cs on c.NroCliente=cs.Nrocliente", "*");
+            	querySelect.addStatementCondition(Arrays.asList("c.nrocliente="+data,"cs.CodRol=1004"));
             	ResultSet rst = querySelect.Run();
             	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","NroCliente","Telefono","Email","Direccion","FechaNac","NroDocumento","FechaCreacion"));
             }
@@ -1270,8 +1270,8 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-            	CQuerySelect querySelect = new CQuerySelect("cliente", "*");
-            	querySelect.addStatementCondition(Arrays.asList("NroDocumento="+DNI));
+            	CQuerySelect querySelect = new CQuerySelect("Cliente c join ClientStatus cs on c.NroCliente=cs.Nrocliente", "*");
+            	querySelect.addStatementCondition(Arrays.asList("c.NroDocumento="+DNI,"cs.CodRol=1004"));
             	ResultSet rst = querySelect.Run();
             	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","NroCliente","Telefono","Email","Direccion","FechaNac","NroDocumento","FechaCreacion"));
             }
