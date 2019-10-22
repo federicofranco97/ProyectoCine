@@ -8,7 +8,7 @@
                             labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio'
                             ,'Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
                             datasets: [{
-                                label: 'Entradas vendidas de forma presencial',
+                                label: 'Importe de ventas de manera presencial',
                                data: [listaContenido[0].onsiteSales, listaContenido[1].onsiteSales, listaContenido[2].onsiteSales,
                                     listaContenido[3].onsiteSales, listaContenido[4].onsiteSales, listaContenido[5].onsiteSales,
                                     listaContenido[6].onsiteSales, listaContenido[7].onsiteSales, listaContenido[8].onsiteSales,
@@ -40,7 +40,7 @@
                             labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio'
                             ,'Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
                             datasets: [{
-                                label: 'Entradas vendidas de forma online',
+                                label: 'Importe de ventas de manera online',
                                  data: [listaContenido[0].onlineSales, listaContenido[1].onlineSales, listaContenido[2].onlineSales,
                                       listaContenido[3].onlineSales, listaContenido[4].onlineSales, listaContenido[5].onlineSales,
                                       listaContenido[6].onlineSales, listaContenido[7].onlineSales, listaContenido[8].onlineSales,
