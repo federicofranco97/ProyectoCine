@@ -22,7 +22,7 @@ import ar.edu.ub.progiii.mvc.repository.Data;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 
 @Controller
-public class OnsiteSaleController {
+public class OnSiteSaleController {
 	@Autowired
 	ClientService clientService;
 	Data data = new Data();
@@ -34,9 +34,9 @@ public class OnsiteSaleController {
 	 * @return
 	 */
 	@GetMapping("/venta_presencial")
-	public ModelAndView GetOnsiteSaleView(HttpServletRequest request) {
+	public ModelAndView GetOnSiteSaleView(HttpServletRequest request) {
 		if(clientService.IsEmployeeAlowed((int)request.getSession().getAttribute("EmployeeId"))) {
-			ModelAndView model = new ModelAndView("OnsiteSale");
+			ModelAndView model = new ModelAndView("OnSiteSale");
 			model.addObject("films",clientService.GetAllFilms());
 			model.addObject("shows" ,clientService.GetShowsByHour());
 			model.addObject("date",clientService.GetServerDate());
@@ -54,7 +54,7 @@ public class OnsiteSaleController {
 	 */
 	@GetMapping("/sumar_fecha")
 	public ModelAndView GetAddDate(@RequestParam("datePage") String datePage) {
-		ModelAndView model = new ModelAndView("OnsiteSale");
+		ModelAndView model = new ModelAndView("OnSiteSale");
 		if(clientService.CanDaysBeAdded(datePage)) {
 			model.addObject("films",clientService.GetAllFilms());
 			model.addObject("shows" ,clientService.GetAllShows());
@@ -82,7 +82,7 @@ public class OnsiteSaleController {
 	 */
 	@GetMapping("/restar_fecha")
 	public ModelAndView GetRemoveDate(@RequestParam("datePage") String datePage) {
-		ModelAndView model = new ModelAndView("OnsiteSale");
+		ModelAndView model = new ModelAndView("OnSiteSale");
 		if(clientService.CanDaysBeRemoved(datePage) && !clientService.RedirectToBeginning(datePage)) {
 			model.addObject("films",clientService.GetAllFilms());
 			model.addObject("shows" ,clientService.GetAllShows());
@@ -117,7 +117,7 @@ public class OnsiteSaleController {
 			model.addObject("categories", clientService.GetAllRateCategories());
 			return model;
 		}
-		ModelAndView modelError = new ModelAndView("OnsiteSale");
+		ModelAndView modelError = new ModelAndView("OnSiteSale");
  		modelError.addObject("Contenido", Arrays.asList("Error","Se ha producido un error!","1"));
 		return modelError;
 		

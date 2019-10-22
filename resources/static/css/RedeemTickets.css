@@ -16,16 +16,19 @@
 {
 	font-size: 20px;
 }
-.width-50
+
+.width50
 {
     width: 50%;
 }
+
 .redeemDiv
 {
     margin-top: 10%;
     margin: auto;
     text-align: center;
 }
+
 .redeemTitle
 {
     font-size: 60px;

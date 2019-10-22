@@ -1,4 +1,5 @@
-.container_tables{
+.tableContainer
+{
 	margin: auto;
 	margin-top: 1%;
 	width: 70%;
@@ -6,7 +7,9 @@
 	background-color: #576067;
 	box-shadow: 9px 3px 9px 2px #474e54;
 }
-.tableMovie{
+
+.tableMovie
+{
 	float: left;
 	width:59%;
 	margin-right: 1%;
@@ -15,20 +18,28 @@
 	height: 63vh;
 	background-color: #474e54;<
 }
-.tableTime{
+
+.tableTime
+{
 	float: left;
 	width: 38%;
 	overflow-y:auto;
 	height: 63vh;
 	background-color: #474e54;
 }
-#tdOnsite:hover {
+
+#tdOnsite:hover, #tdOnsiteOne:hover
+{
   background:#517088;
 }
-#tdOnsite:active{
+
+#tdOnsite:active, #tdOnsiteTwo:active
+{
 	background-color: #1d8bbd;
 }
-.titleMovie{
+
+.titleMovie
+{
 	float: left;
 	width:59%;
 	margin-top: 1%;
@@ -38,7 +49,9 @@
 	color: white;
 	height: 5vh;
 }
-.titleTime{
+
+.titleTime
+{
 	margin-top: 1%;
 	float: left;
 	width: 38%;
@@ -46,11 +59,15 @@
 	color: white;
 	height: 5vh;
 }
-.strongOnsite{
+
+.strongOnsite
+{
 	position: relative;
 	top: 8%;
 }
-.days{
+
+.days
+{
 	margin: auto;
 	margin-top: 3%;
 	width: 70%;
@@ -58,22 +75,30 @@
 	height: 8vh;
 	box-shadow: 9px 3px 9px 2px #474e54;
 }
-.labelOnsite{
+
+.labelOnsite
+{
 	position: relative;
 	top: 12%;
 	color: white;
 	font-weight: bold;
 	left: 40%; 
 }
-.btn-secondary{
+
+.buttonStyle
+{
 	margin: auto;
 	margin-top: 1%;
 }
-.aOnsite{
+
+.aOnsite
+{
 	position: relative;
 	left: 40%;
 }
-.duration{
+
+.duration
+{
 	color:white;
 	float:right;
 }
