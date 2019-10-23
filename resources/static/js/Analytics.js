@@ -67,6 +67,10 @@
                     });
 
                     var ctx = document.getElementById('myChart3').getContext('2d');
+                    if(ContentMovements[0]===0,ContentMovements[1]===0,ContentMovements[2]===0){
+                        document.getElementById("myChart3").style.display="none";
+                        document.getElementById("activityTitle").style.display="none";
+                    }
                     var myChart = new Chart(ctx, {
                         type: 'doughnut',
                         data: {
