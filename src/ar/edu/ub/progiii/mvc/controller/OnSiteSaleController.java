@@ -49,8 +49,8 @@ public class OnSiteSaleController {
 	
 	/**
 	 * Suma a la fecha de la pagina un dia, de no poderse activa un mensaje de aviso
-	 * @param datePage
-	 * @return
+	 * @param datePage Trae la fecha de el html
+	 * @return 
 	 */
 	@GetMapping("/sumar_fecha")
 	public ModelAndView GetAddDate(@RequestParam("datePage") String datePage) {
@@ -77,7 +77,7 @@ public class OnSiteSaleController {
 	
 	/**
 	 * Resta a la fecha de la pagina un dia, de no poderse activa un mensaje de aviso
-	 * @param datePage
+	 * @param datePage datePage Trae la fecha de el html
 	 * @return
 	 */
 	@GetMapping("/restar_fecha")
@@ -105,12 +105,12 @@ public class OnSiteSaleController {
 	/**
 	 * Realiza una reserva inicial con los valores de los parametros 
 	 * y devuelve la pagna cantidad de enetradas, cargandole los datos
-	 * @param showId
-	 * @param movieId
-	 * @param dateShow
+	 * @param showId id de la funcion
+	 * @param movieId id de la pelicula
+	 * @param dateShow fecha de la funcion
 	 * @return
 	 */
-	@GetMapping("/presencial_cantidadEntradas")
+	@GetMapping("/presencial_cantentradas")
 	public ModelAndView GetOnsiteAmountTicketsView(@RequestParam("functionId") String showId, @RequestParam("movieId") String movieId, @RequestParam("dateShow") String dateShow,  HttpServletRequest request) {
 		if (clientService.InsertInitialBooking(movieId, showId, dateShow, (int) request.getSession().getAttribute("EmployeeId"))) {
 			ModelAndView model = new ModelAndView("AmountTickets");
@@ -126,7 +126,7 @@ public class OnSiteSaleController {
 	/**
 	 * Realiza una reserva inicial con los valores de los parametros 
 	 * y devuelve la pagna cantidad de enetradas, cargandole los datos
-	 * @param clientDNI 
+	 * @param clientDNI dni del cliente
 	 * @return
 	 */
 	@PostMapping("/buscarCliente_traerInfo")
@@ -147,12 +147,12 @@ public class OnSiteSaleController {
 	
 	/**
 	 * Registra a un cliente 
-	 * @param fullName
-	 * @param phone
-	 * @param email
-	 * @param adress
-	 * @param birthDate
-	 * @param dni
+	 * @param fullName nombre completo cliente
+	 * @param phone telefono cliente
+	 * @param email email del cliente
+	 * @param adress direccion del cliente
+	 * @param birthDate fecha de nacimiento del cliente
+	 * @param dni dni del cliente
 	 * @return
 	 */
 	@PostMapping("/registrar_cliente")
@@ -180,14 +180,14 @@ public class OnSiteSaleController {
 	
 	/**
 	 * Realiza el registro de entradas y envia el precio total a la proxima vista
-	 * @param underAge
-	 * @param retired
-	 * @param adult
-	 * @param promo
-	 * @param registeredAdult
-	 * @param registeredUnderAge
-	 * @param registeredOlder
-     * @param total
+	 * @param underAge categoria de entrada
+	 * @param retired categoria de entrada 
+	 * @param adult categoria de entrada
+	 * @param promo categoria de entrada
+	 * @param registeredAdult categoria de entrada
+	 * @param registeredUnderAge categoria de entrada
+	 * @param registeredOlder categoria de entrada
+     * @param total monto total de compra
 	 * @return
 	 */
 	@GetMapping("/presencial_pagar")

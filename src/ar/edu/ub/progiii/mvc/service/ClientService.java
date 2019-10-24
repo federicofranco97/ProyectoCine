@@ -538,7 +538,7 @@ public class ClientService {
     }
 
     /**
-     * 
+     * Trae la lista de todas las sucursales.
      * @return 
      */
     public void FillAllBranches(){
@@ -693,6 +693,11 @@ public class ClientService {
         return null;
     }
 
+    /**
+     * Trae una pelicula por id
+     * @param idFilm id de pelicula 
+     * @return 
+     */
     public FilmDTO GetFilmById(int idFilm){
         for(FilmDTO Film: GetAllFilms()){
             if(Film.getCode() == idFilm){
@@ -702,6 +707,11 @@ public class ClientService {
         return null;
     }
 
+    /**
+     * Trae una funcion por id
+     * @param idCinemaShow id de funcion 
+     * @return 
+     */
     public CinemaShowDTO GetCinemaShow(String idCinemaShow){
         for(CinemaShowDTO CinemaShow: GetAllShows()){
             if(CinemaShow.getCodeShow().equals(idCinemaShow)){

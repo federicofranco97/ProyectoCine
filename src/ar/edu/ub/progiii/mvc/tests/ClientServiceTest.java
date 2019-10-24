@@ -236,7 +236,8 @@ class ClientServiceTest {
 	
 	@Test
 	void GetServerDatestest() {
-		assertEquals(clientService.GetServerDate(), "2019-09-21");
+		assertEquals(clientService.GetServerDate(), dataManager.GetServerDate());
+		assertNotNull(clientService.GetServerDate());
 	}
 	
 	@Test
@@ -273,12 +274,14 @@ class ClientServiceTest {
 	
 	@Test
 	void AddDaystest() {
-		assertEquals(clientService.AddDays("2019-09-21", 1), LocalDate.parse("2019-09-22"));
+		assertEquals(clientService.AddDays("2019-09-21", 1), LocalDate.parse("2019-09-21").plusDays(1));
+		assertNotNull(clientService.AddDays("2019-09-21", 1));
 	}
 	
 	@Test
 	void RemoveDaystest() {
-		assertEquals(clientService.RemoveDays("2019-09-21", 1), LocalDate.parse("2019-09-20"));
+		assertEquals(clientService.RemoveDays("2019-09-21", 1), LocalDate.parse("2019-09-20").minusDays(1));
+		assertNotNull(clientService.RemoveDays("2019-09-21", 1));
 	}
 	
 	@Test
@@ -390,7 +393,7 @@ class ClientServiceTest {
 	
 	@Test
 	void MonthFilmMostWatchedtest() {
-		assertEquals(clientService.MonthFilmMostWatched().getFilmName(), "Avengers Endgame");
+		assertEquals(clientService.MonthFilmMostWatched().getFilmName(), dataManager.GetMonthMostViewed());
 		assertNotNull(clientService.MonthFilmMostWatched().getFilmName());
 	}
 	

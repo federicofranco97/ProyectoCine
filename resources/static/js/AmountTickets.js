@@ -65,7 +65,7 @@ var whiteSpace = /^\s+$/;
  * Rercibe como parametro el nombre de la categoria traido desde el backend y compara
  * para saber en que categoria debe agregar entradas, sumarlo al total y mostrarlo,
  * tanto en total como en su respectiva categoria
- * @param  {element}
+ * @param  {element} parametro que recibe el nombre dela categoria
  */
 function add(element){
 	if (element == menor) {
@@ -118,7 +118,7 @@ function add(element){
  * Rercibe como parametro el nombre de la categoria traido desde el backend y compara
  * para saber en que categoria debe sacar entradas, reflejarlo en el total y mostrarlo,
  * tanto en total como en su respectiva categoria
- * @param  {element}
+ * @param  {element} parametro que recibe el nombre dela categoria
  */
 function minus(element){
 	if (element == menor &&  underAgeIncrement != 0) {
@@ -174,8 +174,7 @@ function minus(element){
 function pay(){
 	if (total == 0) {
 		swal("Aviso", "No hay entradas seleccionadas!", "warning");
-	}
-	else {
+	}else {
 		sent = String(underAgeIncrement)+"_"+String(retiredIncrement)+"_"+String(adultIncrement)+"_"+String(promoIncrement)+"_"+String(registeredAdultIncrement)+"_"+String(registeredUnderAgeIncrement)+"_"+String(registeredOlderIncrement);
 		window.open("/presencial_pagar?underAge="+underAgeIncrement+"&retired="+retiredIncrement+"&adult="+adultIncrement+"&promo="+promoIncrement+"&registeredAdult="+registeredAdultIncrement+"&registeredUnderAge="+registeredUnderAgeIncrement+"&registeredOlder="+registeredOlderIncrement+"&total="+total,"_self");
 	}
@@ -192,7 +191,7 @@ function back(){
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se aprete el boton de submit
  * de ingreso del cliente, validando el input id.
- * @param {event}
+ * @param {event} parametro en el cual se va a prevenir el evento del formulario
  */
 formClient.onsubmit = function(event){
 	if (formClient.elements[0].value == "" || whiteSpace.test(formClient.elements[0].value)) {
@@ -204,7 +203,7 @@ formClient.onsubmit = function(event){
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se aprete el boton de submit
  * del formulario de registro de cliente, validando sus campos.
- * @param {event}
+ * @param {event} parametro en el cual se va a prevenir el evento del formulario
  */
 formRegisterClient.onsubmit = function(event){
 	if (completeName.value == "" || whiteSpace.test(completeName.value)) {
@@ -229,7 +228,7 @@ formRegisterClient.onsubmit = function(event){
  * @descriptor Esta funcion va a ser ejecutada cuando se aprete el boton para
  * cerrar el formulario de registro de clientes, cerrando el formulario y 
  * activando la pagina principal.
- * @param {event}
+ * @param {event} parametro en el cual se va a prevenir el evento del formulario
  */
 closeFormBtn.onclick = function(event){
 	event.preventDefault();
@@ -246,7 +245,6 @@ closeFormBtn.onclick = function(event){
  * @descriptor Esta funcion va a ser ejecutada cuando se aprete el boton para
  * tener acceso al formulario de registro de clientes, abriendo el formulario y 
  * desactivando la pagina principal.
- * @param {event}
  */
 function registerClient(){
 	formRegisterClient.style.display = "block";
