@@ -112,7 +112,7 @@ public class RefundController {
 			return model;
 		}
 		ModelAndView modelError = new ModelAndView("Refund");
- 		modelError.addObject("Content", Arrays.asList("Error","El cliente no existe!","1"));
+ 		modelError.addObject("Content", Arrays.asList("Error","Los datos del supervisor son incorrectos!","1"));
 		return modelError;
 	}
 	
