@@ -241,7 +241,8 @@ class ClientServiceTest {
 	
 	@Test
 	void GetHourTodaytest() {
-		assertEquals(clientService.GetHourToday() , "20");
+		assertEquals(clientService.GetHourToday() , dataManager.GetHourNow());
+		assertNotNull(clientService.GetHourToday());
 	}
 	
 	@Test
