@@ -1,10 +1,6 @@
 .list-group{
 	float: left;
 }
-li{
-	list-style: none;
-	color: white;
-}
 .h1Title{
 	color: white;
 	position: relative;
@@ -65,7 +61,7 @@ li{
     padding-right: 1%;
     padding-left: 1%;
 }
-.container_bookings{
+.containerbookings{
 	margin: auto;
     margin-top: 1%;
     width: 51%;

@@ -124,8 +124,7 @@ public class OnsiteSaleController {
 	}
 	
 	/**
-	 * Realiza una reserva inicial con los valores de los parametros 
-	 * y devuelve la pagna cantidad de enetradas, cargandole los datos
+	 * Busca un cliente activo por DNI y la guarda en la reserva que se esta realizando
 	 * @param clientDNI 
 	 * @return
 	 */

@@ -28,8 +28,9 @@ public class RefundController {
 	MappingTool map = new MappingTool();
 	
 	/**
-	Metodo que te lleva a la vista de reembolso
-	 *@return 
+	  * Metodo que te lleva a la vista de reembolso
+	  * @param request session 
+	  * @return 
 	 */
 	@GetMapping("/reembolso")
 	public ModelAndView GetRefundView(HttpServletRequest request) throws SQLException {
@@ -43,9 +44,9 @@ public class RefundController {
 	}
 	
 	/**
-	Metodo que devuelve a la vista, una reserva por id
-	*@param bookingID
-	*@return 
+	* Metodo que devuelve a la vista, una reserva por id
+	* @param bookingID refiere al codigo de una reserva
+	* @return 
 	*/
 	@PostMapping("/mostrar_idreserva")
 	public ModelAndView GetBookingByIdView(@RequestParam("reservationCode") String bookingID) throws SQLException {
@@ -72,7 +73,7 @@ public class RefundController {
 	
 	/**
 	*Metodo que devuelve a la vista, todas las reservas de un cliente
-	*@param idClient
+	*@param idClient refiere al id del cliente
 	*@return 
 	*/
 	@PostMapping("/mostrar_reservas")
@@ -95,10 +96,10 @@ public class RefundController {
 	
 	/**
 	*Metodo que devuelve a la vista, todas las reservas de un cliente
-	*@param adminId
-	*@param passAdmin
-	*@param bookingId
-	*@param request
+	*@param adminId refiere al id del supervisor
+	*@param passAdmin refiere al pass del supervisor
+	*@param bookingId refiere al id de una reserva
+	*@param request refiere session
 	*@return 
 	*/
 	@PostMapping("/reembolsar")
@@ -112,6 +113,25 @@ public class RefundController {
 		}
 		ModelAndView modelError = new ModelAndView("Refund");
  		modelError.addObject("Content", Arrays.asList("Error","El cliente no existe!","1"));
+		return modelError;
+	}
+	
+	/**
+	 * Busca un cliente por DNI
+	 * @param clientDNI 
+	 * @return
+	 */
+	@PostMapping("/buscarCliente")
+	public ModelAndView GetClientDataByDNI(@RequestParam("clientDNI") String clientDNI, HttpServletRequest request) {
+		if (clientService.GetClientByDNI(clientDNI) != null) {
+			ModelAndView model = new ModelAndView("Refund");
+			model.addObject("msjClient",clientService.GetClientByDNI(clientDNI));
+			model.addObject("clientInfo", clientService.GetClientByDNI(clientDNI));
+			model.addObject("Content", Arrays.asList("1"));
+			return model;
+		}
+		ModelAndView modelError = new ModelAndView("Refund");
+ 		modelError.addObject("Content", Arrays.asList("Error","No se ha encontrado el cliente!","1"));
 		return modelError;
 	}
 }

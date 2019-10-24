@@ -9,7 +9,7 @@
         <h1 class="h1Title">Reembolso</h1>
     </div>
     <!--Div y tabla contenedora de reservas-->  
-    <div id="container_bookings" class="container_bookings">
+    <div id="containerbookings" class="containerbookings">
         <table class="table table-sm table-striped table-dark table-bordered tableRefund">
             <thead>
                 <tr>
@@ -70,10 +70,9 @@
         <input id="passAdmin" class="form-control form-control-sm inputAdmin" type="password" name="passAdmin" placeholder="Pass" autofocus=""/>
         <input id="bookingIdSent" class="bookingIdSent" type="text" name="bookingIdSent" th:if="${msj != null}" th:value="${booking.getBookingCode()}"/>
         <input type="submit" value="Reembolsar" class="btn btn-secondary btn-sm btnRe"/>
-        <button id="exit" class="btn btn-secondary btn-sm btnExit" onclick="">Salir</button>
     </form>
     <!--Formulario para consultar informacion del cliente-->
-    <form id="formClientModal" class="formClientModal fadeIn" method="post" action="/">
+    <form id="formClientModal" class="formClientModal fadeIn" method="post" action="/buscarCliente">
         <button id="btnCloseFormModal" class="btnCloseFormModal">x</button>
         <label class= "badge badge-dark labelIdClientFirstModal" for="ClientDNI">DNI cliente</label><br/>
         <input id="inputIdClientModal" class="form-control form-control-sm col-md-6 inputIdClientModal" type="text" name="clientDNI" placeholder="DNI cliente" value=""/><br/>
@@ -91,16 +90,25 @@
     <script th:inline="javascript">
          /*<![CDATA[*/
         var contentList = /*[[${Content}]]*/ 'default';
-        var p1=(contentList[0]);
-        var p2=(contentList[1]);
+        var titleTextOrForm=(contentList[0]);
+        var textContent=(contentList[1]);
+        //Variable que activa el sweet alert si es 1
         var p3=(contentList[2]);
+        //Constante para activar el form de cliente o activar sweet alert
+        const onOff = "1";
          /*]]>*/
-         if(p3== "1"){
+         //Activa el sweet alert para mensajes de alerta o error
+         if(p3== onOff){
         	 swal({
-                 title: p1,
-                 text: p2,
+                 title: titleTextOrForm,
+                 text: textContent,
                  icon: "warning"
                })
+         }
+         // Activa el formulario de cliente cuando trae informacion, 
+         // para que aparezca con la informacion con el form abierto y no quede cerrado
+         if(titleTextOrForm == onOff){
+        	 activeFormClient()	
          }
     </script>
 </body>

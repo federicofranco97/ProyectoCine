@@ -20,13 +20,13 @@ var btnShowUpFormBookings = document.getElementById("btnShowUpFormBookings");
 var btnShowUpFormAllBookings = document.getElementById("btnShowUpFormAllBookings");
 var btnConsultClient = document.getElementById("btnConsultClient");
 var showUpForm = document.getElementById("showUpForm");
-var container_bookings = document.getElementById("container_bookings");
+var containerbookings = document.getElementById("containerbookings");
 var whiteSpace = /^\s+$/;
 
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se accione el boton cerrar
  * habilitando y deshabilitando vistas
- * @param  {event}
+ * @param  {event} este evento de el formulario sera prevenido en caso de que se cierre el form.
  */
 closeFormBookings.onclick = function(event){
 	event.preventDefault();
@@ -37,7 +37,7 @@ closeFormBookings.onclick = function(event){
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se accione el boton cerrar
  * habilitando y deshabilitando vistas de botnes, formularios o lo que sea necesario
- * @param  {event}
+ * @param  {event} este evento de el formulario sera prevenido en caso de que se cierre el form.
  */
 btnShowUpFormBookings.onclick = function(){
 	btnShowUpFormBookings.style.display = "none";
@@ -47,7 +47,7 @@ btnShowUpFormBookings.onclick = function(){
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se accione el boton cerrar
  * habilitando y deshabilitando vistas de botones, formularios o lo que sea necesario 
- * @param  {event}
+ * @param  {event} este evento de el formulario sera prevenido en caso de que se cierre el form.
  */
 closeFormAllBookings.onclick = function(event){
 	event.preventDefault();
@@ -57,8 +57,7 @@ closeFormAllBookings.onclick = function(event){
 
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se accione el boton cerrar
- * habilitando y deshabilitando vistas de botones, formularios o lo que sea necesario 
- * @param  {event}
+ * habilitando y deshabilitando vistas de botones, formularios o lo que sea necesario  
  */
 btnShowUpFormAllBookings.onclick = function(){
 	btnShowUpFormAllBookings.style.display = "none";
@@ -68,14 +67,14 @@ btnShowUpFormAllBookings.onclick = function(){
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se accione el boton cerrar
  * habilitando y deshabilitando vistas de botones, formularios o lo que sea necesario 
- * @param  {event}
+ * @param  {event} este evento de el formulario sera prevenido en caso de que se cierre el form.
  */
 closeFormModal.onclick = function(event){
 	event.preventDefault();
 	formClientModal.style.display = "none";
 	showUpForm.style.opacity = "1";
 	showUpForm.style.pointerEvents = "auto";
-	container_bookings.style.opacity = "1";
+	containerbookings.style.opacity = "1";
 	formBookings.style.opacity = "1";
 	formBookings.style.pointerEvents = "auto";
 	formAllBookings.style.opacity = "1";
@@ -91,14 +90,14 @@ closeFormModal.onclick = function(event){
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se accione el boton cerrar
  * habilitando y deshabilitando vistas de botones, formularios o lo que sea necesario 
- * @param  {event}
+ * @param  {event} este evento de el formulario sera prevenido en caso de que se cierre el form.
  */
 closeFormx.onclick = function(event){
 	event.preventDefault();
 	form.style.display = "none";
 	showUpForm.style.opacity = "1";
 	showUpForm.style.pointerEvents = "auto";
-	container_bookings.style.opacity = "1";
+	containerbookings.style.opacity = "1";
 	formBookings.style.opacity = "1";
 	formBookings.style.pointerEvents = "auto";
 	formAllBookings.style.opacity = "1";
@@ -111,15 +110,11 @@ closeFormx.onclick = function(event){
 	btnConsultClient.style.pointerEvents = "auto";
 }
 
-/**
- * @descriptor Esta funcion va a ser ejecutada cuando se accione el boton de 
- * consultar cliente
- * @param  {event}
- */
-btnConsultClient.onclick = function(){
+//Fucncion que activa el formulario de cliente
+function activeFormClient(){
 	showUpForm.style.opacity = "0.3";
 	showUpForm.style.pointerEvents = "none";
-	container_bookings.style.opacity = "0.3";
+	containerbookings.style.opacity = "0.3";
 	formBookings.style.opacity = "0.3";
 	formBookings.style.pointerEvents = "none";
 	formAllBookings.style.opacity = "0.3";
@@ -134,15 +129,22 @@ btnConsultClient.onclick = function(){
 }
 
 /**
+ * @descriptor Esta funcion va a ser ejecutada cuando se accione el boton de 
+ * consultar cliente
+ */
+btnConsultClient.onclick = function(){
+	activeFormClient();
+}
+
+/**
  * @descriptor Esta funcion va a ser ejecutada cuando se accione el boton 
  * que va hacia el reembolso
- * @param  {event}
  */
 function showUp(){
 	showUpForm.style.opacity = "0.3";
 	showUpForm.style.pointerEvents = "none";
 	form.style.display = "block";
-	container_bookings.style.opacity = "0.3";
+	containerbookings.style.opacity = "0.3";
 	formBookings.style.opacity = "0.3";
 	formBookings.style.pointerEvents = "none";
 	formAllBookings.style.opacity = "0.3";
@@ -159,7 +161,8 @@ function showUp(){
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se envie el formulario
  * validando que sus campos no esten vacios
- * @param  {event}
+ * @param  {event} este evento de el formulario sera prevenido en caso de que se envie el form
+ * y no cumpla conlas validaciones.
  */
 formAllBookings.onsubmit = function (event){
 
@@ -173,8 +176,8 @@ formAllBookings.onsubmit = function (event){
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se accione se envie el formulario
  * validando que sus campos no esten vacios
- * 
- * @param  {event}
+ * @param  {event} este evento de el formulario sera prevenido en caso de que se envie el form
+ * y no cumpla conlas validaciones.
  */
 formBookings.onsubmit = function (event){
 	/*
@@ -191,8 +194,8 @@ formBookings.onsubmit = function (event){
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se accione se envie el formulario
  * validando que sus campos no esten vacios
- * 
- * @param  {event}
+ * @param  {event} este evento de el formulario sera prevenido en caso de que se envie el form
+ * y no cumpla conlas validaciones.
  */
 form.onsubmit = function(event){
 	/*
@@ -204,14 +207,12 @@ form.onsubmit = function(event){
 	 {
 	 	event.preventDefault();
 		swal("Aviso","Pass o Id de administrador invalido!","warning");
-	 }
-	 else{
+	 }else{
 	 	if (passAdmin.value.length == 0 || whiteSpace.test(passAdmin.value))
 	 	{
 	 		event.preventDefault();
 	 		swal("Aviso","Pass o Id de administrador invalido!","warning");
-	    }
-	    else{
+	    }else{
 	    	if (bookingIdSent.value.length == 0 || whiteSpace.test(bookingIdSent.value))
 	    	{
 	    		event.preventDefault();
@@ -225,8 +226,8 @@ form.onsubmit = function(event){
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se accione se envie el formulario
  * validando que sus campos no esten vacios
- * 
- * @param  {event}
+ * @param  {event} este evento de el formulario sera prevenido en caso de que se envie el form
+ * y no cumpla conlas validaciones.
  */
 formClientModal.onsubmit = function (event){
 	/*
