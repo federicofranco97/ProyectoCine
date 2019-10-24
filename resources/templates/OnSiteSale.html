@@ -16,15 +16,15 @@
 	<!--Div contenedor de las tablas-->
 	<div class="tableContainer">
 		<!--contenedor de tabla de peliculas-->
-		<div class="titleMovie bg-dark">
+		<div class="bg-dark titleMovie">
 			<strong class="strongOnsite">Peliculas</strong>
 		</div>
 		<!--contenedor de tabla de funciones-->
-		<div class="titleTime bg-dark">
+		<div class="bg-dark titleTime">
 			<strong class="strongOnsite">Funciones</strong>
 		</div>
 		<div class="tableMovie">
-			<table class="table table-striped table-dark">
+			<table class="table table-striped table-dark tableContainerfs">
 				<tbody>
 					<!--Td que recibe un th que por cada tr se va a generar un td con los valores y texto de las peliculas-->
 					<tr th:each="film : ${films}">
@@ -37,7 +37,7 @@
 			</table>
 		</div>
 		<div class="tableTime">
-			<table class="table table-striped table-dark">
+			<table class="table table-striped table-dark tableContainerfs">
 				<tbody>
 					<!--Td que recibe un th que por cada tr se va a generar un td con los valores y texto de las funciones-->
 					<tr th:each="show : ${shows}">

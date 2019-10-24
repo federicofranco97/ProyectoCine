@@ -44,9 +44,17 @@ var dni = document.getElementById("dni");
 //Trae el elemento del boton para cerrar el formulario
 var closeFormBtn = document.getElementById("closeFormBtn");
 //Trae el div contenedor de enetradas
-var container_tables = document.getElementById("container_tables");
+var container_tables = document.getElementById("containerTables");
 //Trae el elemento que contiene el panel de botones
 var panel = document.getElementById("panel");
+//Constantes
+const menor = 'Menor';
+const jubilado = 'Jubilado';
+const adulto = 'Adulto';
+const promo2x1 = 'Promo2x1';
+const registradoAdulto = 'RegistradoAdulto';
+const registradoMenor = 'RegistradoMenor';
+const registradoMayor = 'RegistradoMayor';
 //Regex para validar que no haya espacios vacios en los campos del formulario
 var whiteSpace = /^\s+$/;
 
@@ -60,43 +68,43 @@ var whiteSpace = /^\s+$/;
  * @param  {element}
  */
 function add(element){
-	if (element == 'Menor') {
+	if (element == menor) {
 		underAgeIncrement ++;
 		total = total + parseInt(inputUnderAge.value);
 		totalPay.innerHTML = "$" + total;
 		underAge.innerHTML = underAgeIncrement;
 	}
-	if (element == 'Jubilado') {
+	if (element == jubilado) {
 		retiredIncrement ++;
 		total = total + parseInt(inputRetired.value);
 		totalPay.innerHTML = "$" + total;
 		retired.innerHTML = retiredIncrement;
 	}
-	if (element == 'Adulto') {
+	if (element == adulto) {
 		adultIncrement ++;
 		total = total + parseInt(inputAdulto.value);
 		totalPay.innerHTML = "$" + total;
 		adult.innerHTML = adultIncrement;
 	}
-	if (element == 'Promo2x1') {
+	if (element == promo2x1) {
 		promoIncrement ++;
 		total = total + parseInt(inputPromo.value);
 		totalPay.innerHTML = "$" + total;
 		promo.innerHTML =  promoIncrement;
 	}
-	if (element == 'RegistradoAdulto') {
+	if (element == registradoAdulto) {
 		registeredAdultIncrement ++;
 		total = total + parseInt(inputRegisteredAdult.value);
 		totalPay.innerHTML = "$" + total;
 		registeredAdult.innerHTML = registeredAdultIncrement;
 	}
-	if (element == 'RegistradoMenor') {
+	if (element == registradoMenor) {
 		registeredUnderAgeIncrement ++;
 		total = total + parseInt(inputRegisteredUnderAge.value);
 		totalPay.innerHTML = "$" + total;
 		registeredUnderAge.innerHTML = registeredUnderAgeIncrement;
 	}
-	if (element == 'RegistradoMayor') {
+	if (element == registradoMayor) {
 		registeredOlderIncrement ++;
 		total = total + parseInt(inputRegisteredOlder.value);
 		totalPay.innerHTML = "$" + total;
@@ -113,43 +121,43 @@ function add(element){
  * @param  {element}
  */
 function minus(element){
-	if (element == 'Menor' &&  underAgeIncrement != 0) {
+	if (element == menor &&  underAgeIncrement != 0) {
 		underAgeIncrement --;
 		total = total - parseInt(inputUnderAge.value);
 		totalPay.innerHTML = "$" + total;
 		underAge.innerHTML = underAgeIncrement;
 	}
-	if (element == 'Jubilado' && retiredIncrement != 0) {
+	if (element == jubilado && retiredIncrement != 0) {
 		retiredIncrement --;
 		total = total - parseInt(inputRetired.value);
 		totalPay.innerHTML = "$" + total;
 		retired.innerHTML = retiredIncrement;
 	}
-	if (element == 'Adulto' && adultIncrement != 0) {
+	if (element == adulto && adultIncrement != 0) {
 		adultIncrement --;
 		total = total - parseInt(inputAdult.value);
 		totalPay.innerHTML = "$" + total;
 		adult.innerHTML = adultIncrement;
 	}
-	if (element == 'Promo2x1' && promoIncrement != 0) {
+	if (element == promo2x1 && promoIncrement != 0) {
 		promoIncrement --;
 		total = total - parseInt(inputPromo.value);
 		totalPay.innerHTML = "$" + total;
 		promo.innerHTML = promoIncrement;
 	}
-	if (element == 'RegistradoAdulto' && registeredAdultIncrement != 0) {
+	if (element == registradoAdulto && registeredAdultIncrement != 0) {
 		registeredAdultIncrement --;
 		total = total - parseInt(inputRegisteredAdult.value);
 		totalPay.innerHTML = "$" + total;
 		registeredAdult.innerHTML = registeredAdultIncrement;
 	}
-	if (element == 'RegistradoMenor' && registeredUnderAgeIncrement != 0) {
+	if (element == registradoMenor && registeredUnderAgeIncrement != 0) {
 		registeredUnderAgeIncrement --;
 		total = total - parseInt(inputRegisteredUnderAge.value);
 		totalPay.innerHTML = "$" + total;
 		registeredUnderAge.innerHTML = registeredUnderAgeIncrement;
 	}
-	if (element == 'RegistradoMayor' && registeredOlderIncrement != 0) {
+	if (element == registradoMayor && registeredOlderIncrement != 0) {
 		registeredOlderIncrement --;
 		total = total - parseInt(inputRegisteredOlder.value);
 		totalPay.innerHTML = "$" + total;
