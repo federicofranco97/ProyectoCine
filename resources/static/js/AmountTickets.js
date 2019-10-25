@@ -20,7 +20,7 @@ var registeredAdult = document.getElementById("RegistradoAdulto");
 var registeredUnderAge = document.getElementById("RegistradoMenor");
 var registeredOlder = document.getElementById("RegistradoMayor");
 //Variables que traen los elementos input correspondientes a su id que van a 
-//venir del back por medio de thyemeleaf y recibiran los precios de cada
+//venir del back por medio de thymeleaf y recibiran los precios de cada
 //categoria para calcularlo, ya que no se puede obtener el value de un elemento td
 var inputUnderAge = document.getElementById("inputMenor");
 var inputRetired = document.getElementById("inputJubilado");
@@ -58,15 +58,15 @@ const registradoMayor = 'RegistradoMayor';
 //Regex para validar que no haya espacios vacios en los campos del formulario
 var whiteSpace = /^\s+$/;
 
-
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se accione el boton para sumar
  * entradas.
- * Rercibe como parametro el nombre de la categoria traido desde el backend y compara
+ * Recibe como parametro el nombre de la categoria traida desde el backend y compara
  * para saber en que categoria debe agregar entradas, sumarlo al total y mostrarlo,
  * tanto en total como en su respectiva categoria
  * @param  {element} parametro que recibe el nombre dela categoria
  */
+
 function add(element){
 	if (element == menor) {
 		underAgeIncrement ++;
@@ -120,6 +120,7 @@ function add(element){
  * tanto en total como en su respectiva categoria
  * @param  {element} parametro que recibe el nombre dela categoria
  */
+
 function minus(element){
 	if (element == menor &&  underAgeIncrement != 0) {
 		underAgeIncrement --;
@@ -171,6 +172,7 @@ function minus(element){
  * Valida que aunque sea se haya agregado una entrada de alguna categoria, de lo contrario
  * no deja continuar dando un aviso.
  */
+
 function pay(){
 	if (total == 0) {
 		swal("Aviso", "No hay entradas seleccionadas!", "warning");
@@ -193,6 +195,7 @@ function back(){
  * de ingreso del cliente, validando el input id.
  * @param {event} parametro en el cual se va a prevenir el evento del formulario
  */
+
 formClient.onsubmit = function(event){
 	if (formClient.elements[0].value == "" || whiteSpace.test(formClient.elements[0].value)) {
 		event.preventDefault();
@@ -205,6 +208,7 @@ formClient.onsubmit = function(event){
  * del formulario de registro de cliente, validando sus campos.
  * @param {event} parametro en el cual se va a prevenir el evento del formulario
  */
+
 formRegisterClient.onsubmit = function(event){
 	if (completeName.value == "" || whiteSpace.test(completeName.value)) {
 		event.preventDefault();
@@ -230,6 +234,7 @@ formRegisterClient.onsubmit = function(event){
  * activando la pagina principal.
  * @param {event} parametro en el cual se va a prevenir el evento del formulario
  */
+
 closeFormBtn.onclick = function(event){
 	event.preventDefault();
 	formRegisterClient.style.display = "none";
@@ -246,6 +251,7 @@ closeFormBtn.onclick = function(event){
  * tener acceso al formulario de registro de clientes, abriendo el formulario y 
  * desactivando la pagina principal.
  */
+
 function registerClient(){
 	formRegisterClient.style.display = "block";
 	formClient.style.opacity = "0.3";

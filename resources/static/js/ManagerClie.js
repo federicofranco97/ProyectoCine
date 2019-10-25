@@ -1,4 +1,3 @@
-
 //Permite editar la info del cliente
 function EditClient(Component){
     //Declaracion de variables
