@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: header">
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body class="bg-secondary" id="AnalyticsBody">
+<div th:replace="layout :: menu"></div>
+<div th:replace="AdminNavBar :: AdminNav"></div>
+<table class="table table-bordered table-dark" style="width: 90vw;margin: auto;margin-top:6%">
+    <tbody id="CalendarTable" style="overflow-y: auto;display: block;height:70vh">
+    <tr style="height: 180px ; width:100%">
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+        <td>@mdo</td>
+    </tr>
+    <tr style="height: 180px ; width:100%">
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+        <td>@fat</td>
+    </tr>
+    <tr style="height: 180px ; width:100%">
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+    </tr>
+    </tbody>
+</table>
+<div th:replace="layout :: footer"></div>
+</body>
+</html>

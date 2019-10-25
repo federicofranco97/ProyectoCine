@@ -14,7 +14,7 @@ public class AnalyticsController {
     @Autowired
     ClientService clientService;
 
-    @GetMapping("/analyticsGraficos")
+    @GetMapping("/analytics_graficos")
     public ModelAndView GetMainAnalytics(){
         ModelAndView model = new ModelAndView("Analytics");
         model.addObject("YearSales",clientService.YearSalesInformation("2019"));
@@ -22,11 +22,18 @@ public class AnalyticsController {
         return model;
     }
 
-    @GetMapping("/analyticsSpecific")
+    @GetMapping("/analytics_specific")
     public ModelAndView GetSpecificAnalytics(@RequestParam("year") String Year){
         ModelAndView model = new ModelAndView("Analytics");
         model.addObject("YearSales",clientService.YearSalesInformation(Year));
         model.addObject("YearMovements",clientService.YearUserMovements(Year));
         return model;
     }
+
+    @GetMapping("/analytics_rateplan")
+    public ModelAndView GetRatePlanning(){
+        ModelAndView model = new ModelAndView("AnalyticsRatePlan");
+        return model;
+    }
+
 }
