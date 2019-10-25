@@ -3,7 +3,6 @@
 <head th:replace="layout :: header">
     <meta charset="UTF-8"/>
     <title>Title</title>
-    <link href="../static/css/Tickets.css"  type="text/css" />
 </head>
 <body class="bg-secondary">
     <div th:replace="layout :: menu"></div>
@@ -15,7 +14,7 @@
                 <label th:text="${ticket.getTicketTitle()}"></label>
                 <a href="#" class="btn btn-secondary" th:name="${ticket.getTicketID()}" onclick="CloseTicket(this)" style="float:right">Cerrar Ticket</a>
                 <div  style="width:100%">
-                    <h6 class="card-title card-status" th:text="${ticket.getTicketStatus()}"></h6><h6 class="card-title card-date" th:text="${ticket.getTicketDate()}" ></h6>
+                    <h6 class="card-title cardStatus" th:text="${ticket.getTicketStatus()}"></h6><h6 class="card-title card-date" th:text="${ticket.getTicketDate()}" ></h6>
                 </div>
             </div>
             <div class="card-body">

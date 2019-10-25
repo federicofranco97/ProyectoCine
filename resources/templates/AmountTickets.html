@@ -46,10 +46,10 @@
   </table>
 </div>
 <!--Permite ingresar el id del cliente para traer su informacion y guardar el id en la reserva-->
-<form id="formClient" class="form" method="post" action="/buscarCliente_traerInfo">
+<form id="formClient" class="formStyle" method="post" action="/buscarCliente_traerInfo">
   <label class= "badge badge-dark location standardLabel" for="ClientDNI">DNI cliente</label><br/>
   <input class="form-control form-control-sm col-md-6 location" type="text" name="clientDNI" placeholder="DNI cliente" value=""/><br/>
-  <input class="btn btn-secondary btn-sm btnSend location" type="submit" name="send" value="Ingresar"/><br/>
+  <input class="btn btn-secondary btn-sm btnSend" type="submit" name="send" value="Ingresar"/><br/>
   <label class= "badge badge-info location standardLabel" th:if="${msj != null}">ID:</label><br/>
   <label class= "labelClient location standardLabel" th:if="${msj != null}" th:text="${clientInfo.getClientNumber()}"></label><br/>
   <label class= "badge badge-info labelIdClient location standardLabel" th:if="${msj != null}">NOMBRE:</label><br/>
@@ -107,14 +107,16 @@
 <script th:inline="javascript">
          /*<![CDATA[*/
         var contentList = /*[[${Content}]]*/ 'default';
-        var p1=(contentList[0]);
-        var p2=(contentList[1]);
+        var titleType=(contentList[0]);
+        var textContent=(contentList[1]);
+        //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
         var p3=(contentList[2]);
+        const num = "1"; 
          /*]]>*/
-         if(p3== "1"){
+         if(p3== num){
         	 swal({
-                 title: p1,
-                 text: p2,
+                 title: titleType,
+                 text: textContent,
                  icon: "warning"
                })
                p3="";

@@ -54,16 +54,19 @@
     <script th:inline="javascript">
          /*<![CDATA[*/
         var contentList = /*[[${Content}]]*/ 'default';
-        var p1=(contentList[0]);
-        var p2=(contentList[1]);
+        var titleType=(contentList[0]);
+        var textContent=(contentList[1]);
+        //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
         var p3=(contentList[2]);
+        const num = "1"; 
          /*]]>*/
-         if(p3== "1"){
+         if(p3== num){
         	 swal({
-                 title: p1,
-                 text: p2,
+                 title: titleType,
+                 text: textContent,
                  icon: "warning"
                })
+               p3="";
          }
     </script>
 </body>

@@ -1,13 +1,11 @@
 function Validate(){
     var idCode = document.getElementById("idCode").value;
-    console.log(idCode);
     if(idCode === "" || idCode === "  "){
         swal({
                   title: "Error",
                   text: "No ingreso un codigo valido",
                   icon: "warning",
                   buttons: true
-
                 })
 
     }else{
@@ -16,10 +14,8 @@ function Validate(){
                   text: "Codigo correcto",
                   icon: "success",
                   buttons: true
-
                 })
     }
-
 }
 var idCode = document.getElementById("idCode").value;
 document.getElementById("idCode").addEventListener("keydown", function(event) {
@@ -31,8 +27,7 @@ document.getElementById("idCode").addEventListener("keydown", function(event) {
 //funcion que trae el codigo de reserva
 function BringBooking(){
     window.open("/buscar_reserva?bookingId="+idCode,"_self");
-    console.log(idCode);
-}
+  }
 
 
 
