@@ -29,14 +29,6 @@ var elementNames = [ 'Menor', 'Jubilado', 'Adulto', 'Promo2x1', 'RegistradoAdult
 var counters = [];
 var inputs = [];
 var elements = [];
-// constantes de posisicon de cada contador en el array
-const INCR_MENOR = 0;
-const INCR_JUBILADO = 1;
-const INCR_ADULTO = 2;
-const INCR_PROMO = 3;
-const INCR_REGADULTO = 4;
-const INCR_REGMENOR = 5;
-const INCR_REGMAYOR = 6;
 
 //Carga la funcion para crear los elementos luego de cargar la pagina
 document.getElementById("AmountBody").onload = function(){
