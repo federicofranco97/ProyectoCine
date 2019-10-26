@@ -1,34 +1,9 @@
-//Variables de incremento de cada categoria
-var underAgeIncrement = 0;
-var retiredIncrement = 0;
-var adultIncrement = 0;
-var promoIncrement = 0;
-var registeredAdultIncrement = 0;
-var registeredUnderAgeIncrement = 0;
-var registeredOlderIncrement = 0;
 //Variable que guarda el total del valor de entradas
 var total = 0;
 //Variable que guarda las cantidades de entradas por categoria para enviar al backend
 var sent = "";
 //Variables que traen el elemento correspondiente a su id para utilizar sus valores
 var totalPay = document.getElementById("pesos");
-var underAge = document.getElementById("Menor");
-var retired = document.getElementById("Jubilado");
-var adult = document.getElementById("Adulto");
-var promo = document.getElementById("Promo2x1");
-var registeredAdult = document.getElementById("RegistradoAdulto");
-var registeredUnderAge = document.getElementById("RegistradoMenor");
-var registeredOlder = document.getElementById("RegistradoMayor");
-//Variables que traen los elementos input correspondientes a su id que van a 
-//venir del back por medio de thymeleaf y recibiran los precios de cada
-//categoria para calcularlo, ya que no se puede obtener el value de un elemento td
-var inputUnderAge = document.getElementById("inputMenor");
-var inputRetired = document.getElementById("inputJubilado");
-var inputAdult = document.getElementById("inputAdulto");
-var inputPromo = document.getElementById("inputPromo2x1");
-var inputRegisteredAdult = document.getElementById("inputRegistradoAdulto");
-var inputRegisteredUnderAge = document.getElementById("inputRegistradoMenor");
-var inputRegisteredOlder = document.getElementById("inputRegistradoMayor");
 //Variables que guarda el elemento formulario
 var formClient = document.getElementById("formClient");
 //Variable que guarda el valor del elemento input del cliente 
@@ -44,126 +19,69 @@ var dni = document.getElementById("dni");
 //Trae el elemento del boton para cerrar el formulario
 var closeFormBtn = document.getElementById("closeFormBtn");
 //Trae el div contenedor de enetradas
-var container_tables = document.getElementById("containerTables");
+var container_tables = document.getElementById("container_tables");
 //Trae el elemento que contiene el panel de botones
 var panel = document.getElementById("panel");
-//Constantes
-const menor = 'Menor';
-const jubilado = 'Jubilado';
-const adulto = 'Adulto';
-const promo2x1 = 'Promo2x1';
-const registradoAdulto = 'RegistradoAdulto';
-const registradoMenor = 'RegistradoMenor';
-const registradoMayor = 'RegistradoMayor';
 //Regex para validar que no haya espacios vacios en los campos del formulario
 var whiteSpace = /^\s+$/;
+//Arrays
+var elementNames = [ 'Menor', 'Jubilado', 'Adulto', 'Promo2x1', 'RegistradoAdulto', 'RegistradoMenor', 'RegistradoMayor' ];
+var counters = [];
+var inputs = [];
+var elements = [];
+// constantes de posisicon de cada contador en el array
+const INCR_MENOR = 0;
+const INCR_JUBILADO = 1;
+const INCR_ADULTO = 2;
+const INCR_PROMO = 3;
+const INCR_REGADULTO = 4;
+const INCR_REGMENOR = 5;
+const INCR_REGMAYOR = 6;
 
-/**
- * @descriptor Esta funcion va a ser ejecutada cuando se accione el boton para sumar
- * entradas.
- * Recibe como parametro el nombre de la categoria traida desde el backend y compara
- * para saber en que categoria debe agregar entradas, sumarlo al total y mostrarlo,
- * tanto en total como en su respectiva categoria
- * @param  {element} parametro que recibe el nombre dela categoria
- */
-
-function add(element){
-	if (element == menor) {
-		underAgeIncrement ++;
-		total = total + parseInt(inputUnderAge.value);
-		totalPay.innerHTML = "$" + total;
-		underAge.innerHTML = underAgeIncrement;
-	}
-	if (element == jubilado) {
-		retiredIncrement ++;
-		total = total + parseInt(inputRetired.value);
-		totalPay.innerHTML = "$" + total;
-		retired.innerHTML = retiredIncrement;
-	}
-	if (element == adulto) {
-		adultIncrement ++;
-		total = total + parseInt(inputAdulto.value);
-		totalPay.innerHTML = "$" + total;
-		adult.innerHTML = adultIncrement;
-	}
-	if (element == promo2x1) {
-		promoIncrement ++;
-		total = total + parseInt(inputPromo.value);
-		totalPay.innerHTML = "$" + total;
-		promo.innerHTML =  promoIncrement;
-	}
-	if (element == registradoAdulto) {
-		registeredAdultIncrement ++;
-		total = total + parseInt(inputRegisteredAdult.value);
-		totalPay.innerHTML = "$" + total;
-		registeredAdult.innerHTML = registeredAdultIncrement;
-	}
-	if (element == registradoMenor) {
-		registeredUnderAgeIncrement ++;
-		total = total + parseInt(inputRegisteredUnderAge.value);
-		totalPay.innerHTML = "$" + total;
-		registeredUnderAge.innerHTML = registeredUnderAgeIncrement;
-	}
-	if (element == registradoMayor) {
-		registeredOlderIncrement ++;
-		total = total + parseInt(inputRegisteredOlder.value);
-		totalPay.innerHTML = "$" + total;
-		registeredOlder.innerHTML = registeredOlderIncrement;
-	}
+//Carga la funcion para crear los elementos luego de cargar la pagina
+document.getElementById("AmountBody").onload = function(){
+	Cargar();
 }
 
-/**
- * @descriptor Esta funcion va a ser ejecutada cuando se accione el boton para restar
- * entradas.
- * Rercibe como parametro el nombre de la categoria traido desde el backend y compara
- * para saber en que categoria debe sacar entradas, reflejarlo en el total y mostrarlo,
- * tanto en total como en su respectiva categoria
- * @param  {element} parametro que recibe el nombre dela categoria
- */
+function Cargar(){
+	var elem;
+	for (elem in elementNames) {
+		elements.push(document.getElementById(elementNames[elem]));
+		inputs.push(document.getElementById("input" + elementNames[elem]));
+		console.log("input" + elementNames[elem]);
+		counters.push(0);
+	}
+	
+}
 
-function minus(element){
-	if (element == menor &&  underAgeIncrement != 0) {
-		underAgeIncrement --;
-		total = total - parseInt(inputUnderAge.value);
-		totalPay.innerHTML = "$" + total;
-		underAge.innerHTML = underAgeIncrement;
-	}
-	if (element == jubilado && retiredIncrement != 0) {
-		retiredIncrement --;
-		total = total - parseInt(inputRetired.value);
-		totalPay.innerHTML = "$" + total;
-		retired.innerHTML = retiredIncrement;
-	}
-	if (element == adulto && adultIncrement != 0) {
-		adultIncrement --;
-		total = total - parseInt(inputAdult.value);
-		totalPay.innerHTML = "$" + total;
-		adult.innerHTML = adultIncrement;
-	}
-	if (element == promo2x1 && promoIncrement != 0) {
-		promoIncrement --;
-		total = total - parseInt(inputPromo.value);
-		totalPay.innerHTML = "$" + total;
-		promo.innerHTML = promoIncrement;
-	}
-	if (element == registradoAdulto && registeredAdultIncrement != 0) {
-		registeredAdultIncrement --;
-		total = total - parseInt(inputRegisteredAdult.value);
-		totalPay.innerHTML = "$" + total;
-		registeredAdult.innerHTML = registeredAdultIncrement;
-	}
-	if (element == registradoMenor && registeredUnderAgeIncrement != 0) {
-		registeredUnderAgeIncrement --;
-		total = total - parseInt(inputRegisteredUnderAge.value);
-		totalPay.innerHTML = "$" + total;
-		registeredUnderAge.innerHTML = registeredUnderAgeIncrement;
-	}
-	if (element == registradoMayor && registeredOlderIncrement != 0) {
-		registeredOlderIncrement --;
-		total = total - parseInt(inputRegisteredOlder.value);
-		totalPay.innerHTML = "$" + total;
-		registeredOlder.innerHTML = registeredOlderIncrement;
-	}
+/* Funcion para aumnetar la cantidad de entradas
+   @param {element} elemento proveniente de la pagina referido a el nmobre de categoria 
+*/
+function add(element) {
+  var i;
+  for(i = 0; i < inputs.length; i++) {
+    if(element == elementNames[i]) {
+      counters[i]++;
+      total += parseInt(inputs[i].value);
+      totalPay.innerHTML = "$" + total;
+      elements[i].innerHTML = counters[i];
+    }
+  }
+}
+
+/* Funcion para restar la cantidad de entradas
+   @param {element} elemento proveniente de la pagina referido a el nmobre de categoria 
+*/
+function minus(element) {
+  var i;
+  for(i = 0; i < inputs.length; i++) {
+    if(element == elementNames[i] && counters[i] != 0) {
+      counters[i]--;
+      total = total - parseInt(inputs[i].value);
+      totalPay.innerHTML = "$" + total;
+      elements[i].innerHTML = counters[i];
+    }
+  }
 }
 
 /**
@@ -172,13 +90,21 @@ function minus(element){
  * Valida que aunque sea se haya agregado una entrada de alguna categoria, de lo contrario
  * no deja continuar dando un aviso.
  */
-
 function pay(){
 	if (total == 0) {
 		swal("Aviso", "No hay entradas seleccionadas!", "warning");
 	}else {
-		sent = String(underAgeIncrement)+"_"+String(retiredIncrement)+"_"+String(adultIncrement)+"_"+String(promoIncrement)+"_"+String(registeredAdultIncrement)+"_"+String(registeredUnderAgeIncrement)+"_"+String(registeredOlderIncrement);
-		window.open("/presencial_pagar?underAge="+underAgeIncrement+"&retired="+retiredIncrement+"&adult="+adultIncrement+"&promo="+promoIncrement+"&registeredAdult="+registeredAdultIncrement+"&registeredUnderAge="+registeredUnderAgeIncrement+"&registeredOlder="+registeredOlderIncrement+"&total="+total,"_self");
+		var counter = null;
+		var i = 0;
+		var values = "";
+		for(i = 0; i < counters.length; i++) {
+			if(i == 0){
+				values = values + "categories=" + counters[i];
+			}else{
+				values = values + "," + counters[i];
+			}
+		}
+		window.open("/presencial_pagar?" + values + "&total="+total,"_self");
 	}
 }
 
@@ -187,15 +113,14 @@ function pay(){
  * a la pagina de seleccion de pelicula y funcion.
  */
 function back(){
-	window.open("/venta_presencial?cantidades="+sent,"_self");
+	window.open("/presencial_volver","_self");
 }
 
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se aprete el boton de submit
  * de ingreso del cliente, validando el input id.
- * @param {event} parametro en el cual se va a prevenir el evento del formulario
+ * @param {event}
  */
-
 formClient.onsubmit = function(event){
 	if (formClient.elements[0].value == "" || whiteSpace.test(formClient.elements[0].value)) {
 		event.preventDefault();
@@ -206,9 +131,8 @@ formClient.onsubmit = function(event){
 /**
  * @descriptor Esta funcion va a ser ejecutada cuando se aprete el boton de submit
  * del formulario de registro de cliente, validando sus campos.
- * @param {event} parametro en el cual se va a prevenir el evento del formulario
+ * @param {event}
  */
-
 formRegisterClient.onsubmit = function(event){
 	if (completeName.value == "" || whiteSpace.test(completeName.value)) {
 		event.preventDefault();
@@ -232,9 +156,8 @@ formRegisterClient.onsubmit = function(event){
  * @descriptor Esta funcion va a ser ejecutada cuando se aprete el boton para
  * cerrar el formulario de registro de clientes, cerrando el formulario y 
  * activando la pagina principal.
- * @param {event} parametro en el cual se va a prevenir el evento del formulario
+ * @param {event}
  */
-
 closeFormBtn.onclick = function(event){
 	event.preventDefault();
 	formRegisterClient.style.display = "none";
@@ -250,8 +173,8 @@ closeFormBtn.onclick = function(event){
  * @descriptor Esta funcion va a ser ejecutada cuando se aprete el boton para
  * tener acceso al formulario de registro de clientes, abriendo el formulario y 
  * desactivando la pagina principal.
+ * @param {event}
  */
-
 function registerClient(){
 	formRegisterClient.style.display = "block";
 	formClient.style.opacity = "0.3";
