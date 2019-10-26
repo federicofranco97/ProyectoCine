@@ -19,7 +19,7 @@ var dni = document.getElementById("dni");
 //Trae el elemento del boton para cerrar el formulario
 var closeFormBtn = document.getElementById("closeFormBtn");
 //Trae el div contenedor de enetradas
-var container_tables = document.getElementById("container_tables");
+var containerTables = document.getElementById("containerTables");
 //Trae el elemento que contiene el panel de botones
 var panel = document.getElementById("panel");
 //Regex para validar que no haya espacios vacios en los campos del formulario
@@ -157,8 +157,8 @@ closeFormBtn.onclick = function(event){
 	formClient.style.pointerEvents = "auto";
 	panel.style.opacity = "1";
 	panel.style.pointerEvents = "auto";
-	container_tables.style.opacity = "1";
-	container_tables.style.pointerEvents = "auto";
+	containerTables.style.opacity = "1";
+	containerTables.style.pointerEvents = "auto";
 }
 
 /**
@@ -173,8 +173,8 @@ function registerClient(){
 	formClient.style.pointerEvents = "none";
 	panel.style.opacity = "0.3";
 	panel.style.pointerEvents = "none";
-	container_tables.style.opacity = "0.3";
-	container_tables.style.pointerEvents = "none";
+	containerTables.style.opacity = "0.3";
+	containerTables.style.pointerEvents = "none";
 }
 
 //Funcion reservada para asociar tooltips a determinados campos
