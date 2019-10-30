@@ -60,7 +60,7 @@ public class TicketsController {
         }
         ModelAndView model = new ModelAndView("ErrorPage");
         model.addObject("Content",Arrays.asList("Error al crear Ticket","Ocurrio un error al crear el " +
-                    "ticket, por facor consulte con un supervisor"));
+                    "ticket, por facor consulte con un supervisor", "/admin_main"));
         return model;
     }
     /**
@@ -74,7 +74,7 @@ public class TicketsController {
         }else{
             ModelAndView errorModel = new ModelAndView("ErrorPage");
             errorModel.addObject("Contenido", Arrays.asList("Error","Ocurrio un error al cerrar el ticket," +
-                    "no hay empleado logeado o el empleado actual no tiene los permisos requeridos."));
+                    "no hay empleado logeado o el empleado actual no tiene los permisos requeridos.", "/admin_main"));
             return errorModel;
         }
 
