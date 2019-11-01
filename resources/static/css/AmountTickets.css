@@ -13,6 +13,11 @@
     pointer-events: auto;
 }
 
+.tableContainerRate{
+	position: relative;
+	top: 1%;
+}
+
 .formStyle
 {
 	width: 14%;
@@ -90,12 +95,6 @@ strong
 .center
 {
 	text-align: center;
-}
-
-.table
-{
-	position: relative;
-    top: 6%;
 }
 
 .btnBack
