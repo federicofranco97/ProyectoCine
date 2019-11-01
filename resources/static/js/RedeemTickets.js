@@ -1,6 +1,6 @@
 function Validate(){
     var idCode = document.getElementById("idCode").value;
-    if(idCode === "" || idCode === "  "){
+     if(idCode === "" || idCode === "  " || idCode == null || idCode == 0){
         swal({
                   title: "Error",
                   text: "No ingreso un codigo valido",
