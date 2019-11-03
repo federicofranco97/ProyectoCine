@@ -538,7 +538,7 @@ public class ClientService {
     }
 
     /**
-     * 
+     * Trae la lista de todas las sucursales.
      * @return 
      */
     public void FillAllBranches(){
@@ -697,6 +697,9 @@ public class ClientService {
      * Método que trae una película
      * @param idFilm
      * @return
+     * Trae una pelicula por id
+     * @param idFilm id de pelicula 
+     * @return 
      */
     public FilmDTO GetFilmById(int idFilm){
         for(FilmDTO Film: GetAllFilms()){
@@ -708,9 +711,15 @@ public class ClientService {
     }
 
     /**
+
      * Método que trae una función
      * @param idCinemaShow
      * @return
+
+     * Trae una funcion por id
+     * @param idCinemaShow id de funcion 
+     * @return 
+
      */
     public CinemaShowDTO GetCinemaShow(String idCinemaShow){
         for(CinemaShowDTO CinemaShow: GetAllShows()){

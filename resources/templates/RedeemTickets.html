@@ -12,8 +12,8 @@
     <div class="center">
         <span class="badge badge-dark">Código de reserva </span>
     </div>
-    <div class="input-group mb-3 center width-50">
-    <input type="number" id="idCode" class="form-control" placeholder="Código" />
+    <div class="input-group mb-3 center width50">
+        <input type="number" id="idCode" class="form-control" placeholder="Código" />
      <button id="searchCode" class="badge badge-dark" onclick="Validate()" type="button"><i class="fas fa-search"></i></button>
     </div>
     <div>
@@ -46,9 +46,9 @@
     </table>
     </div>
     <div class="center">
-        <button type="button" onclick="ReedemBooking()" class="btn btn-secondary btn-dark"><i class="fas fa-print"></i> Retirar</button>
-        <button type="button" class="btn btn-secondary btn-dark"><a href="/menu"><i class="fas fa-door-open"></i>  Salir</a></button>
-
+         <button type="button" onclick="ReedemBooking()" class="btn btn-secondary btn-dark"><i class="fas fa-print"></i> Retirar</button>
+         <button type="button" onclick="Validate()" class="btn btn-secondary btn-dark"><i class="fas fa-print"></i> Validar</button
+         <button type="button" class="btn btn-secondary btn-dark"><a href="/menu"><i class="fas fa-door-open"></i>  Salir</a></button>
     </div>
     <div th:replace="layout :: footer"></div>
     <script th:inline="javascript">
@@ -69,6 +69,20 @@
         }
         /*]]>*/
 
-    </script>
+        var titleType=(contentList[0]);
+        var textContent=(contentList[1]);
+        //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
+        var p3=(contentList[2]);
+        const num = "1"; 
+         /*]]>*/
+         if(p3== num){
+        	 swal({
+                 title: titleType,
+                 text: textContent,
+                 icon: "warning"
+               })
+               p3="";
+         }
+  </script>
 </body>
 </html>

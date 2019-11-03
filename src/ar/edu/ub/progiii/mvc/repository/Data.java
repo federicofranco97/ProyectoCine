@@ -283,7 +283,7 @@ public class Data implements IData{
                         "cs on c.NroCliente=cs.Nrocliente", "c.Nrocliente,c.NombreCompleto,c.Telefono,c.Email,c.Direccion,c.FechaNac,c.NroDocumento");
             	querySelect.addStatementCondition(Arrays.asList("cs.CodRol=1004 or cs.CodRol=1005"));
             	ResultSet rst = querySelect.Run();
-            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto", "Nrocliente", "Telefono", "Email", "Direccion", "FechaNac","NroDocumento"));
+            	result = ParseSpecificResultSet(rst, Arrays.asList("NombreCompleto", "Nrocliente", "Telefono", "Email", "Direccion", "FechaNac", "NroDocumento"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -326,7 +326,6 @@ public class Data implements IData{
             return null;
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
-        LogData("GetRolByEID","Pedido de estado de empleado");
         return result;
     }
 
@@ -455,8 +454,6 @@ public class Data implements IData{
                 QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("ActualizarEmpleado");
                 queryStoredProcedure.addParameter(Arrays.asList("'"+employeeDTO.getAddress()+"'","'"+employeeDTO.getEmail()+"'",
                         "'"+employeeDTO.getPhoneNumber()+"'",String.valueOf(employeeDTO.getEmployeeNumber())));
-                queryStoredProcedure.BuildParameters();
-                queryStoredProcedure.Build();
                 result = queryStoredProcedure.Run();
             }
             else {
@@ -1216,8 +1213,6 @@ public class Data implements IData{
                 QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("InsertarReservaInicial");
                 queryStoredProcedure.addParameter(Arrays.asList("'"+Integer.parseInt(movieId)+"'","'"+Integer.parseInt(showId)+"'",
                         "'"+theatreNumber+"'","'"+tempEmployee+"'","'"+dateShow+"'"));
-                queryStoredProcedure.BuildParameters();
-                queryStoredProcedure.Build();
                 result = queryStoredProcedure.Run();
             }
             else {
@@ -1399,8 +1394,6 @@ public class Data implements IData{
                 QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("RegistrarEntradas");
                 queryStoredProcedure.addParameter(Arrays.asList(""+employeeId, rateCode,
                         price, amountTickets+""));
-                queryStoredProcedure.BuildParameters();
-                queryStoredProcedure.Build();
                 result = queryStoredProcedure.Run();
             }
             else {
