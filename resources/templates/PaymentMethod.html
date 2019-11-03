@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: header">
+    <meta charset="UTF-8"/>
+    <title>Metodo de Pago</title>
+</head>
+<body class="bg-secondary">
+<div th:replace="layout :: menu"></div>
+<div id="mainContent">
+<h1 class="totalTitle">TOTAL</h1>
+<div class="totalAmount">
+    <label id="amountTotal" class="badge badge-dark totalBadge" th:text="${total}"></label>
+</div>
+<h1 class="titlePayment">SELECCIONE FORMA DE PAGO</h1>
+<div title="EFECTIVO" class="cashButton"><i class="fas fa-coins fa-4x"></i></div>
+<div title="MERCADO LIBRE" class="creditButton"><i class="far fa-credit-card fa-4x"></i></div>
+<div class="moneyInput">
+    <input type="number" id="inCash" name="cash" onkeyup="autoSub()" placeholder="monto"/>
+</div>
+<div class="changeInput">
+    <input type="number" id="change" name="cash" placeholder="vuelto" disabled=""/>
+</div>
+<div class="sendDiv">
+    <button type="button" onclick="SendMoney()" class="btn-dark">ENVIAR</button>
+</div>
+</div>
+<div th:replace="layout :: footer"></div>
+</body>
+</html>

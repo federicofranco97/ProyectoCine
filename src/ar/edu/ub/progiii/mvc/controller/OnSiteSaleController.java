@@ -206,7 +206,7 @@ public class OnSiteSaleController {
 			}
 		}
 		data.UpdateLastBooking("CantEntradas", amountTickets, data.GetLastBookingByEmployeeId(employeeId));
-		ModelAndView modelPay = new ModelAndView("pagina_de_pago");
+		ModelAndView modelPay = new ModelAndView("PaymentMethod");
 		modelPay.addObject("total", total);
 		return modelPay;
 	}
