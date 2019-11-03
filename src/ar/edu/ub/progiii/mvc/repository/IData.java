@@ -343,4 +343,10 @@ public interface IData {
      */
 	public int RegisterTickets(int employeeId, String rateCode, String price, String amountTickets);
 
+    /**
+     * Cambia el estado de la reserva activa a retirada
+     * @param BookingNumber
+     */
+	public void RedeemBooking(String BookingNumber);
+
 }

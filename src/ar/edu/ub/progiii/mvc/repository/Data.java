@@ -222,7 +222,7 @@ public class Data implements IData{
         try {
             if(connection != null) {
             	CQuerySelect querySelect = new CQuerySelect("reserva", "*");
-            	querySelect.addStatementCondition(Arrays.asList("codreserva="+data));
+            	querySelect.addStatementCondition(Arrays.asList("codreserva="+data,"codestadoreserva=1","datediff(day,getDate(),fecha)=0"));
             	ResultSet rst = querySelect.Run();
             	result = ParseSpecificResultSet(rst,Arrays.asList("CodReserva", "codpelicula", "codfuncion", "fecha", "nrosala", "cantentradas", "nrocliente", "codestadoreserva", "codcanal", "codsucursal", "PrecioTotal"));
             }
@@ -1406,4 +1406,21 @@ public class Data implements IData{
         LogData("InsertarReservaInicial","Insertar reserva inicial");
         return result;
     }
+
+    /**
+     * Cambia el estado de la reserva activa a retirada
+     *
+     * @param BookingNumber
+     */
+    @Override
+    public void RedeemBooking(String BookingNumber) {
+        CQueryUpdate queryUpdate = new CQueryUpdate("Reserva",Arrays.asList("codestadoreserva=3"));
+        queryUpdate.addStatementCondition("codreserva="+BookingNumber);
+        try {
+            queryUpdate.Run();
+        } catch (SQLException ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+    }
+
 }

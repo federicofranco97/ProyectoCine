@@ -1,5 +1,8 @@
 package ar.edu.ub.progiii.mvc.controller;
 
+import ar.edu.ub.progiii.mvc.dto.BookingDTO;
+import ar.edu.ub.progiii.mvc.dto.FilmDTO;
+import ar.edu.ub.progiii.mvc.dto.OnlineBookingDTO;
 import ar.edu.ub.progiii.mvc.repository.Data;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,18 +34,29 @@ public class RedeemTicketsController {
      */
     @GetMapping("/buscar_reserva")
     public ModelAndView GetBuscarReserva(@RequestParam("bookingId")String BookingNumber){
+
         if(clientService.GetBookingById(BookingNumber) == null){
             ModelAndView modelError = new ModelAndView("RedeemTickets");
-            modelError.addObject("Content", Arrays.asList("Error","No se ha ingresado la reserva","1"));
+            modelError.addObject("Content", Arrays.asList("Error","No se ha encontrado la reserva","1"));
             return modelError;
         }
         ModelAndView modelOk = new ModelAndView("RedeemTickets");
-        modelOk.addObject("Booking",clientService.GetBookingById(BookingNumber));
-        modelOk.addObject("pelicula",clientService.GetFilmById(Integer.parseInt(clientService.GetBookingById(BookingNumber).getBookingCode())).getFilmName());
-        modelOk.addObject("funcion",clientService.GetCinemaShow(clientService.GetBookingById(BookingNumber).getShow()).getStartTime());
-        modelOk.addObject("msj", "yes");
+        OnlineBookingDTO booking = new OnlineBookingDTO(clientService.GetBookingById(BookingNumber));
+        FilmDTO film = clientService.GetFilmById(Integer.parseInt(booking.getMovieName()));
+        modelOk.addObject("Content", null);
+        modelOk.addObject("Booking",booking);
+        modelOk.addObject("pelicula",film);
+        modelOk.addObject("funcion",clientService.GetCinemaShow(booking.getShow()).getStartTime());
+        modelOk.addObject("msj","yes");
         return modelOk;
 
+    }
+    @GetMapping("/imprimir_reserva")
+    public ModelAndView getImprimirReserva(@RequestParam("bookingId")String BookingNumber){
+        clientService.RedeemBooking(BookingNumber);
+        ModelAndView model = new ModelAndView("PrintBooking");
+
+        return model;
     }
 
 }

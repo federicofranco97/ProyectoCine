@@ -30,8 +30,8 @@ public class BookingDTO {
 	 *@param totalValue representa el importe total de la reserva.
 	 */
 	public BookingDTO(String bookingCode, String bookingDate, String movieName, String show, String location,
-			int theatreNumber, int ticketAmount, int clientNumber, int bookingStatus, int channelCode,double totalValue) {
-		
+					   int theatreNumber, int ticketAmount, int clientNumber, int bookingStatus, int channelCode,double totalValue) {
+
 		BookingCode = bookingCode;
 		BookingDate = bookingDate;
 		MovieName = movieName;
@@ -43,6 +43,21 @@ public class BookingDTO {
 		BookingStatus = bookingStatus;
 		ChannelCode = channelCode;
 		TotalValue = totalValue;
+	}
+
+	public BookingDTO(BookingDTO bookingDTO) {
+
+		BookingCode = bookingDTO.getBookingCode();
+		BookingDate = bookingDTO.getBookingDate();
+		MovieName = bookingDTO.getMovieName();
+		Show = bookingDTO.getShow();
+		Location = bookingDTO.getLocation();
+		TheatreNumber = bookingDTO.getTheatreNumber();
+		TicketAmount = bookingDTO.getTheatreNumber();
+		ClientNumber = bookingDTO.getClientNumber();
+		BookingStatus = bookingDTO.getBookingStatus();
+		ChannelCode = bookingDTO.getChannelCode();
+		TotalValue = bookingDTO.getTotalValue();
 	}
 
 	/**

@@ -11,13 +11,13 @@ function Validate(){
     }else{
         swal({
                   title: "Exito",
-                  text: "Codigo correcto",
+                  text: "Pedido enviado",
                   icon: "success",
                   buttons: true
                 })
+                setTimeout(BringBooking,1500);
     }
 }
-var idCode = document.getElementById("idCode").value;
 document.getElementById("idCode").addEventListener("keydown", function(event) {
   if (event.keyCode === 13) {
    document.getElementById("searchCode").click();
@@ -26,8 +26,16 @@ document.getElementById("idCode").addEventListener("keydown", function(event) {
 
 //funcion que trae el codigo de reserva
 function BringBooking(){
+    var idCode = document.getElementById("idCode").value;
+    window.sessionStorage.setItem('codeForRedeem',idCode);
     window.open("/buscar_reserva?bookingId="+idCode,"_self");
-  }
+}
+
+function ReedemBooking(){
+    var idCode = window.sessionStorage.getItem('codeForRedeem');
+    window.open("/imprimir_reserva?bookingId="+idCode,"_self");
+}
+
 
 
 

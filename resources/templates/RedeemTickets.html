@@ -13,7 +13,7 @@
         <span class="badge badge-dark">Código de reserva </span>
     </div>
     <div class="input-group mb-3 center width50">
-    <input type="number" id="idCode" class="form-control" placeholder="Código" />
+        <input type="number" id="idCode" class="form-control" placeholder="Código" />
      <button id="searchCode" class="badge badge-dark" onclick="Validate()" type="button"><i class="fas fa-search"></i></button>
     </div>
     <div>
@@ -30,7 +30,7 @@
             <tr>
 
                 <td th:if="${msj != null}" th:text="${Booking.getTicketAmount()}"></td>
-                <td th:if="${msj != null}" th:text="${pelicula}"></td>
+                <td th:if="${msj != null}" th:text="${pelicula.getFilmName()}"></td>
                 <td th:if="${msj != null}" th:text="${funcion}"></td>
                 <td th:if="${msj != null}" th:text="${Booking.getTheatreNumber()}"></td>
 
@@ -46,14 +46,29 @@
     </table>
     </div>
     <div class="center">
-        <button type="button" onclick="Validate()" class="btn btn-secondary btn-dark"><i class="fas fa-print"></i> Validar</button>
-        <button type="button" class="btn btn-secondary btn-dark"><a href="/menu"><i class="fas fa-door-open"></i>  Salir</a></button>
-
+         <button type="button" onclick="ReedemBooking()" class="btn btn-secondary btn-dark"><i class="fas fa-print"></i> Retirar</button>
+         <button type="button" onclick="Validate()" class="btn btn-secondary btn-dark"><i class="fas fa-print"></i> Validar</button
+         <button type="button" class="btn btn-secondary btn-dark"><a href="/menu"><i class="fas fa-door-open"></i>  Salir</a></button>
     </div>
     <div th:replace="layout :: footer"></div>
     <script th:inline="javascript">
          /*<![CDATA[*/
         var contentList = /*[[${Content}]]*/ 'default';
+        if(contentList!=null){
+            var p1=(contentList[0]);
+            var p2=(contentList[1]);
+            var p3=(contentList[2]);
+
+             if(p3== "1"){
+                 swal({
+                     title: p1,
+                     text: p2,
+                     icon: "warning"
+                   })
+             }
+        }
+        /*]]>*/
+
         var titleType=(contentList[0]);
         var textContent=(contentList[1]);
         //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
@@ -68,6 +83,6 @@
                })
                p3="";
          }
-    </script>
+  </script>
 </body>
 </html>

@@ -123,4 +123,6 @@ public interface IMapping {
      * @return
      */
 	public RateCategoryDTO MapDTORateCategoriesSQL(String SQLData);
+
+
 }

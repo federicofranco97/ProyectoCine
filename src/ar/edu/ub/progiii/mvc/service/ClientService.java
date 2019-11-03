@@ -694,6 +694,9 @@ public class ClientService {
     }
 
     /**
+     * Método que trae una película
+     * @param idFilm
+     * @return
      * Trae una pelicula por id
      * @param idFilm id de pelicula 
      * @return 
@@ -708,9 +711,15 @@ public class ClientService {
     }
 
     /**
+
+     * Método que trae una función
+     * @param idCinemaShow
+     * @return
+
      * Trae una funcion por id
      * @param idCinemaShow id de funcion 
      * @return 
+
      */
     public CinemaShowDTO GetCinemaShow(String idCinemaShow){
         for(CinemaShowDTO CinemaShow: GetAllShows()){
@@ -732,5 +741,9 @@ public class ClientService {
             return true;
         }
         return false;
+    }
+
+    public void RedeemBooking(String bookingNumber) {
+        dataManager.RedeemBooking(bookingNumber);
     }
 }
