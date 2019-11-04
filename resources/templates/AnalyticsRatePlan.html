@@ -7,17 +7,18 @@
 <body class="bg-secondary" id="AnalyticsBody">
 <div th:replace="layout :: menu"></div>
 <div th:replace="AdminNavBar :: AdminNav"></div>
+<div class="panelReferences">
+<label class="badge badge-default badge-info" text="">Tarifa promedio</label>
+<label class="badge badge-default badge-warning" text="">Tarifa promedio objetivo</label>
+<label class="badge badge-default badge-danger" text="">Tarifa sugerida</label>
+</div>
 <div style="width: 90vw;margin:auto;margin-top:8%; overflow-y:auto;height: 70vh;">
-<table class="table table-bordered table-dark" style="position: relative;top: 0%;">
-    <tbody id="CalendarTable">
-    <tr th:each="YearSales: ${YearSales}" style="height: 180px ; width:100%">
-        <td th:text="${YearSales.getMonth()}"></td>
-        <td th:text="${YearSales.getAverageRate()}"></td>
-        <td th:text="${YearSales.getExpectedRate()}"></td>
-        <td>Tarifa sugerida</td>
-    </tr>
-    </tbody>
-</table>
+    <div class="monthsRatePlan">
+        <label class="monthRatePlan" text="">Enero</label><br>
+        <label class="badge badge-default badge-info labelRatePlanA" text="">$34</label><br>
+        <label class="badge badge-default badge-warning labelRatePlanAE" text="">$332</label><br>
+        <label class="badge badge-default badge-danger labelRatePlanS" text="">Sugerida</label>
+    </div>
 </div>
 <div th:replace="layout :: footer"></div>
 </body>
