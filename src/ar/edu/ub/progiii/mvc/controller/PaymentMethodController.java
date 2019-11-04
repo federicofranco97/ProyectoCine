@@ -1,12 +1,30 @@
 package ar.edu.ub.progiii.mvc.controller;
 
+import ar.edu.ub.progiii.mvc.repository.Data;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 
 @Controller
 public class PaymentMethodController {
     @Autowired
     ClientService clientService;
+    Data data = new Data();
+    @GetMapping("/metodo_pago")
+    public ModelAndView GetPaymentMethod(@RequestParam("payParam") String payValue, HttpServletRequest request){
+        int employeeId = (int)request.getSession().getAttribute("EmployeeId");
+        int payNumber = Integer.parseInt(payValue);
+        ModelAndView model = new ModelAndView("PaymentMethod");
+        data.UpdateLastBooking("CodEstadoReserva",3, data.GetLastBookingByEmployeeId(employeeId));
+        data.UpdateLastBooking("CodMedioPago",payNumber, data.GetLastBookingByEmployeeId(employeeId));
+        model.addObject("Content", Arrays.asList("Aviso", "Esta siendo redirigido al menu", "1"));
+         return model;
 
+    }
 }
