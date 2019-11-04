@@ -29,10 +29,11 @@ public class AnalyticsController {
         model.addObject("YearMovements",clientService.YearUserMovements(Year));
         return model;
     }
-
+    
     @GetMapping("/analytics_rateplan")
     public ModelAndView GetRatePlanning(){
         ModelAndView model = new ModelAndView("AnalyticsRatePlan");
+        model.addObject("YearSales",clientService.YearSalesInformation("2019"));
         return model;
     }
 
