@@ -40,7 +40,7 @@
                                     ContentList[6].onsiteSales, ContentList[7].onsiteSales, ContentList[8].onsiteSales,
                                     ContentList[9].onsiteSales, ContentList[10].onsiteSales, ContentList[11].onsiteSales],
                                 backgroundColor: [
-                                    'rgba(38, 235, 14, 0.1)'
+                                    'rgba(38, 235, 14, 0.7)'
                                 ],
                                 borderColor: [
                                     'rgba(38, 235, 14, 1)'
@@ -51,7 +51,6 @@
                         options: {
                         	legend: {
                                 labels: {
-                                    // This more specific font property overrides the global property
                                     fontColor: 'white'
                                 }
                         	},
@@ -84,7 +83,7 @@
                                       ContentList[6].onlineSales, ContentList[7].onlineSales, ContentList[8].onlineSales,
                                       ContentList[9].onlineSales, ContentList[10].onlineSales, ContentList[11].onlineSales],
                                 backgroundColor: [
-                                    'rgba(38, 235, 14, 0.1)'
+                                    'rgba(38, 235, 14, 0.7)'
                                 ],
                                 borderColor: [
                                     'rgba(38, 235, 14, 1)'
@@ -95,7 +94,6 @@
                         options: {
                         	legend: {
                                 labels: {
-                                    // This more specific font property overrides the global property
                                     fontColor: 'white'
                                 }
                         	},
@@ -127,9 +125,9 @@
                             datasets: [{
                                 data: [ContentMovements[0], ContentMovements[1], ContentMovements[2]],
                                 backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(237, 249,0, 1)',
+                                    'rgba(0, 237, 249, 1)',
+                                    'rgba(198, 0, 89, 1)',
                                 ],
                                 borderColor: [
                                     'rgba(0, 0, 0, 1)',
@@ -142,7 +140,6 @@
                     options: {
                     	legend: {
                             labels: {
-                                // This more specific font property overrides the global property
                                 fontColor: 'white'
                             }
                     	}
@@ -159,10 +156,14 @@
                                 label: 'Monto total presencial',
                                data: [OnsiteTempTotalOne, OnsiteTempTotalTwo, OnsiteTempTotalThree ],
                                 backgroundColor: [
-                                    'rgba(38, 235, 14, 0.2)'
+                                    'rgba(38, 235, 14, 0.7)',
+                                    'rgba(38, 235, 14, 0.7)',
+                                    'rgba(38, 235, 14, 0.7)',
                                 ],
                                 borderColor: [
-                                    'rgba(38, 235, 14, 1)'
+                                    'rgba(38, 235, 14, 1)',
+                                    'rgba(38, 235, 14, 1)',
+                                    'rgba(38, 235, 14, 1)',
                                 ],
                                 borderWidth: 2
                             }]
@@ -170,7 +171,6 @@
                         options: {
                         	legend: {
                                 labels: {
-                                    // This more specific font property overrides the global property
                                     fontColor: 'white'
                                 }
                         	},
@@ -199,10 +199,14 @@
                                 label: 'Monto total Online',
                                data: [OnlineTempTotalOne, OnlineTempTotalTwo, OnlineTempTotalThree ],
                                 backgroundColor: [
-                                    'rgba(38, 235, 14, 0.1)'
+                                    'rgba(38, 235, 14, 0.7)',
+                                    'rgba(38, 235, 14, 0.7)',
+                                    'rgba(38, 235, 14, 0.7)',
                                 ],
                                 borderColor: [
-                                    'rgba(38, 235, 14, 1)'
+                                    'rgba(38, 235, 14, 1)',
+                                    'rgba(38, 235, 14, 1)',
+                                    'rgba(38, 235, 14, 1)',
                                 ],
                                 borderWidth: 2
                             }]
@@ -210,7 +214,6 @@
                         options: {
                         	legend: {
                                 labels: {
-                                    // This more specific font property overrides the global property
                                     fontColor: 'white'
                                 }
                         	},
@@ -267,7 +270,6 @@
                     options: {
                     	legend: {
                             labels: {
-                                // This more specific font property overrides the global property
                                 fontColor: 'white'
                             }
                     	},
@@ -275,6 +277,8 @@
                     		yAxes: [{
                     			ticks: {
                     				beginAtZero: true,
+                    				scalesize:10,
+                    				max: 350,
                     				fontColor: 'white'
                     				}
                                 }],
@@ -324,7 +328,6 @@
                     options: {
                     	legend: {
                             labels: {
-                                // This more specific font property overrides the global property
                                 fontColor: 'white'
                             }
                     	},
@@ -332,6 +335,8 @@
                     		yAxes: [{
                     			ticks: {
                     				beginAtZero: true,
+                    				scalesize:10,
+                    				max: 100,
                     				fontColor: 'white'
                     				}
                                 }],
@@ -381,7 +386,6 @@
                     options: {
                     	legend: {
                             labels: {
-                                // This more specific font property overrides the global property
                                 fontColor: 'white'
                             }
                     	},
@@ -389,6 +393,8 @@
                     		yAxes: [{
                     			ticks: {
                     				beginAtZero: true,
+                    				scalesize:10,
+                    				max: 100,
                     				fontColor: 'white'
                     				}
                                 }],
