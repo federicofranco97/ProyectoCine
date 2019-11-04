@@ -9,7 +9,7 @@
 	width: 25%;
     background-color: #32383e;
     height: 26vh;
-    border: 1px solid #ccc;
+    border: 1px solid #cccccc7a;
     float: left;
 }
 .monthRatePlan{
@@ -20,16 +20,13 @@
 }
 .labelRatePlanA{
 	margin-left: 38%;
-	font-size: 12%;
 	font-weight: bold;
 }
 .labelRatePlanAE{
 	margin-left: 38%;
-	font-size: 12%;
 	font-weight: bold;
 }
 .labelRatePlanS{
 	margin-left: 38%;
-	font-size: 12%;
 	font-weight: bold;
 }

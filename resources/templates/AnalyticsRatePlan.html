@@ -8,16 +8,16 @@
 <div th:replace="layout :: menu"></div>
 <div th:replace="AdminNavBar :: AdminNav"></div>
 <div class="panelReferences">
-<label class="badge badge-default badge-info" text="">Tarifa promedio</label>
-<label class="badge badge-default badge-warning" text="">Tarifa promedio objetivo</label>
-<label class="badge badge-default badge-danger" text="">Tarifa sugerida</label>
+<label class="badge badge-default badge-info">Tarifa promedio</label>
+<label class="badge badge-default badge-warning">Tarifa promedio objetivo</label>
+<label class="badge badge-default badge-danger">Tarifa sugerida</label>
 </div>
 <div style="width: 90vw;margin:auto;margin-top:8%; overflow-y:auto;height: 70vh;">
-    <div class="monthsRatePlan">
-        <label class="monthRatePlan" text="">Enero</label><br>
-        <label class="badge badge-default badge-info labelRatePlanA" text="">$34</label><br>
-        <label class="badge badge-default badge-warning labelRatePlanAE" text="">$332</label><br>
-        <label class="badge badge-default badge-danger labelRatePlanS" text="">Sugerida</label>
+    <div th:each="YearSale : ${YearSales}" class="monthsRatePlan">
+        <label class="monthRatePlan" th:text="${YearSale.getMonth()}"></label><br/>
+        <label class="badge badge-default badge-info labelRatePlanA" th:text="${YearSale.getAverageRate()}"></label><br/>
+        <label class="badge badge-default badge-warning labelRatePlanAE" th:text="${YearSale.getExpectedRate()}">$332</label><br/>
+        <label class="badge badge-default badge-danger labelRatePlanS">Sugerida</label>
     </div>
 </div>
 <div th:replace="layout :: footer"></div>
