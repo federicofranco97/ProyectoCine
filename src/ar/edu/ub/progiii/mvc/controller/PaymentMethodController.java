@@ -24,10 +24,10 @@ public class PaymentMethodController {
         ModelAndView model = new ModelAndView("PaymentMethod");
         data.UpdateLastBooking("CodEstadoReserva",3, data.GetLastBookingByEmployeeId(employeeId));
         data.UpdateLastBooking("CodMedioPago",payNumber, data.GetLastBookingByEmployeeId(employeeId));
-        model.addObject("Content", Arrays.asList("Aviso", "Esta siendo redirigido al menu", "1"));
-         return model;
-
+        model.addObject("Content", Arrays.asList("Exito", "El pago se ha realizado con exito, esta siendo redirigido al menu", "1"));
+        return model;
     }
+    
     @GetMapping("/mercado_pago")
     public ModelAndView GetMp(HttpServletRequest request){
         ModelAndView modelMp = new ModelAndView("MercadoPago");
