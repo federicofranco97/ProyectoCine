@@ -4,6 +4,7 @@ import ar.edu.ub.progiii.mvc.repository.Data;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,5 +27,10 @@ public class PaymentMethodController {
         model.addObject("Content", Arrays.asList("Aviso", "Esta siendo redirigido al menu", "1"));
          return model;
 
+    }
+    @GetMapping("/mercado_pago")
+    public ModelAndView GetMp(HttpServletRequest request){
+        ModelAndView modelMp = new ModelAndView("MercadoPago");
+        return modelMp;
     }
 }

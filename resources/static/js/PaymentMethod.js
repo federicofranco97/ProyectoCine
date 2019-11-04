@@ -44,4 +44,5 @@ function creditValue(){
     if(credit.onclick){
         moneyVal.value = 2;
      }
+     window.open("/mercado_pago","_blank");
 }
