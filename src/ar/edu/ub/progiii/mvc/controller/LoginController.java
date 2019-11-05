@@ -33,6 +33,7 @@ public class LoginController {
 	Data data = new Data();
 	Connection connection = new Connection();
 	MappingTool map = new MappingTool();
+	
 	/**
 	Metodo que te lleva a la vista para logearte
 	 * @throws SQLException 

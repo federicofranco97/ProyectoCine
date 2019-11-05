@@ -11,6 +11,13 @@
     height: 26vh;
     border: 1px solid #cccccc7a;
     float: left;
+    cursor: pointer;
+}
+.monthsRatePlan:hover{
+	background: #347ec7;
+}
+.monthsRatePlan:active{
+	background-color: #63abf3;
 }
 .monthRatePlan{
 	margin-left: 38%;
@@ -19,14 +26,14 @@
 	color: white;
 }
 .labelRatePlanA{
-	margin-left: 38%;
+	margin-left: 40%;
 	font-weight: bold;
 }
 .labelRatePlanAE{
-	margin-left: 38%;
+	margin-left: 40%;
 	font-weight: bold;
 }
 .labelRatePlanS{
-	margin-left: 38%;
+	margin-left: 40%;
 	font-weight: bold;
 }

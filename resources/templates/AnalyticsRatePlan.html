@@ -7,17 +7,19 @@
 <body class="bg-secondary" id="AnalyticsBody">
 <div th:replace="layout :: menu"></div>
 <div th:replace="AdminNavBar :: AdminNav"></div>
+<!-- Panel de referencias -->
 <div class="panelReferences">
 <label class="badge badge-default badge-info">Tarifa promedio</label>
 <label class="badge badge-default badge-warning">Tarifa promedio objetivo</label>
 <label class="badge badge-default badge-danger">Tarifa sugerida</label>
 </div>
+<!-- Div que represeta el mes y contiene las tarifas -->
 <div style="width: 90vw;margin:auto;margin-top:8%; overflow-y:auto;height: 70vh;">
-    <div th:each="YearSale : ${YearSales}" class="monthsRatePlan">
+    <div th:each="YearSale : ${YearSales}" class="monthsRatePlan" onclick="sendRate()">
         <label class="monthRatePlan" th:text="${YearSale.getMonth()}"></label><br/>
         <label class="badge badge-default badge-info labelRatePlanA" th:text="${YearSale.getAverageRate()}"></label><br/>
         <label class="badge badge-default badge-warning labelRatePlanAE" th:text="${YearSale.getExpectedRate()}">$332</label><br/>
-        <label class="badge badge-default badge-danger labelRatePlanS">Sugerida</label>
+        <label id="suggested" class="badge badge-default badge-danger labelRatePlanS">Sugerida</label>
     </div>
 </div>
 <div th:replace="layout :: footer"></div>
