@@ -93,12 +93,12 @@
         var titleTextOrForm=(contentList[0]);
         var textContent=(contentList[1]);
         //Variable que activa el sweet alert si es 1
-        var p3=(contentList[2]);
+        var showAlert=(contentList[2]);
         //Constante para activar el form de cliente o activar sweet alert
         const onOff = "1";
          /*]]>*/
          //Activa el sweet alert para mensajes de alerta o error
-         if(p3== onOff){
+         if(showAlert== onOff){
         	 swal({
                  title: titleTextOrForm,
                  text: textContent,
