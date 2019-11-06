@@ -15,4 +15,8 @@ public class OnlineBookingDTO extends BookingDTO{
 				channelCode, totalValue);
 
 	}
+
+	public OnlineBookingDTO(BookingDTO booking){
+		super(booking);
+	}
 }

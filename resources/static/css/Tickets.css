@@ -8,7 +8,8 @@
      overflow-y: auto;
 }
 
-@media screen and (max-width: 454px) {
+@media screen and (max-width: 454px)
+{
     .cardContainer
     {
          margin-left: auto;
@@ -20,12 +21,12 @@
     }
 }
 
-.card-status
+.cardStatus
 {
     float:left;
 }
 
-.card-date
+.cardDate
 {
     float:right;
 }

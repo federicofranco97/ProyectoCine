@@ -5,25 +5,28 @@
 	width: 30%;
 }
 
-.form-group
+.formGroup
 {
 	margin: auto;
 	margin-top: 4%;
 	width: 40%;
 }
-@media screen and (max-width: 740px) {
-  .form-group
+
+@media screen and (max-width: 740px)
+{
+  .formGroup
   {
     width:50%;
   } 
 }
-  
-  
-@media screen and (max-width: 454px) {
-  .form-group
+
+@media screen and (max-width: 454px)
+{
+  .formGroup
   {
 	width:74%;
   }
+
   #titleLogScreen
   {
     width: 50%;

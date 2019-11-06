@@ -108,7 +108,7 @@ public class ManagerController {
             return new ModelAndView(redirectView);
         }else{
             ModelAndView model = new ModelAndView("ErrorPage");
-            model.addObject("Content", Arrays.asList("Error","Ocurrio un error al Banear el cliente"));
+            model.addObject("Content", Arrays.asList("Error","Ocurrio un error al Banear el cliente", "/admin_main"));
             return model;
         }
     }
@@ -123,7 +123,7 @@ public class ManagerController {
             return new ModelAndView(redirectView);
         }else{
             ModelAndView model = new ModelAndView("ErrorPage");
-            model.addObject("Content", Arrays.asList("Error","Ocurrio un error al borrar el cliente"));
+            model.addObject("Content", Arrays.asList("Error","Ocurrio un error al borrar el cliente", "/admin_main"));
             return model;
         }
     }
@@ -143,7 +143,7 @@ public class ManagerController {
             return new ModelAndView(redirectView);
         }
         ModelAndView model = new ModelAndView("ErrorPage");
-        model.addObject("Content", Arrays.asList("Error","Ocurrio un error al borrar el cliente"));
+        model.addObject("Content", Arrays.asList("Error","Ocurrio un error al borrar el cliente", "/admin_main"));
         return model;
 
     }

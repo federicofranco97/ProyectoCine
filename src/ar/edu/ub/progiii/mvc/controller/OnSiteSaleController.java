@@ -22,7 +22,7 @@ import ar.edu.ub.progiii.mvc.repository.Data;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 
 @Controller
-public class OnsiteSaleController {
+public class OnSiteSaleController {
 	@Autowired
 	ClientService clientService;
 	Data data = new Data();
@@ -34,9 +34,9 @@ public class OnsiteSaleController {
 	 * @return
 	 */
 	@GetMapping("/venta_presencial")
-	public ModelAndView GetOnsiteSaleView(HttpServletRequest request) {
+	public ModelAndView GetOnSiteSaleView(HttpServletRequest request) {
 		if(clientService.IsEmployeeAlowed((int)request.getSession().getAttribute("EmployeeId"))) {
-			ModelAndView model = new ModelAndView("OnsiteSale");
+			ModelAndView model = new ModelAndView("OnSiteSale");
 			model.addObject("films",clientService.GetAllFilms());
 			model.addObject("shows" ,clientService.GetShowsByHour());
 			model.addObject("date",clientService.GetServerDate());
@@ -49,12 +49,12 @@ public class OnsiteSaleController {
 	
 	/**
 	 * Suma a la fecha de la pagina un dia, de no poderse activa un mensaje de aviso
-	 * @param datePage
-	 * @return
+	 * @param datePage Trae la fecha de el html
+	 * @return 
 	 */
 	@GetMapping("/sumar_fecha")
 	public ModelAndView GetAddDate(@RequestParam("datePage") String datePage) {
-		ModelAndView model = new ModelAndView("OnsiteSale");
+		ModelAndView model = new ModelAndView("OnSiteSale");
 		if(clientService.CanDaysBeAdded(datePage)) {
 			model.addObject("films",clientService.GetAllFilms());
 			model.addObject("shows" ,clientService.GetAllShows());
@@ -77,12 +77,12 @@ public class OnsiteSaleController {
 	
 	/**
 	 * Resta a la fecha de la pagina un dia, de no poderse activa un mensaje de aviso
-	 * @param datePage
+	 * @param datePage datePage Trae la fecha de el html
 	 * @return
 	 */
 	@GetMapping("/restar_fecha")
 	public ModelAndView GetRemoveDate(@RequestParam("datePage") String datePage) {
-		ModelAndView model = new ModelAndView("OnsiteSale");
+		ModelAndView model = new ModelAndView("OnSiteSale");
 		if(clientService.CanDaysBeRemoved(datePage) && !clientService.RedirectToBeginning(datePage)) {
 			model.addObject("films",clientService.GetAllFilms());
 			model.addObject("shows" ,clientService.GetAllShows());
@@ -105,27 +105,28 @@ public class OnsiteSaleController {
 	/**
 	 * Realiza una reserva inicial con los valores de los parametros 
 	 * y devuelve la pagna cantidad de enetradas, cargandole los datos
-	 * @param showId
-	 * @param movieId
-	 * @param dateShow
+	 * @param showId id de la funcion
+	 * @param movieId id de la pelicula
+	 * @param dateShow fecha de la funcion
 	 * @return
 	 */
-	@GetMapping("/presencial_cantidadEntradas")
+	@GetMapping("/presencial_cantentradas")
 	public ModelAndView GetOnsiteAmountTicketsView(@RequestParam("functionId") String showId, @RequestParam("movieId") String movieId, @RequestParam("dateShow") String dateShow,  HttpServletRequest request) {
 		if (clientService.InsertInitialBooking(movieId, showId, dateShow, (int) request.getSession().getAttribute("EmployeeId"))) {
 			ModelAndView model = new ModelAndView("AmountTickets");
 			model.addObject("categories", clientService.GetAllRateCategories());
 			return model;
 		}
-		ModelAndView modelError = new ModelAndView("OnsiteSale");
+		ModelAndView modelError = new ModelAndView("OnSiteSale");
  		modelError.addObject("Contenido", Arrays.asList("Error","Se ha producido un error!","1"));
 		return modelError;
 		
 	}
 	
 	/**
-	 * Busca un cliente activo por DNI y la guarda en la reserva que se esta realizando
-	 * @param clientDNI 
+	 * Realiza una reserva inicial con los valores de los parametros 
+	 * y devuelve la pagna cantidad de enetradas, cargandole los datos
+	 * @param clientDNI dni del cliente
 	 * @return
 	 */
 	@PostMapping("/buscarCliente_traerInfo")
@@ -146,12 +147,12 @@ public class OnsiteSaleController {
 	
 	/**
 	 * Registra a un cliente 
-	 * @param fullName
-	 * @param phone
-	 * @param email
-	 * @param adress
-	 * @param birthDate
-	 * @param dni
+	 * @param fullName nombre completo cliente
+	 * @param phone telefono cliente
+	 * @param email email del cliente
+	 * @param adress direccion del cliente
+	 * @param birthDate fecha de nacimiento del cliente
+	 * @param dni dni del cliente
 	 * @return
 	 */
 	@PostMapping("/registrar_cliente")
@@ -179,31 +180,56 @@ public class OnsiteSaleController {
 	
 	/**
 	 * Realiza el registro de entradas y envia el precio total a la proxima vista
-	 * @param underAge
-	 * @param retired
-	 * @param adult
-	 * @param promo
-	 * @param registeredAdult
-	 * @param registeredUnderAge
-	 * @param registeredOlder
-     * @param total
+	 * @param underAge categoria de entrada
+	 * @param retired categoria de entrada 
+	 * @param adult categoria de entrada
+	 * @param promo categoria de entrada
+	 * @param registeredAdult categoria de entrada
+	 * @param registeredUnderAge categoria de entrada
+	 * @param registeredOlder categoria de entrada
+     * @param total monto total de compra
 	 * @return
 	 */
 	@GetMapping("/presencial_pagar")
-	public ModelAndView GetPayView(@RequestParam("underAge") String underAge, @RequestParam("retired") String retired, @RequestParam("adult") String adult, @RequestParam("promo") String promo, @RequestParam("registeredAdult") String registeredAdult, @RequestParam("registeredUnderAge") String registeredUnderAge, @RequestParam("registeredOlder") String registeredOlder, @RequestParam("total") String total, HttpServletRequest request) {
+	public ModelAndView GetPayView(@RequestParam("categories") String categories, @RequestParam("total") String total, HttpServletRequest request) {
+		String[] categoriesSplitted = categories.split(",");
 		int employeeId = (int)request.getSession().getAttribute("EmployeeId");
-		int amountTickets = Integer.parseInt(underAge) + Integer.parseInt(retired) + Integer.parseInt(adult) + Integer.parseInt(promo) + Integer.parseInt(registeredAdult) + Integer.parseInt(registeredUnderAge) + Integer.parseInt(registeredOlder); 
+		int amountTickets = 0;
 		data.UpdateLastBooking("PrecioTotal", Integer.parseInt(total), data.GetLastBookingByEmployeeId(employeeId));
+		
+		for (int i = 0; i < categoriesSplitted.length; i++) {
+			amountTickets += Integer.parseInt(categoriesSplitted[i]);
+			if((i+1) < 5) {
+				data.RegisterTickets(employeeId, String.valueOf(i+1), clientService.GetRateById(String.valueOf(i+1)).getValue(), categoriesSplitted[i]);
+			}else {
+				data.RegisterTickets(employeeId, String.valueOf(i+2), clientService.GetRateById(String.valueOf(i+2)).getValue(), categoriesSplitted[i]);
+			}
+		}
 		data.UpdateLastBooking("CantEntradas", amountTickets, data.GetLastBookingByEmployeeId(employeeId));
-		data.RegisterTickets(employeeId, "1", clientService.GetRateById("1").getValue(), underAge);
-		data.RegisterTickets(employeeId, "2", clientService.GetRateById("2").getValue(), retired);
-		data.RegisterTickets(employeeId, "3", clientService.GetRateById("3").getValue(), adult);
-		data.RegisterTickets(employeeId, "4", clientService.GetRateById("4").getValue(), promo);
-		data.RegisterTickets(employeeId, "6", clientService.GetRateById("6").getValue(), registeredAdult);
-		data.RegisterTickets(employeeId, "7", clientService.GetRateById("7").getValue(), registeredUnderAge);
-		data.RegisterTickets(employeeId, "8", clientService.GetRateById("8").getValue(), registeredOlder);
 		ModelAndView modelPay = new ModelAndView("pagina_de_pago");
-		modelPay.addObject("total", amountTickets);
+		modelPay.addObject("total", total);
 		return modelPay;
+	}
+	
+	/**
+	 * En el caso de volver hacia atras cancela la reserva actual
+	 * @param request
+	 * @return
+	 */
+	@GetMapping("/presencial_volver")
+	public ModelAndView GetBack(HttpServletRequest request) {
+		int employeeId = (int)request.getSession().getAttribute("EmployeeId");
+		data.UpdateLastBooking("CodEstadoReserva", 2, data.GetLastBookingByEmployeeId(employeeId));
+		if(clientService.IsEmployeeAlowed(employeeId)) {
+			ModelAndView model = new ModelAndView("OnSiteSale");
+			model.addObject("films", clientService.GetAllFilms());
+			model.addObject("shows", clientService.GetShowsByHour());
+			model.addObject("date", clientService.GetServerDate());
+			return model;
+		}
+		ModelAndView modelError = new ModelAndView("ErrorPage");
+ 		modelError.addObject("Contenido", Arrays.asList("Error", "El usuario no tiene acceso a esta pagina, redireccionando a login!", "/"));
+		return modelError;
+		
 	}
 }

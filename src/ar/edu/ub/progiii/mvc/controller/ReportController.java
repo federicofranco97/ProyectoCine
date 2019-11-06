@@ -26,7 +26,7 @@ public class ReportController {
                 || clientService.ActiveEmployees().equals("")){
             ModelAndView errorModel = new ModelAndView("ErrorPage");
             errorModel.addObject("Contenido", Arrays.asList("Error","No hay actividad registrada para el este dia,por" +
-                    " favor dirigas cree un ticket si considera que el resultado obtenido es erroneo."));
+                    " favor dirijase cree un ticket si considera que el resultado obtenido es erroneo.", "/admin_main"));
             return errorModel;
         }
         model.addObject("employeeAmount",clientService.ActiveEmployees());
@@ -46,7 +46,7 @@ public class ReportController {
                 || clientService.ActiveEmployees().equals("")){
             ModelAndView errorModel = new ModelAndView("ErrorPage");
             errorModel.addObject("Contenido", Arrays.asList("Error","No hay actividad registrada para el este dia,por" +
-                    " favor dirigas cree un ticket si considera que el resultado obtenido es erroneo."));
+                    " favor dirijase cree un ticket si considera que el resultado obtenido es erroneo.", "/admin_main"));
             return errorModel;
         }
         model.addObject("employeeAmount",clientService.GetEmployeesActiveMonth());

@@ -360,4 +360,10 @@ public interface IData {
      */
 	public int RegisterRefund(int bookingId, String employeeNumber, String clientNumber, String amountRefund);
 
+    /**
+     * Cambia el estado de la reserva activa a retirada
+     * @param BookingNumber
+     */
+	public void RedeemBooking(String BookingNumber);
+
 }

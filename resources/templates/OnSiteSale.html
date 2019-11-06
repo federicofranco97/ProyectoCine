@@ -6,29 +6,29 @@
 </head>
 <body id="body" class="bg-secondary">
 <div th:replace="layout :: menu"></div>
-	<!--Div que contiene la fecha y los botones correspodientes a pasar de feche hacia adelante o hacia atras-->
+	<!--Div que contiene la fecha y los botones correspodientes a pasar de fecha hacia adelante o hacia atras-->
 	<div class="days">
-		<button onclick="removeDays()" class="btn btn-secondary aOnsite">-</button>
+		<button onclick="removeDays()" class="btn btn-secondary aOnsite buttonStyle">-</button>
 		<label id="datePage" class="labelOnsite" th:text="${date}"></label>
 		<span id="idDate" th:class="${date}"></span>
-		<button onclick="addDays()" class="btn btn-secondary aOnsite">+</button>
+		<button onclick="addDays()" class="btn btn-secondary aOnsite buttonStyle">+</button>
 	</div>
-	<!--Div contenedorde las tablas-->
-	<div class="container_tables">
+	<!--Div contenedor de las tablas-->
+	<div class="tableContainer">
 		<!--contenedor de tabla de peliculas-->
-		<div class="titleMovie bg-dark">
+		<div class="bg-dark titleMovie">
 			<strong class="strongOnsite">Peliculas</strong>
 		</div>
 		<!--contenedor de tabla de funciones-->
-		<div class="titleTime bg-dark">
+		<div class="bg-dark titleTime">
 			<strong class="strongOnsite">Funciones</strong>
 		</div>
 		<div class="tableMovie">
-			<table class="table table-striped table-dark">
+			<table class="table table-striped table-dark tableContainerfs">
 				<tbody>
 					<!--Td que recibe un th que por cada tr se va a generar un td con los valores y texto de las peliculas-->
 					<tr th:each="film : ${films}">
-						<td id="tdOnsite" th:class="${film.getCode()}" th:inline="text" onclick="saveValue(this)">
+						<td id="tdOnsiteOne" th:class="${film.getCode()}" th:inline="text" onclick="saveValue(this)">
 						  [[${film.getFilmName()}]]
 						  <label class="duration" th:text="${film.getDurationWithString()}"></label>
 						</td>
@@ -37,11 +37,11 @@
 			</table>
 		</div>
 		<div class="tableTime">
-			<table class="table table-striped table-dark">
+			<table class="table table-striped table-dark tableContainerfs">
 				<tbody>
 					<!--Td que recibe un th que por cada tr se va a generar un td con los valores y texto de las funciones-->
 					<tr th:each="show : ${shows}">
-						<td id="tdOnsite" th:class="${show.getCodeShow()}" th:text="${show.toString()}" onclick="saveBooking(this)"></td>
+						<td id="tdOnsiteTwo" th:class="${show.getCodeShow()}" th:text="${show.toString()}" onclick="saveBooking(this)"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -51,14 +51,16 @@
     <script th:inline="javascript">
          /*<![CDATA[*/
         var contentList = /*[[${Content}]]*/ 'default';
-        var p1=(contentList[0]);
-        var p2=(contentList[1]);
-        var p3=(contentList[2]);
+        var titleType = (contentList[0]);
+        var textContent = (contentList[1]);
+        //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
+        var showAlert = (contentList[2]);
+        const onOff = "1"; 
          /*]]>*/
-         if(p3== "1"){
+         if(showAlert == onOff){
         	 swal({
-                 title: p1,
-                 text: p2,
+                 title: titleType,
+                 text: textContent,
                  icon: "warning"
                })
                window.open("/venta_presencial","_self");
