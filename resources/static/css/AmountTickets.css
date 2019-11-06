@@ -13,7 +13,8 @@
     pointer-events: auto;
 }
 
-.tableContainerRate{
+.tableContainerRate
+{
 	position: relative;
 	top: 1%;
 }
