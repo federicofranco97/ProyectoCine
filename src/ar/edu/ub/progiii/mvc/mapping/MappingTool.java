@@ -344,6 +344,7 @@ public class MappingTool implements IMapping{
             saleInformationDTO.setBranchNumber(Integer.parseInt(unFormattedInfo[12]));
             saleInformationDTO.setCalculatedDate(unFormattedInfo[13]);
             saleInformationDTO.setMonthNumber(Integer.parseInt(unFormattedInfo[14]));
+            saleInformationDTO.setRateSuggested(Double.parseDouble(unFormattedInfo[15]));
         }catch(Exception ex){
             saleInformationDTO = null;
         }

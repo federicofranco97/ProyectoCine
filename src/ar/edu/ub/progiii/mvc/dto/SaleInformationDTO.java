@@ -17,6 +17,7 @@ public class SaleInformationDTO {
     private int BranchNumber;
     private String CalculatedDate;
     private int MonthNumber;
+    private double RateSuggested;
 
     /**
      * Constructor para informacion de ventas de analytics
@@ -35,11 +36,12 @@ public class SaleInformationDTO {
      * @param branchNumber
      * @param calculatedDate
      * @param monthNumber
+     * @param rateSuggested
      */
     public SaleInformationDTO(String month, String year, double averageRate, double expectedRate, long ticketsSold,
                               double onlineSales, double onsiteSales, String onlinePercentage,
                               String expectedOnlinePercentage, String onsitePercetnage, String expectedOnsitePercetnage,
-                              int seasonCode, int branchNumber, String calculatedDate, int monthNumber) {
+                              int seasonCode, int branchNumber, String calculatedDate, int monthNumber, double rateSuggested) {
         Month = month;
         Year = year;
         AverageRate = averageRate;
@@ -55,6 +57,7 @@ public class SaleInformationDTO {
         BranchNumber = branchNumber;
         CalculatedDate = calculatedDate;
         MonthNumber = monthNumber;
+        RateSuggested  = rateSuggested;
     }
 
     /**
@@ -182,5 +185,15 @@ public class SaleInformationDTO {
     public void setMonthNumber(int monthNumber) {
         MonthNumber = monthNumber;
     }
+
+	public double getRateSuggested() {
+		return RateSuggested;
+	}
+
+	public void setRateSuggested(double rateSuggested) {
+		RateSuggested = rateSuggested;
+	}
+    
+    
 }
 

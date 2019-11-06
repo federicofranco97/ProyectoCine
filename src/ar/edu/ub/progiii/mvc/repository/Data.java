@@ -1430,7 +1430,7 @@ public class Data implements IData{
             result = ParseSpecificResultSet(rst,Arrays.asList("Month","Year","TarifaPromedio","TarifaPromedioOBJ"
                     ,"EntradasTotales","MontoVentasOnline","MontoVentasPresencial","PorcentajeOnline","PorcentajeOnlineObj"
                     ,"PorcentajePresencial","PorcentajePresencialOBJ","CodTemporada","CodSucursal","FechaCalculado"
-                    ,"NroMes"));
+                    ,"NroMes","TarifaSugerida"));
         }catch(Exception ex){
             rst = null;
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
