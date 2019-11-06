@@ -343,6 +343,23 @@ public interface IData {
      */
 	public int RegisterTickets(int employeeId, String rateCode, String price, String amountTickets);
 
+	/**
+     * Metodo para traer todas las reservas desde la fecha actual en adelante de un cliente
+     * @param clientId
+     * @return
+     */
+	public String GetAllBookingsByClientId(String clientId);
+
+	/**
+     * Ejecuta el store procedure para registrar reembolsos
+     * @param bookingId
+     * @param employeeNumber
+     * @param clientNumber
+     * @param amountRefund
+     * @return 
+     */
+	public int RegisterRefund(int bookingId, String employeeNumber, String clientNumber, String amountRefund);
+
     /**
      * Cambia el estado de la reserva activa a retirada
      * @param BookingNumber

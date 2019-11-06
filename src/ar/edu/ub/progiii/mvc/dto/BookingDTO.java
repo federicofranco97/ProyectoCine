@@ -110,47 +110,47 @@ public class BookingDTO {
 		return ChannelCode;
 	}
 
-	private void setBookingCode(String bookingCode) {
+	public void setBookingCode(String bookingCode) {
 		BookingCode = bookingCode;
 	}
 
-	private void setBookingDate(String bookingDate) {
+	public void setBookingDate(String bookingDate) {
 		BookingDate = bookingDate;
 	}
 
-	private void setMovieName(String movieName) {
+	public void setMovieName(String movieName) {
 		MovieName = movieName;
 	}
 
-	private void setShow(String show) {
+	public void setShow(String show) {
 		Show = show;
 	}
 
-	private void setLocation(String location) {
+	public void setLocation(String location) {
 		Location = location;
 	}
 
-	private void setTheatreNumber(int theatreNumber) {
+	public void setTheatreNumber(int theatreNumber) {
 		TheatreNumber = theatreNumber;
 	}
 
-	private void setTicketAmount(int ticketAmount) {
+	public void setTicketAmount(int ticketAmount) {
 		TicketAmount = ticketAmount;
 	}
 
-	private void setClientNumber(int clientNumber) {
+	public void setClientNumber(int clientNumber) {
 		ClientNumber = clientNumber;
 	}
 
-	private void setBookingStatus(int bookingStatus) {
+	public void setBookingStatus(int bookingStatus) {
 		BookingStatus = bookingStatus;
 	}
 
-	private void setChannelCode(int channelCode) {
+	public void setChannelCode(int channelCode) {
 		ChannelCode = channelCode;
 	}
 	
-	private void setTotalValue(double totalValue) {
+	public void setTotalValue(double totalValue) {
 		TotalValue = totalValue;
 	}
 
