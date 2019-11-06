@@ -78,13 +78,13 @@
         <input id="inputIdClientModal" class="form-control form-control-sm col-md-6 inputIdClientModal" type="text" name="clientDNI" placeholder="DNI cliente" value=""/><br/>
         <input class="btn btn-secondary btn-sm btnSendModal" type="submit" name="send" value="Ingresar"/><br/>
         <label class= "badge badge-info labelIdClientModal" th:if="${msjClient != null}">ID:</label><br/>
-        <label class= "labelClient" th:if="${msjClient != null}" th:text="${clientInfo.getClientNumber()}"></label><br/>
+        <label class= "labelClient location standardLabel" th:if="${msjClient != null}" th:text="${clientInfo.getClientNumber()}"></label><br/>
         <label class= "badge badge-info labelIdClientModal" th:if="${msjClient != null}">NOMBRE:</label><br/>
-        <label class= "labelClient" th:if="${msjClient != null}" th:text="${clientInfo.getFullName()}"></label><br/>
+        <label class= "labelClient location standardLabel" th:if="${msjClient != null}" th:text="${clientInfo.getFullName()}"></label><br/>
         <label class= "badge badge-info labelIdClientModal" th:if="${msjClient != null}">MAIL:</label><br/>
-        <label class= "labelClient" th:if="${msjClient != null}" th:text="${clientInfo.getEmail()}"></label><br/>
+        <label class= "labelClient location standardLabel" th:if="${msjClient != null}" th:text="${clientInfo.getEmail()}"></label><br/>
         <label class= "badge badge-info labelIdClientModal" th:if="${msjClient != null}">DNI:</label><br/>
-        <label class= "labelClient" th:if="${msjClient != null}" th:text="${clientInfo.getDocumentNumber()}"></label>
+        <label class= "labelClient location standardLabel" th:if="${msjClient != null}" th:text="${clientInfo.getDocumentNumber()}"></label>
     </form>    
     <div th:replace="layout :: footer"></div>
     <script th:inline="javascript">

@@ -139,17 +139,18 @@ strong
     height: 77vh;
 }
 
-.buttonClose
+.buttonCloseAmount
 {
 	display: block;
     position: relative;
-    left: 95%;
+    width: 10%;
+    left: 90%;
     background-color: #343a40;
     border:none;
     color: white;
 }
 
-.buttonClose:hover
+.buttonCloseAmount:hover
 {
 	color: white;
 	background-color: red;
