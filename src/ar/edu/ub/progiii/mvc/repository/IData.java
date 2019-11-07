@@ -356,4 +356,12 @@ public interface IData {
      */
 	public String GetEmployeeTotalVirtual(int employeeId);
 
+	/**
+     * Actualizar el total virtual del empleado
+     * @param employeeId
+     * @param totalVirtual
+     * @return
+     */
+	public int UpdateVirtualTotal(int employeeId, double totalVirtual);
+
 }

@@ -6,7 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body class="bg-secondary">
-        <div th:replace="layout :: menu"></div> 
+        <div th:replace="layout :: menu"></div>
+        <!--Div contenedor de los inputs de alivio y total--> 
         <div id="MoneyInputs" style="width: 20%;margin-left: 40%;margin-top: 10%">
             <h1 style="margin-top: 2%;margin-left:5%">Sector Alivio Caja</h1>
             <label class="badge badge-dark" style="width: 100%;">Total Ventas Empleado</label>
@@ -25,6 +26,42 @@
             </div>
             <a href="#" class="btn btn-secondary btn-dark" onclick="AskForId()" style="width: 100%">Realizar Alivio</a>
         </div>         
-        <div th:replace="layout :: footer"></div> 
+        <!--Formulario de reembolso con credenciales de supervisor-->
+        <form id="formPass" class="formAdmin fadeIn" action="/withdrawValidate" method="post">
+           <button id="closeFormx" class="buttonCloseFormPass">x</button>
+           <label class= "badge badge-dark labelAdmin" for="adminId">ID supervisor</label><br/>
+           <input id="adminId" class="form-control form-control-sm inputAdmin" type="number" name="adminId" placeholder="Id" autofocus=""/>
+           <label class= "badge badge-dark labelAdminTwo" for="passAdmin">Pass</label><br/>  
+           <input id="passAdmin" class="form-control form-control-sm inputAdmin" type="password" name="passAdmin" placeholder="Pass" autofocus=""/>
+           <input id="withdrawDoneSent" class="bookingIdSent" type="text" name="withdrawDoneSent" value=""/>
+           <input type="submit" value="Enviar" class="btn btn-secondary btn-sm btnRe"/>
+        </form>
+        <div th:replace="layout :: footer"></div>
+        <script th:inline="javascript">
+        /*<![CDATA[*/
+        var contentList = /*[[${Content}]]*/ 'default';
+        var titleType = (contentList[0]);
+        var textContent = (contentList[1]);
+      //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
+        var showAlert = (contentList[2]);
+        const succes = "1";
+        const error = "2";
+         /*]]>*/
+         if(showAlert == succes){
+        	 swal({
+                 title: titleType,
+                 text: textContent,
+                 icon: "success"
+               })
+               setTimeout(function(){ window.open("/menu","_self"); }, 1500);
+        	 }
+         if(showAlert == error){
+        	 swal({
+                 title: titleType,
+                 text: textContent,
+                 icon: "success"
+               })
+        	 }
+         </script>
     </body>
 </html>
