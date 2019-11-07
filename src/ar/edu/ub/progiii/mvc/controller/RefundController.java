@@ -104,7 +104,7 @@ public class RefundController {
 	*/
 	@PostMapping("/reembolsar")
 	public ModelAndView Refund(@RequestParam("adminId") String adminId,@RequestParam("passAdmin") String passAdmin, @RequestParam("bookingIdSent") String bookingId, HttpServletRequest request) throws SQLException {
-		if(clientService.GetEmployeeCategory(Integer.parseInt(adminId)) == 3 && clientService.verifyEmployeeLogin(adminId, passAdmin)) {
+		if(clientService.GetEmployeeCategory(Integer.parseInt(adminId)) == 3 && clientService.verifyEmployeeLogin(adminId, passAdmin, false)) {
 			BookingDTO booking =  clientService.GetBookingById(bookingId);
 			data.RegisterRefund(Integer.parseInt(bookingId), String.valueOf((int)request.getSession().getAttribute("EmployeeId")), String.valueOf(booking.getClientNumber()), String.valueOf(booking.getTotalValue()));
 			ModelAndView model = new ModelAndView("Refund");

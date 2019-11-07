@@ -50,14 +50,17 @@ public class ClientService {
      * @param EmployeePass
      * @return
      */
-    public boolean verifyEmployeeLogin(String EmployeeId, String EmployeePass) {
+    public boolean verifyEmployeeLogin(String EmployeeId, String EmployeePass, boolean onOff) {
     	String response = dataManager.GetEmployeeByID(EmployeeId);
     	Employee Employee = mappingTool.MapEmployeeSQL(response);
     	//Retorna true o false si se cumple la condicion dentro del return
     	if((IsEmployeeAlowed(Integer.parseInt(EmployeeId)) && (Employee.getHashedPassword().equals(EmployeePass)))) {
     	    if(!InsertIfNotActive(Integer.parseInt(EmployeeId))) return false;
     		currentEmployee = mappingTool.MapDTOEmployee(Employee);
-    		dataManager.RegistrarLog(EmployeeId,Employee.getRank());
+    		if(onOff) {
+    			dataManager.RegistrarLog(EmployeeId,Employee.getRank());
+    			return true;
+    		}
     		return true;
     	}
     	return false;
