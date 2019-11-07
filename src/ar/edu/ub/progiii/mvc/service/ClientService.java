@@ -133,7 +133,8 @@ public class ClientService {
             System.out.println("No se encontro la reserva");
             return null;
         }
-        bookingDTO = mappingTool.MapSQLBookingDTO(response);
+        String [] aux = response.split("/");
+        bookingDTO = mappingTool.MapSQLBookingDTO(aux[0]);
         return bookingDTO;
     }
 
@@ -741,6 +742,24 @@ public class ClientService {
             return true;
         }
         return false;
+    }
+    
+    /**
+     * Trae todas las reservas de un cliente desde la fecha actual en adelante
+     * @param idClient
+     * @return 
+     */
+    public ArrayList<BookingDTO> GetAllBookingsByIdClient(String idClient){
+        String response = dataManager.GetAllBookingsByClientId(idClient);
+        if(response != null && response != "") {
+        	ArrayList<BookingDTO> bookingList = new ArrayList<>();
+            String [] aux = response.split("/");
+            for (String item:aux) {
+                bookingList.add(mappingTool.MapSQLBookingDTO(item));
+            }
+            return bookingList;
+        }
+        return null;
     }
 
     /**

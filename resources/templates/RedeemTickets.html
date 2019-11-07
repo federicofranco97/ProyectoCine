@@ -28,12 +28,10 @@
             </thead>
             <tbody>
             <tr>
-
                 <td th:if="${msj != null}" th:text="${Booking.getTicketAmount()}"></td>
                 <td th:if="${msj != null}" th:text="${pelicula.getFilmName()}"></td>
                 <td th:if="${msj != null}" th:text="${funcion}"></td>
                 <td th:if="${msj != null}" th:text="${Booking.getTheatreNumber()}"></td>
-
             </tr>
             <tr>
                 <td></td>
@@ -41,48 +39,33 @@
                 <td></td>
                 <td></td>
             </tr>
-
             </tbody>
     </table>
     </div>
     <div class="center">
          <button type="button" onclick="ReedemBooking()" class="btn btn-secondary btn-dark"><i class="fas fa-print"></i> Retirar</button>
-         <button type="button" onclick="Validate()" class="btn btn-secondary btn-dark"><i class="fas fa-print"></i> Validar</button
+         <button type="button" onclick="Validate()" class="btn btn-secondary btn-dark"><i class="fas fa-print"></i> Validar</button>
          <button type="button" class="btn btn-secondary btn-dark"><a href="/menu"><i class="fas fa-door-open"></i>  Salir</a></button>
     </div>
     <div th:replace="layout :: footer"></div>
     <script th:inline="javascript">
          /*<![CDATA[*/
         var contentList = /*[[${Content}]]*/ 'default';
-        if(contentList!=null){
-            var p1=(contentList[0]);
-            var p2=(contentList[1]);
-            var p3=(contentList[2]);
-
-             if(p3== "1"){
-                 swal({
-                     title: p1,
-                     text: p2,
-                     icon: "warning"
-                   })
-             }
-        }
-        /*]]>*/
-
-        var titleType=(contentList[0]);
-        var textContent=(contentList[1]);
-        //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
-        var p3=(contentList[2]);
-        const num = "1"; 
-         /*]]>*/
-         if(p3== num){
-        	 swal({
-                 title: titleType,
-                 text: textContent,
-                 icon: "warning"
-               })
-               p3="";
-         }
+        if(contentList != null){
+        	var titleType = (contentList[0]);
+            var textContent = (contentList[1]);
+          //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
+            var showAlert = (contentList[2]);
+            const onOff = "1";
+            /*]]>*/
+            if(showAlert == onOff){
+                swal({
+                	title: titleType,
+                    text: textContent,
+                    icon: "warning"
+                  })
+               }
+            }
   </script>
 </body>
 </html>
