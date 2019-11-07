@@ -27,7 +27,7 @@
             <a href="#" class="btn btn-secondary btn-dark" onclick="AskForId()" style="width: 100%">Realizar Alivio</a>
         </div>         
         <!--Formulario de reembolso con credenciales de supervisor-->
-        <form id="formPass" class="formAdmin fadeIn" action="/withdrawValidate" method="post">
+        <form id="formPasss" class="formAdmin fadeIn" action="/withdrawValidate" method="post">
            <button id="closeFormx" class="buttonCloseFormPass">x</button>
            <label class= "badge badge-dark labelAdmin" for="adminId">ID supervisor</label><br/>
            <input id="adminId" class="form-control form-control-sm inputAdmin" type="number" name="adminId" placeholder="Id" autofocus=""/>
@@ -59,7 +59,7 @@
         	 swal({
                  title: titleType,
                  text: textContent,
-                 icon: "success"
+                 icon: "warning"
                })
         	 }
          </script>

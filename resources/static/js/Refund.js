@@ -208,7 +208,7 @@ form.onsubmit = function(event){
 	 	event.preventDefault();
 		swal("Aviso","Pass o Id de administrador invalido!","warning");
 	 }else{
-	 	if (passAdmin.value.length == 0 || whiteSpace.test(passAdmin.value))
+	 	if (passAdmin.value.length == 0 ||  whiteSpace.test(passAdmin.value))
 	 	{
 	 		event.preventDefault();
 	 		swal("Aviso","Pass o Id de administrador invalido!","warning");

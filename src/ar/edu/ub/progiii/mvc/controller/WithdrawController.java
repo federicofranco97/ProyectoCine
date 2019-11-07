@@ -54,7 +54,7 @@ public class WithdrawController {
 		}
 		ModelAndView model = new ModelAndView("Withdraw");
 		model.addObject("totalVirtual",clientService.GetTotalVirtual((int)request.getSession().getAttribute("EmployeeId")));
-		model.addObject("Content", Arrays.asList("warning", "Los datos del supervisor son incorrectos!", "2"));
+		model.addObject("Content", Arrays.asList("Aviso", "Los datos del supervisor son incorrectos!", "2"));
 		return model;
 	}
 
