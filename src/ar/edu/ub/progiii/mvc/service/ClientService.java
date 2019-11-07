@@ -743,7 +743,38 @@ public class ClientService {
         return false;
     }
 
+    /**
+     *Recibe una reserva y le cambia el estado a activa
+     * @param bookingNumber
+     */
     public void RedeemBooking(String bookingNumber) {
         dataManager.RedeemBooking(bookingNumber);
     }
+
+    /**
+     * A partir de un empleado, devuelve su total virtual de ventas
+     * @param employeeId
+     */
+    public String GetTotalVirtual(int employeeId){
+        return dataManager.GetEmployeeTotalVirtual(employeeId);
+    }
+
+    /**
+     * Verifica que el empleado exista, valida su clave
+     * y si su rango es valido
+     * @param EmployeeId
+     * @param EmployeePass
+     * @return
+     */
+    public boolean ValidateCredentials(String EmployeeId, String EmployeePass) {
+        String response = dataManager.GetEmployeeByID(EmployeeId);
+        Employee Employee = mappingTool.MapEmployeeSQL(response);
+        //Retorna true o false si se cumple la condicion dentro del return
+        if((IsEmployeeAlowed(Integer.parseInt(EmployeeId)) && (Employee.getHashedPassword().equals(EmployeePass)))) {
+            currentEmployee = mappingTool.MapDTOEmployee(Employee);
+            return true;
+        }
+        return false;
+    }
+
 }

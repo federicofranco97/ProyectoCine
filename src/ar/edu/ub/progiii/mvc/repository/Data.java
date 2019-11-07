@@ -1423,4 +1423,31 @@ public class Data implements IData{
         }
     }
 
+    /**
+     * Devuelve el valor del Total virtual de ventas del empleado
+     *
+     * @param employeeId
+     * @return
+     */
+    @Override
+    public String GetEmployeeTotalVirtual(int employeeId) {
+        String result = "";
+        try {
+            if(connection != null) {
+                CQuerySelect querySelect = new CQuerySelect("empleado", "TotalVirtual");
+                querySelect.addStatementCondition(Arrays.asList("NroEmpleado="+employeeId));
+                ResultSet rst = querySelect.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("TotalVirtual"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+
+        }
+
+        return result;
+    }
+
 }

@@ -4,18 +4,19 @@ var idValid = false;
 var pwdValid = false;
 var id = "admin";
 var pwd = "admin";
-var inAmount = document.getElementById("amountTaken");
 var inTotal = document.getElementById("totalSales");
-var amountSelected = parseInt(inAmount.value);
+var amountSelected = parseInt(amountTaken.value);
 var totalSales = parseInt(inTotal.value);
 //Fin declaración de variables
 
 //Verifico que el valor ingresado para retirar sea valido, e igual o mejor que el total
 //vendido.
-function VerifyWithdraw(){
 
+function VerifyWithdraw(){
+    amountSelected = parseInt(amountTaken.value);
+    totalSales = parseInt(inTotal.value);
     if(amountSelected < 1 || amountSelected > totalSales || amountSelected===null || Number.isNaN(amountSelected)){
-        inAmount.value = "";
+        amountSelected.value = "";
         withdrawAmount = false;
     }else{
     	withdrawAmount = true;
@@ -25,17 +26,8 @@ function VerifyWithdraw(){
 function AskForId(){
 	VerifyWithdraw();
     if(withdrawAmount){
-        swal('Ingrese su id de Supervisor:', {
-            content: 'input'
-        })
-        .then((value) => {
-            if(value===id){
-                idValid = true;
-                AskForPwd();
-            }else{
-            	ShowSimpleMessage('id ingresado invalido!');
-            }
-        });
+        ShowSimpleMessage('Por favor ingrese sus credenciales!');
+        //pedir credenciales
     }else{
           ShowSimpleMessage('Monto ingresado invalido!');
     }
@@ -66,7 +58,7 @@ function AskForCredentials(){
     if(idValid && pwdValid){
         ShowSimpleMessage('Alivio registrado con exito!');
         inTotal.value = totalSales-amountSelected;
-        inAmount.value = "";
+        amountSelected.value = "";
         //Vuelvo los valores a defecto para que el siguiente login haga la validacion
         idValid=false;
         pwdValid=false;
