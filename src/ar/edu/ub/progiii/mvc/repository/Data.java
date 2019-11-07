@@ -323,7 +323,7 @@ public class Data implements IData{
         }
         if(result.isEmpty()) {
             LogData("NotFound","No se encontro el cliente con id "+EmployeeNumber);
-            return null;
+            return "-1";
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         return result;
@@ -1483,5 +1483,59 @@ public class Data implements IData{
         } catch (SQLException ex) {
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
         }
+    }
+
+    /**
+     * Devuelve el valor del Total virtual de ventas del empleado
+     *
+     * @param employeeId
+     * @return
+     */
+    @Override
+    public String GetEmployeeTotalVirtual(int employeeId) {
+        String result = "";
+        try {
+            if(connection != null) {
+                CQuerySelect querySelect = new CQuerySelect("empleado", "TotalVirtual");
+                querySelect.addStatementCondition(Arrays.asList("NroEmpleado="+employeeId));
+                ResultSet rst = querySelect.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("TotalVirtual"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+
+        }
+
+        return result;
+    }
+    
+    /**
+     * Actualizar el total virtual del empleado
+     * @param employeeId
+     * @param totalVirtual
+     * @return
+     */
+    @Override
+    public int UpdateVirtualTotal(int employeeId, double totalVirtual) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	CQueryUpdate cQueryUpdate = new CQueryUpdate("Empleado", Arrays.asList("TotalVirtual="+totalVirtual));
+            	cQueryUpdate.addStatementCondition("NroEmpleado="+employeeId);
+            	result = cQueryUpdate.Run();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("UpdateVirtualTotal","Actualizar VirtualTotal de un empleado "+employeeId);
+        return result;
     }
 }

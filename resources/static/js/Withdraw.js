@@ -1,75 +1,36 @@
 //Declaracion de variables
-var withdrawAmount = false;
-var idValid = false;
-var pwdValid = false;
-var id = "admin";
-var pwd = "admin";
-var inAmount = document.getElementById("amountTaken");
 var inTotal = document.getElementById("totalSales");
-var amountSelected = parseInt(inAmount.value);
+var amountTaken = document.getElementById("amountTaken");
+var amountSelected = parseInt(amountTaken.value);
 var totalSales = parseInt(inTotal.value);
+var withdrawDone = 0; 
+var withdrawDoneSent = document.getElementById("withdrawDoneSent");
 //Fin declaración de variables
 
 //Verifico que el valor ingresado para retirar sea valido, e igual o mejor que el total
 //vendido.
 function VerifyWithdraw(){
-
-    if(amountSelected < 1 || amountSelected > totalSales || amountSelected===null || Number.isNaN(amountSelected)){
-        inAmount.value = "";
-        withdrawAmount = false;
-    }else{
-    	withdrawAmount = true;
+    amountSelected = parseInt(amountTaken.value);
+    totalSales = parseInt(inTotal.value);
+    if(amountSelected < 1 || amountSelected > totalSales || amountSelected === null || Number.isNaN(amountSelected)){
+        amountSelected.value = "";
+        return false;
     }
+    return true;
 }
+
 //Pide la credencial de un supervisor.
 function AskForId(){
-	VerifyWithdraw();
-    if(withdrawAmount){
-        swal('Ingrese su id de Supervisor:', {
-            content: 'input'
-        })
-        .then((value) => {
-            if(value===id){
-                idValid = true;
-                AskForPwd();
-            }else{
-            	ShowSimpleMessage('id ingresado invalido!');
-            }
-        });
+    if(VerifyWithdraw()){
+    	totalSales = parseInt(inTotal.value);
+    	amountSelected = parseInt(amountTaken.value);
+    	withdrawDone = totalSales - amountSelected;
+    	withdrawDoneSent.value = withdrawDone;
+        ShowSimpleMessage('Por favor ingrese credenciales del supervisor!');
+        form.style.display = "block";
+        //pedir credenciales
     }else{
           ShowSimpleMessage('Monto ingresado invalido!');
-    }
-}
-
-//Pide la clave de un supervisor. 
-function AskForPwd(){
-    if(withdrawAmount){
-        swal('Ingrese su clave de Supervisor:', {
-            content: 'input'
-        })
-        .then((value) => {
-            if(value===pwd){
-                pwdValid=true;
-                console.log(pwdValid);
-                AskForCredentials();
-            }else{
-                ShowSimpleMessage('Clave ingresado no valido.');
-            }
-        });
-    }else{
-          ShowSimpleMessage('Monto ingresado no valido!');
-    }
-}
-
-//Checkea que ambas credenciales esten validas, y realiza el alivio de caja.
-function AskForCredentials(){
-    if(idValid && pwdValid){
-        ShowSimpleMessage('Alivio registrado con exito!');
-        inTotal.value = totalSales-amountSelected;
-        inAmount.value = "";
-        //Vuelvo los valores a defecto para que el siguiente login haga la validacion
-        idValid=false;
-        pwdValid=false;
     }
 }
 
