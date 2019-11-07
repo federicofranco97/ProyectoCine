@@ -7,6 +7,7 @@
 <body class="bg-secondary" id="AnalyticsBody">
 <div th:replace="layout :: menu"></div>
 <div th:replace="AdminNavBar :: AdminNav"></div>
+<label id="rateYear" class="YearDate" th:text="${YearSales.get(0).getYear()}"></label>
 <!-- Panel de referencias -->
 <div class="panelReferences">
 <label class="badge badge-default badge-info">Tarifa promedio</label>

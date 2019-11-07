@@ -2,7 +2,7 @@
 	margin: auto;
     width: fit-content;
     position: absolute;
-    top: 10%;
+    top: 11%;
     left: 37%;
 }
 .monthsRatePlan{
@@ -36,4 +36,12 @@
 .labelRatePlanS{
 	margin-left: 40%;
 	font-weight: bold;
+}
+.YearDate{
+	color: white;
+    position: absolute;
+    left: 6%;
+    font-size: 213%;
+    text-shadow: 4px -1px 4px #000000;
+    top: 9%;
 }
