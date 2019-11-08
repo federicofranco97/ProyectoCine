@@ -35,6 +35,9 @@ public class OnSiteSaleController {
 	 */
 	@GetMapping("/venta_presencial")
 	public ModelAndView GetOnSiteSaleView(HttpServletRequest request) {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		if(clientService.IsEmployeeAlowed((int)request.getSession().getAttribute("EmployeeId"))) {
 			ModelAndView model = new ModelAndView("OnSiteSale");
 			model.addObject("films",clientService.GetAllFilms());
@@ -53,7 +56,10 @@ public class OnSiteSaleController {
 	 * @return 
 	 */
 	@GetMapping("/sumar_fecha")
-	public ModelAndView GetAddDate(@RequestParam("datePage") String datePage) {
+	public ModelAndView GetAddDate(@RequestParam("datePage") String datePage, HttpServletRequest request) {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		ModelAndView model = new ModelAndView("OnSiteSale");
 		if(clientService.CanDaysBeAdded(datePage)) {
 			model.addObject("films",clientService.GetAllFilms());
@@ -81,7 +87,10 @@ public class OnSiteSaleController {
 	 * @return
 	 */
 	@GetMapping("/restar_fecha")
-	public ModelAndView GetRemoveDate(@RequestParam("datePage") String datePage) {
+	public ModelAndView GetRemoveDate(@RequestParam("datePage") String datePage, HttpServletRequest request) {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		ModelAndView model = new ModelAndView("OnSiteSale");
 		if(clientService.CanDaysBeRemoved(datePage) && !clientService.RedirectToBeginning(datePage)) {
 			model.addObject("films",clientService.GetAllFilms());
@@ -112,6 +121,9 @@ public class OnSiteSaleController {
 	 */
 	@GetMapping("/presencial_cantentradas")
 	public ModelAndView GetOnsiteAmountTicketsView(@RequestParam("functionId") String showId, @RequestParam("movieId") String movieId, @RequestParam("dateShow") String dateShow,  HttpServletRequest request) {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		if (clientService.InsertInitialBooking(movieId, showId, dateShow, (int) request.getSession().getAttribute("EmployeeId"))) {
 			ModelAndView model = new ModelAndView("AmountTickets");
 			model.addObject("categories", clientService.GetAllRateCategories());
@@ -131,6 +143,9 @@ public class OnSiteSaleController {
 	 */
 	@PostMapping("/buscarCliente_traerInfo")
 	public ModelAndView GetClientDataById(@RequestParam("clientDNI") String clientDNI, HttpServletRequest request) {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		if (clientService.GetClientByDNI(clientDNI) != null) {
 			ModelAndView model = new ModelAndView("AmountTickets");
 			data.UpdateLastBooking("NroCliente", clientService.GetClientByDNI(clientDNI).getClientNumber(), data.GetLastBookingByEmployeeId((int)request.getSession().getAttribute("EmployeeId")));
@@ -157,6 +172,9 @@ public class OnSiteSaleController {
 	 */
 	@PostMapping("/registrar_cliente")
 	public ModelAndView RegisterClient(@RequestParam("Name") String fullName, @RequestParam("Tel") String phone, @RequestParam("Email") String email, @RequestParam("Adress") String adress, @RequestParam("Date") String birthDate, @RequestParam("DNI") String dni, HttpServletRequest request) {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		if (clientService.GetClientByDNI(dni) == null) {
 			ClientDTO clientRegisteredtDTO = clientService.RegisterClient(fullName, email, birthDate, dni, phone, adress);
 			if(clientRegisteredtDTO != null && clientService.IsTheSameDay(clientRegisteredtDTO.getCreationDate())) {
@@ -192,6 +210,9 @@ public class OnSiteSaleController {
 	 */
 	@GetMapping("/presencial_pagar")
 	public ModelAndView GetPayView(@RequestParam("categories") String categories, @RequestParam("total") String total, HttpServletRequest request) {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		String[] categoriesSplitted = categories.split(",");
 		int employeeId = (int)request.getSession().getAttribute("EmployeeId");
 		int amountTickets = 0;
@@ -218,6 +239,9 @@ public class OnSiteSaleController {
 	 */
 	@GetMapping("/presencial_volver")
 	public ModelAndView GetBack(HttpServletRequest request) {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		int employeeId = (int)request.getSession().getAttribute("EmployeeId");
 		data.UpdateLastBooking("CodEstadoReserva", 2, data.GetLastBookingByEmployeeId(employeeId));
 		if(clientService.IsEmployeeAlowed(employeeId)) {

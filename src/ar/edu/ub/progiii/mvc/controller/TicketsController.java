@@ -24,8 +24,11 @@ public class TicketsController {
     Metodo que te lleva a la vista de Tickets activos
      */
     @GetMapping("/tickets")
-    public ModelAndView GetTickets(){
-        ModelAndView model = new ModelAndView("Tickets");
+    public ModelAndView GetTickets(HttpServletRequest request){
+    	if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+            return BaseController.RedirectToMenu();
+         }
+    	ModelAndView model = new ModelAndView("Tickets");
         model.addObject("Tickets",clientService.GetActiveTickets());
         return model;
     }
@@ -33,8 +36,11 @@ public class TicketsController {
     Metodo que te lleva a la vista de todos los Tickets
      */
     @GetMapping("/tickets_all")
-    public ModelAndView GetTicketsAll(){
-        ModelAndView model = new ModelAndView("TicketsAll");
+    public ModelAndView GetTicketsAll(HttpServletRequest request){
+    	if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+            return BaseController.RedirectToMenu();
+         }
+    	ModelAndView model = new ModelAndView("TicketsAll");
         model.addObject("Tickets",clientService.GetAllTickets());
         return model;
     }
@@ -42,8 +48,11 @@ public class TicketsController {
     Metodo que te lleva a la vista para añadir Tickets
      */
     @GetMapping("/add_ticket")
-    public ModelAndView AddTicket(){
-        ModelAndView model = new ModelAndView("TicketAdd");
+    public ModelAndView AddTicket(HttpServletRequest request){
+    	if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+            return BaseController.RedirectToMenu();
+         }
+    	ModelAndView model = new ModelAndView("TicketAdd");
         model.addObject("Valor","Hola");
         return model;
     }
@@ -51,8 +60,11 @@ public class TicketsController {
     Metodo que te lleva a la vista de crear Tickets
      */
     @PostMapping("/create_ticket")
-    public ModelAndView CreateTicket(TicketDTO ticketDTO){
-        RedirectView redirectView = new RedirectView("/tickets");
+    public ModelAndView CreateTicket(TicketDTO ticketDTO, HttpServletRequest request){
+    	if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+            return BaseController.RedirectToMenu();
+         }
+    	RedirectView redirectView = new RedirectView("/tickets");
         redirectView.setExposePathVariables(false);
         int result = clientService.CreateTicket(ticketDTO);
         if(result == 1) {
@@ -68,7 +80,10 @@ public class TicketsController {
      */
     @GetMapping("/close_ticket")
     public ModelAndView CloseTicket(@RequestParam("ticket")int TicketNumber, HttpServletRequest request){
-        RedirectView redirectView = new RedirectView("/tickets");
+    	if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+            return BaseController.RedirectToMenu();
+         }
+    	RedirectView redirectView = new RedirectView("/tickets");
         if(clientService.CloseTicket(TicketNumber,(int)request.getSession().getAttribute("EmployeeId"))){
             return new ModelAndView(redirectView);
         }else{
