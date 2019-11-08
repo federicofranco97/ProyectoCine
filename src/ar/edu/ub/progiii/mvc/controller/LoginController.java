@@ -54,9 +54,6 @@ public class LoginController {
 	 */
 	@PostMapping("/login_sent")
 	public ModelAndView EmployeeLogin(@RequestParam("EmployeeId") String employeeId, @RequestParam("EmployeePass") String employeePass, HttpServletRequest request) {
-		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
-	           return BaseController.RedirectToMenu();
-	        }
 		RedirectView redirectView = new RedirectView("/menu");
 		redirectView.setExposePathVariables(false);
 		try {
