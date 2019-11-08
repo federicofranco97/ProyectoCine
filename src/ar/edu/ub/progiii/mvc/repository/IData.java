@@ -381,4 +381,26 @@ public interface IData {
      */
 	public int UpdateVirtualTotal(int employeeId, double totalVirtual);
 
+    /**
+     * Devuelve la lista de registros de ventas del año que se envia por parametro
+     * @param Year
+     * @return
+     */
+	public String YearSalesInformation(String Year);
+
+    /**
+     * Devuelve la cantidad de todos los usuarios que hubo logeados a lo largo del año
+     * seleccionado
+     * @param Year
+     * @return
+     */
+	public String YearUserMovements(String Year);
+
+	/**
+     * Ejecuta el store procedure para cambiar la tarifa 
+     * @param month
+     * @return 
+     */
+	public int ChangeRate(String month);
+
 }

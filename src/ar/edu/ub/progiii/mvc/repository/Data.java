@@ -1508,7 +1508,59 @@ public class Data implements IData{
             LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
 
         }
+        return result;
+    }
 
+     /*
+     * Devuelve la lista de registros de ventas del año que se envia por parametro
+     *
+     * @param Year
+     * @return
+     */
+    @Override
+    public String YearSalesInformation(String Year) {
+        String result = "";
+        CQuerySelect query = new CQuerySelect("Analitics","*");
+        query.addStatementCondition(" year="+Year);
+        ResultSet rst;
+        try {
+            rst = query.Run();
+            result = ParseSpecificResultSet(rst,Arrays.asList("Month","Year","TarifaPromedio","TarifaPromedioOBJ"
+                    ,"EntradasTotales","MontoVentasOnline","MontoVentasPresencial","PorcentajeOnline","PorcentajeOnlineObj"
+                    ,"PorcentajePresencial","PorcentajePresencialOBJ","CodTemporada","CodSucursal","FechaCalculado"
+                    ,"NroMes","TarifaSugerida"));
+        }catch(Exception ex){
+            rst = null;
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        return result;
+    }
+
+    /**
+     * Devuelve la cantidad de todos los usuarios que hubo logeados a lo largo del año
+     * seleccionado
+     *
+     * @param Year
+     * @return
+     */
+    @Override
+    public String YearUserMovements(String Year) {
+        String result = "";
+        QueryStoredProcedureWResponse query = new QueryStoredProcedureWResponse("administradoresactivosyear");
+        query.addParameter(Year);
+        try {
+            ResultSet rst = query.Run();
+            result = ParseSpecificResultSet(rst,Arrays.asList("Online"));
+            query.setCommand("supervisoresactivosyear");
+            rst = query.Run();
+            result += "/"+ParseSpecificResultSet(rst,Arrays.asList("Online"));
+            query.setCommand("empleadosactivosyear");
+            rst = query.Run();
+            result += "/"+ParseSpecificResultSet(rst,Arrays.asList("Online"));
+        } catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+            return null;
+        }
         return result;
     }
     
@@ -1520,7 +1572,7 @@ public class Data implements IData{
      */
     @Override
     public int UpdateVirtualTotal(int employeeId, double totalVirtual) {
-        int result= -1;
+    	int result= -1;
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
@@ -1538,4 +1590,32 @@ public class Data implements IData{
         LogData("UpdateVirtualTotal","Actualizar VirtualTotal de un empleado "+employeeId);
         return result;
     }
+    
+    /**
+     * Ejecuta el store procedure para cambiar la tarifa 
+     * @param month
+     * @return 
+     */
+    @Override
+    public int ChangeRate(String month) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("AnaliticTarifa");
+                queryStoredProcedure.addParameter(Arrays.asList(""+month+""));
+                queryStoredProcedure.Build();
+                result = queryStoredProcedure.Run();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda
+        LogData("AnaliticTarifa","Cambiar la tarifa");
+        return result;
+    }
+    
 }
