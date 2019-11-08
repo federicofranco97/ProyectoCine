@@ -21,8 +21,8 @@ public class ReportController{
      */
     @GetMapping("/reporte_dia")
     public ModelAndView GetReport(HttpServletRequest request){
-        if(request.getSession() == null) {
-            BaseController.RedirectToMenu();
+        if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+           return BaseController.RedirectToMenu();
         }
         ModelAndView model = new ModelAndView("ReportTemplate");
         if(clientService.ActiveEmployees().equals("0") || clientService.ActiveEmployees()==null
@@ -44,8 +44,8 @@ public class ReportController{
 
     @GetMapping("/reporte_mes")
     public ModelAndView GetMonthlyReport(HttpServletRequest request) throws ParseException {
-        if(request.getSession() == null) {
-            BaseController.RedirectToMenu();
+        if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+            return BaseController.RedirectToMenu();
         }
         ModelAndView model = new ModelAndView("ReportTemplate");
         if(clientService.ActiveEmployees().equals("0") || clientService.ActiveEmployees()==null
@@ -67,8 +67,8 @@ public class ReportController{
 
     @GetMapping("/get_report")
     public ModelAndView GetEmpReport(@RequestParam("employeeid")int EmployeeId,  HttpServletRequest request){
-        if(request.getSession() == null) {
-            BaseController.RedirectToMenu();
+        if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+            return BaseController.RedirectToMenu();
         }
         clientService.dataManager.LogData("INFO","Reporte de empleado pedido "+EmployeeId);
         ModelAndView model = new ModelAndView("EmployeeReport");
