@@ -17,7 +17,7 @@
         <div title="EFECTIVO" id="cashPay" class="cashButton" onclick="cashValue()"><i class="fas fa-coins fa-4x"></i></div>
         <div title="MERCADO LIBRE" id="ml" class="creditButton" onclick="creditValue()"><i class="far fa-credit-card fa-4x"></i></div>
     </div>
-    <div class="moneyInput">
+    <div class=" moneyInput">
         <input type="number" id="inCash" name="cash" onkeyup="autoSub()" placeholder="monto" disabled=""/>
     </div>
     <div class="changeInput">
@@ -34,10 +34,10 @@
         var titleType=(contentList[0]);
         var textContent=(contentList[1]);
         //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
-        var p3=(contentList[2]);
-        const num = "1";
+        var showAlert =(contentList[2]);
+        const onOff = "1";
          /*]]>*/
-         if(p3== num){
+         if(showAlert == onOff){
         	 swal({
                  title: titleType,
                  text: textContent,

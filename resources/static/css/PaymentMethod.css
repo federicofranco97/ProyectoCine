@@ -49,6 +49,7 @@
 	display:inline-block;
 	margin-top: 5%;
 	margin-left: 5%;
+	cursor: pointer;
 }
 
 .creditButton
@@ -56,6 +57,7 @@
 	width: 5%;
 	display:inline-block;
 	margin-left: 10%;
+	cursor: pointer;
 }
 
 .moneyButtons

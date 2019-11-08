@@ -55,34 +55,19 @@
          /*<![CDATA[*/
         var contentList = /*[[${Content}]]*/ 'default';
         if(contentList!=null){
-            var p1=(contentList[0]);
-            var p2=(contentList[1]);
-            var p3=(contentList[2]);
-
-             if(p3== "1"){
-                 swal({
-                     title: p1,
-                     text: p2,
+        	var titleType=(contentList[0]);
+            var textContent=(contentList[1]);
+            //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
+            var sowAlert =(contentList[2]);
+            const onOff = "1"; 
+             if(sowAlert == onOff){
+            	 swal({
+                     title: titleType,
+                     text: textContent,
                      icon: "warning"
                    })
              }
         }
-
-
-        var titleType=(contentList[0]);
-        var textContent=(contentList[1]);
-        //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
-        var p3=(contentList[2]);
-        const num = "1"; 
-         /*]]>*/
-         if(p3== num){
-        	 swal({
-                 title: titleType,
-                 text: textContent,
-                 icon: "warning"
-               })
-               p3="";
-         }
   </script>
 </body>
 </html>
