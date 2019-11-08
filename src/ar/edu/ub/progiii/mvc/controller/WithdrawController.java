@@ -29,6 +29,9 @@ public class WithdrawController {
      */
 	@GetMapping("/withdraw")
 	public ModelAndView GetView(HttpServletRequest request) {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		ModelAndView model = new ModelAndView("Withdraw");
 		model.addObject("totalVirtual",clientService.GetTotalVirtual((int)request.getSession().getAttribute("EmployeeId")));
 		return model;
@@ -45,6 +48,9 @@ public class WithdrawController {
 	@PostMapping("/withdrawValidate")
 	public ModelAndView ValidateWithdraw(@RequestParam("adminId") String adminId, @RequestParam("passAdmin") String passAdmin, 
 			@RequestParam("withdrawDoneSent") String withdrawDoneSent, HttpServletRequest request) {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		if((clientService.GetEmployeeCategory(Integer.parseInt(adminId)) == 3  && clientService.verifyEmployeeLogin(adminId, passAdmin, false))) {
 			double virtualTotal = Double.parseDouble(withdrawDoneSent);
 			data.UpdateVirtualTotal((int)request.getSession().getAttribute("EmployeeId"), virtualTotal);

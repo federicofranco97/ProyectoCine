@@ -41,6 +41,9 @@ public class LoginController {
 	 */
 	@GetMapping("/")
 	public ModelAndView GetLoginView(HttpServletRequest request) throws SQLException {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		ModelAndView model = new ModelAndView("Login");
 		if(request.getSession().getAttribute("EmployeeId") != null){
 			clientService.UpdateLoginStatus((int)request.getSession().getAttribute("EmployeeId"));
@@ -54,6 +57,9 @@ public class LoginController {
 	 */
 	@PostMapping("/login_sent")
 	public ModelAndView EmployeeLogin(@RequestParam("EmployeeId") String employeeId, @RequestParam("EmployeePass") String employeePass, HttpServletRequest request) {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		RedirectView redirectView = new RedirectView("/menu");
 		redirectView.setExposePathVariables(false);
 		try {

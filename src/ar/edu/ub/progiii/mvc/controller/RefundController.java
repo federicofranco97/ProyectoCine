@@ -34,6 +34,9 @@ public class RefundController {
 	 */
 	@GetMapping("/reembolso")
 	public ModelAndView GetRefundView(HttpServletRequest request) throws SQLException {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		if(clientService.IsEmployeeAlowed((int)request.getSession().getAttribute("EmployeeId"))) {
 			ModelAndView model = new ModelAndView("Refund");
 			return model;
@@ -49,7 +52,10 @@ public class RefundController {
 	* @return 
 	*/
 	@PostMapping("/mostrar_idreserva")
-	public ModelAndView GetBookingByIdView(@RequestParam("reservationCode") String bookingID) throws SQLException {
+	public ModelAndView GetBookingByIdView(@RequestParam("reservationCode") String bookingID, HttpServletRequest request) throws SQLException {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		if(clientService.GetBookingById(bookingID) != null) {
 			LocalDate bookingDate = LocalDate.parse(clientService.GetBookingById(bookingID).getBookingDate());
 			LocalDate today = LocalDate.parse(clientService.GetDateToday());
@@ -77,7 +83,10 @@ public class RefundController {
 	*@return 
 	*/
 	@PostMapping("/mostrar_reservas")
-	public ModelAndView GetBookingsByClientIdView(@RequestParam("idClientCode") String clientID) throws SQLException {
+	public ModelAndView GetBookingsByClientIdView(@RequestParam("idClientCode") String clientID, HttpServletRequest request) throws SQLException {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		if(clientService.GetClientByUID(clientID) != null) {
 			if(clientService.GetAllBookingsByIdClient(clientID) != null) {
 				ModelAndView model = new ModelAndView("Refund");
@@ -104,6 +113,9 @@ public class RefundController {
 	*/
 	@PostMapping("/reembolsar")
 	public ModelAndView Refund(@RequestParam("adminId") String adminId,@RequestParam("passAdmin") String passAdmin, @RequestParam("bookingIdSent") String bookingId, HttpServletRequest request) throws SQLException {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		if(clientService.GetEmployeeCategory(Integer.parseInt(adminId)) == 3 && clientService.verifyEmployeeLogin(adminId, passAdmin, false)) {
 			BookingDTO booking =  clientService.GetBookingById(bookingId);
 			data.RegisterRefund(Integer.parseInt(bookingId), String.valueOf((int)request.getSession().getAttribute("EmployeeId")), String.valueOf(booking.getClientNumber()), String.valueOf(booking.getTotalValue()));
@@ -123,6 +135,9 @@ public class RefundController {
 	 */
 	@PostMapping("/buscarCliente")
 	public ModelAndView GetClientDataByDNI(@RequestParam("clientDNI") String clientDNI, HttpServletRequest request) {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		if (clientService.GetClientByDNI(clientDNI) != null) {
 			ModelAndView model = new ModelAndView("Refund");
 			model.addObject("msjClient",clientService.GetClientByDNI(clientDNI));

@@ -19,6 +19,9 @@ public class PaymentMethodController {
     Data data = new Data();
     @GetMapping("/metodo_pago")
     public ModelAndView GetPaymentMethod(@RequestParam("payParam") String payValue, HttpServletRequest request){
+    	if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+            return BaseController.RedirectToMenu();
+         }
         int employeeId = (int)request.getSession().getAttribute("EmployeeId");
         int payNumber = Integer.parseInt(payValue);
         ModelAndView model = new ModelAndView("PaymentMethod");
@@ -30,6 +33,9 @@ public class PaymentMethodController {
     
     @GetMapping("/mercado_pago")
     public ModelAndView GetMp(HttpServletRequest request){
+    	if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+            return BaseController.RedirectToMenu();
+         }
         ModelAndView modelMp = new ModelAndView("MercadoPago");
         return modelMp;
     }

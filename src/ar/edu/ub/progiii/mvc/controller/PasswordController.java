@@ -32,6 +32,9 @@ public class PasswordController {
 	 */
 	@GetMapping("/cambio_clave")
 	public ModelAndView GetPassView(HttpServletRequest request) {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		if(clientService.IsEmployeeAlowed((int)request.getSession().getAttribute("EmployeeId"))) {
 			ModelAndView model = new ModelAndView("Password");
 			model.addObject("currentID",(int)request.getSession().getAttribute("EmployeeId"));
@@ -54,6 +57,9 @@ public class PasswordController {
 	 */
 	@PostMapping("/pass_sent")
 	public ModelAndView changePass(@RequestParam("EmployeeId") String employeeId, @RequestParam("oldPass") String oldPass, @RequestParam("newPass") String newPass, HttpServletRequest request) {
+		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
+	           return BaseController.RedirectToMenu();
+	        }
 		int aux = clientService.changePass(employeeId, oldPass, newPass, request);
 		if(aux == 1) {
 			ModelAndView modelSucces = new ModelAndView("Password");
