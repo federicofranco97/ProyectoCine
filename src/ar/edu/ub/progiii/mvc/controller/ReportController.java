@@ -12,7 +12,7 @@ import java.text.ParseException;
 import java.util.Arrays;
 
 @Controller
-public class ReportController {
+public class ReportController{
 
     @Autowired
     ClientService clientService;
@@ -20,7 +20,10 @@ public class ReportController {
     Metodo que te lleva a la vista de reportes de ventas del dia
      */
     @GetMapping("/reporte_dia")
-    public ModelAndView GetReport(){
+    public ModelAndView GetReport(HttpServletRequest request){
+        if(request.getSession() == null) {
+            BaseController.RedirectToMenu();
+        }
         ModelAndView model = new ModelAndView("ReportTemplate");
         if(clientService.ActiveEmployees().equals("0") || clientService.ActiveEmployees()==null
                 || clientService.ActiveEmployees().equals("")){
@@ -40,7 +43,10 @@ public class ReportController {
     }
 
     @GetMapping("/reporte_mes")
-    public ModelAndView GetMonthlyReport() throws ParseException {
+    public ModelAndView GetMonthlyReport(HttpServletRequest request) throws ParseException {
+        if(request.getSession() == null) {
+            BaseController.RedirectToMenu();
+        }
         ModelAndView model = new ModelAndView("ReportTemplate");
         if(clientService.ActiveEmployees().equals("0") || clientService.ActiveEmployees()==null
                 || clientService.ActiveEmployees().equals("")){
@@ -61,6 +67,9 @@ public class ReportController {
 
     @GetMapping("/get_report")
     public ModelAndView GetEmpReport(@RequestParam("employeeid")int EmployeeId,  HttpServletRequest request){
+        if(request.getSession() == null) {
+            BaseController.RedirectToMenu();
+        }
         clientService.dataManager.LogData("INFO","Reporte de empleado pedido "+EmployeeId);
         ModelAndView model = new ModelAndView("EmployeeReport");
         model.addObject("authorName",clientService.GetEmployee((int)request.getSession()
