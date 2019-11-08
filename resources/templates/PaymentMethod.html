@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: header">
+    <meta charset="UTF-8"/>
+    <title>Metodo de Pago</title>
+</head>
+<body class="bg-secondary">
+<div th:replace="layout :: menu"></div>
+<div id="mainContent">
+    <h1 class="totalTitle">TOTAL</h1>
+    <div class="totalAmount">
+        <label id="amountTotal" class="badge badge-dark totalBadge" th:text="${total}"></label>
+    </div>
+    <h1 class="titlePayment">SELECCIONE FORMA DE PAGO</h1>
+    <input id="payMethod" value="1"/>
+    <div class="moneyButtons">
+        <div title="EFECTIVO" id="cashPay" class="cashButton" onclick="cashValue()"><i class="fas fa-coins fa-4x"></i></div>
+        <div title="MERCADO LIBRE" id="ml" class="creditButton" onclick="creditValue()"><i class="far fa-credit-card fa-4x"></i></div>
+    </div>
+    <div class=" moneyInput">
+        <input type="number" id="inCash" name="cash" onkeyup="autoSub()" placeholder="monto" disabled=""/>
+    </div>
+    <div class="changeInput">
+        <input type="number" id="change" name="cash" placeholder="vuelto" disabled=""/>
+    </div>
+    <div class="sendDiv">
+        <button type="button" onclick="SendMoney()" class="btn-dark">ENVIAR</button>
+    </div>
+</div>
+<div th:replace="layout :: footer"></div>
+<script th:inline="javascript">
+         /*<![CDATA[*/
+        var contentList = /*[[${Content}]]*/ 'default';
+        var titleType=(contentList[0]);
+        var textContent=(contentList[1]);
+        //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
+        var showAlert =(contentList[2]);
+        const onOff = "1";
+         /*]]>*/
+         if(showAlert == onOff){
+        	 swal({
+                 title: titleType,
+                 text: textContent,
+                 icon: "success"
+               })
+               window.open("/menu","_self");
+         }
+    </script>
+</body>
+</html>
