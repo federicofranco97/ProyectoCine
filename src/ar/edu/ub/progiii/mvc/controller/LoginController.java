@@ -41,9 +41,6 @@ public class LoginController {
 	 */
 	@GetMapping("/")
 	public ModelAndView GetLoginView(HttpServletRequest request) throws SQLException {
-		if(request.getSession() == null || request.getSession().getAttribute("EmployeeId") == null) {
-	           return BaseController.RedirectToMenu();
-	        }
 		ModelAndView model = new ModelAndView("Login");
 		if(request.getSession().getAttribute("EmployeeId") != null){
 			clientService.UpdateLoginStatus((int)request.getSession().getAttribute("EmployeeId"));
