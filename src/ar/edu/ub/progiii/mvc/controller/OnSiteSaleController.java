@@ -222,13 +222,13 @@ public class OnSiteSaleController {
 		data.UpdateLastBooking("CodEstadoReserva", 2, data.GetLastBookingByEmployeeId(employeeId));
 		if(clientService.IsEmployeeAlowed(employeeId)) {
 			ModelAndView model = new ModelAndView("OnSiteSale");
-			model.addObject("films",clientService.GetAllFilms());
-			model.addObject("shows" ,clientService.GetShowsByHour());
-			model.addObject("date",clientService.GetServerDate());
+			model.addObject("films", clientService.GetAllFilms());
+			model.addObject("shows", clientService.GetShowsByHour());
+			model.addObject("date", clientService.GetServerDate());
 			return model;
 		}
 		ModelAndView modelError = new ModelAndView("ErrorPage");
- 		modelError.addObject("Contenido", Arrays.asList("Error","El usuario no tiene acceso a esta pagina, redireccionando a login!","/"));
+ 		modelError.addObject("Contenido", Arrays.asList("Error", "El usuario no tiene acceso a esta pagina, redireccionando a login!", "/"));
 		return modelError;
 		
 	}

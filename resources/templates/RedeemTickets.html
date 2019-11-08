@@ -28,12 +28,10 @@
             </thead>
             <tbody>
             <tr>
-
                 <td th:if="${msj != null}" th:text="${Booking.getTicketAmount()}"></td>
                 <td th:if="${msj != null}" th:text="${pelicula.getFilmName()}"></td>
                 <td th:if="${msj != null}" th:text="${funcion}"></td>
                 <td th:if="${msj != null}" th:text="${Booking.getTheatreNumber()}"></td>
-
             </tr>
             <tr>
                 <td></td>
@@ -41,7 +39,6 @@
                 <td></td>
                 <td></td>
             </tr>
-
             </tbody>
     </table>
     </div>
@@ -54,20 +51,21 @@
     <script th:inline="javascript">
          /*<![CDATA[*/
         var contentList = /*[[${Content}]]*/ 'default';
-        if(contentList!=null){
-        	var titleType=(contentList[0]);
-            var textContent=(contentList[1]);
-            //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
-            var sowAlert =(contentList[2]);
-            const onOff = "1"; 
-             if(sowAlert == onOff){
-            	 swal({
-                     title: titleType,
-                     text: textContent,
-                     icon: "warning"
-                   })
-             }
-        }
+        if(contentList != null){
+        	var titleType = (contentList[0]);
+            var textContent = (contentList[1]);
+          //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
+            var showAlert = (contentList[2]);
+            const onOff = "1";
+            /*]]>*/
+            if(showAlert == onOff){
+                swal({
+                	title: titleType,
+                    text: textContent,
+                    icon: "warning"
+                  })
+               }
+            }
   </script>
 </body>
 </html>

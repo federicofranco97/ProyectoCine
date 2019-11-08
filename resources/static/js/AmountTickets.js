@@ -32,15 +32,14 @@ var elements = [];
 
 //Carga la funcion para crear los elementos luego de cargar la pagina
 document.getElementById("AmountBody").onload = function(){
-	Cargar();
+	cargar();
 }
 
-function Cargar(){
+function cargar(){
 	var elem;
 	for (elem in elementNames) {
 		elements.push(document.getElementById(elementNames[elem]));
 		inputs.push(document.getElementById("input" + elementNames[elem]));
-		console.log("input" + elementNames[elem]);
 		counters.push(0);
 	}
 	

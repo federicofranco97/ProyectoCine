@@ -62,7 +62,7 @@
   <!--Formulario para que se registre un cliente-->
   <!--Es modal y contiene un css con animacion-->
   <form id="formRegisterClient" class="formRegisteredClient fadeIn" method="post" action="/registrar_cliente">
-    <button id="closeFormBtn" class="buttonClose">x</button>
+    <button id="closeFormBtn" class="buttonCloseAmount">x</button>
     <strong>Registrar cliente</strong>
     <label class= "badge badge-dark alignLabel standardLabel" for="Name">Nombre Completo</label>
       <!--Contenedor del campo Nombre completo y su icono-->
@@ -107,19 +107,19 @@
 <script th:inline="javascript">
          /*<![CDATA[*/
         var contentList = /*[[${Content}]]*/ 'default';
-        var titleType=(contentList[0]);
-        var textContent=(contentList[1]);
+        var titleType = (contentList[0]);
+        var textContent = (contentList[1]);
         //Variable que va a activar o desactivar el sweet alert, 1 activo, 0 inactivo
-        var p3=(contentList[2]);
-        const num = "1"; 
+        var showAlert = (contentList[2]);
+        const onOff = "1"; 
          /*]]>*/
-         if(p3== num){
+         if(p3 == onOff){
         	 swal({
                  title: titleType,
                  text: textContent,
                  icon: "warning"
                })
-               p3="";
+               showAlert = "";
          }
     </script>
 </body>

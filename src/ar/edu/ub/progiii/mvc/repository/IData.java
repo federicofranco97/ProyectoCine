@@ -78,7 +78,7 @@ public interface IData {
      * @return
      */
     public int ChangePassEmployee(int EmployeeNumber, String newPass);
-    
+
     /**
      * "Elmina" un empleado del sistema.
      * @param EmployeeNumber
@@ -216,19 +216,19 @@ public interface IData {
      * @param TicketNumber
      */
     public void CloseTicket(int TicketNumber,int EmployeeNumber);
-	
+
 	/**
      * Metodo para traer la hora actual
      * @return
      */
 	public String GetHourNow();
-	
+
 	/**
      * Metodo para traer todas las funciones
      * @return
      */
 	public String GetAllShows();
-     
+
     /**
      * Pregunta la fecha del sql server
      * @return
@@ -287,7 +287,7 @@ public interface IData {
      * @param theatreNumber
      * @param tempEmployee
      * @param dateShow
-     * @return 
+     * @return
      */
 	public int InsertInitialBooking(String movieId, String showId, int theatreNumber, String tempEmployee, String dateShow);
 
@@ -315,7 +315,7 @@ public interface IData {
      * Actualizar campos de la ultima reserva
      * @param column
      * @param value
-     * @param bookingNumber 
+     * @param bookingNumber
      * @return
      */
 	public int UpdateLastBooking(String column, int value, String bookingNumber);
@@ -328,25 +328,57 @@ public interface IData {
      * @param documentNumber
      * @param phoneNumber
      * @param adress
-     * @return 
+     * @return
      */
 	public String RegisterClient(String fullName, String email, String birthDate, String documentNumber, String phoneNumber,
 			String adress);
 
 	/**
-     * Ejecuta el store procedure para registrar las entradas en la base de datos 
+     * Ejecuta el store procedure para registrar las entradas en la base de datos
      * @param employeeId
      * @param rateCode
      * @param price
      * @param amountTickets
-     * @return 
+     * @return
      */
 	public int RegisterTickets(int employeeId, String rateCode, String price, String amountTickets);
+
+	/**
+     * Metodo para traer todas las reservas desde la fecha actual en adelante de un cliente
+     * @param clientId
+     * @return
+     */
+	public String GetAllBookingsByClientId(String clientId);
+
+	/**
+     * Ejecuta el store procedure para registrar reembolsos
+     * @param bookingId
+     * @param employeeNumber
+     * @param clientNumber
+     * @param amountRefund
+     * @return 
+     */
+	public int RegisterRefund(int bookingId, String employeeNumber, String clientNumber, String amountRefund);
 
     /**
      * Cambia el estado de la reserva activa a retirada
      * @param BookingNumber
      */
 	public void RedeemBooking(String BookingNumber);
+
+    /**
+     * Devuelve el valor del Total virtual de ventas del empleado
+     * @param employeeId
+     * @return
+     */
+	public String GetEmployeeTotalVirtual(int employeeId);
+
+	/**
+     * Actualizar el total virtual del empleado
+     * @param employeeId
+     * @param totalVirtual
+     * @return
+     */
+	public int UpdateVirtualTotal(int employeeId, double totalVirtual);
 
 }

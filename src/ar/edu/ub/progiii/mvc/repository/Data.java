@@ -159,10 +159,10 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-            	CQuerySelect querySelect = new CQuerySelect("cliente", "*");
-            	querySelect.addStatementCondition(Arrays.asList("nrocliente="+data));
+            	CQuerySelect querySelect = new CQuerySelect("Cliente c join ClientStatus cs on c.NroCliente=cs.Nrocliente", "*");
+            	querySelect.addStatementCondition(Arrays.asList("c.nrocliente="+data,"cs.CodRol=1004"));
             	ResultSet rst = querySelect.Run();
-            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","NroCliente","Telefono","Email","Direccion","FechaNac","NroDocumento"));
+            	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","NroCliente","Telefono","Email","Direccion","FechaNac","NroDocumento","FechaCreacion"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
@@ -222,7 +222,7 @@ public class Data implements IData{
         try {
             if(connection != null) {
             	CQuerySelect querySelect = new CQuerySelect("reserva", "*");
-            	querySelect.addStatementCondition(Arrays.asList("codreserva="+data,"codestadoreserva=1","datediff(day,getDate(),fecha)=0"));
+            	querySelect.addStatementCondition(Arrays.asList("codreserva="+data,"codestadoreserva=1","datediff(day,getDate(),fecha)>=0"));
             	ResultSet rst = querySelect.Run();
             	result = ParseSpecificResultSet(rst,Arrays.asList("CodReserva", "codpelicula", "codfuncion", "fecha", "nrosala", "cantentradas", "nrocliente", "codestadoreserva", "codcanal", "codsucursal", "PrecioTotal"));
             }
@@ -323,7 +323,7 @@ public class Data implements IData{
         }
         if(result.isEmpty()) {
             LogData("NotFound","No se encontro el cliente con id "+EmployeeNumber);
-            return null;
+            return "-1";
         }
         //Logeo la informacion de la busqueda, Id de busqueda y resultado
         return result;
@@ -1266,8 +1266,8 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-            	CQuerySelect querySelect = new CQuerySelect("cliente", "*");
-            	querySelect.addStatementCondition(Arrays.asList("NroDocumento="+DNI));
+            	CQuerySelect querySelect = new CQuerySelect("Cliente c join ClientStatus cs on c.NroCliente=cs.Nrocliente", "*");
+            	querySelect.addStatementCondition(Arrays.asList("c.NroDocumento="+DNI,"cs.CodRol=1004"));
             	ResultSet rst = querySelect.Run();
             	result = ParseSpecificResultSet(rst,Arrays.asList("NombreCompleto","NroCliente","Telefono","Email","Direccion","FechaNac","NroDocumento","FechaCreacion"));
             }
@@ -1406,6 +1406,68 @@ public class Data implements IData{
         LogData("InsertarReservaInicial","Insertar reserva inicial");
         return result;
     }
+    
+    /**
+     * Metodo para traer todas las reservas desde la fecha actual en adelante de un cliente
+     * @param clientId
+     * @return
+     */
+    @Override
+    public String GetAllBookingsByClientId(String clientId) {
+        String result="";
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	CQuerySelect querySelect = new CQuerySelect("reserva", "*");
+            	querySelect.addStatementCondition(Arrays.asList("datediff(day,getdate(),fecha)>=0", "NroCliente="+clientId));
+            	ResultSet rst = querySelect.Run();
+            	result = ParseSpecificResultSet(rst,Arrays.asList("CodReserva", "codpelicula", "codfuncion", "fecha", "nrosala", "cantentradas", "nrocliente", "codestadoreserva", "codcanal", "codsucursal", "PrecioTotal"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+
+        }
+        //Si no encontro nada devuelvo null.
+        if((result.isEmpty())) {
+            LogData("ErrorNotFound","No se pudo encontrar la tabla");
+            return null;
+        }
+        return result;
+    }
+    
+    /**
+     * Ejecuta el store procedure para registrar reembolsos y actualizar la reserva
+     * @param bookingId
+     * @param employeeNumber
+     * @param clientNumber
+     * @param amountRefund
+     * @return 
+     */
+    @Override
+    public int RegisterRefund(int bookingId, String employeeNumber, String clientNumber, String amountRefund) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("DevolverReserva");
+                queryStoredProcedure.addParameter(Arrays.asList(""+bookingId, employeeNumber,clientNumber, amountRefund+""));
+                queryStoredProcedure.BuildParameters();
+                queryStoredProcedure.Build();
+                result = queryStoredProcedure.Run();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda
+        LogData("InsertarReservaInicial","Insertar reserva inicial");
+        return result;
+    }
 
     /**
      * Cambia el estado de la reserva activa a retirada
@@ -1423,4 +1485,57 @@ public class Data implements IData{
         }
     }
 
+    /**
+     * Devuelve el valor del Total virtual de ventas del empleado
+     *
+     * @param employeeId
+     * @return
+     */
+    @Override
+    public String GetEmployeeTotalVirtual(int employeeId) {
+        String result = "";
+        try {
+            if(connection != null) {
+                CQuerySelect querySelect = new CQuerySelect("empleado", "TotalVirtual");
+                querySelect.addStatementCondition(Arrays.asList("NroEmpleado="+employeeId));
+                ResultSet rst = querySelect.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("TotalVirtual"));
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+
+        }
+
+        return result;
+    }
+    
+    /**
+     * Actualizar el total virtual del empleado
+     * @param employeeId
+     * @param totalVirtual
+     * @return
+     */
+    @Override
+    public int UpdateVirtualTotal(int employeeId, double totalVirtual) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+            	CQueryUpdate cQueryUpdate = new CQueryUpdate("Empleado", Arrays.asList("TotalVirtual="+totalVirtual));
+            	cQueryUpdate.addStatementCondition("NroEmpleado="+employeeId);
+            	result = cQueryUpdate.Run();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda, Id de busqueda y resultado
+        LogData("UpdateVirtualTotal","Actualizar VirtualTotal de un empleado "+employeeId);
+        return result;
+    }
 }

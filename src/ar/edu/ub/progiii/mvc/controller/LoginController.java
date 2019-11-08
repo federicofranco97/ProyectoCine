@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.ub.progiii.mvc.dto.BookingDTO;
 import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.FilmDTO;
 import ar.edu.ub.progiii.mvc.dto.RateCategoryDTO;
@@ -55,7 +56,7 @@ public class LoginController {
 		RedirectView redirectView = new RedirectView("/menu");
 		redirectView.setExposePathVariables(false);
 		try {
-			if(clientService.verifyEmployeeLogin(employeeId, employeePass)) {
+			if(clientService.verifyEmployeeLogin(employeeId, employeePass, true)) {
 				request.getSession().setAttribute("EmployeeId",Integer.parseInt(employeeId));
 				request.getSession().setAttribute("Failed",0);
 				return new ModelAndView(redirectView);
