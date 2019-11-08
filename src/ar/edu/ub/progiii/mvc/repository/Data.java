@@ -1465,8 +1465,32 @@ public class Data implements IData{
         }
         return result;
     }
-
-
-
+    
+    /**
+     * Ejecuta el store procedure para cambiar la tarifa 
+     * @param month
+     * @return 
+     */
+    @Override
+    public int ChangeRate(String month) {
+        int result= -1;
+        //empiezo la conexion y recibo el resultado de la query
+        try {
+            if(connection != null) {
+                QueryStoredProcedure queryStoredProcedure = new QueryStoredProcedure("AnaliticTarifa");
+                queryStoredProcedure.addParameter(Arrays.asList(""+month+""));
+                queryStoredProcedure.Build();
+                result = queryStoredProcedure.Run();
+            }
+            else {
+                System.out.println("ConError No se pudo conectar con el sql server");
+            }
+        }catch (Exception ex) {
+            LogData("DataException","Ocurrio una exception al procesar el pedido***"+ex.getMessage());
+        }
+        //Logeo la informacion de la busqueda
+        LogData("AnaliticTarifa","Cambiar la tarifa");
+        return result;
+    }
 
 }

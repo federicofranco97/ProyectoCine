@@ -358,4 +358,11 @@ public interface IData {
      */
 	public String YearUserMovements(String Year);
 
+	/**
+     * Ejecuta el store procedure para cambiar la tarifa 
+     * @param month
+     * @return 
+     */
+	public int ChangeRate(String month);
+
 }

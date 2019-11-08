@@ -1,9 +1,10 @@
 //Defino elelemento tarifa sugerida
 var rateSuggested = document.getElementById("suggested");
-var rateYear = document.getElementById("rateYear");
+var month = "";
 
 //Funcion para enviar a pagina de votacione en caso de aceptar
-function sendRate(){
+function sendRate(element){
+	month = element;
 	swal({
         title: "Aviso",
         text: "Desea seleccionar esta tarifa?",
@@ -17,13 +18,11 @@ function sendRate(){
             icon: "warning",
           });
           setTimeout("MoveToVote()", 2000);
-        } else {
-        	
         }
       });
 }
 
 //Funcion que redirecciona a pagina de votacion
 function MoveToVote(){
-	window.open("/votacion_page?rateYearSent="+rateYear.innerText,"_self");
+	window.open("/cambiar_tarifa?monthRate="+month,"_self");
 }

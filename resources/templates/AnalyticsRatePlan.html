@@ -16,8 +16,8 @@
 </div>
 <!-- Div que represeta el mes y contiene las tarifas -->
 <div style="width: 90vw;margin:auto;margin-top:8%; overflow-y:auto;height: 70vh;">
-    <div th:each="YearSale : ${YearSales}" class="monthsRatePlan" onclick="sendRate()">
-        <label class="monthRatePlan" th:text="${YearSale.getMonth()}"></label><br/>
+    <div th:each="YearSale : ${YearSales}" class="monthsRatePlan" th:onclick="${' sendRate(''' + YearSale.getMonth() + ''');'}">
+        <label id="month" class="monthRatePlan" th:text="${YearSale.getMonth()}"></label><br/>
         <label class="badge badge-default badge-info labelRatePlanA" th:text="${YearSale.getAverageRate()}"></label><br/>
         <label class="badge badge-default badge-warning labelRatePlanAE" th:text="${YearSale.getExpectedRate()}"></label><br/>
         <label id="suggested" class="badge badge-default badge-danger labelRatePlanS" th:text="${YearSale.getRateSuggested()}"></label>

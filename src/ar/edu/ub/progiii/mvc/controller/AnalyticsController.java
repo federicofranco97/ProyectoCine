@@ -1,5 +1,6 @@
 package ar.edu.ub.progiii.mvc.controller;
 
+import ar.edu.ub.progiii.mvc.repository.Data;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 
@@ -10,12 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class AnalyticsController {
 
     @Autowired
     ClientService clientService;
+    Data data = new Data();
 
     /**
 	   Metodo que devuelve ala pagina de analytics los campos de la tabla analitics
@@ -54,5 +57,18 @@ public class AnalyticsController {
         model.addObject("YearSales",clientService.YearSalesInformation("2019"));
         return model;
     }
-
+    
+    /**
+	   Metodo para cambiar la tarifa
+	   @Year
+	   @return model 
+	 */
+ @GetMapping("/cambiar_tarifa")
+ public ModelAndView ChangeRate(@RequestParam("monthRate") String month){
+     data.ChangeRate(month);
+     RedirectView redirectView = new RedirectView("/analytics_rateplan");
+	 redirectView.setExposePathVariables(false);
+	 return new ModelAndView(redirectView);
+     }
+ 
 }
