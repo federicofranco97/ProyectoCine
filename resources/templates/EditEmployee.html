@@ -6,7 +6,7 @@
 <body class="bg-secondary">
     <div th:replace="layout :: menu"></div>
     <div th:replace="AdminNavBar :: AdminNav"></div>
-    <form class="data-form" method="post" action="/update_employee" style="height:70vh;overflow-y:auto;width:60vw">
+    <form class="data-form" method="post" action="/update_employee" style="height:70vh;overflow-y:auto;width:60vw;margin:auto;margin-top:10%">
         <div class="form-group">
             <label>Nombre Completo</label>
             <input type="text" class="form-control" th:value="${empleado.getFullName()}"

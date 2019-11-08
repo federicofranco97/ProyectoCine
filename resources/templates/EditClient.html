@@ -5,7 +5,7 @@
 </head>
 <body class="bg-secondary">
 <div th:replace="layout :: menu"></div>
-<form class="data-form" method="post" action="/update_client" style="height:70vh;overflow-y:auto;width:60vw">
+<form class="data-form bg-dark" method="post" action="/update_client" style="height:70vh;overflow-y:auto;width:50vw;margin:auto;margin-top:3%;padding:60px;color:white">
     <div class="form-group">
         <label>Nombre Completo</label>
         <input type="text" class="form-control" th:value="${client.getFullName()}"

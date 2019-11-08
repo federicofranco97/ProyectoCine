@@ -662,8 +662,8 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-            	CQuerySelect querySelect = new CQuerySelect("Empleado e inner join VentaPresencial v on e.NroEmpleado=v.NroEmpleado inner join Reserva r on v.CodReserva=r.CodReserva ", "count(e.nroempleado) as CantidadEmpleados");
-            	querySelect.addStatementCondition(Arrays.asList("datediff(day,getdate(),r.fecha)=0"));
+            	CQuerySelect querySelect = new CQuerySelect("reserva", "count(distinct tempempleado) as CantidadEmpleados");
+            	querySelect.addStatementCondition(Arrays.asList("datediff(day,getdate(),fecha)=0"," codestadoreserva=3"));
             	ResultSet rst = querySelect.Run();
             	result = ParseSpecificResultSet(rst,Arrays.asList("CantidadEmpleados"));
             }
