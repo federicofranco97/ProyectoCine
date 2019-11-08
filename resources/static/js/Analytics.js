@@ -278,7 +278,7 @@
                     			ticks: {
                     				beginAtZero: true,
                     				scalesize:10,
-                    				max: 350,
+                    				scaleOverride : true,
                     				fontColor: 'white'
                     				}
                                 }],
@@ -336,7 +336,7 @@
                     			ticks: {
                     				beginAtZero: true,
                     				scalesize:10,
-                    				max: 100,
+                    				scaleOverride : true,
                     				fontColor: 'white'
                     				}
                                 }],
@@ -394,7 +394,7 @@
                     			ticks: {
                     				beginAtZero: true,
                     				scalesize:10,
-                    				max: 100,
+                    				scaleOverride : true,
                     				fontColor: 'white'
                     				}
                                 }],
