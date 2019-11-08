@@ -67,7 +67,7 @@ public class RefundController {
 			return modelError;
 		}
 		ModelAndView modelError = new ModelAndView("Refund");
- 		modelError.addObject("Content", Arrays.asList("Error","La reserva no existe!","1"));
+ 		modelError.addObject("Content", Arrays.asList("Error","La reserva no existe o fue retirada o cancelada!","1"));
 		return modelError;
 	}
 	

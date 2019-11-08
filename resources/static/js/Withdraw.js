@@ -1,8 +1,8 @@
 //Declaracion de variables
 var inTotal = document.getElementById("totalSales");
 var amountTaken = document.getElementById("amountTaken");
-var amountSelected = parseInt(amountTaken.value);
-var totalSales = parseInt(inTotal.value);
+var amountSelected = amountTaken; 
+var totalSales = inTotal;
 var withdrawDone = 0; 
 var withdrawDoneSent = document.getElementById("withdrawDoneSent");
 var forms = document.getElementById("formPasss");

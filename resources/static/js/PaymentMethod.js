@@ -10,7 +10,7 @@ function SendMoney(){
                icon: "success",
                buttons: true
              });
-        window.open("/metodo_pago?payParam="+payMethod,"_self");
+        setTimeout(function(){ window.open("/metodo_pago?payParam="+payMethod,"_self"); }, 1000);
     }else{
     	swal("Aviso!", "Monto incorrecto!", "warning");
     }
