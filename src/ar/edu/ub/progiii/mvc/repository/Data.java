@@ -688,7 +688,7 @@ public class Data implements IData{
         try {
             if(connection != null) {
             	CQuerySelect querySelect = new CQuerySelect("reserva", "count(codreserva)  as ReservasOnline");
-            	querySelect.addStatementCondition(Arrays.asList("codcanal=2","CodEstadoReserva=3"));
+            	querySelect.addStatementCondition(Arrays.asList("codcanal=2","CodEstadoReserva=3","datediff(day,getdate(),fecha)=0"));
             	ResultSet rst = querySelect.Run();
             	result = ParseSpecificResultSet(rst,Arrays.asList("ReservasOnline"));
             }
@@ -808,9 +808,10 @@ public class Data implements IData{
         //empiezo la conexion y recibo el resultado de la query
         try {
             if(connection != null) {
-                QueryStoredProcedureWResponse queryStoredProcedureWResponse = new QueryStoredProcedureWResponse("VentasOnlineMes");
-                ResultSet rst = queryStoredProcedureWResponse.Run();
-                result = ParseSpecificResultSet(rst,Arrays.asList("VentasOnlineMes"));
+                CQuerySelect querySelect = new CQuerySelect("reserva", "count(codreserva)  as ReservasOnline");
+                querySelect.addStatementCondition(Arrays.asList("codcanal=2","CodEstadoReserva=3","datediff(month,getdate(),fecha)=0"));
+                ResultSet rst = querySelect.Run();
+                result = ParseSpecificResultSet(rst,Arrays.asList("ReservasOnline"));
             }
             else {
                 System.out.println("ConError No se pudo conectar con el sql server");
