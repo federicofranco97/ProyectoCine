@@ -8,19 +8,19 @@
     <div th:replace="layout :: menu"></div>
     <div id="TicketForm">
         <form method="post" action="/create_ticket">
-            <div class="form-group">
+            <div class="formGroup">
                 <label >Titulo del Ticket</label>
                 <input type="text" required="required" name="TicketTitle" class="form-control" id="titleticket"  placeholder="Ingrese el Titulo del ticket"/>
             </div>
-            <div class="form-group">
+            <div class="formGroup">
                 <label >Autor del Ticket</label>
                 <input type="text" required="required" name="TicketAuthor" class="form-control" id="ticketauthor"  placeholder="Ingrese el Autor del ticket"/>
             </div>
-            <div class="form-group">
+            <div class="formGroup">
                 <label >Mensaje del Ticket</label>
                 <input type="text" required="required" name="TicketContent" class="form-control" id="ticketmessage"  placeholder="Ingrese el Mensaje del ticket"/>
             </div>
-            <div class="form-group">
+            <div class="formGroup">
                 <a href="/admin_main" class="btn btn-dark">Descartar</a>
                 <button type="submit" class="btn btn-dark">Crear Ticket</button>
             </div>

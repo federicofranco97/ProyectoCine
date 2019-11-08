@@ -124,10 +124,12 @@ public interface IMapping {
      */
 	public RateCategoryDTO MapDTORateCategoriesSQL(String SQLData);
 
+
     /**
      * Mapea un string proveniente de sql a objeto dto manipulable
      * @param SQLData
      * @return
      */
 	public SaleInformationDTO MapDTOSalesInformationSQL(String SQLData);
+
 }

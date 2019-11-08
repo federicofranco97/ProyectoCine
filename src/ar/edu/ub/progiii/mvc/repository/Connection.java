@@ -42,7 +42,8 @@ public  class Connection {
      */
     public static void FillConnectionsList() throws IOException {
         File file = new File("Connection.txt");
-        BufferedReader br = new BufferedReader(new FileReader(file));
+        @SuppressWarnings("resource")
+		BufferedReader br = new BufferedReader(new FileReader(file));
         String st;
         while ((st = br.readLine()) != null){
             Connections.add(st);

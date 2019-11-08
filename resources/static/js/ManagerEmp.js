@@ -1,4 +1,3 @@
-
 //Te lleva a editar la informacion del empleado
 function EditEmployee(Component){
     var idEmployee = Component.parentNode.className;

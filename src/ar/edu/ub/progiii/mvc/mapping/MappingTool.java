@@ -64,12 +64,20 @@ public class MappingTool implements IMapping{
      */
     public BookingDTO MapSQLBookingDTO(String SQLData) {
     	String [] aux = SQLData.split("_");
-        BookingDTO bookingDTO;
+        BookingDTO bookingDTO = new BookingDTO();
         //si ocurre un error en el mapeo vuelve el cliente null
         try {
-            String [] splitDate = aux[3].split(" ");
-            String [] splitTotal = aux[10].split("/");
-            bookingDTO = new BookingDTO(aux[0],(splitDate[0]),aux[1], aux[2],aux[9],Integer.parseInt(aux[4]),Integer.parseInt(aux[5]),Integer.parseInt(aux[6]),Integer.parseInt(aux[7]),Integer.parseInt(aux[8]),Double.parseDouble(splitTotal[0]));
+        	String [] splitDate = aux[3].split(" ");
+        	bookingDTO.setBookingCode(aux[0]);
+        	bookingDTO.setBookingDate((splitDate[0]));
+        	bookingDTO.setMovieName(aux[1]);
+        	bookingDTO.setShow(aux[2]);
+        	bookingDTO.setTheatreNumber(Integer.parseInt(aux[4]));
+        	bookingDTO.setTicketAmount(Integer.parseInt(aux[5]));
+        	bookingDTO.setClientNumber(Integer.parseInt(aux[6]));
+        	bookingDTO.setBookingStatus(Integer.parseInt(aux[7]));
+        	bookingDTO.setChannelCode(Integer.parseInt(aux[8]));
+        	bookingDTO.setTotalValue(Double.parseDouble(aux[10]));
         }catch (Exception ex){
             bookingDTO=null;
             System.out.println("Ocurrio un error en el mapeo");

@@ -48,14 +48,17 @@ public class ClientService {
      * @param EmployeePass
      * @return
      */
-    public boolean verifyEmployeeLogin(String EmployeeId, String EmployeePass) {
+    public boolean verifyEmployeeLogin(String EmployeeId, String EmployeePass, boolean onOff) {
     	String response = dataManager.GetEmployeeByID(EmployeeId);
     	Employee Employee = mappingTool.MapEmployeeSQL(response);
     	//Retorna true o false si se cumple la condicion dentro del return
     	if((IsEmployeeAlowed(Integer.parseInt(EmployeeId)) && (Employee.getHashedPassword().equals(EmployeePass)))) {
     	    if(!InsertIfNotActive(Integer.parseInt(EmployeeId))) return false;
     		currentEmployee = mappingTool.MapDTOEmployee(Employee);
-    		dataManager.RegistrarLog(EmployeeId,Employee.getRank());
+    		if(onOff) {
+    			dataManager.RegistrarLog(EmployeeId,Employee.getRank());
+    			return true;
+    		}
     		return true;
     	}
     	return false;
@@ -131,7 +134,8 @@ public class ClientService {
             System.out.println("No se encontro la reserva");
             return null;
         }
-        bookingDTO = mappingTool.MapSQLBookingDTO(response);
+        String [] aux = response.split("/");
+        bookingDTO = mappingTool.MapSQLBookingDTO(aux[0]);
         return bookingDTO;
     }
 
@@ -536,7 +540,7 @@ public class ClientService {
     }
 
     /**
-     * 
+     * Trae la lista de todas las sucursales.
      * @return 
      */
     public void FillAllBranches(){
@@ -691,6 +695,14 @@ public class ClientService {
         return null;
     }
 
+    /**
+     * Método que trae una película
+     * @param idFilm
+     * @return
+     * Trae una pelicula por id
+     * @param idFilm id de pelicula 
+     * @return 
+     */
     public FilmDTO GetFilmById(int idFilm){
         for(FilmDTO Film: GetAllFilms()){
             if(Film.getCode() == idFilm){
@@ -700,6 +712,16 @@ public class ClientService {
         return null;
     }
 
+    /**
+     * Método que trae una función
+     * @param idCinemaShow
+     * @return
+
+     * Trae una funcion por id
+     * @param idCinemaShow id de funcion 
+     * @return 
+
+     */
     public CinemaShowDTO GetCinemaShow(String idCinemaShow){
         for(CinemaShowDTO CinemaShow: GetAllShows()){
             if(CinemaShow.getCodeShow().equals(idCinemaShow)){
@@ -717,6 +739,58 @@ public class ClientService {
     public Boolean InsertIfNotActive(int EmployeeId){
         if( activeUsers.indexOf(EmployeeId)== -1){
             activeUsers.add(EmployeeId);
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Trae todas las reservas de un cliente desde la fecha actual en adelante
+     * @param idClient
+     * @return 
+     */
+    public ArrayList<BookingDTO> GetAllBookingsByIdClient(String idClient){
+        String response = dataManager.GetAllBookingsByClientId(idClient);
+        if(response != null && response != "") {
+        	ArrayList<BookingDTO> bookingList = new ArrayList<>();
+            String [] aux = response.split("/");
+            for (String item:aux) {
+                bookingList.add(mappingTool.MapSQLBookingDTO(item));
+            }
+            return bookingList;
+        }
+        return null;
+    }
+
+    /**
+     *Recibe una reserva y le cambia el estado a activa
+     * @param bookingNumber
+     */
+    public void RedeemBooking(String bookingNumber) {
+        dataManager.RedeemBooking(bookingNumber);
+    }
+
+    /**
+     * A partir de un empleado, devuelve su total virtual de ventas
+     * @param employeeId
+     */
+    public String GetTotalVirtual(int employeeId){
+        return dataManager.GetEmployeeTotalVirtual(employeeId);
+    }
+
+    /**
+     * Verifica que el empleado exista, valida su clave
+     * y si su rango es valido
+     * @param EmployeeId
+     * @param EmployeePass
+     * @return
+     */
+    public boolean ValidateCredentials(String EmployeeId, String EmployeePass) {
+        String response = dataManager.GetEmployeeByID(EmployeeId);
+        Employee Employee = mappingTool.MapEmployeeSQL(response);
+        //Retorna true o false si se cumple la condicion dentro del return
+        if((IsEmployeeAlowed(Integer.parseInt(EmployeeId)) && (Employee.getHashedPassword().equals(EmployeePass)))) {
+            currentEmployee = mappingTool.MapDTOEmployee(Employee);
             return true;
         }
         return false;
@@ -740,8 +814,8 @@ public class ClientService {
         if (dataManager.YearUserMovements(Year) != null){
             String [] aux = dataManager.YearUserMovements(Year).split("/");
             return Arrays.asList(Integer.parseInt(aux[0]),Integer.parseInt(aux[1]),Integer.parseInt(aux[2]));
-
         }
         return null;
     }
+
 }

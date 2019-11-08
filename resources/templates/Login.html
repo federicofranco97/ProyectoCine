@@ -6,22 +6,22 @@
 </head>
 <body id="body" class="bg-secondary">
 <!--Formulario para envio de campos ID y password del empleado-->
-<form id="formPass" class="form-group bg-dark" action="/login_sent" method="post">
+<form id="formPass" class="bg-dark formGroup formLogin" action="/login_sent" method="post">
       <div id="titleLogScreen" class="input-group">
-        <h1>Login</h1>
+        <h1 class="loginTitle">Login</h1>
       </div>
     <!--Div contenedor del label e input ID con clase de bootstrap-->  
-    <div class="form-group col-md-9">
+    <div class="formGroup col-md-9">
     	<label class= "badge badge-dark" for="EmployeeId">ID Empleado</label>  
     	<input id="EmployeeId" class="form-control" type="text" name="EmployeeId" placeholder="Id" autofocus=""/>
     </div>
     <!--Div contenedor del label e input Password con clase de bootstrap-->
-    <div class="form-group col-md-9">
+    <div class="formGroup col-md-9">
     	<label class= "badge badge-dark" for="EmployeePass">Pass</label>  
     	<input id="EmployeePass" class="form-control" type="password" name="EmployeePass" placeholder="Pass" autofocus=""/>
     </div>
     <!--Div contenedor del boton submit con clase de bootstrap-->
-    <div class="form-group col-md-9">
+    <div class="formGroup col-md-9">
     	<input type="submit" value="Enviar" class="btn btn-secondary"/>
     </div><br/>
 </form>
