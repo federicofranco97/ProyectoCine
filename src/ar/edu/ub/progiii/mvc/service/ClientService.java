@@ -53,7 +53,7 @@ public class ClientService {
     	Employee Employee = mappingTool.MapEmployeeSQL(response);
     	//Retorna true o false si se cumple la condicion dentro del return
     	if((IsEmployeeAlowed(Integer.parseInt(EmployeeId)) && (Employee.getHashedPassword().equals(EmployeePass)))) {
-    	    if(!InsertIfNotActive(Integer.parseInt(EmployeeId))) return false;
+    	    if(!InsertIfNotActive(Integer.parseInt(EmployeeId)) && onOff == true) return false;
     		currentEmployee = mappingTool.MapDTOEmployee(Employee);
     		if(onOff) {
     			dataManager.RegistrarLog(EmployeeId,Employee.getRank());
