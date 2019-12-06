@@ -1,5 +1,6 @@
 package ar.edu.ub.progiii.mvc.controller;
 
+import ar.edu.ub.progiii.mvc.dto.ClientDTO;
 import ar.edu.ub.progiii.mvc.dto.EmployeeDTO;
 import ar.edu.ub.progiii.mvc.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,7 +108,7 @@ public class ManagerController {
             return new ModelAndView(redirectView);
         }else{
             ModelAndView model = new ModelAndView("ErrorPage");
-            model.addObject("Content", Arrays.asList("Error","Ocurrio un error al Banear el cliente"));
+            model.addObject("Content", Arrays.asList("Error","Ocurrio un error al Banear el cliente", "/admin_main"));
             return model;
         }
     }
@@ -122,15 +123,28 @@ public class ManagerController {
             return new ModelAndView(redirectView);
         }else{
             ModelAndView model = new ModelAndView("ErrorPage");
-            model.addObject("Content", Arrays.asList("Error","Ocurrio un error al borrar el cliente"));
+            model.addObject("Content", Arrays.asList("Error","Ocurrio un error al borrar el cliente", "/admin_main"));
             return model;
         }
     }
 
     @GetMapping("/edit_client")
     public ModelAndView EditClient(@RequestParam("clientid")int ClientNumber){
-        ModelAndView model = null;
-
+        ModelAndView model = new ModelAndView("EditClient");
+        model.addObject("client",clientService.GetClientByUID(String.valueOf(ClientNumber)));
         return model;
+    }
+
+    @PostMapping("/update_client")
+    public ModelAndView UpdateClient(ClientDTO clientDTO){
+        if(clientService.UpdateClient(clientDTO.getClientNumber(),clientDTO) != -1 ){
+            RedirectView redirectView = new RedirectView("/manage_clients");
+            redirectView.setExposePathVariables(false);
+            return new ModelAndView(redirectView);
+        }
+        ModelAndView model = new ModelAndView("ErrorPage");
+        model.addObject("Content", Arrays.asList("Error","Ocurrio un error al borrar el cliente", "/admin_main"));
+        return model;
+
     }
 }

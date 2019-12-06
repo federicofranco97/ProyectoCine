@@ -64,12 +64,20 @@ public class MappingTool implements IMapping{
      */
     public BookingDTO MapSQLBookingDTO(String SQLData) {
     	String [] aux = SQLData.split("_");
-        BookingDTO bookingDTO;
+        BookingDTO bookingDTO = new BookingDTO();
         //si ocurre un error en el mapeo vuelve el cliente null
         try {
-            String [] splitDate = aux[3].split(" ");
-            String [] splitTotal = aux[10].split("/");
-            bookingDTO = new BookingDTO(aux[0],(splitDate[0]),aux[1], aux[2],aux[9],Integer.parseInt(aux[4]),Integer.parseInt(aux[5]),Integer.parseInt(aux[6]),Integer.parseInt(aux[7]),Integer.parseInt(aux[8]),Double.parseDouble(splitTotal[0]));
+        	String [] splitDate = aux[3].split(" ");
+        	bookingDTO.setBookingCode(aux[0]);
+        	bookingDTO.setBookingDate((splitDate[0]));
+        	bookingDTO.setMovieName(aux[1]);
+        	bookingDTO.setShow(aux[2]);
+        	bookingDTO.setTheatreNumber(Integer.parseInt(aux[4]));
+        	bookingDTO.setTicketAmount(Integer.parseInt(aux[5]));
+        	bookingDTO.setClientNumber(Integer.parseInt(aux[6]));
+        	bookingDTO.setBookingStatus(Integer.parseInt(aux[7]));
+        	bookingDTO.setChannelCode(Integer.parseInt(aux[8]));
+        	bookingDTO.setTotalValue(Double.parseDouble(aux[10]));
         }catch (Exception ex){
             bookingDTO=null;
             System.out.println("Ocurrio un error en el mapeo");
@@ -145,7 +153,16 @@ public class MappingTool implements IMapping{
         //si ocurre un error en el mapeo vuelve el cliente null
         try {
             String [] splitDate = aux[5].split(" ");
-            clientDTO = new ClientDTO(aux[0],aux[4],aux[2], aux[3],(splitDate[0]),Integer.parseInt(aux[1]));
+            String [] splitCreationDate = aux[7].split(" ");
+            clientDTO = new ClientDTO();
+            clientDTO.setFullName(aux[0]);
+            clientDTO.setClientNumber(Integer.parseInt(aux[1]));
+            clientDTO.setPhoneNumber(aux[2]);
+            clientDTO.setEmail(aux[3]);
+            clientDTO.setAddress(aux[4]);
+            clientDTO.setDateOfBirth(splitDate[0]);
+            clientDTO.setDocumentNumber(aux[6]);
+            clientDTO.setCreationDate(splitCreationDate[0]);
         }catch (Exception ex){
             clientDTO=null;
             System.out.println("Ocurrio un error en el mapeo");
@@ -265,7 +282,6 @@ public class MappingTool implements IMapping{
   
   /**
    * Mapeo de string de sql a film dto
-   *
    * @param SQLData
    * @return
    */
@@ -286,5 +302,61 @@ public class MappingTool implements IMapping{
       }
   	return cinemaShowDTO;
   }
+  
+  /**
+   * Mapeo de string de sql a categoria de tarifa dto
+   * @param SQLData
+   * @return
+   */
+  @Override
+  public RateCategoryDTO MapDTORateCategoriesSQL(String SQLData) {
+  	String [] aux = SQLData.split("_");
+  	RateCategoryDTO rateDTO;
+  	//si ocurre un error en el mapeo vuelve el cliente null
+  	try {
+  		rateDTO = new RateCategoryDTO();
+  		rateDTO.setRateCode(aux[0]);
+  		rateDTO.setRateName(aux[1]);
+  		rateDTO.setValue(aux[2]);
+      }catch (Exception ex){
+    	  rateDTO=null;
+          System.out.println("Ocurrio un error en el mapeo");
+      }
+  	return rateDTO;
+  }
+
+    /**
+     * Mapea un string proveniente de sql a objeto dto manipulable
+     *
+     * @param SQLData
+     * @return
+     */
+    @Override
+    public SaleInformationDTO MapDTOSalesInformationSQL(String SQLData) {
+
+        SaleInformationDTO saleInformationDTO = new SaleInformationDTO();
+        String [] unFormattedInfo = SQLData.split("_");
+        try {
+            saleInformationDTO.setMonth(unFormattedInfo[0]);
+            saleInformationDTO.setYear(unFormattedInfo[1]);
+            saleInformationDTO.setAverageRate(Double.parseDouble(unFormattedInfo[2]));
+            saleInformationDTO.setExpectedRate(Double.parseDouble(unFormattedInfo[3]));
+            saleInformationDTO.setTicketsSold(Long.parseLong(unFormattedInfo[4]));
+            saleInformationDTO.setOnlineSales(Double.parseDouble(unFormattedInfo[5]));
+            saleInformationDTO.setOnsiteSales(Double.parseDouble(unFormattedInfo[6]));
+            saleInformationDTO.setOnlinePercentage(unFormattedInfo[7]);
+            saleInformationDTO.setExpectedOnlinePercentage(unFormattedInfo[8]);
+            saleInformationDTO.setOnsitePercetnage(unFormattedInfo[9]);
+            saleInformationDTO.setExpectedOnsitePercetnage(unFormattedInfo[10]);
+            saleInformationDTO.setSeasonCode(Integer.parseInt(unFormattedInfo[11]));
+            saleInformationDTO.setBranchNumber(Integer.parseInt(unFormattedInfo[12]));
+            saleInformationDTO.setCalculatedDate(unFormattedInfo[13]);
+            saleInformationDTO.setMonthNumber(Integer.parseInt(unFormattedInfo[14]));
+            saleInformationDTO.setRateSuggested(Double.parseDouble(unFormattedInfo[15]));
+        }catch(Exception ex){
+            saleInformationDTO = null;
+        }
+        return saleInformationDTO;
+    }
 
 }

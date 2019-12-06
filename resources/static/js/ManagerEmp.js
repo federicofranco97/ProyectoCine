@@ -1,4 +1,3 @@
-
 //Te lleva a editar la informacion del empleado
 function EditEmployee(Component){
     var idEmployee = Component.parentNode.className;
@@ -66,7 +65,7 @@ function MoveToDelete(){
 //Funcion que te devuelve al menu
 function ReturnToMenu(){
     document.getElementById('btnLimpiar').click();
-    window.open("/manage_employees","_self");
+    window.open("/admin_main","_self");
 }
 
 function ReturnPage(){

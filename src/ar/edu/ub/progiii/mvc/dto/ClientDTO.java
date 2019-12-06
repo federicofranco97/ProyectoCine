@@ -5,6 +5,8 @@ import java.sql.Date;
 public class ClientDTO extends PersonDTO{
 	private int ClientNumber;
 	private String ClientStatus;
+	private String DocumentNumber;
+	private String CreationDate; 
 
 	/**
 	 * Constructor
@@ -31,6 +33,14 @@ public class ClientDTO extends PersonDTO{
 		return ClientNumber;
 	}
 
+	public String getCreationDate() {
+		return CreationDate;
+	}
+
+	public void setCreationDate(String creationDate) {
+		CreationDate = creationDate;
+	}
+
 	public void setClientNumber(int clientNumber) {
 		ClientNumber = clientNumber;
 	}
@@ -41,5 +51,13 @@ public class ClientDTO extends PersonDTO{
 
 	public void setClientStatus(String clientStatus) {
 		ClientStatus = clientStatus;
+	}
+
+	public String getDocumentNumber() {
+		return DocumentNumber;
+	}
+
+	public void setDocumentNumber(String documentNumber) {
+		DocumentNumber = documentNumber;
 	}
 }
