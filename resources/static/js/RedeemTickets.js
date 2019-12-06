@@ -9,12 +9,6 @@ function Validate(){
                 })
 
     }else{
-        swal({
-                  title: "Exito",
-                  text: "Pedido enviado",
-                  icon: "success",
-                  buttons: true
-                })
                 setTimeout(BringBooking,1500);
     }
 }
